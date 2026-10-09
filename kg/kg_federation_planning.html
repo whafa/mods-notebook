@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>KG Federation Plan</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="KG Federation Plan"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="KG Federation Plan"/><meta name="twitter:description" content="Keeping native predicates alongside a bridge manifest, instead of flattening eleven sources into one vocabulary."/><meta property="og:description" content="Keeping native predicates alongside a bridge manifest, instead of flattening eleven sources into one vocabulary."/><meta property="og:image:alt" content="Keeping native predicates alongside a bridge manifest, instead of flattening eleven sources into one vocabulary."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/kg/kg_federation_planning"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/kg/kg_federation_planning"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Keeping native predicates alongside a bridge manifest, instead of flattening eleven sources into one vocabulary."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/kg/kg_federation_planning-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/kg/kg_federation_planning-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/kg/kg_federation_planning-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="kg/kg_federation_planning" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-15" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-15" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../kg/">kg</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>KG Federation Plan</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-10-04</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">seedling</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Keeping native predicates alongside a bridge manifest, instead of flattening eleven sources into one vocabulary.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.253Z">Oct 09, 2026</time><span>14 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="kg-predicate-federation--plan-86">KG Predicate Federation — Plan (#86)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#kg-predicate-federation--plan-86" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Decision (2026-05-29):</strong> Federation, not forced Biolink canonicalization.
+Each KG keeps its native predicate; cross-KG equivalence lives in a small,
+reviewable <strong>bridge manifest</strong> that is DB-backed and <strong>UI-editable</strong> (visualize
+/ create / change), with a version-controlled YAML seed.</p>
+<p>This doc is the “proper planning session” #86 asked for. Read it (and the
+“Data and Mapping Integrity Rules (HARD)” section of CLAUDE.md) before touching
+<code>predicate_mapper.py</code> or any KG ingest.</p>
+<blockquote>
+<p><strong>Status, 2026-10-01 (GH #628).</strong> For four months only the manifest module
+and its seed existed, and nothing read them. When they were first checked
+against the data, <strong>17 of the seed’s 32 non-RTX members named no stored
+row</strong>, because the seed was written from <code>predicate_mapper.py</code>’s dictionary
+keys rather than from <code>mods_kg_relation.source_predicate</code>.</p>
+<p>Phase 1 of #628 rebuilt the seed and made it verifiable:</p>
+<ul>
+<li>the stored pairs are snapshotted, and a test fails any member that names
+none of them (§3);</li>
+<li>every <code>biolink:</code> claim is checked against the pinned release (§4);</li>
+<li>each bridge carries an approval status;</li>
+<li>the training export gained an opt-in <code>bridged</code> relation identity, option B′
+of decision card D-Q4-01 (#611).</li>
+</ul>
+<p>Phase 2, the DB-backed editor, is built (§5, as built on 2026-10-02). The
+database is the live copy, edited in the Research dashboard’s KG Mappings tab.
+The training export still reads only <code>bridges.yaml</code>, which is exported from
+the database on demand and merged through a PR.</p>
+<p><strong>Decided 2026-10-04 (Richard, GH #628 review):</strong></p>
+<ul>
+<li>D-Q4-01 is B′: Run #2’s Arm B and later runs use the bridged export (#611).</li>
+<li>Negative assertions are exported as relation types of their own: never
+merged with their positive, dropped or negated. Showing that the model
+reads them as negative is #726.</li>
+<li>§6 is option A (below).</li>
+<li>The bridges from #709’s review were approved: A1–A7, plus the three
+drug–protein role bridges.</li>
+<li><code>biolink:has_target</code> is renamed <code>maple:drug-target</code>, because Biolink 4.4.2
+defines <code>has target</code> disease → gene (§4).</li>
+<li><code>maple:drug-adverse-effect</code> now points at <code>biolink:has_side_effect</code>.</li>
+<li>GP-KG’s <code>target</code> stays proposed. GP-KG is the papers’ graph, kept for
+reproduction.</li>
+</ul>
+<p>Bridge-aware querying (#735) and the DRKG ingest (#736) moved to issues of
+their own (§8).</p>
+</blockquote>
+<hr/>
+<h2 id="1-why-federation">1. Why federation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-why-federation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The old approach mapped every source predicate into one <code>biolink:*</code> vocabulary.
+Two failures came out of it:</p>
+<ol>
+<li><strong>Invented slots.</strong> <code>biolink:has_enzyme</code>, <code>biolink:has_carrier</code>,
+<code>biolink:has_transporter</code> are <strong>not</strong> defined slots in Biolink v4.4.2. The
+<code>biolink:</code> prefix made them look canonical; they were coined in May 2026.</li>
+<li><strong>Lossy collapse.</strong> Forcing DrugBank’s <code>target</code> / <code>enzyme</code> / <code>transporter</code> /
+<code>carrier</code> into one predicate erased the drug-metabolism distinction and led
+to a deletion-on-collision migration that dropped 15,045 rows.</li>
+</ol>
+<p>Federation fixes both: no predicate is rewritten into a fake slot, and distinct
+source meanings stay distinct. Equivalence becomes an explicit, bounded
+declaration instead of an implicit, lossy transform.</p>
+<h2 id="2-the-key-enabler-bridges-key-on-source_predicate">2. The key enabler: bridges key on <code>source_predicate</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-the-key-enabler-bridges-key-on-source_predicate" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Every canonical row already stores the <strong>raw</strong> source predicate in
+<code>mods_kg_relation.source_predicate</code> (the legacy mapper only <em>added</em> a mapped
+<code>predicate</code> on top — it never erased the raw value). So a manifest that declares
+equivalence over <code>(source, source_predicate)</code> tuples <strong>works against the
+existing data with no re-ingest</strong>, and cross-KG query expansion filters on
+<code>source_predicate</code>.</p>
+<p>Consequence: cleaning up the invented <code>biolink:*</code> values that currently sit in
+the <code>predicate</code> column is <strong>decoupled</strong> from making federation work — it’s a
+cosmetic/legacy follow-up, not a blocker (see §6).</p>
+<blockquote>
+<p><strong>Two qualifications (2026-10-01, GH #628, #627).</strong> “No re-ingest” holds
+only for what the ingest kept:</p>
+<ul>
+<li>PrimeKG’s drug–protein roles were never stored. The connector drops
+<code>display_relation</code> (#438), so the enzyme, carrier and transporter bridges
+had nothing to point at and were removed until the re-ingest.</li>
+<li>Relations are unique on the <em>mapped</em> predicate, so within one source two
+raw predicates mapped to the same Biolink predicate for the same pair
+keep only the first row (#627). A bridge can only federate what survived
+ingest.</li>
+</ul>
+<p><strong>Both addressed 2026-10-02.</strong></p>
+<ul>
+<li>Migration 113 (PR #696) adds <code>source_predicate</code> to the relation key, so
+distinct raw predicates are now distinct rows. A repeat of one raw
+predicate with other evidence still keeps only the first row’s evidence;
+rolling that up stays open on #627.</li>
+<li>PrimeKG’s drug–protein rows were re-ingested with their DrugBank role as
+<code>source_predicate</code>: <code>target</code>, <code>enzyme</code>, <code>transporter</code>, <code>carrier</code>. The
+enzyme, carrier and transporter bridges are back, proposed (#438 item 1).</li>
+</ul>
+</blockquote>
+<h2 id="3-the-bridge-manifest">3. The bridge manifest<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-the-bridge-manifest" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Shape (see <code>backend/kg_normalize/bridge_manifest.py</code> + <code>bridges.yaml</code>):</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="yaml" data-theme="github-light github-dark"><code data-language="yaml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">- </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">biolink:treats</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">          # real Biolink slot — verified</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">  label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">Drug treats disease</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">  biolink</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">biolink:treats</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">  members</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">    - { </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">source</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">prime_kg</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">predicate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">indication</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">    - { </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">source</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">gp_kg</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,    </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">predicate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">treat</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">    - { </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">source</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">rtx_kg2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,  </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">predicate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;biolink:treats&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">- </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">maple:drug-metabolizing-enzyme</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">   # no Biolink slot — named honestly</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">  label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">Drug metabolized by enzyme</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">  biolink</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">null</span></span>
+<span data-line><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">  members</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">    - { </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">source</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">prime_kg</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;" data-token-type="tag">predicate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">enzyme</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> }</span></span></code></pre></figure>
+<p>Rules:</p>
+<ul>
+<li>A member’s <code>predicate</code> is the source predicate <strong>exactly as stored</strong> in
+<code>mods_kg_relation.source_predicate</code> (case-insensitive), never a
+<code>predicate_mapper.py</code> key. <code>backend/kg_normalize/stored_predicates.tsv</code>
+snapshots the stored pairs, and <code>test_bridge_manifest.py</code> fails any member
+that names none of them. After an ingest changes what is stored, run
+<code>backend/scripts/kg_bridge_report.py --refresh-snapshot</code>; <code>--check</code> compares
+the live table with the snapshot and the manifest.</li>
+<li>Every bridge has a <code>status</code>, <code>approved</code> or <code>proposed</code>, and a member may
+override its bridge’s. Only approved members are applied: by
+<code>equivalents()</code> unless asked otherwise, and by the training export’s bridged
+mode always. Approving a merge is a mapping decision and is Richard’s.
+Demoting approved to proposed only splits relations, so it needs no sign-off.</li>
+<li>An approval is a record, not a word (Phase 2). An <code>approved</code> bridge, and a
+member whose own status is <code>approved</code>, carries <code>approved_by</code> and
+<code>approved_at</code>, which <code>validate()</code> and the database require, and an
+<code>approval_note</code> saying where it was made. A proposal carries none of the
+three. The seed’s approvals cite the merges they came
+from: PR #137 (2026-05-30) and PR #650 (Richard’s 2026-10-02 review).</li>
+<li><code>mapped_predicate</code> restricts a member to the rows stored under one mapped
+predicate. It is needed when a raw predicate is stored under several: CIViC
+<code>Predictive</code> is stored under three.</li>
+<li><code>id</code> is <code>biolink:*</code> <strong>only</strong> when a real slot genuinely matches; otherwise
+<code>maple:*</code>. Never invent a <code>biolink:*</code>.</li>
+<li>A <code>(source, predicate)</code> member belongs to <strong>at most one</strong> bridge (two bridges
+sharing a member means the bridges are themselves equivalent — merge them).</li>
+<li>Unbridged predicates are fine — they stay queryable by their raw value and
+can be bridged later in the editor.</li>
+<li>Distinctions are preserved on purpose: PPI and DDI are <strong>separate</strong> bridges
+even though both relate to <code>biolink:interacts_with</code>.</li>
+</ul>
+<p>Read primitive: <code>Manifest.equivalents(source, predicate)</code> returns the matching
+predicates in the other KGs — the one call a cross-KG query needs.</p>
+<h2 id="4-predicate-audit-predicate_mapperpy-vs-biolink-v442">4. Predicate audit (predicate_mapper.py vs Biolink v4.4.2)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-predicate-audit-predicate_mapperpy-vs-biolink-v442" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><code>predicate_mapper.py</code> declares 35 distinct <code>biolink:*</code> strings. Confirmed real:
+<code>treats</code>, <code>has_target</code>, <code>interacts_with</code>, <code>has_phenotype</code>, <code>subclass_of</code>,
+<code>part_of</code>, <code>gene_associated_with_condition</code>, <code>expressed_in</code>, <code>participates_in</code>,
+<code>enables</code>, <code>located_in</code>, <code>affects</code>, <code>correlated_with</code>.</p>
+<p>Confirmed <strong>invented</strong> (not slots in v4.4.2): <code>has_enzyme</code>, <code>has_carrier</code>,
+<code>has_transporter</code>. → now <code>maple:*</code> bridges.</p>
+<p><strong>Not yet verified against the live v4.4.2 schema</strong> (treated as <code>maple:*</code> with a
+“verify before promoting” note in the seed, so we never over-claim):
+<code>has_off_label_use</code>, <code>contraindicated_for</code>, <code>predicts_sensitivity_to</code>,
+<code>predicts_resistance_to</code>, <code>predicts_toxicity_for</code>, <code>decreases_response_to</code>,
+<code>increases_response_to</code>, <code>affects_metabolism_of</code>, <code>biomarker_for</code>,
+<code>has_not_phenotype</code>, <code>not_expressed_in</code>, <code>increases_/decreases_expression_of</code>,
+<code>gene_associated_with_phenotypic_feature</code>, <code>binds</code>, <code>catalyzes</code>,
+<code>has_substrate</code>, <code>contributes_to</code>, <code>causes</code>.</p>
+<p>A definitive pass (fetch the v4.4.2 LinkML YAML, diff the 35 strings) is a
+sub-task; until then the seed errs toward <code>maple:</code> honesty.</p>
+<blockquote>
+<p><strong>Done 2026-10-01 (GH #628).</strong> <code>backend/kg_normalize/biolink_predicates.tsv</code>
+lists the 247 predicate slots of Biolink 4.4.2, derived from the release’s
+own schema by <code>backend/scripts/kg_biolink_predicates.py</code>. The bridge test
+checks every <code>biolink:</code> claim against it.</p>
+<p><strong>Fifteen <code>biolink:</code> strings stored in the <code>predicate</code> column are not
+4.4.2 slots</strong>, about 313K rows across all sources:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Stored predicate</th><th style="text-align:right;">Rows</th><th>Written by</th></tr></thead><tbody><tr><td><code>gene_associated_with_phenotypic_feature</code></td><td style="text-align:right;">193,964</td><td>GP-KG, PrimeKG</td></tr><tr><td><code>contraindicated_for</code></td><td style="text-align:right;">59,784</td><td>PrimeKG</td></tr><tr><td><code>not_expressed_in</code></td><td style="text-align:right;">39,774</td><td>PrimeKG</td></tr><tr><td><code>has_off_label_use</code></td><td style="text-align:right;">5,090</td><td>PrimeKG</td></tr><tr><td><code>predicts_sensitivity_to</code></td><td style="text-align:right;">3,502</td><td>CIViC, OncoKB</td></tr><tr><td><code>has_not_phenotype</code></td><td style="text-align:right;">2,386</td><td>PrimeKG</td></tr><tr><td><code>predicts_toxicity_for</code></td><td style="text-align:right;">2,170</td><td>CIViC, PharmGKB</td></tr><tr><td><code>predicts_response_to</code></td><td style="text-align:right;">2,029</td><td>PharmGKB</td></tr><tr><td><code>affects_metabolism_of</code></td><td style="text-align:right;">1,776</td><td>PharmGKB</td></tr><tr><td><code>predicts_resistance_to</code></td><td style="text-align:right;">1,651</td><td>CIViC</td></tr><tr><td><code>drug_regulatory_status_world_wide</code></td><td style="text-align:right;">402</td><td>RTX-KG2 (its own Biolink version)</td></tr><tr><td><code>has_diagnostic_implication_for</code></td><td style="text-align:right;">87</td><td>OncoKB</td></tr><tr><td><code>has_prognostic_implication_for</code></td><td style="text-align:right;">36</td><td>OncoKB</td></tr><tr><td><code>has_phenotypic_feature</code></td><td style="text-align:right;">6</td><td>patient overlay</td></tr><tr><td><code>has_variant</code></td><td style="text-align:right;">4</td><td>patient overlay</td></tr></tbody></table></div>
+<p>Real slots exist for several of the meanings, under different names:</p>
+<ul>
+<li><code>contraindicated in</code>;</li>
+<li><code>associated with sensitivity to</code>;</li>
+<li><code>associated with resistance to</code>;</li>
+<li><code>associated with response to</code>.</li>
+</ul>
+<p>Biolink 4.4.2 expresses negation (<code>not_expressed_in</code>, <code>has_not_phenotype</code>)
+with a qualifier, not a slot. One more caveat: <code>has target</code> is a real slot,
+but 4.4.2 declares it disease → gene, not drug → protein. So the drug–target
+bridge, <code>biolink:has_target</code> until 2026-10-04, is now <code>maple:drug-target</code>
+(GH #628). The stored <code>predicate</code> value is unchanged (§6).</p>
+<p>What to do with the stored values is still §6’s open decision. The
+per-source report is <code>backend/scripts/kg_bridge_report.py</code>.</p>
+</blockquote>
+<h2 id="5-the-editor-what-the-user-asked-for">5. The editor (what the user asked for)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-the-editor-what-the-user-asked-for" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>DB-backed so it’s live-editable; YAML stays the seed/export.</p>
+<ul>
+<li><strong>Migration</strong> (<code>backend/migrations.py</code>): <code>mods_kg_bridge</code>
+(<code>id</code> text PK, <code>label</code>, <code>biolink</code> nullable, <code>note</code>, <code>is_active</code>, timestamps)
+<ul>
+<li><code>mods_kg_bridge_member</code> (<code>bridge_id</code> FK, <code>source</code>, <code>source_predicate</code>,
+unique on <code>(source, source_predicate)</code> — enforces the one-bridge rule at the
+DB level).</li>
+</ul>
+</li>
+<li><strong>Seed/sync</strong> script: load <code>bridges.yaml</code> → upsert into the tables; the
+module’s <code>validate()</code> runs first and refuses a dirty manifest.</li>
+<li><strong>Service</strong>: <code>BridgeManifestService</code> reads from the tables (falls back to YAML
+if the tables are empty), exposes <code>equivalents()</code> for query expansion.</li>
+<li><strong>API</strong> (<code>backend/mods_kg_api.py</code> or a new <code>bridges_api.py</code>): list bridges +
+members; create / update / delete bridge; add / remove member; an
+<strong>“unbridged predicates” report</strong> (every <code>(source, source_predicate)</code> in
+<code>mods_kg_relation</code> with no bridge) so the user sees what’s left to map.</li>
+<li><strong>MCP</strong>: <code>mods_kg_list_bridges</code>, <code>mods_kg_create_bridge</code>,
+<code>mods_kg_add_bridge_member</code>, <code>mods_kg_unbridged_predicates</code>.</li>
+<li><strong>Frontend</strong>: a “KG Mappings” tab in the Research dashboard — bridges as
+cards (id, label, biolink-or-maple chip, member list grouped by source);
+create-bridge form; drag/add unbridged predicates onto a bridge; the
+unbridged-predicates panel as the worklist. Register in the 3 component
+locations per CLAUDE.md.</li>
+</ul>
+<h3 id="51-as-built-gh-628-phase-2-2026-10-02">5.1 As built (GH #628 Phase 2, 2026-10-02)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-as-built-gh-628-phase-2-2026-10-02" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Richard decided three things before the build:</p>
+<ul>
+<li><strong>The database is authoritative and live; the YAML is what training reads.</strong>
+The tab, the API, the MCP tools and query expansion read
+<code>mods_kg_bridge</code> / <code>mods_kg_bridge_member</code>, and fall back to <code>bridges.yaml</code>
+while the tables are empty. The training export keeps reading the YAML and
+recording its sha256. So an approval reaches a model only after the YAML is
+exported and that PR merges, and the tab shows what the YAML has not seen.</li>
+<li><strong>The YAML catches up on demand.</strong> <code>backend/scripts/kg_bridge_sync.py export</code> writes the database as canonical YAML, and the change goes through
+a normal PR. The backend never commits.</li>
+<li><strong>The UI is §5’s, with a picker instead of drag-and-drop.</strong>
+<ul>
+<li>Bridges are cards grouped by section.</li>
+<li>Members are grouped by source, with live row counts.</li>
+<li>The unbridged worklist adds a pair to a bridge through an “add to…” picker.</li>
+<li>Approve buttons appear only for Richard.</li>
+</ul>
+</li>
+</ul>
+<p>What landed:</p>
+<ul>
+<li><strong>Migration 110</strong>: the two tables. The rules are enforced by the database,
+not trusted to the editor:
+<ul>
+<li>one owner per <code>(source, lower(source_predicate))</code> unless split by distinct
+<code>mapped_predicate</code>: a unique index, plus a trigger for the case an index
+cannot express;</li>
+<li><code>approved</code> requires <code>approved_by</code> and <code>approved_at</code>, and <code>proposed</code>
+carries neither;</li>
+<li>a member cannot join an approved bridge without a status of its own,
+which would approve it by inheritance;</li>
+<li>an approved bridge’s id or Biolink claim changes only with a new approval.</li>
+</ul>
+</li>
+<li><strong><code>backend/mods_kg_bridge_service.py</code></strong> (<code>BridgeManifestService</code>). It
+returns the same <code>Manifest</code> the YAML loader builds, so <code>relation_identity</code>
+and the export accept either. It also holds the edit rules:
+<ul>
+<li>a new bridge is always proposed;</li>
+<li>a member added to an approved bridge joins as proposed;</li>
+<li>demoting clears the approval record;</li>
+<li>only the owner can approve.</li>
+</ul>
+</li>
+<li><strong>API</strong> under <code>/api/mods/kg/bridges</code> (<code>mods_kg_api.py</code>):
+<ul>
+<li>Every route needs <code>api:med:access</code>. Signing in creates a user for any
+Google account, so a sign-in alone is not access.</li>
+<li>Approval needs the owner’s own credential and refuses the agent token
+and the preview mock token by name.</li>
+</ul>
+</li>
+<li><strong>MCP</strong>: <code>mods_kg_list_bridges</code>, <code>mods_kg_create_bridge</code>,
+<code>mods_kg_add_bridge_member</code> and <code>mods_kg_unbridged_predicates</code>. There is
+no approve tool, and a test fails if any server grows one.</li>
+<li><strong><code>kg_bridge_sync.py</code></strong>: <code>seed</code> (a dry run unless <code>--apply</code>, refuses an
+invalid manifest or tables that already hold edits), <code>export</code>, <code>diff</code>,
+<code>format</code>.</li>
+<li><strong><code>bridges.yaml</code></strong> is now in canonical form, with every approval recorded.
+A test fails a hand edit that is not.</li>
+<li>Row counts come from a live <code>GROUP BY</code> over <code>mods_kg_relation</code>. It takes
+about 20 s on prod, so it is cached for ten minutes, and the tab renders
+from the committed snapshot until the scan lands.</li>
+</ul>
+<p>Not done here: wiring <code>equivalents()</code> into the canonical read path (§8).</p>
+<h2 id="6-decided-2026-10-04-leave-the-stored-predicate-values-option-a">6. Decided 2026-10-04: leave the stored <code>predicate</code> values (option A)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-decided-2026-10-04-leave-the-stored-predicate-values-option-a" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The <code>predicate</code> column holds the mapper’s legacy label, not a Biolink claim:</p>
+<ul>
+<li>fifteen of its strings are not Biolink 4.4.2 slots (§4);</li>
+<li>PrimeKG’s four drug–protein roles all sit under <code>biolink:has_target</code>, so the
+column alone cannot tell a target from an enzyme.</li>
+</ul>
+<p>The options were:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Option</th><th>What</th><th>Cost</th></tr></thead><tbody><tr><td><strong>A (decided)</strong></td><td>Leave <code>predicate</code> as is.</td><td>~0</td></tr><tr><td>B</td><td>Migration: set <code>predicate = source_predicate</code> wherever the mapped value was invented. Clean, but a large UPDATE and an audit of every reader of <code>predicate</code>.</td><td>medium</td></tr><tr><td>C</td><td>Migration: rename invented <code>biolink:*</code> values to <code>maple:*</code>. Honest, but still a non-source value in a column federation doesn’t use.</td><td>medium</td></tr></tbody></table></div>
+<p><strong>Richard chose A on 2026-10-04 (GH #628), without the per-row
+<code>metadata.predicate_is_legacy_mapped</code> flag first proposed here.</strong></p>
+<ul>
+<li>The flag would have meant about 313K row writes to record what
+<code>kg_bridge_report.py</code> already computes on demand.</li>
+<li>Biolink claims come only from bridges (their <code>id</code> and <code>biolink</code> fields),
+which are checked against the pinned release.</li>
+</ul>
+<p>Two consequences:</p>
+<ul>
+<li><strong>A reader that shows only this column shows a merged meaning.</strong> Until GH
+#628’s display fix (2026-10-04), the canonical read service returned
+<code>predicate</code> and not <code>source_predicate</code>.
+<ul>
+<li>So the Explorer and the KG MCP tools showed a CIViC <em>Does Not Support</em>
+row under the predicate of the claim it fails to support.</li>
+<li>Every edge they return now carries <code>assertions</code>: each
+<code>(source_id, source_predicate)</code> behind it.</li>
+<li>Querying by bridge id instead is #735.</li>
+</ul>
+</li>
+<li><strong>Since #707 (2026-10-04), CIViC’s 24 “Reduced Sensitivity” rows are stored
+under <code>predicts_resistance_to</code>,</strong> as Richard decided on 2026-10-02.
+<ul>
+<li>That is a mapper fix applied in place, not a column cleanup.</li>
+<li>CIViC’s <em>Does Not Support</em> rows keep their support predicate, so only
+<code>source_predicate</code> tells them apart (#726).</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-parallelization-analysis-per-claudemd">7. Parallelization Analysis (per CLAUDE.md)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-parallelization-analysis-per-claudemd" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>Surfaces touched:</strong> backend API ✓, frontend component ✓, MCP tool ✓,
+migration (<code>migrations.py</code>) ✓, DB-stored config ✓ (the bridge tables),
+docs ✓, tests ✓. <strong>Not</strong> touched: worker handler, embeddings, training.</p>
+</li>
+<li>
+<p><strong>Parallel split:</strong> the <strong>manifest module + seed + tests</strong> (this PR) are
+standalone and already landed. The <strong>DB layer + API + MCP</strong> can proceed in
+one session; the <strong>frontend tab</strong> waits on the API contract (serialize after
+the API lands). The <strong>v4.4.2 verification pass</strong> is fully independent.</p>
+</li>
+<li>
+<p><strong>Collision hotspots:</strong> <code>migrations.py</code> (Phase 2 took <strong>110</strong> on
+2026-10-02, after checking every branch; 111 and 112 went to #674 and #676,
+which merged first), <code>main.py</code> (router registration), <code>component_registry.py</code>,
+<code>ComponentLoader.jsx</code>, <code>Terminal.jsx</code>. Batch these; do not parallelize
+across them. Phase 2 avoided the last four: its routes joined the mounted
+<code>mods_kg_api.py</code> router, and the editor is a tab, not a new dashboard.</p>
+</li>
+<li>
+<p><strong>Verify-how per surface:</strong> module → <code>pytest tests/test_bridge_manifest.py</code>
+(10 tests, passing). Seed/sync → run script, assert table row counts ==
+manifest. API → pytest the CRUD + unbridged-report. UI → build + walk the tab.
+Query expansion → a canonical-service test that a cross-KG query for
+<code>biolink:treats</code> returns rows from prime_kg AND gp_kg.</p>
+<blockquote>
+<p><strong>That last test can’t fail (2026-10-04).</strong> PrimeKG <code>indication</code> and GP-KG
+<code>treat</code> are both stored as <code>biolink:treats</code>. Every approved cross-source
+bridge’s members share one stored predicate, so merging already works
+through <code>predicate</code>. Bridge-aware queries add splitting by meaning, and
+#735 defines tests that can fail.</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="8-status--sequencing">8. Status / sequencing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-status--sequencing" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Tracked in GH #628 since 2026-10-01; that issue’s checklist is the live one.</p>
+<ul class="contains-task-list">
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Federation decision recorded (#86)</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Manifest module + seed + 10 tests (PR #137)  ← <code>bridge_manifest.py</code>, <code>bridges.yaml</code></li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Phase 1 (GH #628): stored-predicate snapshot and report
+(<code>kg_bridge_report.py</code>); seed rebuilt from stored strings with approval
+statuses; dead-member and Biolink-slot checks in the test suite; v4.4.2
+verification (§4); opt-in <code>bridged</code> relation identity in the training export</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> <strong>DECISION</strong>: Richard approves or rejects the proposed merges (D-Q4-01, #611), 2026-10-02, PR #650</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> <strong>DECISION</strong>: §6 existing-<code>predicate</code> cleanup: A, no per-row flag (Richard, 2026-10-04)</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> <strong>DECISION</strong>: D-Q4-01 is B′: Arm B and later runs use the bridged export (Richard, 2026-10-04, #611)</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> <strong>DECISION</strong>: #709’s proposals A1–A7, the three drug–protein role
+bridges, <code>biolink:has_target</code> → <code>maple:drug-target</code>, and <code>has_side_effect</code>
+on <code>maple:drug-adverse-effect</code> (Richard, 2026-10-04). GP-KG <code>target</code>
+deferred.</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> <strong>DECISION</strong>: negative assertions are exported as relation types of
+their own (Richard, 2026-10-04). Proving the model reads them as negative is
+#726.</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> <strong>CONFIRM</strong>: §5 editor UI shape, plus where the manifest lives (§5.1), 2026-10-02</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Migration 110 + bridge tables + seed/sync (<code>kg_bridge_sync.py</code>)</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Service + API + MCP</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Frontend “KG Mappings” tab</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Seed the production tables (<code>kg_bridge_sync.py seed --apply</code>, or the tab’s owner-only Seed button). Seeded 2026-10-02 16:24 PDT: 13 bridges, 25 members. On 2026-10-03 <code>kg_bridge_sync.py diff</code> found the database and <code>bridges.yaml</code> holding the same manifest.</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Return <code>source_predicate</code> on every edge in the canonical read path, so a
+reader sees the source’s own assertion (GH #628’s display fix, 2026-10-04)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Bridge-aware queries: wire <code>equivalents()</code> into the canonical read path. Moved to #735.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> DRKG ingest under federation (the original #86 blocker). Moved to #736.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> #709’s leftovers: PharmGKB compound categories (#737), per-pair review
+records (#738), OncoKB prognostic direction (#739), CIViC’s split meanings
+for the variant bridges (#740), GP-KG’s GO typing (#706)</li>
+</ul>
+<h2 id="references">References<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><code>backend/kg_normalize/bridge_manifest.py</code>, <code>bridges.yaml</code>, <code>stored_predicates.tsv</code></li>
+<li><code>backend/mods_kg_bridge_service.py</code>, <code>backend/mods_kg_api.py</code> (<code>/bridges</code>),
+<code>backend/scripts/kg_bridge_sync.py</code>, <code>frontend/src/components/ModsKGMappingsTab.jsx</code></li>
+<li><code>backend/kg_normalize/biolink_predicates.py</code>, <code>biolink_predicates.tsv</code></li>
+<li><code>backend/kg_normalize/relation_identity.py</code> (the export’s bridged tokens)</li>
+<li><code>backend/scripts/kg_bridge_report.py</code>, <code>backend/scripts/kg_biolink_predicates.py</code></li>
+<li><code>backend/kg_normalize/predicate_mapper.py</code> (the legacy per-source maps)</li>
+<li><code>docs/kg_predicate_mapping_report.md</code> (the 2026-05 audit that introduced the invented slots)</li>
+<li>CLAUDE.md → “Data and Mapping Integrity Rules (HARD)”</li>
+<li>Biolink v4.4.2: <a href="https://github.com/biolink/biolink-model/releases/tag/v4.4.2" class="external external-link">https://github.com/biolink/biolink-model/releases/tag/v4.4.2<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-15" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#kg-predicate-federation--plan-86" data-for="kg-predicate-federation--plan-86">KG Predicate Federation — Plan (#86)</a></li><li class="depth-1"><a href="#1-why-federation" data-for="1-why-federation">1. Why federation</a></li><li class="depth-1"><a href="#2-the-key-enabler-bridges-key-on-source_predicate" data-for="2-the-key-enabler-bridges-key-on-source_predicate">2. The key enabler: bridges key on source_predicate</a></li><li class="depth-1"><a href="#3-the-bridge-manifest" data-for="3-the-bridge-manifest">3. The bridge manifest</a></li><li class="depth-1"><a href="#4-predicate-audit-predicate_mapperpy-vs-biolink-v442" data-for="4-predicate-audit-predicate_mapperpy-vs-biolink-v442">4. Predicate audit (predicate_mapper.py vs Biolink v4.4.2)</a></li><li class="depth-1"><a href="#5-the-editor-what-the-user-asked-for" data-for="5-the-editor-what-the-user-asked-for">5. The editor (what the user asked for)</a></li><li class="depth-2"><a href="#51-as-built-gh-628-phase-2-2026-10-02" data-for="51-as-built-gh-628-phase-2-2026-10-02">5.1 As built (GH #628 Phase 2, 2026-10-02)</a></li><li class="depth-1"><a href="#6-decided-2026-10-04-leave-the-stored-predicate-values-option-a" data-for="6-decided-2026-10-04-leave-the-stored-predicate-values-option-a">6. Decided 2026-10-04: leave the stored predicate values (option A)</a></li><li class="depth-1"><a href="#7-parallelization-analysis-per-claudemd" data-for="7-parallelization-analysis-per-claudemd">7. Parallelization Analysis (per CLAUDE.md)</a></li><li class="depth-1"><a href="#8-status--sequencing" data-for="8-status--sequencing">8. Status / sequencing</a></li><li class="depth-1"><a href="#references" data-for="references">References</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../" class="internal">MODS Notebook</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Genomics Glossary</title><meta charset="utf-8"/><link rel="preload" href="./index-cd2294b5.css" as="style"/><link rel="preload" href="./prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Genomics Glossary"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Genomics Glossary"/><meta name="twitter:description" content="Allele, dosage, strand flip, gVCF - the vocabulary of the PRS pipeline, each term with why it matters here."/><meta property="og:description" content="Allele, dosage, strand flip, gVCF - the vocabulary of the PRS pipeline, each term with why it matters here."/><meta property="og:image:alt" content="Allele, dosage, strand flip, gVCF - the vocabulary of the PRS pipeline, each term with why it matters here."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/genomics_glossary"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/genomics_glossary"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="Allele, dosage, strand flip, gVCF - the vocabulary of the PRS pipeline, each term with why it matters here."/><meta name="generator" content="Quartz"/><link href="./index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="./prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/genomics_glossary-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/genomics_glossary-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/genomics_glossary-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="genomics_glossary" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-10" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-10" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="./">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Genomics Glossary</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-23</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">growing</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Allele, dosage, strand flip, gVCF - the vocabulary of the PRS pipeline, each term with why it matters here.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.246Z">Oct 09, 2026</time><span>15 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="genomics-glossary-for-the-prs--wgs-pipeline">Genomics Glossary (for the PRS / WGS pipeline)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#genomics-glossary-for-the-prs--wgs-pipeline" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>A working reference for the genetics terms that show up in Maple’s polygenic-score
+and genotype-ingest code. Written for engineers, not geneticists — each entry says
+what the term means <strong>and why it matters to us</strong>.</p>
+<blockquote>
+<p><strong>The one sentence everything hangs off:</strong> a polygenic score is a <em>weighted sum</em> —
+for each of thousands of spots in the genome, take <em>how many copies of the risk
+version this person carries (0, 1, or 2)</em> × <em>how much that version shifts risk</em>,
+and add them all up. Every term below is machinery for lining up “this person’s
+variant” with “the scoring file’s variant” correctly.</p>
+</blockquote>
+<p><strong>This file defines the vocabulary</strong> — the coordinate terms (§1), what a person carries
+and how a caller decides it (§2, §2.1), the file formats (§3), and the reference genome
+itself including where ours comes from (§4, §4.1). For the wider arc — where polygenic
+scores came from, what a scoring file actually contains, how MODS classifies and computes
+them, and what is built versus not — see <a href="./prs/prs_primer" class="internal internal-link alias" data-slug="prs/prs_primer">`prs_primer.md`</a>.</p>
+<p>If you hit a term here that is used but never defined, that is a bug in this file; say so
+and it gets added. <code>calling</code>, <code>contig</code> and <code>FASTA</code> were all in exactly that state until
+2026-09-23.</p>
+<hr/>
+<h2 id="1-naming-a-spot-in-the-genome">1. Naming a spot in the genome<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-naming-a-spot-in-the-genome" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Meaning</th><th>Why it matters here</th></tr></thead><tbody><tr><td><strong>Variant</strong></td><td>Any place a person’s DNA differs from the reference genome.</td><td>The atoms of everything we do.</td></tr><tr><td><strong>SNP</strong> (single-nucleotide polymorphism)</td><td>The common kind of variant: one DNA base swapped (an <code>A</code> where the reference has <code>G</code>).</td><td>Polygenic scores are almost entirely SNPs.</td></tr><tr><td><strong>Indel</strong></td><td>A small <strong>in</strong>sertion or <strong>del</strong>etion of bases.</td><td>Common, not rare: <strong>2,300 of 5,377</strong> catalog scores carry at least one. We handle them — but carefully, because a deletion’s ALT is the REF’s anchor base (<code>ATTCT</code>><code>A</code>), so the alleles alone can’t say which is the reference. See <code>prs_primer.md</code> §5.2.</td></tr><tr><td><strong>Chromosome + position (<code>chr:pos</code>)</strong></td><td>A variant’s physical address, e.g. <code>1:10250</code>.</td><td>The coordinate is only meaningful relative to a specific <strong>build</strong> (§4).</td></tr><tr><td><strong>Contig</strong></td><td>A <strong>contig</strong>uous run of assembled sequence that carries a name — one <code>>entry</code> in the reference FASTA. In practice: the named chromosomes (<code>1</code>–<code>22</code>, <code>X</code>, <code>Y</code>, <code>MT</code>) plus <em>unplaced scaffolds</em> — real assembled sequence nobody could pin to a chromosome, which is why the tail of our index reads <code>KI270392.1</code> (971 bases) rather than a chromosome name. “Contiguous” is the whole point — no gaps inside one.</td><td>The <code>chr</code> half of <code>chr:pos</code> is a contig name. Our pinned GRCh38 primary assembly has exactly <strong>194</strong>, and that count is how we verify we have the right <em>flavour</em> of GRCh38: the “full analysis set” adds alt contigs and decoys and would give a different number (<code>prs_primer.md</code> §2.3). Naming also differs by source — <code>chr1</code> (UCSC) vs <code>1</code> (Ensembl); we normalise to Ensembl.</td></tr><tr><td><strong>rsID</strong></td><td>A stable name for a <em>known</em> variant, assigned by <strong>dbSNP</strong> (NCBI’s variant database), e.g. <code>rs199706086</code>.</td><td>A permanent ID independent of coordinates. Historically the join key for PRS.</td></tr><tr><td><strong>dbSNP</strong></td><td>NCBI’s public catalog of known variants; the authority that issues rsIDs.</td><td>Where rsIDs come from.</td></tr></tbody></table></div>
+<p><strong>The rsID-vs-position point (the heart of our PRS work).</strong> To score a variant we
+must <em>match</em> “the patient’s genotype here” with “the scoring file’s weight here.”
+rsID is the cleanest join key — same <code>rs</code> number on both sides ⇒ same variant.
+<strong>But many big modern scoring files omit rsIDs entirely and list variants by
+<code>chr:pos</code> only.</strong> If we match on rsID alone, those files match <em>nothing</em> and
+silently contribute a score of zero. Maple therefore matches on rsID first and
+<strong>falls back to <code>chr:pos</code></strong> — which is what turns “whole catalog” from a lie into
+the truth (one real score went from 0 → 2.6 M matched variants once we did this).</p>
+<blockquote>
+<p><strong>“Liftover”</strong> — a real term you’ll hear nearby, meaning <em>converting coordinates
+from one build to another</em> (GRCh37 ↔ GRCh38). Not to be confused with the
+informal “coverage lift” (how many extra variants get matched) used in our notes.</p>
+</blockquote>
+<hr/>
+<h2 id="2-what-the-person-actually-carries-genotype">2. What the person actually carries (genotype)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-what-the-person-actually-carries-genotype" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Meaning</th><th>Why it matters here</th></tr></thead><tbody><tr><td><strong>Allele</strong></td><td>One version of a variant (<code>A</code> vs <code>G</code> at a SNP).</td><td>The thing weights are attached to.</td></tr><tr><td><strong>Reference / alternate allele (ref / alt)</strong></td><td>The reference-genome base vs the variant base.</td><td>How VCFs report a variant.</td></tr><tr><td><strong>Genotype</strong></td><td>The two alleles a person carries at a spot (one per chromosome copy).</td><td>The raw observation we store per variant.</td></tr><tr><td><strong>Dosage / <code>allele_count</code> = 0, 1, 2</strong></td><td>How many copies of the alt (or, for scoring, the <em>effect</em>) allele: <strong>0</strong> = homozygous-reference, <strong>1</strong> = heterozygous, <strong>2</strong> = homozygous-alt.</td><td>This 0/1/2 is <strong>literally the number we multiply the weight by.</strong></td></tr><tr><td><strong>Hom-ref / het / hom-alt</strong></td><td>Shorthand for dosage 0 / 1 / 2 (homozygous-reference, heterozygous, homozygous-alternate).</td><td>Depth (§3) is what lets us call het vs hom confidently.</td></tr><tr><td><strong>Effect allele / other allele</strong> (scoring-file terms)</td><td>The scoring file declares which allele the weight applies to (<em>effect</em>) and which is baseline (<em>other</em>).</td><td>We must count the patient’s dosage against the <em>effect</em> allele, not flip it.</td></tr><tr><td><strong>Strand / strand flip</strong></td><td>DNA is double-stranded; a variant can be reported from either strand (<code>A↔T</code>, <code>G↔C</code> are complements). Gate C <strong>detects</strong> a flip — a row that matches the reference only when complemented — and defers it; correcting it is reserved for files shown to be in an A/B allele convention (GH #376, opt-in per file).</td><td>Two sources can describe the same variant with swapped letters; getting it wrong scores backwards.</td></tr><tr><td><strong>Palindromic SNP</strong></td><td>An <code>A/T</code> or <code>C/G</code> variant. Its strand complement is the same <em>pair</em> (<code>A/T</code> read from the other strand is <code>T/A</code>), so the letters cannot say which strand a file was written on. The pair is unchanged, but <strong>which letter carries the weight is not</strong>: read on the wrong strand, the file’s effect allele is really the other allele.</td><td>A strand error here is <strong>invisible and inverting</strong>: a homozygote’s dosage goes 2 ↔ 0, and only heterozygotes come through unchanged. So Gate C <strong>defers</strong> these (<code>mods_prs_scorer.is_palindromic</code>, <code>resolve_orientation</code>). GH #404 licenses reading them forward only for one class of file, measured against allele frequencies: [[prs/palindrome_forward_rule</td></tr></tbody></table></div>
+<h3 id="21-calling--how-a-genotype-gets-decided-and-how-sure-we-are">2.1 Calling — how a genotype gets decided, and how sure we are<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-calling--how-a-genotype-gets-decided-and-how-sure-we-are" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A sequencer does not report genotypes. It reports hundreds of millions of short overlapping
+reads. <strong>Calling</strong> is the inference step that turns a pile of reads covering one position
+into a statement about what this person has there. Everything downstream inherits the
+confidence of that inference — which is why this pipeline insists on separating <em>“we called
+homozygous-reference here”</em> from <em>“we could not call anything here.”</em> Collapsing those two is
+precisely the <a href="./prs/prs_primer" class="internal internal-link alias" data-slug="prs/prs_primer">REF-effect bug</a> that invalidated every previously computed
+score.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Meaning</th><th>Why it matters here</th></tr></thead><tbody><tr><td><strong>Variant calling</strong>, or just <strong>calling</strong></td><td>Deciding, from the aligned reads, what genotype a person carries at a position. The output is <em>a call</em>.</td><td>Everything we score is a call, not a direct observation. Read “the genome says <code>0/0</code> here” as “the caller concluded <code>0/0</code>, with this much evidence”.</td></tr><tr><td><strong>A call</strong> (noun)</td><td>The genotype assertion at one position — <code>0/0</code> hom-ref, <code>0/1</code> het, <code>1/1</code> hom-alt, <code>./.</code> no-call — together with the evidence behind it.</td><td>The <code>GT</code> field of a VCF row.</td></tr><tr><td><strong>Caller</strong></td><td>The software doing the inference (GATK, DRAGEN, DeepVariant…).</td><td>Conventions differ between callers, so <code>wgs_dense_callset.py</code> reads the caller’s identity from the gVCF header <strong>first</strong> and picks thresholds after. Ours: Sequencing.com’s 30× WGS pipeline, reblocked by <code>GvcfReblocker</code>, GATK-style (<code>END</code>/<code>MIN_DP</code> reference blocks, not DRAGEN <code>RGQ</code>).</td></tr><tr><td><strong>No-call</strong> (<code>./.</code>)</td><td>The caller looked and declined to commit.</td><td><strong>Not the same as hom-ref.</strong> Hom-ref is a positive claim (“this person matches the reference”); a no-call is an absence of evidence. We emit these as <code>EXPLICIT_MISSING</code> so they can never be silently scored as dosage 0.</td></tr><tr><td><strong>Callable</strong></td><td>A call we are willing to <em>trust</em>: enough depth, passes the caller’s filter, and the REF base agrees with our FASTA. A quality judgement layered on top of the call.</td><td>The dense callset sorts every target locus into <code>CALLABLE_HOMREF</code>, <code>CALLABLE_VARIANT</code>, <code>EXPLICIT_MISSING</code> or <code>STRUCTURAL_FAIL</code>, and asserts the four sum to the number of targets. “Callable” is the word doing the work in that policy.</td></tr><tr><td><strong>Callability policy</strong></td><td>Our thresholds for what counts as callable, per call type.</td><td><code>prs_primer.md</code> §5.2. Deliberately different for hom-ref vs variant vs indel.</td></tr><tr><td><strong>Phred score</strong></td><td>A log-scaled way of writing an error probability: <code>Q = −10 × log₁₀(P_error)</code>. Q10 = a 1-in-10 chance of being wrong, Q20 = 1-in-100, Q30 = 1-in-1000. Every +10 is a <strong>tenfold</strong> drop in error.</td><td>The common currency for confidence across this whole stack — per-base qualities in a FASTQ, <code>GQ</code> on a genotype, <code>QUAL</code> on a variant record. Worth internalising that it is logarithmic: GQ 40 is not twice as good as GQ 20, it is a hundred times.</td></tr><tr><td><strong><code>GQ</code></strong> (genotype quality)</td><td><a href="https://en.wikipedia.org/wiki/Phred_quality_score" class="external external-link">Phred<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>-scaled confidence <strong>in this genotype being the right one</strong>. Higher is better: GQ 20 ≈ 99 % confident, GQ 30 ≈ 99.9 %.</td><td>⚠ <strong>Our reblocked gVCF carries <code>GQ = 0</code> on every reference block</strong> — the reblocker does not preserve per-site GQ across a collapsed block. Gating hom-ref on GQ would therefore reject <em>every</em> hom-ref call and silently recreate the bug we were fixing. We gate hom-ref on <code>FILTER</code> + <code>MIN_DP</code> instead, and use GQ only for variant calls.</td></tr><tr><td><strong><code>DP</code></strong> (depth)</td><td>How many reads covered this position.</td><td>Low DP means the call rests on little evidence; very high DP often means a collapsed repeat region, so we also apply a ceiling at 3× the autosomal median.</td></tr><tr><td><strong><code>MIN_DP</code></strong></td><td>The <em>minimum</em> depth anywhere inside a reference block.</td><td>A block summarises many positions, so the minimum is the honest figure — the weakest position in the run is what you are actually trusting.</td></tr><tr><td><strong><code>FILTER</code> / <code>PASS</code></strong></td><td>The caller’s own verdict on the record. <code>PASS</code> means it cleared the caller’s internal checks.</td><td>Our first gate. A <code>FAIL</code> record becomes <code>EXPLICIT_MISSING</code>, never a scored zero.</td></tr></tbody></table></div>
+<hr/>
+<h2 id="3-the-files-rawest--most-processed">3. The files (rawest → most processed)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-the-files-rawest--most-processed" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Meaning</th><th>Why it matters here</th></tr></thead><tbody><tr><td><strong>WGS</strong> (whole-genome sequencing)</td><td>Reading (nearly) the entire genome, not a gene panel.</td><td>Polygenic scores need genome-wide <strong>breadth</strong> — a panel can’t supply them.</td></tr><tr><td><strong>Depth / <code>30×</code></strong></td><td>How many times, on average, each base was read (~30).</td><td>Depth is what lets us confidently call het vs hom (1× can’t).</td></tr><tr><td><strong>FASTQ</strong></td><td>The rawest output: the actual sequenced read fragments + per-base quality.</td><td>Most verbose, largest (tens of GB); re-alignable to any build.</td></tr><tr><td><strong>FASTA</strong></td><td>A plain-text <strong>sequence</strong> format: a <code>>name</code> header line, then the bases. No quality scores, no alignment, no coordinates beyond position-within-the-contig. This is how a <strong>reference genome</strong> ships. Ours opens literally like this: <code>>1 dna:chromosome chromosome:GRCh38:1:1:248956422:1 REF</code>, then 248,956,422 bases of chromosome 1 wrapped at 60 per line.</td><td>⚠ Easy to confuse with FASTQ one letter away, and they are opposites in this pipeline: FASTQ is the <strong>patient’s</strong> reads <em>with</em> quality; the FASTA here is the <strong>reference</strong> — the same for everybody, and the arbiter of what the REF allele <em>is</em> at every locus we score. See §4 for ours.</td></tr><tr><td><strong><code>.fai</code> index</strong></td><td>A small sibling file (<code>…fa.fai</code>), one tab-separated line per contig — <code>name, length, byte-offset, bases-per-line, bytes-per-line</code> — so a tool can seek straight to any coordinate without reading the 3.15 GB file. Ours is 194 lines, e.g. <code>1	248956422	56	60	61</code>.</td><td>Built by <code>pyfaidx</code> on first open — a ~28 s one-time cost worth triggering deliberately rather than discovering inside a worker task. Random access is what makes a per-locus REF lookup cheap enough to do millions of times.</td></tr><tr><td><strong>BAM / CRAM</strong></td><td>Those reads <em>aligned</em> to genome positions (CRAM = compressed BAM).</td><td>The convenient middle tier — not always provided.</td></tr><tr><td><strong>VCF</strong> (Variant Call Format)</td><td>The distilled list of a person’s variants.</td><td><strong>What the PRS pipeline actually consumes.</strong></td></tr><tr><td><strong>gVCF / block-gVCF</strong></td><td>A VCF that <em>also</em> records long runs where the person matches the reference (“reference blocks”), not just the variants.</td><td>Lets us tell “same as reference here” from “we didn’t look here.”</td></tr><tr><td><strong>Reference block</strong></td><td>A compressed run of hom-ref positions in a gVCF.</td><td>Millions of these in a WGS gVCF — we skip them at ingest (they carry no scoreable variant).</td></tr><tr><td><strong>CNV / SV</strong></td><td>Copy-number variants (chunks duplicated/deleted) / structural variants (large rearrangements).</td><td>Not used for PRS; candidate knowledge-graph features later.</td></tr></tbody></table></div>
+<hr/>
+<h2 id="4-the-reference-and-the-scores">4. The reference and the scores<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-the-reference-and-the-scores" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Meaning</th><th>Why it matters here</th></tr></thead><tbody><tr><td><strong>Reference genome / build</strong></td><td>The standard “map” all coordinates are measured against. <strong>GRCh38</strong> is current; <strong>GRCh37</strong> (a.k.a. <strong>hg19</strong>) is the older one.</td><td>The same variant has <em>different</em> <code>chr:pos</code> numbers across builds — mismatch and nothing lines up. We keep everything on <strong>GRCh38</strong> so no liftover is needed.</td></tr><tr><td><strong>Primary assembly</strong> vs <strong>full analysis set</strong></td><td>Two flavours of the “same” build. <em>Primary</em> = chromosomes + unplaced scaffolds. <em>Full analysis set</em> additionally carries <strong>alt contigs</strong> (alternate versions of highly polymorphic regions like HLA) and <strong>decoys</strong>.</td><td>We use the <strong>primary assembly</strong>, 194 contigs, because that is what the patient’s gVCF was called against. Mixing flavours degrades calls quietly: if reads can align to both an alt contig and its primary counterpart, mapping quality collapses.</td></tr><tr><td><strong>PGS / PRS</strong></td><td>Polygenic <strong>Score</strong> / polygenic <strong>Risk</strong> Score — the weighted-sum number (“risk” when the trait is a disease).</td><td>The output.</td></tr><tr><td><strong><code>effect_weight</code> (beta)</strong></td><td>The per-variant weight, estimated from a <strong>GWAS</strong>. Can be <strong>negative</strong> (a protective allele).</td><td>The multiplier in the weighted sum.</td></tr><tr><td><strong>GWAS</strong> (genome-wide association study)</td><td>The study design that estimates which variants associate with a trait, and how strongly.</td><td>Where the weights come from.</td></tr><tr><td><strong>LD</strong> (linkage disequilibrium)</td><td>Variants sitting near each other on a chromosome tend to be inherited together as a block, so knowing one often tells you the others. Two variants are “in LD” when their inheritance is correlated across a population.</td><td>Two consequences that shape everything here. <strong>(1)</strong> A score can use a <strong>tag</strong> variant that is merely <em>correlated</em> with whatever is biologically doing the work — which is exactly why PRS weights are <strong>not causal</strong>. <strong>(2)</strong> Post-2015 methods re-weight <em>every</em> variant against an LD reference panel instead of picking significant hits, which is why the catalog holds scores with <strong>millions</strong> of variants and no rsIDs, and why file sizes span four orders of magnitude (<code>prs_primer.md</code> §3.3).</td></tr><tr><td><strong>Allele frequency</strong> / <strong>EAF</strong> (effect allele frequency)</td><td>How common an allele is in some population, 0–1. A scoring file may carry <code>allelefrequency_effect</code> — the frequency of the <em>effect</em> allele in the cohort the score was trained on.</td><td>The instrument that resolves a <strong>palindromic SNP</strong> (§2): if the effect allele sits at 0.12, the strand can be inferred by asking which reading matches the panel. One near 0.5 stays genuinely unresolvable. This is why palindrome resolution is <strong>Gate D</strong> work and not Gate C — it needs a reference panel, not just the scoring file.</td></tr><tr><td><strong>PGS Catalog</strong></td><td>The public repository of published scores (~5,385 with GRCh38-harmonized files).</td><td>Our source for the “whole catalog” sweep.</td></tr><tr><td><strong>Harmonization</strong></td><td>The PGS Catalog’s own pre-processing of a submitted scoring file: mapping every variant onto a common build (by liftover or rsID lookup), adding the <code>hm_*</code> columns, and <em>inferring</em> an other-allele where the author gave only one.</td><td>We consume <strong>only</strong> harmonized files, so the Catalog’s liftover is the one we trust and we never lift over at score time (§4, and <code>prs_primer.md</code> §2.4). But harmonization is <strong>inference, not fact</strong>: <code>hm_inferOtherAllele</code> is a guess, and where the harmonizer cannot choose it emits a <em>candidate set</em> like <code>A/T</code> — which is not a sequence at all, and is why the classifier has an <code>ambiguous_other</code> category.</td></tr><tr><td><strong>Harmonized file / <code>hm_rsID</code>, <code>hm_chr</code>, <code>hm_pos</code></strong></td><td>PGS Catalog’s normalized scoring files with consistent columns.</td><td><code>hm_rsID</code> is frequently <strong>empty</strong> on big modern scores — exactly why the <code>chr:pos</code> fallback earns its keep.</td></tr><tr><td><strong>Ancestry / portability</strong></td><td>Most published scores were trained largely in European-ancestry cohorts, so accuracy in other ancestries is uncertain.</td><td>A caveat for <strong>interpreting</strong> results, not for the plumbing — flag it before anyone reads a score clinically.</td></tr><tr><td><strong>Normalization (z-score / percentile)</strong></td><td>Raw PRS sums aren’t comparable across scores (different weight scales); they’re only meaningful relative to a <strong>reference distribution</strong>.</td><td>We compute and store raw scores, but they need this step before clinical interpretation — and we don’t ship reference panels by default.</td></tr></tbody></table></div>
+<h3 id="41-our-reference-fasta--where-it-comes-from">4.1 Our reference FASTA — where it comes from<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-our-reference-fasta--where-it-comes-from" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>We do not compute or assemble it.</strong> A reference genome is a published artifact built by
+the Genome Reference Consortium from a handful of anonymous donors; our job is only to pick
+one, pin it, and prove we have the exact bytes. “How we calculate ours” has no calculation
+in it — which is the point, because the FASTA is the arbiter every other check appeals to.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>What</strong></td><td>Ensembl release-109, <em>Homo sapiens</em> GRCh38 DNA <strong>primary assembly</strong> (= GRCh38.p13)</td></tr><tr><td><strong>Why this one</strong></td><td>Its contig naming (<code>1</code>, not <code>chr1</code>) matches both the patient’s gVCF and the PGS Catalog’s <code>hm_chr</code> column, so nothing needs renaming mid-pipeline</td></tr><tr><td><strong>How it is fetched</strong></td><td><code>backend/scripts/prs/prepare_reference_fasta.py</code> — downloads, verifies, decompresses in one step. Ensembl serves it as <strong>plain gzip, not bgzip</strong>, so it must be decompressed to a flat <code>.fa</code> before <code>pyfaidx</code> can index it</td></tr><tr><td><strong>How we know it is right</strong></td><td>A <strong>pinned sha256</strong> (<code>78777b08…fca93d8c</code>) on the uncompressed file, checked against <code>connectors/reference_fasta.py::PINNED_GRCH38</code>. A mismatch <strong>hard-fails</strong>; there is no fallback, because scoring a patient against an unverified genome is worse than not scoring her</td></tr><tr><td><strong>Sanity checks beyond the checksum</strong></td><td>194 contigs (confirms the primary-assembly flavour), and the reference base matches the patient’s own gVCF <code>REF</code> at three known loci: one clinically-informative site on chr11, <code>5:33951588</code> = C (<em>SLC45A2</em>), <code>2:135851076</code> = G (<em>LCT</em>)</td></tr><tr><td><strong>Size</strong></td><td>~840 MB compressed, <strong>3.15 GB</strong> as <code>.fa</code>, plus a small <code>.fai</code>. Host-only under <code>backend/data/reference/GRCh38/</code> — gitignored, and it does <strong>not</strong> follow a git worktree</td></tr></tbody></table></div>
+<p>One practical note, since it has cost a session before: <code>ftp.ensembl.org</code> throttles <strong>per
+connection</strong> (~100 KB/s), so a single-stream fetch of this file takes ~2.5 h. It honours HTTP
+Range and does not throttle in aggregate, so the script fetches byte ranges in parallel and
+reassembles — about nine minutes. Correctness still rests on the checksum, not on the
+reassembly.</p>
+<hr/>
+<h2 id="where-this-lives-in-the-code">Where this lives in the code<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#where-this-lives-in-the-code" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>Genotype ingest:</strong> <code>backend/connectors/genotype_importer.py</code> (<code>iter_vcf_records</code>) →
+<code>backend/mods_genotype_service.py</code> (<code>upsert_genotype_records</code>) → <code>mods_genotype</code> table.</li>
+<li><strong>Scoring:</strong> <code>backend/connectors/pgs_catalog_connector.py</code> (download + parse) →
+<code>backend/mods_prs_scorer.py</code> (dosage against the dense callset, position-keyed) →
+<code>mods_polygenic_score</code> table.</li>
+<li><strong>Orchestration:</strong> worker tasks <code>genotype_ingest_wgs</code> and <code>mods_prs_compute</code> in
+<code>worker/task_handlers.py</code>.</li>
+</ul></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-10" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#genomics-glossary-for-the-prs--wgs-pipeline" data-for="genomics-glossary-for-the-prs--wgs-pipeline">Genomics Glossary (for the PRS / WGS pipeline)</a></li><li class="depth-1"><a href="#1-naming-a-spot-in-the-genome" data-for="1-naming-a-spot-in-the-genome">1. Naming a spot in the genome</a></li><li class="depth-1"><a href="#2-what-the-person-actually-carries-genotype" data-for="2-what-the-person-actually-carries-genotype">2. What the person actually carries (genotype)</a></li><li class="depth-2"><a href="#21-calling--how-a-genotype-gets-decided-and-how-sure-we-are" data-for="21-calling--how-a-genotype-gets-decided-and-how-sure-we-are">2.1 Calling — how a genotype gets decided, and how sure we are</a></li><li class="depth-1"><a href="#3-the-files-rawest--most-processed" data-for="3-the-files-rawest--most-processed">3. The files (rawest → most processed)</a></li><li class="depth-1"><a href="#4-the-reference-and-the-scores" data-for="4-the-reference-and-the-scores">4. The reference and the scores</a></li><li class="depth-2"><a href="#41-our-reference-fasta--where-it-comes-from" data-for="41-our-reference-fasta--where-it-comes-from">4.1 Our reference FASTA — where it comes from</a></li><li class="depth-1"><a href="#where-this-lives-in-the-code" data-for="where-this-lives-in-the-code">Where this lives in the code</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="./mods_mission_spec" class="internal">MODS — Mission Spec</a></li><li><a href="./essays/whole_catalog_prs" class="internal">When &quot;It Ran Without Errors&quot; Isn't the Same as &quot;It Worked&quot;</a></li><li><a href="./" class="internal">MODS Notebook</a></li><li><a href="./maplelog/2026-07-21-the-shortcut-that-had-to-prove-itself" class="internal">2026-07-21 · The shortcut that had to prove itself</a></li><li><a href="./maplelog/2026-09-22-the-difference-between-absent-and-zero" class="internal">2026-09-22 · The Difference Between Absent and Zero</a></li><li><a href="./maplelog/2026-09-22-the-manifest-was-lying" class="internal">2026-09-22 · The manifest was lying, and so was I</a></li><li><a href="./maplelog/2026-09-23-everything-i-built-to-catch-leaks-leaked" class="internal">2026-09-23 · Everything I built to catch leaks, leaked</a></li><li><a href="./maplelog/2026-09-24-nine-hours-of-work-three-different-deaths" class="internal">2026-09-24 · Nine hours of work, three different deaths</a></li><li><a href="./prs/audit_handoff_2026-07-12" class="internal">PRS Validation — Audit Handoff</a></li><li><a href="./prs/compatibility_classification" class="internal">PRS Compatibility Classification</a></li><li><a href="./prs/frontend_requirements" class="internal">PRS Read-Layer Requirements</a></li><li><a href="./prs/palindrome_forward_rule" class="internal">Can a file's own unambiguous SNVs orient its palindromes?</a></li><li><a href="./prs/prs_primer" class="internal">Polygenic Risk Scores - a primer</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="./static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="./static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="./static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="./static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="./postscript-cea27323.js" type="module" data-persist="true"></script></html>

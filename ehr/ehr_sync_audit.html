@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Kaiser FHIR sync: code review and completeness audit</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Kaiser FHIR sync: code review and completeness audit"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Kaiser FHIR sync: code review and completeness audit"/><meta name="twitter:description" content="Phase 1 of GH #624: an end-to-end review of the Kaiser/Epic FHIR sync, with read-only counts of what it loses, and a census script that measures what Kaiser holds."/><meta property="og:description" content="Phase 1 of GH #624: an end-to-end review of the Kaiser/Epic FHIR sync, with read-only counts of what it loses, and a census script that measures what Kaiser holds."/><meta property="og:image:alt" content="Phase 1 of GH #624: an end-to-end review of the Kaiser/Epic FHIR sync, with read-only counts of what it loses, and a census script that measures what Kaiser holds."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/ehr/ehr_sync_audit"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/ehr/ehr_sync_audit"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Phase 1 of GH #624: an end-to-end review of the Kaiser/Epic FHIR sync, with read-only counts of what it loses, and a census script that measures what Kaiser holds."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/ehr/ehr_sync_audit-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/ehr/ehr_sync_audit-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/ehr/ehr_sync_audit-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="ehr/ehr_sync_audit" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-7" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-7" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../ehr/">ehr</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Kaiser FHIR sync: code review and completeness audit</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">5</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">model</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">claude-opus-5-5</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-10-01</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">review</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Phase 1 of GH #624: an end-to-end review of the Kaiser/Epic FHIR sync, with read-only counts of what it loses, and a census script that measures what Kaiser holds.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-01T07:00:00.000Z">Oct 01, 2026</time><span>27 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="kaiser-fhir-sync-code-review-and-completeness-audit">Kaiser FHIR sync: code review and completeness audit<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#kaiser-fhir-sync-code-review-and-completeness-audit" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Issue:</strong> <code>#624</code>, phase 1 (review and measurement; no
+code is changed). <strong>Code reviewed:</strong> <code>main</code> at <code>16f9ae0</code>, after PR #626. <strong>Measured:</strong> 2026-10-01,
+read-only against production, counts only. <strong>Companion:</strong>
+<code>backend/scripts/ehr/kaiser_census.py</code>
+counts what Kaiser holds at the next login, which this audit cannot see.</p>
+<p><em>(Status, 2026-10-05: most findings here are fixed in code. On 2026-10-02 every entry point
+began to run the sync in one place, decryption began to fail closed, every search pages to its
+end with retries and reports a short result as <code>partial</code>, OperationOutcome entries are set
+aside, connection lookups filter by provider, and <code>next</code> links stay on the FHIR site (findings
+8, 11, 13 and 14, and §2). The same day, note and report text began to come from the
+attachments, uncut (findings 1 and 2); the post-May backfill ran (finding 3); records began to
+update in place by FHIR id (finding 7, and the encounter status in finding 9); the 306 older
+encounter copies were removed (§5); and an unstated condition status became “not stated”
+(finding 5). I-3, merged on 2026-10-05, stores medications and conditions at one row per
+record (findings 4 and 5). Lab values (finding 6) and the HTML overlap (finding 10) are still
+open. Richard decided the eight questions at the end on 2026-10-02 (D-Q4-16). Every count
+here is as measured on 2026-10-01.)</em></p>
+<p>Richard has long suspected that Maple is missing documents. He is right, and the gap is larger
+than missing rows. Three things stand out:</p>
+<ul>
+<li><strong>Maple holds the record’s index, not its text.</strong> All 870 Kaiser clinical notes in Maple are
+empty shells: the note body was never fetched. Report narratives are stored only up to 500
+characters, because Maple’s own importer keeps no more, and 35 of the 38 imaging and pathology
+reports in Maple stop exactly there.</li>
+<li><strong>Most of the record collapses on import.</strong> Kaiser returned 507 prescriptions and 391
+conditions on 2026-10-01. Maple keeps one row per drug name (141) and one per condition name
+(42). Each row is frozen at its first import, and every condition stored from Kaiser reads
+“resolved”.</li>
+<li><strong>Nothing is ever updated.</strong> A record stored once is skipped on every later sync. Parser
+fixes from May never reached the rows stored before them. A status change at Kaiser never
+lands either. The patient knowledge graph turns those frozen statuses into the
+<code>current_medication</code> edges the PDR2 foundations train on.</li>
+</ul>
+<p>The fetch layer is mostly sound after #626. The import layer is not: its identity keys are names
+and calendar days, not Kaiser’s ids, and that one design choice causes most of what follows.</p>
+<h2 id="findings-ranked-by-data-lost-or-at-risk">Findings, ranked by data lost or at risk<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#findings-ranked-by-data-lost-or-at-risk" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Severity: <strong>critical</strong> means clinically significant content is absent from Maple today; <strong>high</strong>
+means it is wrong or incomplete in a way a reader or the model consumes; <strong>medium</strong> means it is
+at risk or partly wrong; <strong>low</strong> means the count is cosmetic or the bug is latent.</p>
+<p>Code references are to <code>main</code> at <code>16f9ae0</code>. <code>connector</code> is
+<code>backend/connectors/epic_fhir_connector.py</code>; <code>ingestion</code> is
+<code>backend/mods_ehr_ingestion_service.py</code>. Evidence is from read-only production queries on
+2026-10-01, unless it names the sync logs (<code>debug_logs</code>, the two syncs of 2026-10-01).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Finding</th><th>Severity</th><th>Where</th><th>Evidence</th></tr></thead><tbody><tr><td>1</td><td><strong>Clinical note text is never fetched.</strong> Only an inline <code>text/*</code> attachment is decoded; an attachment <code>url</code> (a <code>Binary</code>) is never followed, and the stored text falls back to <code>Document: &lt;title></code>. <code>Binary.r</code> is granted.</td><td>critical</td><td>connector:1112–1125, 1149</td><td>870 of 870 Kaiser <code>DocumentReference</code> rows have <code>content_text</code> = <code>'Document: ' + title</code> (max 45 chars): 310 encounter summaries, 181 progress notes, 126 telephone encounters, 67 diagnostic imaging study documents, 44 staff notes and smaller types (§4).</td></tr><tr><td>2</td><td><strong>Report text is dropped or cut.</strong> A <code>DiagnosticReport</code> document stores title, lab and date only. <code>presentedForm</code> is parsed and never stored. The narrative that does arrive, as an Observation’s text, is cut to its first 500 characters by Maple’s importer; whether Kaiser sends more is the census’s <code>value_string_over_500</code>. Report status and category are not stored, and every non-genomic report is typed <code>lab_report</code>, CT and pathology included.</td><td>critical</td><td>connector:1386–1397; ingestion:1273–1281, 1354–1393, 659</td><td>674 report documents, max 262 chars, 0 with a conclusion. 46 stored report narratives, from 44 reports, are exactly 500 chars. Among stored reports, 28 of 31 imaging and 7 of 7 pathology reports have theirs cut (title classes, §4).</td></tr><tr><td>3</td><td><strong>No Kaiser document after May 2026 is stored yet</strong> (#621). Fixed in code by #626; the backfill waits on a login.</td><td>critical (data)</td><td>—</td><td>Kaiser on 10-01: 806 reports and 917 notes; Maple: 674 and 861. Stored lab values cite 124 report ids that have no document.</td></tr><tr><td>4</td><td><strong>Medication history collapses to one row per drug name, frozen at first import.</strong> The table is unique on <code>(patient, name)</code>. A later prescription of the same drug is skipped, so later lines of therapy, dose changes and stops never land. Six of the table’s columns are never filled.</td><td>high</td><td><code>mods_models.py</code>:1224; ingestion:716–739; connector:1005–1061</td><td>507 <code>MedicationRequest</code>s at Kaiser (10-01 log), 141 rows in Maple. 133 of 141 have no start date: stored 05-08, before #68 added dates, never updated. <code>route</code>, <code>dose_text</code>, <code>frequency</code>, <code>prescriber</code>, <code>sig</code> and <code>rxnorm_code</code> are empty on all 141. 9 rows have read <code>active</code> since 05-08. <em>(2026-10-05: fixed in code by I-3, migration 116: one row per order, updated in place, with intent, category, sig, dose, route, frequency and prescriber; <code>rxnorm_code</code> stays the backfill’s. Live after the first sync that follows it.)</em></td></tr><tr><td>5</td><td><strong>Conditions collapse to one row per name, all labelled problem-list and resolved.</strong> The parser drops the FHIR category; the importer hard-codes <code>problem-list-item</code>; the unique key <code>(patient, name, category)</code> collapses every encounter diagnosis and recurrence; an absent <code>clinicalStatus</code> becomes <code>resolved</code>.</td><td>high</td><td>connector:1063–1103 (tags at 1091); ingestion:820, 279; <code>mods_models.py</code>:1179</td><td>Kaiser returned 391 conditions (10-01 log); Maple holds 42. All 42 read <code>problem-list-item</code> / <code>resolved</code>. 40 carry no FHIR status and 40 no onset date, and 41 have no ICD-10 or SNOMED code (stored before #66). The 6 that name a cancer read <code>resolved</code>. <em>(2026-10-05: the absent status is NULL since D-Q4-16 item 5; I-3 stores one row per record with Kaiser’s own category, its verification status and <code>recordedDate</code>. “Active” is derived by <code>mods_ehr_derived</code>.)</em></td></tr><tr><td>6</td><td><strong>Lab and vital values: identity is (test name, calendar day), applied inconsistently.</strong> No time of day, no code, no status, no comparator. Blood-pressure readings are stored without numbers. One series per test name across every source.</td><td>high</td><td>ingestion:617–646, 659, 467; connector:920–1003, 1623–1642; <code>database.py</code>:27</td><td>0 of 3,984 Kaiser-matched values keep a time of day. 0 of 863 series carry a LOINC code. 237 blood-pressure readings have no value. 171 (series, day) groups hold 819 Kaiser-matched rows. 43 Kaiser observations are stored more than once. 7 test names have two or more series; 58 observation ids sit on more than one row (§3).</td></tr><tr><td>7</td><td><strong>A stored record is never updated.</strong> Every import path skips an existing id, name or key, so source corrections, status changes and parser fixes do not reach stored rows.</td><td>high</td><td>all <code>_import_*</code>; #626 kept “skip” for documents and encounters</td><td>Findings 4 and 5. 305 of 325 encounter ids hold two or three stored versions (§5). The patient KG maps <code>mods_medication.status == 'active'</code> to <code>current_medication</code> (<code>mods_patient_kg_service.py</code>:1429), a predicate the PDR2 foundations train on. <em>(2026-10-05: updates are applied since I-2, for medications and conditions since I-3; the KG decides per drug by <code>mods_ehr_derived</code>’s rules.)</em></td></tr><tr><td>8</td><td><strong>Every built-in way to run the sync lacks the token key</strong> (#512 defect 1). The REST route and the Terminal <code>ehr sync</code> command enqueue a worker task, and the MCP tool runs in the MCP host. Neither process holds the key that decrypts the stored token. Only an ad-hoc script run inside the backend syncs, and the Terminal prints “Sync complete” whatever the status.</td><td>high</td><td><code>mods_api.py</code>:1061; <code>worker/task_handlers.py</code>:5395; <code>mods_server.py</code>:2762; <code>Terminal.jsx</code>:1278</td><td>The worker had no key (checked 10-01). The MCP sync of 10-01 got 401 on all ten searches.</td></tr><tr><td>9</td><td><strong>Encounter fields forced or dropped.</strong> The column <code>status</code> is always <code>finished</code>; class, reason, end time and location ids are dropped.</td><td>medium</td><td>ingestion:918; connector:1222–1280</td><td>13 encounters Kaiser calls <code>unknown</code> (26 rows) and 1 it called <code>arrived</code> read <code>finished</code>.</td></tr><tr><td>10</td><td><strong>The March <code>kaiser_html</code> rows duplicate the FHIR rows.</strong> Encounters and conditions are stored twice under two sources. Where the HTML row is exact, it blocks the FHIR row instead, and the Kaiser id is lost.</td><td>medium</td><td>ingestion:470–573; unique indexes in <code>mods_models.py</code></td><td>302 of 307 HTML encounters share a date with a FHIR encounter (277 share the type too). 36 condition names appear under both sources. Kaiser returned 12 immunizations; Maple holds 4 FHIR rows, and the unique index refused the other 8, most likely because of the 8 HTML rows (§6).</td></tr><tr><td>11</td><td><strong>Fetch: a silent 50-page cap, no retries, and a failed page loses the whole type.</strong> An unexpanded report result that Kaiser refuses is logged and counted nowhere.</td><td>medium</td><td>connector:448–503 (cap 453, raise 478), 775–809</td><td>Labs used 27 of 50 pages on 10-01 (2,687 entries). 16 report results answered 403 on direct fetch (10-01 log), and no count reports them.</td></tr><tr><td>12</td><td><strong>Procedures and allergies arrive empty from FHIR, and their import paths are broken.</strong> <code>_import_procedure</code> inserts on every run, forces <code>completed</code> and never fills <code>body_site</code>. <code>_import_allergy</code> forces <code>active</code> and strips the wrong prefix.</td><td>medium</td><td>ingestion:964–985, 741–769</td><td>Kaiser returned 0 <code>Procedure</code> and 0 <code>AllergyIntolerance</code> on 10-01 (the page held only an OperationOutcome), though 08-16 stored 2 procedures. The surgeries are in Maple only through the March HTML (4 rows).</td></tr><tr><td>13</td><td><strong><code>.first()</code> with no filter</strong> on the connection row (sync, OAuth state, callback) and the patient.</td><td>medium (latent)</td><td>ingestion:1425, 1455, 1474, 1483, 1490, 1838 → 1410, 454</td><td>Safe today: one connection row, and the unordered first patient is Maureen. Reconnecting Cerbo (#512 item 4) adds a second row, and an OAuth callback could then write Kaiser tokens onto it.</td></tr><tr><td>14</td><td><strong>Non-resource entries parsed as resources.</strong> Kaiser adds one OperationOutcome per page; the fetchers never check <code>resourceType</code>.</td><td>low</td><td>connector:529–649</td><td>101 entries per 100-match page (10-01 log). 9 junk documents and 2 junk encounters are stored; the next sync adds 1 and 2 more. Each OperationOutcome’s message is discarded.</td></tr><tr><td>15</td><td><strong>Counts and summaries mislead.</strong> One commit at the end, with <code>*_created</code> kept if it fails. The delta caps report counts at 20 and misses Kaiser values in other sources’ series. No database uniqueness on documents, encounters or procedures, and the MCP tool has no in-flight guard.</td><td>low</td><td>ingestion:1230–1236, 1772, 1582</td><td>Lead 6 of #624, confirmed in code.</td></tr></tbody></table></div>
+<p>What the code alone cannot say is how much of findings 1, 4, 5, 6 and 11 is loss against Kaiser’s
+<em>current</em> record, and how much of finding 12 is a search-shape problem. That is the census’s job
+(§ Phase 2, step 0).</p>
+<h2 id="1-granted-vs-fetched">1. Granted vs fetched<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-granted-vs-fetched" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The 2026-10-01 token grants 28 resource types (read from the stored scopes on
+<code>mods_ehr_connection</code>, each with an unqualified <code>.r</code>/<code>.s</code> scope, plus category-qualified ones
+for Condition, DocumentReference, Observation and ServiceRequest). <code>Provenance</code> is read-only, with no
+search. <code>offline_access</code> is not granted, so there is still no refresh token.</p>
+<p>The sync fetches 10 searches over 9 types: Observation (laboratory, vital-signs),
+MedicationRequest, Condition, DocumentReference, AllergyIntolerance, Immunization, Encounter,
+Procedure and DiagnosticReport (with <code>_include=DiagnosticReport:result</code>).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Type</th><th>Fetched</th><th>Likely clinical value for an oncology patient</th><th>Why</th></tr></thead><tbody><tr><td><strong>Binary</strong></td><td>no</td><td><strong>highest</strong></td><td>It is the content of every note and of every report’s <code>presentedForm</code>. Without it the 870 notes are shells (finding 1).</td></tr><tr><td><strong>MedicationAdministration</strong></td><td>not granted</td><td><strong>highest</strong></td><td>Each infusion dose with its date: the real FOLFOX, cetuximab and bevacizumab timeline. Orders (MedicationRequest) say what was prescribed, not when it ran. It needs an app-registration change, if Kaiser offers it to patient apps at all.</td></tr><tr><td><strong>ServiceRequest</strong></td><td>no</td><td>high</td><td>Orders: a scheduled surveillance CT, standing tumour-marker orders, referrals. This is “what should arrive next”, which a freshness monitor (#512) needs, and <code>DiagnosticReport.basedOn</code> points at it.</td></tr><tr><td><strong>MedicationDispense</strong></td><td>no</td><td>high</td><td>Pharmacy fills of oral targeted therapy (encorafenib and binimetinib are oral): actual exposure dates and adherence, not just orders.</td></tr><tr><td><strong>Observation: imaging</strong></td><td>no</td><td>high</td><td>Imaging result observations: the narratives behind CT reports. Some already arrive through the report <code>_include</code>; the census counts the rest.</td></tr><tr><td><strong>Appointment</strong></td><td>not granted</td><td>high</td><td>Future visits and scans; also freshness.</td></tr><tr><td><strong>Specimen</strong></td><td>no</td><td>medium</td><td>Pathology specimens: collection site and date. It is the link between a Kaiser pathology case and a Caris specimen, which had to be triangulated by hand.</td></tr><tr><td><strong>CarePlan / Goal</strong></td><td>no</td><td>medium</td><td>An oncology treatment plan and goals of care, if Kaiser exposes them. Epic may require a category.</td></tr><tr><td><strong>Media</strong></td><td>no</td><td>medium (unknown)</td><td>Scanned outside documents and images.</td></tr><tr><td><strong>Coverage / ExplanationOfBenefit</strong></td><td>no</td><td>medium</td><td>Claims show care outside Kaiser that Kaiser paid for. The cash-pay integrative care will not appear.</td></tr><tr><td><strong>Observation: survey, social-history, sdoh</strong></td><td>no</td><td>low–medium</td><td>Questionnaires and patient-reported outcomes (distress, possibly performance status), smoking and alcohol.</td></tr><tr><td><strong>Device</strong></td><td>no</td><td>low–medium</td><td>The port, placed and removed. The HTML import holds 12 devices; FHIR never refreshes them.</td></tr><tr><td><strong>CareTeam</strong></td><td>no</td><td>low–medium</td><td>The oncologist and team. 5 rows came from the HTML import.</td></tr><tr><td><strong>Condition: health-concern</strong></td><td>inside the unfiltered search</td><td>low–medium</td><td>Fetched, but stored as problem-list (finding 5).</td></tr><tr><td><strong>Medication</strong></td><td>no</td><td>medium (as reference data)</td><td>When a MedicationRequest names its drug through <code>medicationReference</code>, the RxNorm code is on the Medication resource. Maple stores no RxNorm for any medication.</td></tr><tr><td><strong>ImagingStudy</strong></td><td>not granted</td><td>low–medium</td><td>Study metadata (modality, series); the report and its text matter more.</td></tr><tr><td>Location, Organization, Practitioner, PractitionerRole</td><td>no</td><td>low</td><td>Reference data behind displays that are already stored.</td></tr><tr><td>Provenance, RelatedPerson, Patient</td><td>no</td><td>low</td><td>Authorship, contacts, identity.</td></tr></tbody></table></div>
+<p>For every type the census counts what Kaiser holds, and for the not-granted ones it expects a 403
+that confirms what a registration change would have to add.</p>
+<h2 id="2-fetch">2. Fetch<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-fetch" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Paging.</strong> <code>_fetch_all_pages</code> follows <code>next</code> links but stops after <code>max_pages=50</code> (5,000
+entries at <code>_count=100</code>) with only a debug line (connector:453, 467). Observation and
+DiagnosticReport sort <code>-date</code>, so a capped search drops the oldest. No search reached the cap on
+2026-10-01: labs used 27 pages (2,687 entries), vital signs 13, notes 10, reports 9. <code>next</code> links
+are followed to whatever host the server names, carrying the bearer token.</p>
+<p><strong>Bundle totals.</strong> Kaiser’s <code>Bundle.total</code> counts the page, not the search: the first page of a
+1,213-entry search reports <code>total=100</code>. Nothing can use it as a completeness check. Whether
+<code>_summary=count</code> is supported and correct is unknown; the census records it beside the paged
+count.</p>
+<p><strong>Filters, sort, include.</strong> Every search is <code>patient=&lt;id>&amp;_count=100</code>; Observation adds a
+category, and Observation and DiagnosticReport sort <code>-date</code>. DiagnosticReport adds
+<code>_include=DiagnosticReport:result</code>, which made Kaiser take 266 s (#620; now under a 420 s read
+timeout). Kaiser does not expand the include for some reports. The direct-fetch fallback then
+got 403 on all 16 such results on 10-01, logged per observation and counted nowhere.</p>
+<p><strong>Delta.</strong> There is none for FHIR: every sync re-fetches the whole record. <code>last_delta_timestamp</code>
+is Cerbo-only, and even there the delta response is discarded. A full re-fetch is the right
+default for completeness. It only works if import is idempotent and applies updates, and today
+it does neither for most types (findings 4–7).</p>
+<p><strong>Timeouts and retries.</strong> Connect, write and pool use 30 s; the DiagnosticReport read uses 420 s.
+Nothing is retried: a 429, a 5xx or a dropped connection on any page raises. The pages already
+fetched for that type are discarded, so one bad page loses the whole type for that sync.</p>
+<p><strong>Non-resource entries.</strong> Every page carries exactly one extra entry (101 entries for 100
+matches; 927 note entries over 10 pages for 917 notes), almost certainly an OperationOutcome.
+The fetchers parse it as the searched type. The Observation, Condition, MedicationRequest,
+Allergy, Immunization and Procedure parsers drop it because it has no name. The DocumentReference
+and Encounter parsers default it into a “Clinical Document” and an “Office Visit”. What
+Kaiser’s OperationOutcome says is never read.</p>
+<p><strong>How failures surface.</strong> Since #626 a failed search makes the sync <code>partial</code>, with
+<code>failed_resources</code> and <code>fetch_errors</code>, and a sync that fetched nothing is <code>degraded</code>. Still
+silent: the page cap, failed direct fetches, an HTTP 200 that is not a Bundle (zero entries),
+and import exceptions other than <code>IntegrityError</code> at commit, which mark the sync <code>error</code> while
+the counters already claim inserts.</p>
+<p><strong>Entry points.</strong> All three built-in paths fail on this machine (finding 8):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Entry point</th><th>Runs in</th><th>Has the key?</th><th>Result</th></tr></thead><tbody><tr><td>MCP <code>mods_ehr_sync</code></td><td>MCP host</td><td>no</td><td>401 on every search → <code>degraded</code></td></tr><tr><td><code>POST /api/mods/ehr/sync</code> → worker <code>ehr_sync</code></td><td>a worker</td><td>no</td><td>the same</td></tr><tr><td>Terminal <code>ehr sync</code></td><td>→ the REST route</td><td>no</td><td>the same, printed as “Sync complete”</td></tr><tr><td><code>docker exec -i BACKEND python - &lt; script</code></td><td>backend</td><td>yes</td><td>works (the 2026-10-01 syncs)</td></tr></tbody></table></div>
+<p>The token is stored encrypted, and a process without the key cannot use it. <code>_decrypt_token</code> returns the ciphertext when the key
+is missing or wrong, and the 401s that follow are the only symptom.</p>
+<h2 id="3-import-per-_import_">3. Import, per <code>_import_*</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-import-per-_import_" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Path</th><th>Reached by FHIR</th><th>Identity across syncs</th><th>Within one sync</th><th>Forced or dropped</th><th>Counter</th></tr></thead><tbody><tr><td><code>_import_test_result</code> (labs, vitals, report observations)</td><td>yes</td><td>series name (case-folded, shared by every source) + date at 00:00</td><td>a query per value; under the backend’s <code>SessionLocal</code> (autoflush off) it cannot see unflushed rows</td><td>time of day; code (LOINC); <code>status</code>; comparator; components; per-value unit and range; text cut at 500</td><td><code>created</code> counts adds before commit; <code>enriched</code> merges another observation’s metadata into a stored row</td></tr><tr><td><code>_import_medication</code></td><td>yes</td><td>DB unique <code>(patient, name)</code> <em>(since I-3: the Kaiser id; the name only for rows without one)</em></td><td>savepoint per row</td><td>status frozen; sig, route, dose, frequency, prescriber, RxNorm never set <em>(since I-3: all kept but RxNorm)</em></td><td>rows</td></tr><tr><td><code>_import_condition_from_problem</code></td><td>yes, for every Condition</td><td>DB unique <code>(patient, name, 'problem-list-item')</code> <em>(since I-3: the Kaiser id)</em></td><td>savepoint</td><td>category forced; absent status → <code>resolved</code>; <code>recordedDate</code> ignored <em>(since I-3: category and recordedDate kept, status NULL when absent)</em></td><td>rows</td></tr><tr><td><code>_import_condition_from_visit_dx</code></td><td>HTML only</td><td><code>(patient, name, 'encounter-diagnosis')</code></td><td>savepoint</td><td>status forced <code>active</code></td><td>rows</td></tr><tr><td><code>_import_allergy</code></td><td>yes (Kaiser has none)</td><td>DB unique <code>(patient, allergen)</code></td><td>savepoint</td><td>status forced <code>active</code>; FHIR’s <code>Allergy: </code> prefix kept in the name</td><td>rows</td></tr><tr><td><code>_import_immunization</code></td><td>yes</td><td>DB unique <code>(patient, vaccine, date)</code>; a NULL date never matches</td><td>savepoint</td><td>status forced <code>completed</code></td><td>rows</td></tr><tr><td><code>_import_encounter</code></td><td>yes</td><td><code>metadata.fhir_id</code> within (patient, source) (#626); content key without one</td><td>in-memory index</td><td>status forced <code>finished</code>; class, reason, end, location ids dropped</td><td>rows</td></tr><tr><td><code>_import_encounter_planned</code></td><td>HTML only</td><td>none</td><td>—</td><td>—</td><td>attempts</td></tr><tr><td><code>_import_procedure</code></td><td>yes</td><td><strong>none: inserts every run</strong></td><td>—</td><td>status forced <code>completed</code>; <code>body_site</code> column never set</td><td>attempts</td></tr><tr><td><code>_import_device</code></td><td>HTML only</td><td>none</td><td>—</td><td>—</td><td>attempts</td></tr><tr><td><code>_import_generic_document</code> (notes, reports)</td><td>yes</td><td><code>metadata.fhir_id</code> within (patient, source, kind) (#626)</td><td>in-memory index</td><td>text is a stub (§4); report status and category not kept</td><td>rows</td></tr><tr><td>genomic alterations from a report</td><td>yes (none so far)</td><td><code>(gene, variant, source_report)</code></td><td>query</td><td>—</td><td>rows</td></tr><tr><td><code>_import_care_team_member</code></td><td>HTML only</td><td>DB unique <code>(patient, name, role)</code></td><td>savepoint</td><td>—</td><td>rows</td></tr></tbody></table></div>
+<p><strong>Lab and vital identity, in detail.</strong> The check is <code>(series_id, ts)</code>, where <code>ts</code> is the date at
+midnight. Within one sync it runs as a query that, under autoflush off, cannot see values added
+earlier in the same sync. So same-day repeats were kept, and an observation that arrived twice
+(through the report <code>_include</code> and through its category search) was stored twice. Across syncs
+the same check sees the stored row and skips any new same-day result, or merges its metadata into
+the other row’s context. The stored data shows both:</p>
+<ul>
+<li>171 (series, day) groups hold 819 Kaiser-matched rows; in 159 of those groups every row was
+created on the same day;</li>
+<li>43 Kaiser observation ids are stored more than once in one series on one day;</li>
+<li>15 more ids sit in two different series, because the series cache keys on the case-folded name
+over every source with no tie-break (ingestion:467). Seven test names have two or more series.</li>
+</ul>
+<p>The right identity is the Observation id. With it, repeats are distinct, a duplicate arrival is
+one row, and a corrected value can update in place.</p>
+<p><strong>Dates.</strong> <code>_parse_fhir_date</code> keeps the calendar date in the timestamp’s own offset
+(connector:1630–1631). Kaiser sends UTC, so a result after about 17:00 Pacific lands on the next
+day. A partial date (“2024-05”) becomes the first of the month with no precision marker.</p>
+<p><strong>Commit and rollback.</strong> <code>import_fhir_data</code> commits once, at the end (ingestion:1230–1236). That
+makes a sync atomic, which is good. But one bad row discards the whole sync’s import. Only
+<code>IntegrityError</code> is caught there, and the <code>*_created</code> counters are not reset.</p>
+<p><strong>Parsed, then dropped:</strong> <code>presentedForm</code> (all reports); the report’s <code>status</code> and <code>category</code>;
+<code>DocumentReference</code> attachment URLs, <code>docStatus</code>, <code>relatesTo</code> and encounter context; Observation
+<code>status</code>, <code>code</code> (the test code), comparator and <code>component</code>; Condition <code>category</code> and
+<code>recordedDate</code>; MedicationRequest <code>intent</code>, <code>category</code>, <code>reasonCode</code> and RxNorm coding; Encounter
+<code>class</code>, <code>reasonCode</code> and <code>period.end</code>. The procedure <code>body_site</code> is parsed into metadata but
+never into its column.</p>
+<h2 id="4-content-do-stored-notes-carry-their-text">4. Content: do stored notes carry their text?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-content-do-stored-notes-carry-their-text" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>No. Every Kaiser document in Maple is metadata.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Kind (source <code>epic_fhir</code>)</th><th>Rows</th><th>Content</th></tr></thead><tbody><tr><td>DocumentReference (notes)</td><td>870</td><td>870 are exactly <code>Document: &lt;title></code>, max 45 chars, no file</td></tr><tr><td>DiagnosticReport, imaging (title class)</td><td>31</td><td>max 262 chars. All 31 have a narrative observation, and 28 of those narratives stop at exactly 500 characters</td></tr><tr><td>DiagnosticReport, pathology (title class)</td><td>7</td><td>max 84 chars. All 7 narratives stop at exactly 500 characters</td></tr><tr><td>DiagnosticReport, genomic panel (title class)</td><td>2</td><td>max 153 chars; scalar results only (TMB, MSI, PD-L1)</td></tr><tr><td>DiagnosticReport, labs and other</td><td>634</td><td>max 162 chars</td></tr></tbody></table></div>
+<p>The title classes are a keyword heuristic over report titles, counted and never printed. Notes by
+type label: Encounter Summary 310, Progress Notes 181, Telephone Encounter 126, Diagnostic imaging
+study 67, Staff Note 44, Patient Instructions 43, plus 25 smaller types (90 notes). A further 9 are the page-level junk
+entries (finding 14).</p>
+<p>For comparison, all 121 manually uploaded documents and all 237 from the integrative practice
+carry the original file, and all but one carry extracted text (up to 1.28 M characters). Every
+full-text radiology report Maple has came that way, never from the sync.</p>
+<p><code>.claude/rules/ehr-integrations.md</code> says “FHIR is not a full-text source”. The code says
+otherwise: the sync never asks for the text. It cuts what it does get to 500 characters, and it
+throws away <code>presentedForm</code> unread. Whether Kaiser serves note bodies through <code>Binary</code> with this
+grant is the census’s attachment probe. The rule should be revised once that answer is in.</p>
+<h2 id="5-versions-the-305-encounter-ids-with-two-stored-copies">5. Versions: the 305 encounter ids with two stored copies<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-versions-the-305-encounter-ids-with-two-stored-copies" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>After #622’s cleanup, 633 Kaiser encounter rows remain for 325 ids. 304 ids have two versions,
+1 has three, and 20 have one; 2 further rows are junk with no id. I compared the earliest and
+latest stored version of each id, field by field:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>What differs</th><th>Ids</th><th>Kind</th><th>Cause</th></tr></thead><tbody><tr><td><code>department</code> column (and <code>metadata.department</code>)</td><td>304</td><td>old NULL, new set</td><td><strong>parser change</strong>: #70 added the department between the 05-08 and 08-16 imports</td></tr><tr><td><code>provider</code> column and <code>metadata.participants</code></td><td>4</td><td>both set, different sets of names</td><td><strong>source update</strong>: Kaiser changed the participants</td></tr><tr><td><code>metadata.status</code></td><td>1</td><td><code>arrived</code> → <code>finished</code></td><td><strong>source update</strong>: the visit was under way at the first import</td></tr><tr><td><code>encounter_date</code>, type, description, notes, other metadata</td><td>0</td><td>—</td><td>—</td></tr></tbody></table></div>
+<p>Import-day pairs: 303 ids were stored on 05-08 and again on 08-16; 1 on 05-08 and 10-01; 1 on
+08-16 and 10-01. In every pair the later version is a superset of the earlier one: it adds the
+department or carries the final status and participants.</p>
+<p><strong>Recommendation.</strong> Keep the latest version of each id and delete the 306 older rows, after a
+backup, as #622’s cleanup did. Then change the sync to <strong>update in place</strong>, keyed on
+<code>(patient, source, fhir_id)</code> with a unique index. Store <code>updated_at</code> and the source’s
+<code>meta.lastUpdated</code>, and never overwrite with an older payload. The decision is Richard’s
+(below). The same rule should cover every FHIR type, not only encounters (finding 7).</p>
+<h2 id="6-cross-source-kaiser_html-against-the-fhir-rows">6. Cross-source: <code>kaiser_html</code> against the FHIR rows<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-cross-source-kaiser_html-against-the-fhir-rows" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The March 2026 HTML import (307 encounters, 61 conditions, 15 medications, 8 immunizations, 4
+procedures, 12 devices, 5 care-team members, 118 lab series) predates the FHIR sync and carries no
+Kaiser ids.</p>
+<ul>
+<li><strong>Encounters.</strong> 302 of 307 HTML encounters share a date with a FHIR encounter, 277 the type as
+well. Within the HTML date range (2016-12 to 2026-04), 300 of 303 FHIR encounters have an HTML
+row that day. Any view that does not filter by source counts these visits twice.</li>
+<li><strong>Conditions.</strong> 36 condition names appear under both sources. The HTML rows hold the
+encounter diagnoses (48) and the active problem list (10, 3 of them naming a cancer). 36 of the
+42 FHIR rows carry one of those names, relabelled as resolved problems (finding 5).</li>
+<li><strong>Immunizations.</strong> Kaiser returned 12 immunizations on 10-01, and Maple holds 4 FHIR rows. The
+unique index <code>(patient, vaccine, date)</code> refused the other 8. The likely cause is the 8 HTML
+rows: the two sources name vaccines the same way (3 HTML names also appear on FHIR rows), and
+no HTML date matches a stored FHIR row. That is an inference; the census lists the 8 by date
+range. If it holds, no vaccination is lost, but those 8 carry no Kaiser id.</li>
+<li><strong>Medications.</strong> No name matches exactly; the two sources format names differently.</li>
+<li><strong>Labs.</strong> One series per name across sources, by design. 643 of 676 values in HTML-created series
+were later matched to a Kaiser observation id (finding 6).</li>
+<li><strong>Documents.</strong> One HTML document (social history); no overlap.</li>
+</ul>
+<p>The HTML rows still hold data FHIR does not deliver today: devices, care team, surgical
+procedures, visit diagnoses and planned visits. They should be kept. Phase 2 needs a precedence
+rule: FHIR wins where both exist, and views read one source per type.</p>
+<h2 id="7-tests">7. Tests<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-tests" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Covered:</strong> the per-resource read timeout and named fetch failures; <code>partial</code> / <code>degraded</code>
+classification; document, report and encounter dedupe on FHIR id under both autoflush settings
+(#626); the condition, medication-date, procedure and encounter-department parsers; series
+aliases; genomic-variant routing and VAF units; the cancer profile from EHR conditions. In all,
+119 tests across five files, and all pass.</p>
+<p><strong>Not covered:</strong></p>
+<ul>
+<li>pagination (more than one page, <code>next</code> links, the 50-page cap);</li>
+<li>non-resource entries;</li>
+<li><code>_parse_observation</code> value types, status, comparator and components;</li>
+<li><code>_import_test_result</code>: the day key, the autoflush dependence and text truncation;</li>
+<li>medication and condition collapse on name;</li>
+<li><code>_parse_document_reference</code> attachments and <code>presentedForm</code>;</li>
+<li><code>_import_procedure</code> idempotency;</li>
+<li>allergy and immunization imports;</li>
+<li>the OAuth callback and <code>save_ehr_connection</code>;</li>
+<li><code>get_sync_delta</code>;</li>
+<li>the Kaiser HTML parser (only mocked);</li>
+<li>the Terminal <code>ehr sync</code> output (the frontend has no tests at all).</li>
+</ul>
+<p>The census adds 27 tests (<code>backend/tests/test_kaiser_census.py</code>): paging, the cap,
+OperationOutcome handling, <code>_summary=count</code>, retries, 403/401 handling, id comparison, fidelity
+counts, the attachment probe, and that it writes nothing. Each safeguard was reverted once to
+confirm its test fails.</p>
+<h2 id="cerbo-in-one-line">Cerbo, in one line<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cerbo-in-one-line" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The same patterns appear in <code>cerbo_connector.py</code>: a silent 50-page cap; per-resource failures
+logged but not returned, so a Cerbo sync is never <code>partial</code>; documents fetched as metadata only;
+and a dedupe that keys on <code>fhir_id</code>, which Cerbo rows lack (they carry <code>cerbo_id</code>). That last one
+falls back to content keys. These need their own issue.</p>
+<h2 id="recommendation-per-component">Recommendation per component<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#recommendation-per-component" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Component</th><th>Verdict</th><th>Why</th></tr></thead><tbody><tr><td>OAuth: authorize, callback, PKCE, Kaiser endpoint derivation</td><td><strong>keep</strong></td><td>Works. Filter every connection lookup by provider (finding 13).</td></tr><tr><td>Token storage and decryption</td><td><strong>fix</strong></td><td>Fail closed when the key is missing or wrong, instead of sending ciphertext.</td></tr><tr><td>Where the sync runs</td><td><strong>fix</strong></td><td>Give the worker that runs <code>ehr_sync</code> the key (compose change), or run it in the backend. Make the Terminal print the sync’s status.</td></tr><tr><td><code>_fetch_all_pages</code></td><td><strong>fix</strong></td><td>No silent cap; retry per page with backoff; keep pages fetched so far; keep only the searched <code>resourceType</code> and record OperationOutcome codes; same-host <code>next</code> links.</td></tr><tr><td>Per-type <code>fetch_*</code> methods</td><td><strong>rewrite</strong> as one generic fetcher over a type registry</td><td>Ten near-identical copies, and new types (Binary, ServiceRequest, MedicationDispense, Specimen…) are coming.</td></tr><tr><td>Parsers</td><td><strong>fix</strong></td><td>Keep status, codes (LOINC, RxNorm, ICD-10, SNOMED), categories, time, comparator, components, attachment URLs, <code>presentedForm</code>.</td></tr><tr><td>Import layer (<code>_import_*</code> for FHIR data)</td><td><strong>rewrite</strong></td><td>Identity = <code>(patient, source, resource type, fhir_id)</code> for every FHIR type, with update in place, unique indexes and counters that equal rows. Names and calendar days stop being identities. A “current drugs” or “active problems” view is derived, not stored as the record.</td></tr><tr><td>Text and attachments</td><td><strong>build</strong></td><td>Fetch <code>Binary</code> for notes and <code>presentedForm</code> for reports; keep the full observation text; store text plus the original file, as uploads are stored.</td></tr><tr><td><code>kaiser_html</code> importer</td><td><strong>keep, frozen</strong></td><td>Holds data FHIR does not; no new imports; FHIR takes precedence where both exist.</td></tr><tr><td><code>get_sync_delta</code>, Terminal summary</td><td><strong>fix</strong></td><td>Report counts without the 20 cap; show <code>partial</code> / <code>degraded</code>.</td></tr><tr><td>Tests</td><td><strong>add</strong></td><td>The gaps in §7, each with the bug reproduced first.</td></tr></tbody></table></div>
+<h2 id="phase-2-proposed-order">Phase 2: proposed order<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#phase-2-proposed-order" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol start="0">
+<li><strong>Census, at the next login, before any sync.</strong> Run <code>kaiser_census.py</code> first. It sends GETs
+only; my estimate is 10–15 minutes, and its output times every search. Then run the #621
+backfill sync. Then, if the hour allows,
+run the census again with <code>--types DocumentReference,DiagnosticReport</code> to confirm the
+backfill. The first census sizes everything below: missing ids per type, how many results
+collapse, status drift, whether <code>Binary</code> and <code>presentedForm</code> are readable and how large, and
+what the procedure and care-plan searches return.</li>
+<li><strong>Quick fixes, low risk, independent of each other:</strong> the key or runner (finding 8, #512);
+fail-closed decryption; the Terminal status; delta counts; <code>resourceType</code> filtering; no silent
+cap, plus retries; provider filters on connection lookups.</li>
+<li><strong>Identity and updates (the core).</strong> Upsert on FHIR id for every type, unique indexes (a
+migration, numbered against all branches), and change tracking. Then the cleanups: the 306
+encounter versions, re-importing collapsed medications and conditions as per-id rows, and
+de-duplicating lab values.</li>
+<li><strong>Content.</strong> Binary note bodies and report forms, full observation text, embedding and
+categorisation of the new text.</li>
+<li><strong>Fidelity:</strong> codes, statuses, categories, times, comparators, components and units, plus
+the condition category mapping.</li>
+<li><strong>New types,</strong> chosen from the census counts: ServiceRequest and MedicationDispense first.</li>
+<li><strong>Downstream.</strong> The patient KG reads the corrected medication and condition status; the
+freshness monitor (#512) watches series cadence.</li>
+</ol>
+<h3 id="decisions-richard-needs-to-make">Decisions Richard needs to make<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#decisions-richard-needs-to-make" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li><strong>Encounter versions:</strong> keep the latest of each id and delete the 306 older rows (backup
+first)?</li>
+<li><strong>Update in place:</strong> should a re-sync overwrite stored FHIR records when Kaiser changes them
+(status, corrected values, amended notes)? And should earlier versions be kept in a history
+table, or dropped?</li>
+<li><strong>Row identity for medications, conditions and labs:</strong> one row per FHIR resource (per
+prescription, per diagnosis instance, per observation)? This changes what <code>mods_medication</code>
+and <code>mods_condition</code> mean. The knowledge graph’s “current medication” would then come from a
+derived view. <em>(Decided: D-Q4-16 item 3, then D-Q4-18 for the view’s rules; built for
+medications and conditions in I-3. Labs are I-4.)</em></li>
+<li><strong>Note bodies:</strong> fetch and store the text of all ~920 notes, or only some types? Storing them
+puts the full narrative record in the database and in embeddings.</li>
+<li><strong>Condition status mapping:</strong> when Kaiser sends no <code>clinicalStatus</code> (as it does for 40 of the
+42 stored conditions), store NULL (“not stated”) instead of <code>resolved</code>? This is a vocabulary
+mapping, so per CLAUDE.md it is his call.</li>
+<li><strong><code>kaiser_html</code> overlap:</strong> keep the HTML rows and filter by source in views, mark them
+superseded, or delete the exact overlaps?</li>
+<li><strong>New resource types,</strong> once the census shows what Kaiser holds.</li>
+<li><strong>Where the sync runs:</strong> the encryption key on the worker that runs <code>ehr_sync</code>, or a
+backend-only runner?</li>
+</ol>
+<h2 id="parallelization-analysis">Parallelization Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#parallelization-analysis" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Surfaces touched.</strong>
+<ul>
+<li><strong>This PR (phase 1):</strong> docs (this file) and tests (<code>test_kaiser_census.py</code>), plus one new
+read-only script. No backend API, frontend component, worker handler, migration, MCP tool or
+DB-stored config.</li>
+<li><strong>Phase 2:</strong>
+<ul>
+<li>backend API: yes (sync entry and status);</li>
+<li>frontend component: yes (<code>Terminal.jsx</code> <code>ehr sync</code> output);</li>
+<li>worker handler: yes (<code>handle_ehr_sync</code>, or only its environment);</li>
+<li>migration: yes (unique indexes on FHIR ids; possibly history tables);</li>
+<li>MCP tool: yes (<code>mods_ehr_sync</code> in-flight guard and status);</li>
+<li>DB-stored config: no;</li>
+<li>docs: yes (this audit; <code>.claude/rules/ehr-integrations.md</code>);</li>
+<li>tests: yes.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Parallel split.</strong> Step 1’s fixes are independent: connector paging, Terminal, connection
+lookups and the compose key can be separate sessions. Step 2 (identity, upsert, migration)
+must land before its cleanups and before step 4’s re-import. Step 3 (Binary) can be built
+alongside step 2, because documents already dedupe on FHIR id since #626. Step 5 follows
+step 2’s generic fetcher. The census needs nothing but a login.</li>
+<li><strong>Collision hotspots.</strong>
+<ul>
+<li><code>backend/migrations.py</code>: step 2’s indexes; number against all branches.</li>
+<li>the compose file the stack runs from: the worker key.</li>
+<li><code>frontend/src/components/Terminal.jsx</code>.</li>
+<li><code>backend/mcp_servers/mods_server.py</code>.</li>
+<li><code>backend/mods_models.py</code>.</li>
+<li><code>requirements.txt</code>: an HTML/RTF-to-text library for note bodies, if one is needed.</li>
+<li><code>.claude/rules/ehr-integrations.md</code>.</li>
+<li>Not touched: <code>main.py</code>, <code>component_registry.py</code>, <code>ComponentLoader.jsx</code>, <code>package.json</code>,
+<code>CLAUDE.md</code>, <code>MEMORY.md</code>.</li>
+</ul>
+</li>
+<li><strong>Verify how.</strong>
+<ul>
+<li><strong>Census:</strong> re-run after each step. Kaiser-only ids → 0; “collapsed by Maple’s key” → 0;
+“stored status differs” → 0.</li>
+<li><strong>pytest:</strong> <code>tests/test_ehr_fhir_sync.py</code>, <code>tests/test_kaiser_census.py</code>, and new import
+tests, each failing first with the bug restored.</li>
+<li><strong>DB:</strong> the read-only counts in this document, re-run.</li>
+<li><strong>Worker:</strong> an env check on the worker that runs <code>ehr_sync</code>.</li>
+<li><strong>UI:</strong> a Terminal walk-through showing <code>partial</code> for a failed search.</li>
+<li><strong>KG:</strong> the patient KG’s <code>current_medication</code> edges recomputed after step 2.</li>
+</ul>
+</li>
+</ol>
+<h2 id="the-census">The census<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-census" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><code>backend/scripts/ehr/kaiser_census.py</code>
+runs inside the backend container, within the hour after a Kaiser
+login:</p>
+<pre><code>docker exec -i BACKEND python - &lt; backend/scripts/ehr/kaiser_census.py
+docker exec -i BACKEND python - --json &lt; backend/scripts/ehr/kaiser_census.py > census.json
+# once on main: docker exec BACKEND python -m scripts.ehr.kaiser_census --json
+</code></pre>
+<p>For each search it pages to the end, with no silent cap, and records:</p>
+<ul>
+<li>pages, matches, distinct ids and non-resource entries;</li>
+<li>Kaiser’s per-page total, and the <code>_summary=count</code> answer;</li>
+<li>the date range;</li>
+<li>OperationOutcome codes.</li>
+</ul>
+<p>Per resource type it compares Kaiser’s ids with the ids Maple stores. It reports Kaiser-only ids
+(with their date range), Maple-only ids, and records Kaiser changed after Maple stored them.</p>
+<p>It also counts what the sync’s parsers lose. For observations: status, comparators, text over
+500 characters, the sync’s own (name, day) collisions, time of day, the day shift and stored
+values that differ. For conditions and medications: collapse on name and status drift. It counts
+attachment and form types. It fetches up to three attachments and reports their size and type,
+never their content.</p>
+<p>It writes nothing. The database is read in one verified <code>READ ONLY</code> transaction, closed before any
+request. Every request is a GET to the stored FHIR host or another host of the same site
+(<code>*.kp.org</code>), and <code>debug_log</code> is silenced. Output is counts, codes, content types and date ranges
+only.</p>
+<h2 id="how-the-numbers-here-were-measured">How the numbers here were measured<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#how-the-numbers-here-were-measured" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Read-only probes ran on 2026-10-01 against production, each with <code>docker exec -i BACKEND python - &lt; probe.py</code> inside one <code>SET TRANSACTION READ ONLY</code> transaction (asserted with <code>SHOW transaction_read_only</code>), then rolled back. They printed counts, key names, FHIR codes and type
+labels only. Kaiser-side counts come from the <code>debug_logs</code> lines of the two 2026-10-01 syncs
+(page sizes, entries per search, parsed records), reduced to their numbers. Patient-scoped
+queries use Maureen’s patient id, which is also the earliest-created patient. No sync, census or
+write was run, and Kaiser was not called.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-7" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#kaiser-fhir-sync-code-review-and-completeness-audit" data-for="kaiser-fhir-sync-code-review-and-completeness-audit">Kaiser FHIR sync: code review and completeness audit</a></li><li class="depth-1"><a href="#findings-ranked-by-data-lost-or-at-risk" data-for="findings-ranked-by-data-lost-or-at-risk">Findings, ranked by data lost or at risk</a></li><li class="depth-1"><a href="#1-granted-vs-fetched" data-for="1-granted-vs-fetched">1. Granted vs fetched</a></li><li class="depth-1"><a href="#2-fetch" data-for="2-fetch">2. Fetch</a></li><li class="depth-1"><a href="#3-import-per-_import_" data-for="3-import-per-_import_">3. Import, per _import_*</a></li><li class="depth-1"><a href="#4-content-do-stored-notes-carry-their-text" data-for="4-content-do-stored-notes-carry-their-text">4. Content: do stored notes carry their text?</a></li><li class="depth-1"><a href="#5-versions-the-305-encounter-ids-with-two-stored-copies" data-for="5-versions-the-305-encounter-ids-with-two-stored-copies">5. Versions: the 305 encounter ids with two stored copies</a></li><li class="depth-1"><a href="#6-cross-source-kaiser_html-against-the-fhir-rows" data-for="6-cross-source-kaiser_html-against-the-fhir-rows">6. Cross-source: kaiser_html against the FHIR rows</a></li><li class="depth-1"><a href="#7-tests" data-for="7-tests">7. Tests</a></li><li class="depth-1"><a href="#cerbo-in-one-line" data-for="cerbo-in-one-line">Cerbo, in one line</a></li><li class="depth-1"><a href="#recommendation-per-component" data-for="recommendation-per-component">Recommendation per component</a></li><li class="depth-1"><a href="#phase-2-proposed-order" data-for="phase-2-proposed-order">Phase 2: proposed order</a></li><li class="depth-2"><a href="#decisions-richard-needs-to-make" data-for="decisions-richard-needs-to-make">Decisions Richard needs to make</a></li><li class="depth-1"><a href="#parallelization-analysis" data-for="parallelization-analysis">Parallelization Analysis</a></li><li class="depth-1"><a href="#the-census" data-for="the-census">The census</a></li><li class="depth-1"><a href="#how-the-numbers-here-were-measured" data-for="how-the-numbers-here-were-measured">How the numbers here were measured</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

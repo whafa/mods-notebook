@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Smoke run #1 — playbook</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Smoke run #1 — playbook"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Smoke run #1 — playbook"/><meta name="twitter:description" content="The first end-to-end run of the MODS personalization machinery on real inputs: where we actually are, the decisions to fix first, the critical-path issues, the runbook, and the checks that decide whether the machinery works."/><meta property="og:description" content="The first end-to-end run of the MODS personalization machinery on real inputs: where we actually are, the decisions to fix first, the critical-path issues, the runbook, and the checks that decide whether the machinery works."/><meta property="og:image:alt" content="The first end-to-end run of the MODS personalization machinery on real inputs: where we actually are, the decisions to fix first, the critical-path issues, the runbook, and the checks that decide whether the machinery works."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_playbook"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_playbook"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="The first end-to-end run of the MODS personalization machinery on real inputs: where we actually are, the decisions to fix first, the critical-path issues, the runbook, and the checks that decide whether the machinery works."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_playbook-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_playbook-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_playbook-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="results/mods_smoke_run_1_playbook" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-94" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-94" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../results/">results</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Smoke run #1 — playbook</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">5</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">model</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">claude-opus-5-5</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-27</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">reference</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">The first end-to-end run of the MODS personalization machinery on real inputs: where we actually are, the decisions to fix first, the critical-path issues, the runbook, and the checks that decide whether the machinery works.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-09-27T07:00:00.000Z">Sep 27, 2026</time><span>34 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="smoke-run-1--real-prs--clean-foundation--personalized-drug-ranking">Smoke run #1 — real PRS → clean foundation → personalized drug ranking<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#smoke-run-1--real-prs--clean-foundation--personalized-drug-ranking" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Tracking issue:</strong> <code>#439</code>. <strong>Label:</strong> <code>critical-path</code> (every issue that blocks this run carries it, together with <code>p0</code>). <strong>Written:</strong> 2026-09-27 with Claude Opus 5.5, from a code, DB and artifact audit of work built mostly on Opus 5. Every number below was measured that day; re-verify any of them before you rely on it.</p>
+<blockquote>
+<p><strong>Outcome (2026-09-29).</strong> The run finished on 2026-09-29. All ten machinery checks (§6) were measured and pass; two of them, M6 and M9, were borderline, and Richard accepted both. Gate F released 590 scores over 109 diseases as <code>smoke_v0</code>. With her RGCC drugs held out of training, the base ranker shows no RGCC signal (graded-only ρ +0.03 and +0.05 per draw, intervals spanning zero), and the released criterion does not help. The rest of this page is the plan as written on 2026-09-27, with dated updates. Results: <a href="../results/mods_smoke_run_1_writeup" class="internal internal-link alias" data-slug="results/mods_smoke_run_1_writeup">the run’s writeup</a> and <a href="../maplelog/2026-09-29-the-smoke-run-lands" class="internal internal-link alias" data-slug="maplelog/2026-09-29-the-smoke-run-lands">The smoke run lands</a>.</p>
+</blockquote>
+<blockquote>
+<p><strong>The one-line version.</strong> We have never pushed Maureen’s real data through the whole machine. We have also never done it without her validation labels leaking into the training graph. This run does it once, deliberately, and checks every joint. <strong>Proving that personalization helps is not the goal.</strong> Proving that the machinery does what we think it does is.</p>
+</blockquote>
+<hr/>
+<h2 id="0-what-this-run-is-and-what-it-is-not">0. What this run is, and what it is not<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#0-what-this-run-is-and-what-it-is-not" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>It is a machinery test on real inputs.</strong> The chain is:</p>
+<ol>
+<li>PRS released and normalized onto a disease axis, plus her expression values.</li>
+<li>A PDR2 patient pickle built from them.</li>
+<li>A criterion fine-tune on a foundation trained <strong>without</strong> her drug-response labels.</li>
+<li>Raw and personalized drug scores, stored side by side.</li>
+<li>Per-draw RGCC metrics.</li>
+</ol>
+<p>It passes when every check in §6 passes.</p>
+<p><strong>It is not a test of whether personalization works.</strong> The released PDR2 criterion is degenerate, its sign is fixed, and it is blind to edge types (§1.4). A null or negative lift is the expected result. Report it; it is not a failure of this run. The science run is run #2 (§9).</p>
+<p><strong>It is pre-registered.</strong> Record the decisions in §3 as ticked boxes in #439 <strong>before</strong> any drug is scored. Look at no metric until the whole grid in §5.4 is computed.</p>
+<hr/>
+<h2 id="1-where-we-actually-are-verified-2026-09-27">1. Where we actually are (verified 2026-09-27)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-where-we-actually-are-verified-2026-09-27" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Component</th><th>State</th><th>What that means for this run</th></tr></thead><tbody><tr><td>PRS</td><td>3,752 scores computed, <strong>all <code>quarantined</code>, 0 released</strong>. <code>z_score</code>, <code>percentile</code> and <code>disease_cui</code> are NULL on every row.</td><td>Gate D and F must run, and scores need a disease key (§1.3).</td></tr><tr><td>Gate D</td><td>D1, D2 and D3 are built but have never run. Nothing computes ancestry PCs.</td><td>Needs a worker-image rebuild (#339).</td></tr><tr><td>Gate F</td><td>No code anywhere writes <code>validity='released'</code>.</td><td>A v0 release writer is on the path (#296).</td></tr><tr><td>Disease axis</td><td>The registered schema <code>v1</code> has 6 diseases: AD, a coeliac score filed as RA, breast, T2D, prostate and ischaemic stroke. Colorectal cancer is <strong>not</strong> on it.</td><td>Axis v2 is on the path (#244, #430).</td></tr><tr><td>Foundation</td><td><code>916bdd2c</code>, 2026-05-18, <code>maureen_focus_v1</code>. Trained on her RGCC and medication edges and on a split with a symmetry leak.</td><td>Must retrain (§1.1, §1.2).</td></tr><tr><td>Criterion</td><td>Expression enters unscaled. The weights are closed-form. Eval scales by raw weights where training uses normalized ones.</td><td>Fix the inputs (#435); measure the rest.</td></tr><tr><td>Personalized scores</td><td>Nothing produces them for a drug list. The worker has never completed a personalized eval.</td><td>#436</td></tr><tr><td>RGCC metrics (PDR2 path)</td><td>Still averages the two draws.</td><td>#437</td></tr><tr><td>Container</td><td><code>:latest</code> is <code>issue29-c2bdc44</code>, built 2026-05-26, apparently from a working tree with uncommitted changes, so its exact contents are unknown. Five <code>lib/pdr2</code> commits since then are probably not in it.</td><td>Rebuild from HEAD, record the digest.</td></tr><tr><td><code>pdr_status</code> “critical path”</td><td>Seven May tasks: Phase 0 AD closure, PDR1 Track A CSV, embedder pickoff, …</td><td><strong>Stale. Do not steer by it.</strong> This playbook and the label replace it.</td></tr></tbody></table></div>
+<h3 id="11-the-foundation-memorized-the-validation-labels">1.1 The foundation memorized the validation labels<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-the-foundation-memorized-the-validation-labels" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The foundation’s own split files are on disk at <code>C:\Maple\runs\2026-05-18_maureen_focus_v1\data\</code>. Her patient edges by split (query in Appendix A.1):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Predicate</th><th>train</th><th>valid</th><th>test</th></tr></thead><tbody><tr><td><code>MAPLE:sensitive_to_drug</code></td><td>5</td><td>1</td><td>2</td></tr><tr><td><code>MAPLE:partially_sensitive_to_drug</code></td><td>35</td><td>18</td><td>14</td></tr><tr><td><code>MAPLE:resistant_to_drug</code></td><td>34</td><td>19</td><td>7</td></tr><tr><td>medication (<code>past</code> / <code>current</code> / <code>tried</code>)</td><td>45 / 9 / 8</td><td>18 / 4 / 4</td><td>16 / 2 / 2</td></tr></tbody></table></div>
+<ul>
+<li><strong>74 of the 135 RGCC edges were in train.</strong></li>
+<li><strong>Four of the five Tier-2 positives were memorized.</strong>
+<ul>
+<li>Oxaliplatin, cisplatin and mitomycin carried <code>sensitive_to_drug</code> in train.</li>
+<li>Pemetrexed’s CHEBI edge was in test, but its PharmGKB twin, <code>pharmgkb_variants:pharmgkb_drug:pemetrexed</code>, was in train.</li>
+<li>Carboplatin was the only held-out positive. That is why it sat at rank 260, the “outlier” MODS_MISSION_SPEC §5.3 blamed for suppressing Tier-1.</li>
+</ul>
+</li>
+</ul>
+<p>Re-scoring the published v2 scores <strong>per draw</strong> (Appendix A.2):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Draw</th><th>All drugs</th><th>Labels never in train</th><th>Labels in train</th></tr></thead><tbody><tr><td>2025-02-15</td><td>ρ +0.115 (n=105)</td><td><strong>ρ −0.051 (n=49, p 0.73)</strong></td><td>ρ +0.363 (n=56, p 0.006)</td></tr><tr><td>2025-09-19</td><td>ρ +0.149 (n=105)</td><td><strong>ρ −0.045 (n=49, p 0.76)</strong></td><td>ρ +0.407 (n=56, p 0.002)</td></tr></tbody></table></div>
+<p>The PDR2 v2 RGCC signal was memorization. On the clean subset, graded-only, ρ is +0.22 / +0.28 (n=26), which is not significant.</p>
+<p>Other drug-related leaks:</p>
+<ul>
+<li><strong>Medication history is circular for the response-episode surface.</strong> All 14 labelled response episodes are for drugs she has a <code>tried_drug</code> edge to, and 7 of those 8 drugs have a patient→drug edge in train.</li>
+<li><strong>The same drug can appear under two CURIEs.</strong> 22 held-out RGCC edges had the same agent in train under a sibling CURIE (oxaliplatin as CHEBI and as PharmGKB). A holdout must group by drug identity, not by CURIE.</li>
+<li><strong>The overlay erases the draw inversion.</strong> RGCC edges carry no draw date, and writes use <code>ON CONFLICT DO NOTHING</code>. All 12 drugs that moved 25 points or more between draws land in <code>partially_sensitive</code>.</li>
+</ul>
+<h3 id="12-the-graph-has-a-symmetry-leak">1.2 The graph has a symmetry leak<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-the-graph-has-a-symmetry-leak" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>PrimeKG stores most edges in both directions under one predicate, and the export splits per directed triple. <strong>539,594 of the 890,384 test triples (60.6%) have their exact reverse in train</strong> (Appendix A.3). Training does not remove the mirror (<code>remove_one_hop</code> defaults to False), so the foundation learns a lookup, and every PrimeKG foundation MRR (0.56–0.59) is inflated by it. This is the FB15k / WN18 inverse-leakage pattern. The split is also not reproducible. Set order depends on an unset <code>PYTHONHASHSEED</code>, and the audit found two same-seed runs sharing only ~21% of their test sets. On top of that, every downstream handler <strong>re-exports and re-splits</strong>, and re-adds the full patient overlay while doing it (#433).</p>
+<h3 id="13-real-prs-cannot-reach-the-model-yet">1.3 Real PRS cannot reach the model yet<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-real-prs-cannot-reach-the-model-yet" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>resolve_prs_vector</code> keeps only score rows with a <code>disease_cui</code>. Every row has none, so a released, normalized fleet still exports an <strong>empty</strong> PRS vector and the run silently becomes Track A (#430). The raw material for a disease axis is better than expected:</p>
+<ul>
+<li>1,620 of the 3,753 eligible scores carry a MONDO trait, covering 245 diseases, and all 245 anchor in the <code>maureen_focus_v1</code> slice. <em>(Corrected 2026-09-28: not all. Basal cell carcinoma, <code>MONDO_0020804</code>, has no node in the composition under either spelling; smoke_v0 disease mapping, J10.)</em></li>
+<li>173 of those diseases have more than one eligible score.</li>
+<li>PrimeKG writes MONDO unpadded (<code>MONDO:5148</code>) while CIViC, ClinVar, OncoKB and RTX-KG2 write it padded. 14,504 unpadded disease entities have a padded twin.</li>
+<li>In today’s export, the colorectal node that carries drug edges is <code>MONDO:0005575</code> “Colorectal Cancer”: 10 <code>treats</code>, 2 <code>contraindicated_for</code>, 2 <code>has_off_label_use</code> <em>(export lines, with each drug–disease pair written in both directions: 5 / 1 / 1 distinct drugs; smoke_v0 disease mapping §5, 2026-09-28)</em>. PrimeKG’s <code>MONDO:24331</code> carries only gene associations.</li>
+</ul>
+<h3 id="14-the-criterion-as-released">1.4 The criterion, as released<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#14-the-criterion-as-released" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The released loss (<code>losses.py</code>, <code>paper_code</code>) is <code>base + λ₁·tanh(ŵ·prs) + λ₂·tanh(v̂·expr)</code>, where ŵ and v̂ are L2-normalized. Neither term sees the batch, and the forward pass runs under <code>no_grad</code>, so:</p>
+<ul>
+<li><strong>The weights are closed-form.</strong> The optimum is <strong>ŵ = −PRS/‖PRS‖</strong> and v̂ = −expr/‖expr‖. The fine-tune reads the input vector back out; it learns nothing from the graph.</li>
+<li><strong>The sign is fixed.</strong> Every disease term w_d·p_d ≤ 0 and grows with p_d². Drugs adjacent to her most extreme-risk diseases, high <em>or</em> low, get pushed <strong>down</strong>.</li>
+<li><strong>Expression never trained.</strong> It arrives as Caris TPM percentiles (4–100), unscaled, so tanh saturates from step 0. All 5 past fine-tunes ended with protein weights at their random-init scale. The “top protein weights” in earlier writeups are initialization.</li>
+<li><strong>Eval and training disagree about scale.</strong> Eval multiplies <strong>raw</strong> weights where training normalizes them, and it counts each adjacency 2–4 times depending on mirror and inverse structure.</li>
+<li><strong>The adjustment is edge-blind.</strong> An <code>indication</code> edge and a <code>contraindication</code> edge push the same way. That is Phase 12 (#420).</li>
+</ul>
+<p>This run fixes the inputs and the eval/train mismatch (#435). It deliberately keeps the released loss, and <strong>measures</strong> the degeneracy (check M6 in §6). Phase 12 is the science fix.</p>
+<h3 id="15-silent-failure-modes-still-in-the-code">1.5 Silent-failure modes still in the code<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#15-silent-failure-modes-still-in-the-code" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>A failed checkpoint load continues on a random model</strong> (<code>lib/pdr2/code/script/model.py</code>, #434). A smoke run could “pass” on a random foundation. <em>Fixed 2026-09-27 (#434): a failed load now raises.</em></li>
+<li><strong>Bare <code>debug_log</code> calls in the PDR handlers</strong> raise <code>NameError</code>. One of them sits between the Vertex submit and saving the job id, so a retry can <strong>double-submit an A100 job</strong> (#398). <em>Fixed 2026-09-27 (#398).</em></li>
+<li><del><strong>Rebuilding the schema without <code>--version</code> overwrites <code>v1</code> in place.</strong></del> <em>Fixed 2026-09-28 (#497): <code>--version</code> is required, and an existing version is refused without <code>--overwrite</code>.</em></li>
+<li><strong>Releasing is one-way today.</strong> <code>store_score_result</code> never supersedes a <code>released</code> row, so a later re-score leaves old released values being served (#296’s writer needs a demotion path). <em>Fixed 2026-09-28 (#296): the v0 release writer can demote a release (<code>release_gate_f.py --demote</code>).</em></li>
+<li><strong>The worker reloader used to hard-kill in-flight tasks</strong> on any <code>.py</code> change under <code>C:\Maple</code>, a <code>git pull</code> included (#361). It now drains instead: on a change to a module the worker imported (tests are ignored) it finishes the current task, then restarts. A task still running after <code>WORKER_RELOAD_DRAIN_TIMEOUT_SECONDS</code> (default 6 h; <code>0</code> = no deadline) is still killed. It has been off by default since 2026-09-28 (<code>WORKER_AUTO_RELOAD=0</code>). Don’t turn it back on during a pass.</li>
+</ul>
+<h3 id="16-what-is-in-good-shape">1.6 What is in good shape<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#16-what-is-in-good-shape" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Gate A, B and C are sound and verified: every E2 score reconciles, and none sits outside its theoretical bounds.</li>
+<li>D1, D2 and D3 exist with fixture tests.</li>
+<li>The HGDP+1kGP panel is staged and md5-verified.</li>
+<li>The export reads normalized PRS and refuses raw sums (#297).</li>
+<li>The worker → Vertex path exists for every mode.</li>
+<li>The foundation retrain costs ~21 A100-hours, roughly $120.</li>
+</ul>
+<hr/>
+<h2 id="2-the-run-at-a-glance">2. The run at a glance<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-the-run-at-a-glance" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<pre><button class="expand-button" aria-label="Expand mermaid diagram" data-view-component="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 011.06 1.06L2.56 7h10.88l-2.22-2.22a.75.75 0 011.06-1.06l3.5 3.5a.75.75 0 010 1.06l-3.5 3.5a.75.75 0 11-1.06-1.06l2.22-2.22H2.56l2.22 2.22a.75.75 0 11-1.06 1.06l-3.5-3.5a.75.75 0 010-1.06l3.5-3.5z"></path></svg></button><code class="mermaid" data-clipboard="&quot;flowchart LR\r\n  subgraph P[\&quot;Lane P — PRS\&quot;]\r\n    P1[\&quot;#339 rebuild workers\&quot;] --> P2[\&quot;E3 default policy&lt;br/>‖ D1 panel freqs\&quot;]\r\n    P2 --> P3[\&quot;D2 on v0 subset (#431)\&quot;] --> P4[\&quot;D3 EUR reference (#431)\&quot;] --> P5[\&quot;Gate F v0 release (#296)\&quot;]\r\n  end\r\n  subgraph A[\&quot;Lane A — disease axis\&quot;]\r\n    A1[\&quot;mapping approved (#430)\&quot;] --> A2[\&quot;axis v2 registered (#244)\&quot;] --> A3[\&quot;pickle, Track B\&quot;]\r\n  end\r\n  subgraph G[\&quot;Lane G — clean graph\&quot;]\r\n    G1[\&quot;#432 export fixes&lt;br/>#433 handler reuse&lt;br/>#434 load must fail\&quot;] --> G2[\&quot;container rebuild + digest\&quot;] --> G3[\&quot;leak-free export + manifest\&quot;] --> G4[\&quot;foundation retrain (~21 h A100)\&quot;]\r\n  end\r\n  subgraph R[\&quot;Lane R — scoring &amp; metrics\&quot;]\r\n    R0[\&quot;#398 #435 #436 #437\&quot;] --> R1[\&quot;fine-tunes λ grid\&quot;] --> R2[\&quot;raw + personalized scores\&quot;] --> R3[\&quot;per-draw metric grid\&quot;] --> R4[\&quot;checks M1–M10, annotate top 30\&quot;]\r\n  end\r\n  P5 --> A3\r\n  A2 --> A3\r\n  A3 --> R1\r\n  G4 --> R1\r\n  G2 --> R1&quot;">flowchart LR
+  subgraph P[&quot;Lane P — PRS&quot;]
+    P1[&quot;#339 rebuild workers&quot;] --> P2[&quot;E3 default policy&lt;br/>‖ D1 panel freqs&quot;]
+    P2 --> P3[&quot;D2 on v0 subset (#431)&quot;] --> P4[&quot;D3 EUR reference (#431)&quot;] --> P5[&quot;Gate F v0 release (#296)&quot;]
+  end
+  subgraph A[&quot;Lane A — disease axis&quot;]
+    A1[&quot;mapping approved (#430)&quot;] --> A2[&quot;axis v2 registered (#244)&quot;] --> A3[&quot;pickle, Track B&quot;]
+  end
+  subgraph G[&quot;Lane G — clean graph&quot;]
+    G1[&quot;#432 export fixes&lt;br/>#433 handler reuse&lt;br/>#434 load must fail&quot;] --> G2[&quot;container rebuild + digest&quot;] --> G3[&quot;leak-free export + manifest&quot;] --> G4[&quot;foundation retrain (~21 h A100)&quot;]
+  end
+  subgraph R[&quot;Lane R — scoring &amp; metrics&quot;]
+    R0[&quot;#398 #435 #436 #437&quot;] --> R1[&quot;fine-tunes λ grid&quot;] --> R2[&quot;raw + personalized scores&quot;] --> R3[&quot;per-draw metric grid&quot;] --> R4[&quot;checks M1–M10, annotate top 30&quot;]
+  end
+  P5 --> A3
+  A2 --> A3
+  A3 --> R1
+  G4 --> R1
+  G2 --> R1
+</code><div id="mermaid-container" role="dialog"><div id="mermaid-space"><div class="mermaid-content"></div></div></div></pre>
+<p>Lanes P, A, G and R’s code work can all proceed in parallel. They converge at the fine-tune.</p>
+<hr/>
+<h2 id="3-decisions-to-fix-before-running-pre-registration">3. Decisions to fix before running (pre-registration)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-decisions-to-fix-before-running-pre-registration" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Tick each one in #439 before anything is scored. The recommendations are mine, and each is argued from the audit.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Decision</th><th>Recommendation</th><th>Why</th></tr></thead><tbody><tr><td><strong>D1</strong></td><td>What the base ranking queries</td><td><strong>Disease query:</strong> score <code>(drug, biolink:treats, &lt;CRC anchor>)</code> for every candidate drug, then add the personalization adjustment.</td><td>A foundation trained without her RGCC edges cannot score <code>MAPLE:sensitive_to_drug</code> at all: the relation is absent from the vocabulary, so <code>score_edges</code> returns <code>missing_predicate</code>. The disease query also isolates the thing we want to test, whether her genetics re-ranks medicines, on a base that holds no patient data. Patient-node queries (Mechanism A) need in-context K-fold scoring and move to run #2.</td></tr><tr><td><strong>D2</strong></td><td>What the foundation export excludes</td><td><strong>RGCC <code>MAPLE:*_to_drug</code> (required), plus medication history</strong> (<code>tried_drug</code>, <code>current_medication</code>, <code>past_medication</code>). Keep expression, variant and phenotype edges.</td><td>This matches the design of record: train on her orthogonal biology and hold drug responses out. Medication edges make the response-episode surface circular (§1.1).</td></tr><tr><td><strong>D3</strong></td><td>Graph for the retrain</td><td><strong>Retrain on the current canonical graph, with #432’s export fixes.</strong> Settle #438 (drug–protein roles, wrong drug merges, MONDO twins, PharmGKB synthetic drugs) before run #2.</td><td>Those fixes need re-ingest and mapping decisions under the CLAUDE.md hard rules. The smoke run should not wait on them, but the run report must list them as known limitations.</td></tr><tr><td><strong>D4</strong></td><td>PRS scoring policy</td><td><strong>E3 re-score under the current <em>default</em> policy.</strong></td><td>v0 releases only scores with zero palindromic rows and no strand-flip candidacy, so its values do not depend on the pending palindrome, EAF-route or strand-flip decisions (#422, which follows). E3 is still needed: the E2 rows store a policy dict that <code>ScoringPolicy.from_dict</code> refuses, so D2 cannot rebuild it.</td></tr><tr><td><strong>D5</strong></td><td>Normalization reference</td><td><strong>EUR-only z-score (667 unrelated EUR panel samples, #431).</strong></td><td>She is essentially entirely European. Pooled all-ancestry normalization would bias every z by the EUR-vs-world difference. Ancestry PCs (#429) are the better long-term fix.</td></tr><tr><td><strong>D6</strong></td><td>Gate F v0 release rules</td><td><strong>Adopt #296’s R1–R8</strong> (additive weight scale; inside bounds; ≥1 scored locus; structural overlap ≥ 0.90; zero palindromic rows; complement-only ≤ 5%; callability ≥ 0.90; MONDO anchor in the slice), plus the post-D3 requirements. Tag <code>smoke_v0</code>, record the waivers, build a demotion path.</td><td>Leaves <strong>738 scores over 149 diseases</strong>, all verified-scale and orientation-safe. <em>(2026-09-28: R8 measured 736 / 148; D7’s exclusions then left 594 / 109, and Gate F released 590.)</em> Waived and recorded: the <code>pgsc_calc</code> witness, callability-floor sign-off, the NR-scale policy (excluded, not decided), and the ad-hoc 0.90 thresholds.</td></tr><tr><td><strong>D7</strong></td><td>Disease axis v2</td><td><strong>MONDO traits only</strong>, keyed by the anchor in the foundation’s vocabulary. For v0, exclude PrimeKG grouped anchors, HP-only traits, EFO disease-like traits and multi-trait scores. <strong>One score per disease by a recorded rule</strong> (most scored loci, today’s reader rule). <strong>Required index disease = the CRC anchor that carries drug edges.</strong> Register as <code>v2</code>; never overwrite <code>v1</code>.</td><td>Every choice here is an ontology mapping, so propose the table and get approval (CLAUDE.md). Excluding grouped and multi-trait cases keeps v0 to unambiguous mappings.</td></tr><tr><td><strong>D8</strong></td><td>Expression channel</td><td><strong>Keep v1’s 84-gene axis. Probit z = Φ⁻¹(p/100), clipped to ±4. Use the most recent colorectal specimen</strong> (2025-09-13, today’s resolver behaviour).</td><td>The WTS gene axis (~36k genes, #212) is a schema change and a separate experiment.</td></tr><tr><td><strong>D9</strong></td><td>Criterion and λ</td><td><strong>Released <code>paper_code</code> loss, edge-blind adjustment, target domain <code>drug</code>. Track B at λ ∈ {0, 0.01, 0.1, 1.0}, plus one Track A control.</strong></td><td>λ=0 proves personalized equals raw. The Track A v2 sweep showed λ ≤ 0.1 is below the noise floor and λ ≥ 1 is destructive, so the grid brackets both. Run each λ as its own fine-tune, because the pipeline treats λ as a training-time setting. Under the released loss, ŵ should come out identical for every λ > 0, and that is itself a check (M6).</td></tr><tr><td><strong>D10</strong></td><td>Tier-2 definition</td><td><strong>RGCC’s categorical <code>high_sensitivity</code> (5 per draw) against &lt; 35%.</strong> Report n and bootstrap CIs on every cell.</td><td>Five positives is fragile; print n every time.</td></tr></tbody></table></div>
+<p>Two further choices are the implementer’s and must be recorded rather than decided silently: the CRC anchor, confirmed against the new export’s vocabulary, and the candidate drug set (all RGCC-resolvable drugs plus every drug entity in the vocabulary).</p>
+<hr/>
+<h2 id="4-the-critical-path-label-critical-path">4. The critical path (label <code>critical-path</code>)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-the-critical-path-label-critical-path" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The label is the list. Each issue says whether it is <strong>agent-fixable</strong> or <strong>human-led</strong>, and human-led issues carry the phrase the fixer’s eligibility predicate reads, so the unattended fixer leaves them alone.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Lane</th><th>Issue</th><th>What</th><th>Depends on</th><th>Who</th><th>Size</th></tr></thead><tbody><tr><td>P</td><td><code>#339</code></td><td>Rebuild the worker image (pgenlib, zstandard, scipy); verify all 10 workers</td><td>—</td><td>human (ops)</td><td>S</td></tr><tr><td>P</td><td><code>#431</code></td><td>Gate D smoke options: EUR-only reference; explicit D2 score list</td><td>—</td><td>agent</td><td>S</td></tr><tr><td>P</td><td><code>#295</code></td><td>Gate D umbrella: run D1 → D2 → D3</td><td>#339, #431, E3</td><td>human (runs)</td><td>M (compute)</td></tr><tr><td>P</td><td><code>#296</code></td><td>Gate F v0 release writer + release</td><td>#295, #430</td><td>human</td><td>M</td></tr><tr><td>A</td><td><code>#430</code></td><td>PRS rows need a disease key; preflight refuses silent Track A</td><td>mapping approval</td><td>human</td><td>M</td></tr><tr><td>A</td><td><code>#244</code></td><td>Disease axis v2 from the released manifest</td><td>#430</td><td>human</td><td>M</td></tr><tr><td>G</td><td><code>#432</code></td><td>Export: predicate exclusion, mirror-grouped deterministic split, manifest</td><td>—</td><td>human</td><td>M</td></tr><tr><td>G</td><td><code>#433</code></td><td>Handlers reuse the foundation’s exact split; never re-add the overlay</td><td>#432</td><td>human</td><td>M</td></tr><tr><td>G</td><td><code>#434</code></td><td>A failed checkpoint load must raise</td><td>—</td><td>agent</td><td>S</td></tr><tr><td>G</td><td><code>#214</code></td><td>Leak-free validation design (umbrella)</td><td>#432, #433</td><td>human</td><td>—</td></tr><tr><td>R</td><td><code>#398</code></td><td>Bare <code>debug_log</code> NameErrors in the PDR handlers</td><td>—</td><td>agent</td><td>S</td></tr><tr><td>R</td><td><code>#435</code></td><td>Criterion inputs: expression z, normalized eval weights, adjacency once</td><td>—</td><td>human</td><td>S–M</td></tr><tr><td>R</td><td><code>#436</code></td><td>Raw + adjustment + personalized scores for any candidate set</td><td>#435</td><td>human</td><td>M</td></tr><tr><td>R</td><td><code>#437</code></td><td>Per-draw RGCC metric grid, stored</td><td>—</td><td>agent</td><td>S–M</td></tr><tr><td>R</td><td><code>#114</code></td><td>The run itself</td><td>everything above</td><td>human</td><td>—</td></tr><tr><td>—</td><td><code>#439</code></td><td>Tracking issue (decisions, runbook checklist)</td><td>—</td><td>human</td><td>—</td></tr></tbody></table></div>
+<p><strong>Deliberately not on this path</strong> (they come right after it; §9):</p>
+<ul>
+<li><strong><code>#420</code></strong> Phase 12 signed criterion.</li>
+<li><strong><code>#422</code></strong> final-policy E3: the palindrome decision, strand-flip set, EAF gate, and knob plumbing.</li>
+<li><strong><code>#429</code></strong> ancestry PCs.</li>
+<li><strong><code>#428</code></strong> D2 knob tripwire, which is needed before #422’s first new knob.</li>
+<li><strong><code>#414</code></strong> genome-wide palindromes.</li>
+<li><strong><code>#438</code></strong> graph defects.</li>
+<li><strong><code>#324</code></strong> restatement of the old numbers, including memorization.</li>
+<li><strong><code>#212</code></strong> WTS gene axis.</li>
+<li><strong><code>#46</code></strong> Cloud Build retag automation; a manual retag suffices here.</li>
+<li><strong><code>#361</code></strong> reloader: off by default since 2026-09-28 (§5.0). <strong><code>#360</code></strong> resume blindness: handled by procedure (<code>--no-resume</code>, §5.1).</li>
+</ul>
+<hr/>
+<h2 id="5-runbook">5. Runbook<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-runbook" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Every job goes through the worker queue or the research API, never raw <code>gcloud</code>, so each run lands in <code>mods_research_run</code> and the Training Cockpit.</p>
+<h3 id="50-pre-flight-and-guardrails-before-any-long-pass">5.0 Pre-flight and guardrails (before any long pass)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#50-pre-flight-and-guardrails-before-any-long-pass" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Worker reload is off.</strong> <code>docker exec maple-worker-1 printenv WORKER_AUTO_RELOAD</code> prints <code>0</code>, the compose default since 2026-09-28. Then merges and pulls can go on during E3, D1, D2 or a Vertex handler; nothing needs freezing. A worker keeps the code it started with, so load merged code the way <code>.claude/rules/worker.md</code> describes. If it prints <code>1</code>, recreate the workers from a <code>C:\Maple</code> that has the new default before starting.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Unattended fixer: pausing is optional.</strong> Stopping it (<code>python scripts/fixer_agent.py stop</code>, then <code>python scripts/fixer_agent.py nightly off</code>, from <code>C:\Maple</code>) was a workaround for #361: its nightly run starts with <code>git pull</code> in <code>C:\Maple</code>, which used to restart every worker. With reload off, that pull no longer restarts them.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Queue is clear.</strong> Nothing live in <code>task_queue</code> except the known stale rows: a <code>pdr_checkpoint_eval</code> claimed since 2026-05-27 (#313), and two March <code>thread_embed</code> rows.
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id, task_type, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">status</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, created_at </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> task_queue</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> status</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> IN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'running'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'claimed'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'pending'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">ORDER BY</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> created_at;</span></span></code></pre></figure>
+</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Disk.</strong> At least 20 GB free on C:. It had 49 GB on 2026-09-27; nothing on the path needs more than a few GB. Don’t stage the 13.2 GB <code>.pgen</code> container-locally unless space allows.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Memory.</strong> The Docker VM has 30.7 GB. E3 (2 × 8.45 GB) and D1 (~6 GB) fit together. D2 runs after both.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Credentials.</strong> The database credential is set in the shell that runs any <code>docker-compose -f COMPOSE_FILE</code> command, and <code>gcloud auth application-default login</code> is current.</li>
+</ul>
+<h3 id="51-lane-p--prs-to-released-normalized-scores">5.1 Lane P — PRS to released, normalized scores<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-lane-p--prs-to-released-normalized-scores" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The Gate D and E drivers <strong>enqueue worker tasks</strong>, and they default to container paths (<code>/app/backend/data/...</code>). Run them inside a worker container the way E2 was: <code>docker exec maple-worker-1 python /app/backend/scripts/prs/&lt;driver>.py …</code>. Never edit a <code>.py</code> in <code>C:\Maple</code> to launch something. Watch progress with a detached poller, not a foreground loop.</p>
+<p>Flags marked <strong>(#431)</strong> do not exist until that issue lands.</p>
+<ol>
+<li>
+<p><strong>Rebuild the workers (#339).</strong> Use the compose file that created them:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">docker</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">compose </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-f</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> COMPOSE_FILE build worker worker2 worker3 worker4 worker5 worker6 worker7 worker8 worker9 worker10</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">docker</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">compose </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-f</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> COMPOSE_FILE up </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">d </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">no</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">deps </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">force</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">recreate worker worker2 worker3 worker4 worker5 worker6 worker7 worker8 worker9 worker10</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">foreach</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> ($w </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'maple-worker-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker2-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker3-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker4-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker5-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker6-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker7-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker8-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker9-1'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'maple-worker10-1'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">) { docker exec $w python </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">backend</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">check_worker_env.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">|</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> Select-String</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'RESULT'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> }</span></span></code></pre></figure>
+<p>Expect <code>RESULT: ALL OK</code> ×10.</p>
+</li>
+<li>
+<p><strong>E3 re-score under the default policy (D4)</strong>, in parallel with <strong>D1</strong>. E3 is estimated at ~4 h (E2 took 3 h 51 m) and D1 at ~2–2.5 h, which is also an estimate.</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">docker exec maple</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">worker</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> python </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">backend</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run_gate_e.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">step score </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">no</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">resume </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient PATIENT_UUID </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">gate</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">a</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">id 64a90788</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">a459</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">4afd</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">bb92</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">d3814727716d </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">shards </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">callset</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">gb </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">8.45</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">docker exec maple</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">worker</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> python </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">backend</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run_gate_d_panel.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">step d1 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient PATIENT_UUID </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">skip-pgen</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">checksum</span></span></code></pre></figure>
+<p><code>64a90788</code> is the v4-union callset (19,215,298 loci, 16,964,243 records, sha <code>d76e1c65…</code>) that all 3,752 live rows were scored against. The other Gate A runs are 6-locus sentinel builds; don’t pick one of those. Use <code>--no-resume</code>, because resume keys only on scorer version (#360).
+<strong>Verify:</strong> 3,752 new <code>quarantined</code> rows under the new <code>run_id</code>; their stored policy includes <code>palindrome_forward_scores</code> and <code>strand_flip_recovery_scores</code>; E2’s rows are <code>superseded</code>; one <code>gate_a.n_records</code> value across live rows.</p>
+</li>
+<li>
+<p><strong>Compute the v0 candidate list.</strong> Take #296’s R1–R8 funnel over the E3 rows. R8 needs the approved disease mapping (§5.2 step 1, #430), so Lane A’s decision gates this step. The funnel should reproduce <strong>594 scores over 109 diseases</strong>; if it doesn’t, stop and find out why. Write the ids to a file. <em>(Updated 2026-09-28: D7’s mapping, approved in PR #460, applies its own exclusions after R8. R8 alone gives 736/148 on the E2 rows, not ~738/149: basal cell carcinoma has no node. Dropping multi-trait scores and grouped anchors then leaves 594/109.)</em></p>
+</li>
+<li>
+<p><strong>D2 on the subset (#431)</strong>, then merge. Estimated ~4 h. Bound concurrency with a <code>pipeline_config</code> row for <code>mods_prs_panel_score</code> (<code>enabled=1</code>, <code>max_concurrent=2</code>; two D2 tasks fit the 30.7 GB VM), and <strong>delete the row afterwards</strong>, or the task type stays throttled forever.</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">docker exec maple</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">worker</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> python </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">backend</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run_gate_d_panel.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">step d2 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient PATIENT_UUID </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">gate</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">a</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">id 64a90788</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">a459</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">4afd</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">bb92</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">d3814727716d </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">pgs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">ids</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">file </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">v0_ids.txt</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">shards </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">   # --pgs-ids-file is (#431)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">docker exec maple</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">worker</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> python </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">backend</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run_gate_d_panel.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">step merge </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient PATIENT_UUID</span></span></code></pre></figure>
+<p><strong>Verify:</strong></p>
+<ul>
+<li>no <code>PolicyMismatch</code> (the default <code>--policy gate-c</code> rebuilds her E3 policy);</li>
+<li>panel coverage is recorded per score;</li>
+<li>the merge wrote <code>/app/backend/data/prs_panel/panel_scores.jsonl</code>;</li>
+<li>her missingness matches the panel’s: per score, compare <code>d2.patient.dropped</code> with <code>d2.panel_dropped_mean</code> (both as fractions of <code>outcomes.matched</code>). <em>(Added 2026-09-28: on the first run they did not match (#499). She dropped a median of 2.3 points more, which moves her z on scores whose panel mean is far from zero: PGS005253 by about −5.5 SD.)</em></li>
+</ul>
+<p>D2’s patient column is on by default (panel-aligned placement), which is what we want.</p>
+</li>
+<li>
+<p><strong>D3 against the EUR reference (D5, #431).</strong> Dry-run first:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">docker exec maple</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">worker</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> python </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">backend</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run_gate_d.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient PATIENT_UUID </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">distributions </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">backend</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/data/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs_panel</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">panel_scores.jsonl </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">reference</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">subset superpop:EUR </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">dry</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run   </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># --reference-subset is (#431)</span></span></code></pre></figure>
+<p><strong>Verify:</strong> <code>percentile_v1</code> names the subset, with <code>score_basis == panel_aligned</code>, and z-scores are finite. Remember that <code>percentile</code> stays the pooled rank; the reader prefers <code>z_score</code>.</p>
+</li>
+<li>
+<p><strong>Gate F v0 release (#296, D6).</strong> The writer releases the v0 set, writes the disease anchor (#430), tags <code>smoke_v0</code> with the rule version and waivers, and can demote.
+<strong>Verify:</strong> <code>mods_prs_manifest_stats(section='lifecycle')</code> shows <code>released</code> equal to the v0 count, and <code>resolve_prs_vector</code> returns that many anchors.</p>
+</li>
+</ol>
+<h3 id="52-lane-a--disease-axis-v2-and-the-patient-pickle">5.2 Lane A — disease axis v2 and the patient pickle<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-lane-a--disease-axis-v2-and-the-patient-pickle" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li><strong>The mapping table (#430, D7) is approved</strong> before any code writes it.</li>
+<li><strong>Register axis v2 (#244).</strong> Use <code>python backend/scripts/build_kgia_feature_schema.py --version v2 --dry-run</code>, then run it for real. <code>--version</code> is required, and an existing version is refused without <code>--overwrite</code> (#497). v2 registers <strong>inactive</strong> unless <code>--activate</code> is passed, so every pickle build names <code>--schema-version v2</code>. It is built from the released <code>gate_f.axis_pick</code> rows, so run it after the Gate F release. The CRC anchor (<code>MONDO:0005575</code>) must be on the axis; the build refuses otherwise, and so does every pickle build (#337, #497).</li>
+<li><strong>Build the Track B pickle and preflight it:</strong>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">python backend</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">build_pdr2_input_pickle.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">id PATIENT_UUID </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">source maureen </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">schema</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">version v2 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">out runs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">date</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">_smoke1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">maureen_trackB_v2.pkl</span></span></code></pre></figure>
+Pass <code>--patient-id</code>: the default lookup returns nothing when two patients exist. Never pass <code>--allow-raw-prs-fallback</code>.
+<strong>Verify (M3):</strong> measured PRS positions > 0, all values finite, the <code>.meta.json</code> records <code>value_field = z_score</code> and the expression transform, and <code>.resolution.json</code> is present. Record the sha256 values.</li>
+<li><strong>Build the Track A control</strong> the same way, with <code>--source synthetic_zeros</code>.</li>
+<li><strong>Upload</strong> the pickles and sidecars to <code>gs://BUCKET/patient_data/&lt;date>_smoke1/</code>.</li>
+</ol>
+<h3 id="53-lane-g--the-clean-graph-and-a-new-foundation">5.3 Lane G — the clean graph and a new foundation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-lane-g--the-clean-graph-and-a-new-foundation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p><strong>Merge the code first:</strong> #432, #433, #434, #435, #436 and #398. Then <strong>rebuild the PDR2 container from HEAD</strong> and record the digest:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">gcloud builds submit </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">config cloudbuild</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">pdr2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">training.yaml </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">ignore</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">file</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.gcloudignore.pdr2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">training </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">substitutions</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">_TAG</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">shortsha</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">smoke1</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">gcloud container images </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">add-tag</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> gcr.io</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">PROJECT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">maple</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">pdr2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">training:</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">shortsha</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">smoke1 gcr.io</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">PROJECT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">maple</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">pdr2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">training:latest</span></span></code></pre></figure>
+<p>The handlers read <code>VERTEX_TRAINING_IMAGE=…:latest</code>, so record the digest you retagged, and the one it replaced, in #439. Pass <code>--ignore-file</code> explicitly, or the upload balloons.</p>
+</li>
+<li>
+<p><strong>Leak-free export (#432, D2)</strong>, reusing an existing dataset class name so no extra rebuild is needed. It is excluded by predicate: the three <code>MAPLE:*_to_drug</code> predicates plus, per D2, the three medication predicates.
+<strong>Verify (M4):</strong></p>
+<ul>
+<li><code>grep -c &quot;_to_drug\|_medication\|tried_drug&quot;</code> is 0 on train, valid and test;</li>
+<li>the mirror check (A.3) returns 0%;</li>
+<li>the manifest md5s reproduce on a second export.</li>
+</ul>
+</li>
+<li>
+<p><strong>Train the foundation</strong> through <code>POST /api/mods/research/runs/submit</code>. The schema forbids unknown fields; set these:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="json" data-theme="github-light github-dark"><code data-language="json" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">{</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;run_id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;&lt;date>_smoke1_foundation_leakfree&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;composition_id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;maureen_focus_v1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation"> &quot;dataset_class&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;PrimeKGCIViCPharmGKBMaureen&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;epochs&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">20</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;bpe&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">500</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation"> &quot;init_strategy&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;scratch&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;seed&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">41504</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;gpu_type&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;A100_80GB&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation"> &quot;timeout_seconds&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">100000</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;save_every_n_epochs&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation"> &quot;hidden_dim&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">64</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;n_layers&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">6</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation"> &quot;patient_curie&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;MAPLE_PATIENT:maureen-1173a8db&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation"> &quot;include_source&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;maple_patient&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">],</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation"> &quot;exclude_predicates&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;MAPLE:sensitive_to_drug&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;MAPLE:partially_sensitive_to_drug&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;MAPLE:resistant_to_drug&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">                        &quot;MAPLE:tried_drug&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;MAPLE:current_medication&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;MAPLE:past_medication&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">]}</span></span></code></pre></figure>
+<p><code>exclude_predicates</code> is added by #432; its final field name is whatever that PR ships. The patient overlay stays in, so she exists as a node with her biology edges, but without drug edges.
+Expect ~20–21 h on A100-80GB. Train-mode weights only reach GCS at job end, so keep <code>save_every_n_epochs</code>.</p>
+<p>The train-mode post-training eval (entrypoint §6) calls <code>eval_maple.py</code> <strong>without</strong> <code>--n_test_sample</code>. The default is 0, which means the full test set. <code>916bdd2c</code>’s 20.64 h appears to include that full eval, which is why <code>timeout_seconds</code> must stay well above 86,400. Plumbing <code>N_TEST_SAMPLE</code> into train mode would be a cheap follow-up.
+<strong>Verify (M5):</strong></p>
+<ul>
+<li>the log shows <code>Successfully loaded</code> wherever a checkpoint is read;</li>
+<li>the loss curve is sane;</li>
+<li>the filtered MRR is recorded.
+<strong>Expect it to be lower than 0.56</strong>, because the mirror shortcut is gone.</li>
+</ul>
+</li>
+</ol>
+<h3 id="54-lane-r--fine-tune-score-measure">5.4 Lane R — fine-tune, score, measure<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-lane-r--fine-tune-score-measure" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p><strong>Fine-tunes (D9)</strong>, one per λ ∈ {0, 0.01, 0.1, 1.0} on the Track B pickle, plus a Track A control at λ=0.01. Each goes through <code>POST /runs/{foundation}/submit_finetune</code>, with <code>ckpt_uri</code> set to the new foundation’s checkpoint and <code>gpu_type: A100_80GB</code>. Make sure <code>FINE_TUNE_MAX_BATCH=128</code> reaches the job; the request schema has no field for it, so check the handler’s env. The pre-flight probe runs under <code>no_grad</code> and undersizes memory ~6×.
+<strong>Verify (M6):</strong></p>
+<ul>
+<li>for every Track B λ > 0, cos(normalize(w_disease), −prs) > 0.5 with sign agreement ≥ 0.90, and the same for protein against expression; report the raw cosines. This proves the values reached the right positions. (Revised 2026-09-28 from > 0.99; see the M6 note in §6.)</li>
+<li>ŵ agrees across λ > 0;</li>
+<li>the Track A disease weights move only by AdamW weight decay (they get no gradient);</li>
+<li>#433 reused the foundation’s split (manifest md5 on the child row).</li>
+</ul>
+</li>
+<li>
+<p><strong>Score the candidates (#436, D1)</strong> for each fine-tune: <code>(drug, biolink:treats, &lt;CRC anchor>)</code> for every drug entity in the vocabulary. That includes every RGCC-resolvable drug, grouped by drug identity across CURIEs. Output columns: <code>raw_score, adj, pers_score, raw_rank, pers_rank</code>.
+<strong>Verify (M7):</strong></p>
+<ul>
+<li>at λ=0, <code>pers_score == raw_score</code> on every row;</li>
+<li><code>adj</code> for 20 sampled drugs equals an independent recomputation from the pickle, the normalized weights and the export adjacency;</li>
+<li>at λ ≥ 0.1, Kendall τ(raw, pers) &lt; 1;</li>
+<li>report which relation types carried the adjustment. How much of it flowed through <code>contraindicated_for</code> edges is the edge-blindness, measured.</li>
+</ul>
+</li>
+<li>
+<p><strong>Build the metric grid (#437, D10):</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Axis</th><th>Values</th></tr></thead><tbody><tr><td>Draw</td><td>2025-02-15, 2025-09-19</td></tr><tr><td>Panel</td><td>all-panel (n=112), graded-only (n=59)</td></tr><tr><td>Score</td><td>raw, personalized (per λ)</td></tr><tr><td>Drug set</td><td>all drugs, drugs unseen in training</td></tr></tbody></table></div>
+<p>Every drug should be unseen, since the RGCC edges were excluded; the check proves it. Report Tier-1 Spearman and Tier-2 AUROC, with n and bootstrap CIs in every cell, and print the test-retest figures.
+<strong>Verify (M8):</strong> results are stored as <code>mods_research_validation_result</code> rows, one per draw × variant.</p>
+</li>
+<li>
+<p><strong>Annotate the top 30 (#114)</strong>, personalized at the chosen λ, next to raw. Give each drug its known CRC indication status, its RGCC draw values, and the diseases whose PRS moved it. Label the whole page “smoke run: machinery validation, not a recommendation”.</p>
+<p><strong>Reasoning paths for the top 10</strong> <em>(added 2026-09-29, Richard)</em>. For each of the ten, record the graph paths that drove its raw score. This is the evidence a reviewer would have to accept before taking the drug seriously. It is also the direct test of whether the ranking does more than recall known CRC drugs.</p>
+<ul>
+<li>
+<p><strong>Method.</strong></p>
+<ul>
+<li>Use <code>BaseNBFNet.visualize()</code> in our fork (<code>lib/pdr2/code/ultra/base_nbfnet.py</code>). It takes the gradient of the score with respect to every edge, then beam-searches the highest-weighted paths (NBFNet’s interpretation method; defaults <code>num_beam=10</code>, <code>path_topk=10</code>).</li>
+<li>Nothing calls it today. <code>EntityNBFNet</code> only gets its <code>query</code> and each layer’s <code>relation</code> inside <code>Ultra.forward</code>, so a thin wrapper must set both from the relation model first, exactly as <code>forward</code> does.</li>
+<li>Running it needs a container mode, e.g. <code>MODE=explain_paths</code>. That is one more change to batch into the Lane R rebuild (§10). Submit it through the worker queue (M10).</li>
+</ul>
+</li>
+<li>
+<p><strong>Explain the exact score.</strong></p>
+<ul>
+<li>Use the same checkpoint, the same fact graph and the same query as <code>score_edges</code>.</li>
+<li><code>visualize()</code> skips <code>negative_sample_to_tail</code>, so pass the triple already turned: (CRC anchor, inverse of <code>biolink:treats</code>, drug).</li>
+<li><strong>Positive control:</strong> the score computed inside <code>visualize()</code> must equal the drug’s <code>raw_score</code> to float tolerance. If it doesn’t, the paths explain some other number: stop and fix the query.</li>
+</ul>
+</li>
+<li>
+<p><strong>Record per drug</strong> the top 5 paths with their weights, each hop as name, CURIE and predicate. Classify each drug’s strongest path:</p>
+<ul>
+<li><em>direct</em>: the drug’s own edge to CRC (expected for a known indication);</li>
+<li><em>mechanistic</em>: drug → target → gene or pathway → CRC;</li>
+<li><em>analogy</em>: drug → shared target or class → another drug → CRC;</li>
+<li><em>personal</em>: through her own node, via her expression, variant or phenotype edges (legitimate, since D2 keeps them);</li>
+<li><em>hub</em>: through a generic, very high-degree node.</li>
+</ul>
+<p>Report the count in each class. If every drug’s support is direct or analogy, the ranking is recalling known CRC drugs. Mechanistic paths are what repurposing needs.</p>
+</li>
+<li>
+<p><strong>Limits.</strong></p>
+<ul>
+<li>The paths explain the raw score only. The personalization adjustment is added after message passing and has no path; the “diseases whose PRS moved it” note covers it.</li>
+<li>The foundation is frozen, so the paths are the same at every λ. Compute them once.</li>
+<li>Gradient paths show what drove the score, not whether the biology holds.</li>
+<li>No path may use one of the six predicates D2 excludes. One that does means M4 missed a leak.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="55-closing-the-run">5.5 Closing the run<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#55-closing-the-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Record in #439 every run id, the image digest, the manifest md5, the release tag, the schema hash and the pickle sha256 (M9).</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Write the results up in the house format (Purpose / Methods / Results / Discussion), <strong>including the null or negative lift and the measured degeneracy</strong>, and save a <code>pdr_note_save</code> decision.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Turn the fixer back on.</li>
+</ul>
+<hr/>
+<h2 id="6-machinery-acceptance-checks-the-passfail">6. Machinery acceptance checks (the pass/fail)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-machinery-acceptance-checks-the-passfail" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Check</th><th>Passes when</th></tr></thead><tbody><tr><td><strong>M1</strong></td><td>PRS released</td><td><code>released</code> rows carry <code>z_score</code>, a disease anchor and the <code>smoke_v0</code> tag. The count equals the v0 funnel. No released score sits outside its bounds.</td></tr><tr><td><strong>M2</strong></td><td>Axis</td><td><code>v2</code> is registered with a hash, <code>v1</code> is untouched, and the CRC anchor is on the axis.</td></tr><tr><td><strong>M3</strong></td><td>Pickle</td><td>Measured PRS positions > 0 and equal to the axis diseases with a released score. All values are finite. Expression is z-scored. The sidecars are present.</td></tr><tr><td><strong>M4</strong></td><td>Export</td><td>0 lines with an excluded predicate. 0% of test triples have their reverse in train. The manifest md5s reproduce.</td></tr><tr><td><strong>M5</strong></td><td>Foundation</td><td>Every load logs <code>Successfully loaded</code> (#434 makes a failure fatal). Loss converges. The MRR is recorded, and is lower than before.</td></tr><tr><td><strong>M6</strong></td><td>Fine-tune</td><td>For λ > 0: cos(ŵ, −PRS) > 0.5 and cos(v̂, −expr) > 0.5, each with sign agreement ≥ 0.90, and ŵ agrees across λ. The raw cosines are reported. The Track A disease weights move only by weight decay.</td></tr><tr><td><strong>M7</strong></td><td>Personalized scores</td><td>At λ=0, personalized equals raw. The sampled <code>adj</code> equals an independent recomputation. At λ ≥ 0.1, τ &lt; 1. The edge-type breakdown of the adjustment is reported.</td></tr><tr><td><strong>M8</strong></td><td>Metrics</td><td>Per-draw grid with n per cell. Every RGCC drug is flagged unseen. Test-retest is printed.</td></tr><tr><td><strong>M9</strong></td><td>Provenance</td><td>Every artifact links run ids, the image digest, the manifest md5, the release tag, the schema hash and the pickle sha256. Re-running one scoring job reproduces its scores exactly.</td></tr><tr><td><strong>M10</strong></td><td>Venue</td><td>Every job went through the worker queue and appears in the Training Cockpit. There were no raw <code>gcloud</code> submissions.</td></tr></tbody></table></div>
+<p><strong>All ten pass → the machinery works.</strong> Then report the lift, whatever it is.</p>
+<blockquote>
+<p><strong>M6 revised 2026-09-28 (Richard), from cos > 0.99.</strong> The released loss cannot reach its own closed-form optimum ŵ = −p/‖p‖ at realistic scale. tanh saturates within about 50 steps, and the weights stall near −sign(p)/√D. Measured over 2,020 steps (PR #461):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Input</th><th>cos(ŵ, −p)</th><th>Sign agreement</th></tr></thead><tbody><tr><td>Synthetic, D = 149, ‖p‖ = 12.2</td><td>0.657</td><td>0.926</td></tr><tr><td>Her 84-gene expression after probit</td><td>0.665</td><td>0.94</td></tr><tr><td>Scrambled null</td><td>−0.005</td><td>0.517</td></tr><tr><td>Synthetic, D = 20, ‖p‖ = 4.2</td><td>0.9997</td><td>1.0</td></tr></tbody></table></div>
+<p>The gate is now cos > 0.5 and sign agreement ≥ 0.90, both far outside the null. The shortfall from 0.99 is itself a finding about the released criterion, to report beside its fixed sign.</p>
+</blockquote>
+<hr/>
+<h2 id="7-the-fine-details-every-trap-we-know-of-and-the-check-that-now-catches-it">7. The fine details: every trap we know of, and the check that now catches it<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-the-fine-details-every-trap-we-know-of-and-the-check-that-now-catches-it" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Trap</th><th>Where it bit (or would have)</th><th>The guard</th></tr></thead><tbody><tr><td>RGCC labels in the training graph</td><td>v2 foundation: 74 of 135 edges; 4 of 5 Tier-2 positives memorized</td><td>D2 exclusion + M4 grep + M8 unseen flag</td></tr><tr><td>Medication edges make the response-episode surface circular</td><td>62 medication edges in train</td><td>D2</td></tr><tr><td>Same drug under two CURIEs (CHEBI vs <code>pharmgkb_variants:pharmgkb_drug:*</code>)</td><td>22 held-out edges had a sibling in train</td><td>Group by drug identity (#437)</td></tr><tr><td>Mirror pairs straddle splits</td><td>60.6% of test triples</td><td>#432 mirror-grouped split + M4</td></tr><tr><td>Split depends on <code>PYTHONHASHSEED</code>; seed 42 vs 41504</td><td>Every past re-export</td><td>#432 deterministic split + manifest</td></tr><tr><td>Handlers re-export and re-add the overlay</td><td>Every fine-tune, eval and score job</td><td>#433 + manifest md5 on child rows</td></tr><tr><td>Two RGCC draws pooled</td><td>PDR2 metrics path; the overlay itself</td><td>#437 + per-draw grid</td></tr><tr><td>Overlay erases the draw inversion (no draw date on edges)</td><td>All 12 movers land in <code>partially</code></td><td>Excluded from this run; fix before RGCC edges are ever used as context (run #2)</td></tr><tr><td>RGCC zeros rendered as NULL (falsy coercion)</td><td>The MCP tool before 2026-09-24</td><td>Query the table; #437 asserts 112 per draw</td></tr><tr><td>Phantom KRAS</td><td>Issue text (#104, #51), not data</td><td>She has no KRAS mutation; check <code>mods_list_alterations</code></td></tr><tr><td>Melanoma WTS rows (the 2026 specimen)</td><td>Latent: NULL <code>report_date</code> sorts last today</td><td>Most recent <em>colorectal</em> specimen (D8); #212’s scoping fix</td></tr><tr><td>Random model after a failed checkpoint load</td><td><code>model.py</code> fallback</td><td>#434 + M5</td></tr><tr><td>Stale <code>:latest</code> image of unknown content</td><td>May image, uncommitted code</td><td>Rebuild from HEAD, record the digest (§5.3)</td></tr><tr><td>Double-submitted A100 job</td><td>#398 site between submit and saving the job id</td><td>#398</td></tr><tr><td>Silent Track A (no disease key)</td><td>Every PRS row</td><td>#430 preflight + M3</td></tr><tr><td>Raw PRS sums saturate tanh</td><td>Would have, without #297</td><td><code>resolve_prs_vector</code> refuses them; never pass <code>--allow-raw-prs-fallback</code></td></tr><tr><td>Expression percentiles saturate tanh</td><td>All 5 past fine-tunes</td><td>#435 + M6</td></tr><tr><td>Eval uses raw weights where training normalizes; adjacency counted 2–4×</td><td><code>evaluate_personalized_maple.py</code></td><td>#435 + M7 recomputation</td></tr><tr><td>Criterion sign fixed and closed-form</td><td>The released loss</td><td>Measured by M6; fixed in #420 (run #2)</td></tr><tr><td>Edge-blind adjustment</td><td><code>indication</code> = <code>contraindication</code></td><td>Measured by M7’s edge-type breakdown; fixed in #420</td></tr><tr><td>Schema rebuild overwrites <code>v1</code></td><td><code>build_kgia_feature_schema.py</code> default, before #497</td><td>Fixed: <code>--version</code> required, existing versions refused without <code>--overwrite</code> (#497)</td></tr><tr><td>Her no-calls deflate her score but not the panel’s</td><td>D2 before #499</td><td>Compare <code>patient.dropped</code> with <code>panel_dropped_mean</code> per score (§5.1 step 4); #499</td></tr><tr><td>Released rows never superseded by a later re-score</td><td><code>store_score_result</code></td><td>Demotion path in #296’s writer</td></tr><tr><td>Unscored disease reads as exactly average risk (0.0)</td><td>Reference fill; the loss ignores the <code>measured</code> mask</td><td>The axis only includes diseases with a released score</td></tr><tr><td>Worker reloader kills long passes</td><td>Gate E task 1041499, 2026-09-24</td><td><code>WORKER_AUTO_RELOAD=0</code>, the compose default since 2026-09-28 (§5.0)</td></tr><tr><td>Resume keyed only on scorer version</td><td>Would have blended E1 and E2</td><td><code>--no-resume</code> (#360)</td></tr><tr><td>Checkpoints reach GCS only at job end</td><td>Train mode</td><td><code>save_every_n_epochs</code></td></tr><tr><td><code>eval_maple.py</code> auto-runs a full 1-vs-all test (11–30 h)</td><td>Post-train eval</td><td><code>--n_test_sample 50000</code></td></tr><tr><td>Pre-flight probe undersizes memory ~6×</td><td>Fine-tune OOM at batch 256</td><td><code>FINE_TUNE_MAX_BATCH=128</code></td></tr><tr><td>BPE is a step count; batch changes change the training volume</td><td>Foundation runs</td><td>Keep bpe 500 and batch settled; record both</td></tr><tr><td>PDR2 <code>validate()</code> relation-aware filter bug (MRR ≈ 0.99)</td><td>Upstream eval</td><td>Use <code>eval_maple.py</code> full-ranking numbers only</td></tr><tr><td>PrimeKG drug–protein roles collapsed; wrong drug merges; MONDO twins; PharmGKB synthetic drugs</td><td>The canonical graph</td><td>Known limitation (D3); #438 before run #2</td></tr></tbody></table></div>
+<hr/>
+<h2 id="8-what-we-will-be-able-to-say-afterwards-and-what-we-wont">8. What we will be able to say afterwards, and what we won’t<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-what-we-will-be-able-to-say-afterwards-and-what-we-wont" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>If M1–M10 pass, we can say:</strong></p>
+<ul>
+<li>The machinery runs end to end on real inputs with no drug-response leakage, and every artifact is traceable.</li>
+<li>Her PRS reached the model at the right positions.</li>
+<li>The honest <strong>base-ranker</strong> Tier-1 and Tier-2 numbers per draw. These are the first clean RGCC numbers the project has had.</li>
+<li>How much the released criterion moves the ranking, in which direction, and through which edge types.</li>
+<li>For each of the top 10, which graph evidence drove its raw score, and how much of the list rests on recall (direct or analogy paths) rather than mechanistic evidence.</li>
+</ul>
+<p><strong>We will not be able to say:</strong></p>
+<ul>
+<li>That personalization helps. The criterion is degenerate and edge-blind; that question belongs to run #2.</li>
+<li>Anything clinical. Single patient; RGCC is in vitro, fixed-concentration CTC data; five Tier-2 positives.</li>
+<li>That a path’s biology is true. The paths show what drove a score, so they are hypotheses to review, not findings.</li>
+<li>Anything about patient-node queries (Mechanism A). This run does not use them.</li>
+</ul>
+<hr/>
+<h2 id="9-after-the-smoke-run-run-2-and-the-rest">9. After the smoke run (run #2 and the rest)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-after-the-smoke-run-run-2-and-the-rest" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Phase 12 (#420):</strong> a signed per-relation adjustment, plus a fine-tune whose signal depends on outcomes. Its parameterization, decision (ii), is Richard’s.</li>
+<li><strong>Final PRS policy:</strong>
+<ul>
+<li>#422: the palindrome forward set, strand-flip set and EAF gate, with the knob plumbing its comment describes; land #428 first;</li>
+<li>#429: ancestry PCs;</li>
+<li>the <code>pgsc_calc</code> witness;</li>
+<li>then a release v1 that retires <code>smoke_v0</code> through the demotion path. This is what “release most of the scores” needs.</li>
+</ul>
+</li>
+<li><strong>Graph (#438):</strong> decide on the drug–protein roles, the bad drug merges, the MONDO twins and the PharmGKB drugs. Then re-export and retrain.</li>
+<li><strong>Mechanism A:</strong> drug-grouped K-fold <em>in context</em>. Fold k is scored with the other folds’ RGCC edges, one draw at a time, added to the fact graph. No retrain per fold is needed, since ULTRA has no per-relation parameters. This needs the overlay to carry draw dates.</li>
+<li><strong>Restate the old numbers (#324)</strong>, for memorization as well as pooling.</li>
+<li><strong>The larger inputs:</strong> the WTS gene axis (#212) and population supervision (#327).</li>
+</ol>
+<hr/>
+<h2 id="10-parallelization-analysis">10. Parallelization analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-parallelization-analysis" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Surfaces touched.</strong>
+<ul>
+<li>Backend: <strong>yes</strong> (#430, #431, #437, #296 writer, #244).</li>
+<li>Frontend: no.</li>
+<li>Worker handlers: <strong>yes</strong> (#433, #398).</li>
+<li>Migrations: <strong>none expected</strong>; <code>release_v0</code> and the axis live in existing columns and JSONB, so confirm before adding any.</li>
+<li>MCP tools: no. The <code>mods_pdr_export</code> tool ignores the schema, so don’t use it for this run.</li>
+<li>DB-stored config: <strong>yes</strong>, the <code>pdr2_feature_schema</code> v2 row.</li>
+<li>Docs: <strong>yes</strong> (this file, the results writeup).</li>
+<li>Tests: <strong>yes</strong>, in every code issue.</li>
+<li>Container: <strong>yes</strong>, one rebuild after #434, #435 and #436, including the path-explanation mode for §5.4 step 4.</li>
+</ul>
+</li>
+<li><strong>Parallel split.</strong>
+<ul>
+<li>Lane P code (#431) and runs (#339 → E3 ‖ D1 → D2 → D3) run independently of Lane G code (#432, #433, #434) and Lane R code (#435, #436, #437).</li>
+<li>#430 and #244 need the mapping decision first.</li>
+<li>Sequential joins: #296’s release waits on D3 and #430; the pickle waits on the release and axis v2; the fine-tunes wait on the pickle, the foundation and the rebuilt image.</li>
+</ul>
+</li>
+<li><strong>Collision hotspots.</strong>
+<ul>
+<li><code>worker/task_handlers.py</code> is shared by #398, #433 and #422’s plumbing: sequence them.</li>
+<li><code>lib/pdr2/code/script/*</code> is shared by #434, #435, #436 and the path-explanation mode: batch them into one rebuild.</li>
+<li><code>requirements.txt</code> (#339) is already done.</li>
+<li>No <code>migrations.py</code>, <code>component_registry.py</code>, <code>Terminal.jsx</code> or <code>main.py</code> changes are expected.</li>
+</ul>
+</li>
+<li><strong>Verify-how per surface.</strong>
+<ul>
+<li>Backend and PRS: pytest via <code>scripts/run_backend_tests.ps1</code>. The :5434 DB is broken (#421), so use CI or the agent DB.</li>
+<li>Worker: a dry-run submission with a mismatched manifest refuses.</li>
+<li>Container: a synthetic-pickle machinery test (M6, M7).</li>
+<li>DB: the lifecycle counts (M1).</li>
+<li>End to end: M1–M10.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="appendix-a--audit-queries-reproduce-1">Appendix A — Audit queries (reproduce §1)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#appendix-a--audit-queries-reproduce-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>A.1 Patient edges by split in the foundation’s training files.</strong></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">cd</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> /c/Maple/runs/2026-05-18_maureen_focus_v1/data</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="normal"> f </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> train</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> valid</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> test</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">; </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">do</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> echo</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> &quot;== </span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="normal">$f</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">; </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">grep</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> &quot;MAPLE_PATIENT:maureen&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="normal"> $f</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">.txt</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> |</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function"> cut</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> -f2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> |</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function"> sort</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> |</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function"> uniq</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> -c</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">; </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">done</span></span></code></pre></figure>
+<p><strong>A.2 Per-draw Tier-1 of the v2 scores, split by whether the drug’s label was ever in train.</strong> Inputs: <code>runs/2026-05-20_rgcc_tier1_v2/metrics.matched.csv</code> (the <code>sensitive_to_drug</code> rows), <code>edges.csv</code> (agent → CURIEs), <code>train.txt</code>, and the labels:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">collected_date</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">reported_date</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> draw, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">a</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">agent_name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">a</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">score_raw</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_functional_test_agent_result a</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">JOIN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_functional_test_profile p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">ON</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> a</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">functional_test_id</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">patient_id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'PATIENT_UUID'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  AND</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">test_name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ILIKE </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'%onconomics%'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AND</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> a</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">score_raw</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> IS NOT NULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span></code></pre></figure>
+<p>A drug is “clean” when none of its CURIEs is the object of a <code>MAPLE_PATIENT:maureen… MAPLE:*_to_drug</code> line in <code>train.txt</code>. Spearman is computed per draw, never pooled.</p>
+<p><strong>A.3 Mirror leak.</strong></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">tr </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> {</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property">tuple</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(l.rstrip(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string">\r\n</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">).split(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string">\t</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> l </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> open</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'train.txt'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">encoding</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'utf-8'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">te </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> [</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property">tuple</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(l.rstrip(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string">\r\n</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">).split(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string">\t</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> l </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> open</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'test.txt'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">encoding</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'utf-8'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)]</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">print</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">sum</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">((t, r, h) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function"> tr </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function"> h, r, t </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function"> te) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> len</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(te))   </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># 0.606 on 916bdd2c</span></span></code></pre></figure>
+<p><strong>A.4 PRS rows have no disease key.</strong></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> validity, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">), </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(disease_cui), </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(z_score), </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(percentile)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_polygenic_score </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> patient_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'PATIENT_UUID'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span></code></pre></figure>
+<p><strong>A.5 MONDO padding twins.</strong></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_entity u </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">JOIN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_entity p</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  ON</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">curie</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'MONDO:'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> ||</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> lpad(split_part(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">u</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">curie</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">':'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">), </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">7</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'0'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> u</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">curie</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ~ </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'^MONDO:[0-9]+$'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AND</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> u</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">curie</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> !~ </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'^MONDO:[0-9]{7}$'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;   </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- 14,504</span></span></code></pre></figure>
+<p><strong>A.6 Drug–protein roles.</strong></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> predicate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">), </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FILTER</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> metadata ? </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'display_relation'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_relation </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'prime_kg'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AND</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source_predicate </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'drug_protein'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- biolink:has_target | 49664 | 0</span></span></code></pre></figure>
+<p><strong>A.7 The Gate A callset behind the live scores.</strong></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> metadata</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'gate_a'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">->></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'n_records'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_polygenic_score</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> validity </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'quarantined'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;                           </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- 16964243 | 3752</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id, union_size, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">left</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(dense_callset_checksum, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">12</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_prs_run</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> gate </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'gate_a_dense_callset'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> ORDER BY</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> created_at;          </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- 64a90788… 19215298 d76e1c65ee40</span></span></code></pre></figure>
+<h2 id="appendix-b--time-and-cost-estimates-unless-marked-measured">Appendix B — Time and cost (estimates unless marked measured)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#appendix-b--time-and-cost-estimates-unless-marked-measured" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Step</th><th>Wall time</th><th>Money</th></tr></thead><tbody><tr><td>Code: #398, #431, #434, #437 (agent-fixable)</td><td>a night of the fixer</td><td>—</td></tr><tr><td>Code: #430, #432, #433, #435, #436, #296 writer, #244</td><td>~5–8 engineer-days, parallelizable</td><td>—</td></tr><tr><td>Worker rebuild</td><td>~0.5 h</td><td>—</td></tr><tr><td>E3 ‖ D1</td><td>~4 h (E2 measured 3 h 51 m)</td><td>—</td></tr><tr><td>D2 on the v0 subset</td><td>~4 h</td><td>—</td></tr><tr><td>D3 + release</td><td>minutes</td><td>—</td></tr><tr><td>Container rebuild</td><td>~0.5 h</td><td>cents</td></tr><tr><td>Foundation retrain</td><td>~20–21 h (measured 20.64 h for <code>916bdd2c</code>)</td><td>~<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">120</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mspace nobreak"> </span></span></span></span>5.83/h A100-80GB</td></tr><tr><td>5 fine-tunes</td><td>~25 min each (measured for Track A v2)</td><td>~$15</td></tr><tr><td>Scoring + metrics</td><td>~1 h</td><td>a few $</td></tr></tbody></table></div></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-74" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#smoke-run-1--real-prs--clean-foundation--personalized-drug-ranking" data-for="smoke-run-1--real-prs--clean-foundation--personalized-drug-ranking">Smoke run #1 — real PRS → clean foundation → personalized drug ranking</a></li><li class="depth-1"><a href="#0-what-this-run-is-and-what-it-is-not" data-for="0-what-this-run-is-and-what-it-is-not">0. What this run is, and what it is not</a></li><li class="depth-1"><a href="#1-where-we-actually-are-verified-2026-09-27" data-for="1-where-we-actually-are-verified-2026-09-27">1. Where we actually are (verified 2026-09-27)</a></li><li class="depth-2"><a href="#11-the-foundation-memorized-the-validation-labels" data-for="11-the-foundation-memorized-the-validation-labels">1.1 The foundation memorized the validation labels</a></li><li class="depth-2"><a href="#12-the-graph-has-a-symmetry-leak" data-for="12-the-graph-has-a-symmetry-leak">1.2 The graph has a symmetry leak</a></li><li class="depth-2"><a href="#13-real-prs-cannot-reach-the-model-yet" data-for="13-real-prs-cannot-reach-the-model-yet">1.3 Real PRS cannot reach the model yet</a></li><li class="depth-2"><a href="#14-the-criterion-as-released" data-for="14-the-criterion-as-released">1.4 The criterion, as released</a></li><li class="depth-2"><a href="#15-silent-failure-modes-still-in-the-code" data-for="15-silent-failure-modes-still-in-the-code">1.5 Silent-failure modes still in the code</a></li><li class="depth-2"><a href="#16-what-is-in-good-shape" data-for="16-what-is-in-good-shape">1.6 What is in good shape</a></li><li class="depth-1"><a href="#2-the-run-at-a-glance" data-for="2-the-run-at-a-glance">2. The run at a glance</a></li><li class="depth-1"><a href="#3-decisions-to-fix-before-running-pre-registration" data-for="3-decisions-to-fix-before-running-pre-registration">3. Decisions to fix before running (pre-registration)</a></li><li class="depth-1"><a href="#4-the-critical-path-label-critical-path" data-for="4-the-critical-path-label-critical-path">4. The critical path (label critical-path)</a></li><li class="depth-1"><a href="#5-runbook" data-for="5-runbook">5. Runbook</a></li><li class="depth-2"><a href="#50-pre-flight-and-guardrails-before-any-long-pass" data-for="50-pre-flight-and-guardrails-before-any-long-pass">5.0 Pre-flight and guardrails (before any long pass)</a></li><li class="depth-2"><a href="#51-lane-p--prs-to-released-normalized-scores" data-for="51-lane-p--prs-to-released-normalized-scores">5.1 Lane P — PRS to released, normalized scores</a></li><li class="depth-2"><a href="#52-lane-a--disease-axis-v2-and-the-patient-pickle" data-for="52-lane-a--disease-axis-v2-and-the-patient-pickle">5.2 Lane A — disease axis v2 and the patient pickle</a></li><li class="depth-2"><a href="#53-lane-g--the-clean-graph-and-a-new-foundation" data-for="53-lane-g--the-clean-graph-and-a-new-foundation">5.3 Lane G — the clean graph and a new foundation</a></li><li class="depth-2"><a href="#54-lane-r--fine-tune-score-measure" data-for="54-lane-r--fine-tune-score-measure">5.4 Lane R — fine-tune, score, measure</a></li><li class="depth-2"><a href="#55-closing-the-run" data-for="55-closing-the-run">5.5 Closing the run</a></li><li class="depth-1"><a href="#6-machinery-acceptance-checks-the-passfail" data-for="6-machinery-acceptance-checks-the-passfail">6. Machinery acceptance checks (the pass/fail)</a></li><li class="depth-1"><a href="#7-the-fine-details-every-trap-we-know-of-and-the-check-that-now-catches-it" data-for="7-the-fine-details-every-trap-we-know-of-and-the-check-that-now-catches-it">7. The fine details: every trap we know of, and the check that now catches it</a></li><li class="depth-1"><a href="#8-what-we-will-be-able-to-say-afterwards-and-what-we-wont" data-for="8-what-we-will-be-able-to-say-afterwards-and-what-we-wont">8. What we will be able to say afterwards, and what we won’t</a></li><li class="depth-1"><a href="#9-after-the-smoke-run-run-2-and-the-rest" data-for="9-after-the-smoke-run-run-2-and-the-rest">9. After the smoke run (run #2 and the rest)</a></li><li class="depth-1"><a href="#10-parallelization-analysis" data-for="10-parallelization-analysis">10. Parallelization analysis</a></li><li class="depth-1"><a href="#appendix-a--audit-queries-reproduce-1" data-for="appendix-a--audit-queries-reproduce-1">Appendix A — Audit queries (reproduce §1)</a></li><li class="depth-1"><a href="#appendix-b--time-and-cost-estimates-unless-marked-measured" data-for="appendix-b--time-and-cost-estimates-unless-marked-measured">Appendix B — Time and cost (estimates unless marked measured)</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../meta/mods_smoke_run_1_pm_charter" class="internal">Smoke run #1 — PM charter</a></li><li><a href="../model/kgia_workflow" class="internal">KGIA end-to-end workflow</a></li><li><a href="../results/mods_smoke_run_1_writeup" class="internal">Smoke run #1 — machinery validation</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

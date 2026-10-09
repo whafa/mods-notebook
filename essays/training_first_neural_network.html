@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Training My First Neural Network</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Training My First Neural Network"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Training My First Neural Network"/><meta name="twitter:description" content="A walkthrough of training a graph neural network on a biomedical knowledge graph, from what a neural network is to what the numbers meant."/><meta property="og:description" content="A walkthrough of training a graph neural network on a biomedical knowledge graph, from what a neural network is to what the numbers meant."/><meta property="og:image:alt" content="A walkthrough of training a graph neural network on a biomedical knowledge graph, from what a neural network is to what the numbers meant."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/essays/training_first_neural_network"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/essays/training_first_neural_network"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="A walkthrough of training a graph neural network on a biomedical knowledge graph, from what a neural network is to what the numbers meant."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/essays/training_first_neural_network-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/essays/training_first_neural_network-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/essays/training_first_neural_network-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="essays/training_first_neural_network" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-8" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-8" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../essays/">essays</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Training My First Neural Network</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-23</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">writeup</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">A walkthrough of training a graph neural network on a biomedical knowledge graph, from what a neural network is to what the numbers meant.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.244Z">Oct 09, 2026</time><span>22 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="training-my-first-neural-network">Training My First Neural Network<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#training-my-first-neural-network" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><em>Dev log #[N] — April 2026</em></p>
+<hr/>
+<blockquote>
+<p><strong>A note on what this is.</strong> This is a walkthrough rather than a result: it explains a training run end to end, from what a neural network is up to what our numbers actually meant. The data and code are accurate as of the date above. The diagrams specified under <em>Chart Production Notes</em> at the end have not been drawn — they are left as a description of what would help, not as a promise that it exists.</p>
+</blockquote>
+<hr/>
+<h2 id="why-im-doing-this">Why I’m Doing This<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#why-im-doing-this" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The project this belongs to is an attempt to find drugs that might work for one
+specific person with stage IV colorectal cancer — not by reading the literature
+faster, but by turning a large part of it into a graph and asking a model what
+the graph’s shape implies. Elsewhere in these notes that argument is made
+properly. Here it is only the reason any of the following was worth doing.</p>
+<p>What makes the problem tractable at all is that somebody has already shown the
+approach works. A 2025 paper applied it to Alzheimer’s disease and colorectal
+cancer, published its method, and got results specific enough to check. So the
+first question was not <em>can this work</em> but the much duller and much more
+answerable <em>can we make it work here</em> — reproduce their pipeline, run it
+ourselves, and see whether the numbers land close enough to theirs to trust the
+machinery before pointing it at a patient.</p>
+<p>They did, mostly. This post is how, step by step, including the parts where the
+obvious thing turned out to be wrong.</p>
+<p>If you had told me six months ago that I’d be running a graph neural network on a biomedical knowledge graph to generate drug repurposing candidates, I would have asked you to repeat that in English. But here we are. This post is a complete walkthrough of how we got there — including every mistake, wrong turn, and “oh, <em>that’s</em> what that means” moment along the way.</p>
+<p>The scientific context: we’re trying to replicate, and then extend, a 2025 paper titled <em>“Precision Drug Repurposing for Alzheimer’s Disease and Colorectal Cancer via Knowledge Graph Embedding”</em> by Oğuztüzün et al. (Journal of Biomedical Informatics, doi:10.1016/j.jbi.2025.104786). The paper trains a neural network on a biomedical knowledge graph to predict which drugs might treat specific diseases — including colorectal cancer (CRC), which is relevant to us for obvious reasons.</p>
+<p>We reproduced their training pipeline, ran it ourselves, and got results close enough to the paper to be meaningful. This post explains how, step by step.</p>
+<hr/>
+<h2 id="first-what-is-a-neural-network-actually">First: What Is a Neural Network, Actually?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#first-what-is-a-neural-network-actually" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Before we get into the specifics, let me give a plain-English overview. I won’t assume you’ve trained one before, because I hadn’t.</p>
+<h3 id="the-basic-idea">The basic idea<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-basic-idea" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A neural network is a mathematical function that learns patterns from data by adjusting millions of internal numbers (called <strong>weights</strong>). You show it examples, it makes predictions, you tell it how wrong it was, and it adjusts its weights to be less wrong next time. Do that enough times and it gets good at whatever pattern you’re training it on.</p>
+<p>The name “neural network” comes from a loose analogy to neurons in a brain — each “neuron” (node) in the network receives signals from others, combines them, and passes a result forward. In practice it’s just matrix multiplication and some nonlinear functions, all the way down.</p>
+<pre><code>[INPUT DATA] → [LAYER 1] → [LAYER 2] → ... → [OUTPUT]
+                  ↑             ↑
+              (weights)     (weights)
+              adjusted by backpropagation
+</code></pre>
+<p><strong>[CHART 1: Simple neural network diagram — 3-4 layers, nodes connected by arrows, label “weights” on the connections, label “backpropagation” as a backward arrow. Keep it clean and minimal. Caption: “A neural network learns by adjusting weights based on prediction errors.”]</strong></p>
+<h3 id="training">Training<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#training" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Training has a rhythm:</p>
+<ol>
+<li><strong>Forward pass</strong> — run data through the network, get a prediction</li>
+<li><strong>Calculate loss</strong> — measure how wrong the prediction is (the “loss function”)</li>
+<li><strong>Backward pass</strong> (backpropagation) — calculate how each weight contributed to the error</li>
+<li><strong>Update</strong> — nudge each weight in the direction that would have made the prediction better (gradient descent)</li>
+<li>Repeat for thousands of batches</li>
+</ol>
+<p>The “learning rate” controls how big each nudge is. Too large and you overshoot. Too small and you never converge.</p>
+<p>An <strong>epoch</strong> is one complete pass through the entire training dataset. We trained for 200 epochs — meaning the model saw every training triple 200 times, updating its weights after each batch.</p>
+<h3 id="embeddings">Embeddings<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#embeddings" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Here’s the key concept for what we’re doing: <strong>embeddings</strong>. Rather than learning to classify inputs into categories, our network learns to map every entity (drug, disease, gene…) to a point in a high-dimensional vector space. Entities that are conceptually related end up close together; unrelated ones are far apart.</p>
+<p>Think of it like a map where similar things cluster. In our case, a drug that treats Alzheimer’s should end up near other Alzheimer’s drugs in the vector space — even if we never explicitly told the model that.</p>
+<p>Our model uses <strong>100-dimensional embeddings</strong>, meaning each entity is represented as a list of 100 numbers. With 61,146 entities, that’s roughly 6.1 million numbers just for the entity embeddings alone.</p>
+<hr/>
+<h2 id="knowledge-graphs-data-as-a-web-of-relationships">Knowledge Graphs: Data as a Web of Relationships<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#knowledge-graphs-data-as-a-web-of-relationships" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Before we could train anything, we needed data in the right shape. That shape is a <strong>knowledge graph</strong> (KG).</p>
+<p>A knowledge graph represents facts as triples:</p>
+<pre><code>(subject) → [relation] → (object)
+</code></pre>
+<p>For example:</p>
+<ul>
+<li><code>(Metformin) → [treats] → (type 2 diabetes)</code></li>
+<li><code>(ATM gene) → [associated with] → (colorectal cancer)</code></li>
+<li><code>(Cyclophosphamide) → [targets] → (DNMT1 gene)</code></li>
+</ul>
+<p><strong>[CHART 2: Simple knowledge graph diagram — 8-10 nodes (2-3 drugs, 2-3 genes, 2 diseases, 1 phenotype), connected by labeled arrows showing different relation types. Color-code by entity type. Caption: “A knowledge graph represents biomedical knowledge as typed nodes connected by labeled relationships.”]</strong></p>
+<p>The knowledge graph we used is called <strong>GP-KG</strong> (Gene-Phenotype Knowledge Graph), built by Srivastava et al. at Case Western Reserve University. It aggregates data from:</p>
+<ul>
+<li><strong>DrugBank</strong> — FDA-approved drug information</li>
+<li><strong>TreatKB</strong> — text-mined drug-disease pairs from clinical trials and MEDLINE</li>
+<li><strong>PhenomeBrowser</strong> — drug-phenotype associations</li>
+</ul>
+<p>By the numbers:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Stat</th><th>Value</th></tr></thead><tbody><tr><td>Total entities</td><td>61,146</td></tr><tr><td>Total edges</td><td>1,246,726</td></tr><tr><td>Relation types</td><td>9</td></tr><tr><td>Drug nodes</td><td>1,430</td></tr><tr><td>Disease nodes</td><td>7,790</td></tr><tr><td>Gene nodes</td><td>18,357</td></tr></tbody></table></div>
+<p>The nine relation types include <code>treat</code>, <code>associate</code> (gene-disease), <code>target</code> (drug-gene), and several gene-phenotype associations across human phenotype, mammalian phenotype, and GO terms.</p>
+<h3 id="the-task-link-prediction">The task: link prediction<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-task-link-prediction" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Given a partial triple like <code>(colorectal cancer) → [treat] → ?</code>, the model’s job is to rank all possible drugs and put the most plausible ones at the top. That’s link prediction — predicting missing edges in the graph.</p>
+<p>The clinical interpretation: drugs the model ranks highly for a given disease are candidates for drug repurposing — potentially treating a disease they weren’t originally approved for.</p>
+<hr/>
+<h2 id="the-architecture-compgcn--conve">The Architecture: CompGCN + ConvE<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-architecture-compgcn--conve" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The paper uses a two-stage neural architecture called <strong>KG-Predict</strong>, built on two components that work in sequence.</p>
+<h3 id="stage-1-compgcn-learning-what-each-entity-is">Stage 1: CompGCN (learning what each entity <em>is</em>)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#stage-1-compgcn-learning-what-each-entity-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>CompGCN</strong> (Compositional Graph Convolutional Networks) is a graph neural network. Unlike standard neural networks that process independent data points, GNNs explicitly pass information across graph edges — each node “learns from its neighbors.”</p>
+<p>Here’s how it works:</p>
+<p>For each entity, CompGCN aggregates messages from all connected entities, weighted by the relation type. A drug connected to many cancer-related genes through <code>target</code> edges will absorb cancer-related signal. A gene connected to many neurodegenerative disease nodes through <code>associate</code> edges will look neurological.</p>
+<p>After one round of message passing (we used <code>gcn_layer=1</code>), every entity has a new embedding that reflects not just itself but its entire local neighborhood in the graph.</p>
+<pre><code>Before CompGCN:
+  Drug A: [random 100-dim vector]
+
+After CompGCN:
+  Drug A: [100-dim vector encoding its targets, associated diseases,
+           phenotypes of those diseases, etc.]
+</code></pre>
+<p><strong>[CHART 3: CompGCN message passing diagram. Show a central drug node receiving arrows from 3-4 neighbor nodes (genes, diseases). Show those neighbors’ embeddings being “aggregated” into a new drug embedding. Caption: “CompGCN propagates information from neighbors to produce context-aware entity embeddings.”]</strong></p>
+<p>The composition operation we used is <code>corr</code> (circular correlation), one of three options (along with <code>sub</code> for subtraction and <code>mult</code> for multiplication). It combines the source entity embedding with the relation embedding using a correlation operation before aggregating — making the model sensitive to which relation type the edge represents, not just that an edge exists.</p>
+<h3 id="stage-2-conve-scoring-drug-disease-pairs">Stage 2: ConvE (scoring drug-disease pairs)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#stage-2-conve-scoring-drug-disease-pairs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Once CompGCN has produced embeddings for every entity, <strong>ConvE</strong> uses those embeddings to score candidate drug-disease pairs.</p>
+<p>For a query <code>(disease, TREAT_REVERSE, ?)</code>:</p>
+<ol>
+<li>Reshape the disease embedding and the relation embedding into 2D “images”</li>
+<li>Stack them into a single input tensor</li>
+<li>Run a 2D convolution (like image processing — the model learns local patterns in the embedding space)</li>
+<li>Flatten, apply a linear layer, and score against all 1,430 drug embeddings simultaneously</li>
+<li>Highest scores = predicted treatments</li>
+</ol>
+<pre><code>disease_embedding [200-dim]  +  relation_embedding [200-dim]
+           ↓
+    Reshape to [10 × 20] + [10 × 20]
+           ↓
+    2D Convolution (kernel size 7×7, 200 filters)
+           ↓
+    Flatten + Linear layer
+           ↓
+    Dot product with all drug embeddings
+           ↓
+    Score vector [1,430 drugs] → rank descending
+</code></pre>
+<p>Together, these two stages mean the model first enriches every entity’s representation with graph-neighborhood context (CompGCN), then uses those enriched representations to score drug-disease pairs (ConvE). It’s a pipeline where the graph structure informs the scoring.</p>
+<hr/>
+<h2 id="getting-the-data-ready">Getting the Data Ready<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#getting-the-data-ready" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The GP-KG data comes as a single <code>kg.txt</code> file — 1.2 million tab-separated triples. Before training, you need to split it into train/validation/test sets.</p>
+<p>The split script (<code>split_GPKG.py</code>) does something clever: it first ensures every entity and relation type appears in at least one training triple (guaranteeing the model sees everything at least once), then randomly distributes the remaining edges into 60/20/20 train/valid/test.</p>
+<p>We ran the split with a fixed random seed:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="normal">PYTHONHASHSEED</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">41504</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function"> python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> split_GPKG.py</span></span></code></pre></figure>
+<p>Result:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Split</th><th>Edges</th><th>% of total</th></tr></thead><tbody><tr><td>Train</td><td>770,550</td><td>61.8%</td></tr><tr><td>Valid</td><td>238,088</td><td>19.1%</td></tr><tr><td>Test</td><td>238,088</td><td>19.1%</td></tr></tbody></table></div>
+<p>We also needed query files — one per disease we wanted to score drugs for. Each file contains one triple per candidate drug:</p>
+<pre><code>c0002395    TREAT_REVERSE    CID100054454
+c0002395    TREAT_REVERSE    CID100002907
+... (1,430 lines total, one per drug)
+</code></pre>
+<p><code>c0002395</code> is the UMLS concept ID for Alzheimer’s disease. <code>c0009402</code> is colorectal cancer. The <code>CID100XXXXXX</code> identifiers are GP-KG’s way of encoding PubChem CIDs — more on that in the gotchas section.</p>
+<hr/>
+<h2 id="running-the-training">Running the Training<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#running-the-training" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>We ran training in Google Colab on an <strong>A100 GPU</strong>. Total training time for 200 epochs: <strong>approximately 4 hours</strong>.</p>
+<p>Our hyperparameter configuration, matching the paper exactly:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">name        </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'gpkg_baseline'</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">opn         </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'corr'</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">        # CompGCN composition: circular correlation</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">init_dim    </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 100</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">           # initial entity embedding dimension</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">gcn_dim     </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 200</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">           # post-CompGCN embedding dimension</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">gcn_layer   </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">             # one round of message passing</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">dropout     </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 0.1</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">lr          </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 0.001</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">         # learning rate (Adam optimizer)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">batch_size  </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 128</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">num_epochs  </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 200</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">seed        </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 41504</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">         # random seed (from paper)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">lbl_smooth  </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 0.1</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">           # label smoothing (prevents overconfidence)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">neg_num     </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1000</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">          # negative samples per positive triple</span></span></code></pre></figure>
+<p>The model’s best validation performance arrived at <strong>epoch 190</strong>, with a validation MRR of <strong>0.4923</strong>.</p>
+<p><strong>[CHART 4: Training curve — two lines, one for validation loss (decreasing), one for validation MRR (increasing), x-axis is epoch (0-200), add a vertical dashed line at epoch 190 labeled “best checkpoint”. Make it look like a real training curve — loss starts high and drops fast then levels, MRR starts low and rises. You don’t have exact epoch-by-epoch numbers so make this illustrative/schematic rather than data-precise. Caption: “Training curve over 200 epochs. The model’s best validation performance arrived at epoch 190 (MRR = 0.4923).”]</strong></p>
+<p>The checkpoint file — essentially a frozen snapshot of every learned weight — came out at <strong>254 MB</strong>. Inside it:</p>
+<ul>
+<li>An entity embedding matrix: 61,146 entities × 100 dimensions</li>
+<li>A relation embedding matrix: 18 relations × 100 dimensions (9 relation types × 2 directions)</li>
+<li>All ConvE convolutional layer weights</li>
+</ul>
+<p>After training, we ran inference immediately — scoring all 1,430 drugs for both Alzheimer’s disease and colorectal cancer. This order matters enormously, as we’ll explain.</p>
+<hr/>
+<h2 id="the-gotchas">The Gotchas<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-gotchas" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This section is for anyone trying to reproduce this themselves. Every one of these cost us at least an hour.</p>
+<h3 id="gotcha-1-the-100-million-cid-mystery">Gotcha 1: The 100 Million CID Mystery<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gotcha-1-the-100-million-cid-mystery" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Our first results were baffling. The top-ranked “drugs” had IDs like <code>CID100002907</code>, <code>CID100054454</code>. We queried PubChem for CID 100002907 and got… nothing. Then CID 100054454… nothing. These seemed to be phantom research compounds, not real drugs.</p>
+<p>Then we looked at the paper’s own supplementary data file (<code>case_study_predict_results.csv</code>). Right there in the paper’s output:</p>
+<pre><code>CID100002907 → cyclophosphamide
+CID100054454 → simvastatin
+</code></pre>
+<p>The penny dropped. GP-KG encodes PubChem CIDs by <strong>adding 100,000,000</strong>. CID 100002907 is actually PubChem CID 2907 — cyclophosphamide, a well-known chemotherapy drug. CID 100054454 is PubChem CID 54454 — simvastatin, a cholesterol drug with interesting AD evidence.</p>
+<p>The fix: subtract 100,000,000 from every GP-KG drug ID before looking it up in PubChem. One line of code, once you know to look for it. We packaged this into a reusable lookup script.</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">def</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function"> get_pubchem_name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(cid_str: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property">str</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">) -> </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property">str</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    raw </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property"> int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(cid_str.lower().replace(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;cid&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">))</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    real_cid </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> raw </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 100_000_000</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">   # the key fix</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    url </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> f</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">{</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">real_cid</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">}</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">/property/Title/JSON&quot;</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    ...</span></span></code></pre></figure>
+<p>A secondary wrinkle: not everything that <em>looks</em> like a drug ID is one. GP-KG includes gene names like CIDEA (a lipid droplet protein), CIDEB, and CIDEC — they start with “CID” but are not drugs. The fix there: filter on the regex <code>^CID\d+</code> (only numeric characters after “CID”).</p>
+<h3 id="gotcha-2-the-silent-entity-scrambling-problem">Gotcha 2: The Silent Entity Scrambling Problem<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gotcha-2-the-silent-entity-scrambling-problem" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This one took longest to diagnose, and it’s the subtlest.</p>
+<p>When the training script builds the graph, it creates a dictionary mapping every entity name to an integer index (<code>ent2id</code>). Entity 0, entity 1, entity 2… up to 61,145. The neural network never sees “cyclophosphamide” — it sees index 3847 (or whatever that drug happened to get).</p>
+<p>The problem: this mapping is <strong>not saved with the checkpoint</strong>. It’s rebuilt from scratch every time you run the training script, and because the training split is generated with Python’s <code>random.shuffle</code> (which is sensitive to Python’s hash randomization), the entity ordering is different every session.</p>
+<p>So: train in Colab session A → checkpoint maps cyclophosphamide to index 3847. Load that checkpoint in Colab session B → the freshly-rebuilt ent2id maps cyclophosphamide to index 12,041. The model’s internal weights haven’t changed — but now they’re being applied to the wrong entities. Every prediction is scrambled.</p>
+<p>We discovered this by computing a Spearman rank correlation between our local inference results and the paper’s ranked drug list:</p>
+<ul>
+<li><strong>Local inference (wrong ent2id):</strong> ρ = 0.067 — essentially random</li>
+<li><strong>Colab inference (correct ent2id, same session as training):</strong> ρ = 0.740 — strong correlation</li>
+</ul>
+<p>The difference was entirely in whether we ran inference in the same session as training or a new one. <strong>Rule: never load a checkpoint in a new session and run inference. Train and infer in one sitting.</strong></p>
+<h3 id="gotcha-3-cuda-checkpoint-on-a-cpu-machine">Gotcha 3: CUDA Checkpoint on a CPU Machine<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gotcha-3-cuda-checkpoint-on-a-cpu-machine" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The model was trained on a Colab A100 GPU. When we tried to load the checkpoint locally (to run quick tests), PyTorch threw:</p>
+<pre><code>RuntimeError: Attempting to deserialize object on a CUDA device
+but torch.cuda.is_available() is False
+</code></pre>
+<p>Fix: add <code>map_location</code> and <code>weights_only=False</code> arguments to <code>torch.load</code>:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># Before (fails on CPU):</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">state </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> torch.load(load_path)</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># After (works anywhere):</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">state </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> torch.load(load_path, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">map_location</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">self</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">.device, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">weights_only</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">False</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span></code></pre></figure>
+<p>The paper’s <code>test.py</code> doesn’t include these arguments. Anyone reproducing locally needs to patch this.</p>
+<h3 id="gotcha-4-the-drug-query-file-only-had-639-drugs">Gotcha 4: The Drug Query File Only Had 639 Drugs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gotcha-4-the-drug-query-file-only-had-639-drugs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Our initial <code>ad_pre.txt</code> (the file listing all drugs to score for Alzheimer’s) only had 639 entries. The fix was obvious once identified — we were only looking for entities that appeared in the <code>TREAT</code> relation. But many drugs have no known treatment edges at all; they’re in the graph via other relations (<code>target</code>, <code>drug_hp_phenotype</code>, etc.).</p>
+<p>The correct approach: extract all entities matching the pattern <code>^CID\d+</code> from the entity vocabulary — regardless of which relations they appear in. That gave us the correct <strong>1,430 drug nodes</strong>.</p>
+<h3 id="gotcha-5-windows-encoding-error">Gotcha 5: Windows Encoding Error<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gotcha-5-windows-encoding-error" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A print statement in our lookup script used a Unicode arrow character (<code>→</code>). Windows terminal encoding (cp1252) can’t handle it:</p>
+<pre><code>UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 12
+</code></pre>
+<p>Fix: replace <code>→</code> with <code>-></code>. Obvious in retrospect; infuriating in the moment.</p>
+<h3 id="gotcha-6-the-missing-log-directory">Gotcha 6: The Missing Log Directory<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gotcha-6-the-missing-log-directory" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<pre><code>FileNotFoundError: [Errno 2] No such file or directory: './log/gpkg_baseline'
+</code></pre>
+<p>The test script assumes a <code>log/</code> directory exists. It doesn’t create one. Fix: create <code>log_test/</code> and pass <code>-logdir ./log_test/</code> as an argument. Not documented anywhere.</p>
+<hr/>
+<h2 id="the-results">The Results<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-results" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>After running inference in the same Colab session as training, here’s what the model predicted.</p>
+<h3 id="alzheimers-disease-ad--our-top-10">Alzheimer’s Disease (AD) — Our Top 10<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#alzheimers-disease-ad--our-top-10" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>[CHART 5: Horizontal bar chart, AD top 10. Drugs on y-axis (sorted by score, highest at top), model score on x-axis. Use a blue color scheme. Include the score value as a label on each bar.]</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rank</th><th>Drug</th><th>Model Score</th></tr></thead><tbody><tr><td>1</td><td>Simvastatin</td><td>0.0405</td></tr><tr><td>2</td><td>Cyclophosphamide</td><td>0.0317</td></tr><tr><td>3</td><td>Celecoxib</td><td>0.0267</td></tr><tr><td>4</td><td>Cantide + Cisplatin</td><td>0.0263</td></tr><tr><td>5</td><td>Verapamil</td><td>0.0165</td></tr><tr><td>6</td><td>Taxol (Paclitaxel)</td><td>0.0150</td></tr><tr><td>7</td><td>Amiodarone</td><td>0.0143</td></tr><tr><td>8</td><td>5-Fluorouracil</td><td>0.0142</td></tr><tr><td>9</td><td>Propranolol</td><td>0.0141</td></tr><tr><td>10</td><td>Bromocriptine</td><td>0.0133</td></tr></tbody></table></div>
+<p>Simvastatin at #1 is interesting — there’s actually a meaningful body of literature suggesting statins may have neuroprotective effects. Celecoxib (a COX-2 inhibitor / anti-inflammatory) at #3 is plausible given the neuroinflammation hypothesis of AD. These aren’t random.</p>
+<h3 id="colorectal-cancer-crc--our-top-10">Colorectal Cancer (CRC) — Our Top 10<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#colorectal-cancer-crc--our-top-10" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>[CHART 6: Horizontal bar chart, CRC top 10. Same format as AD chart but use a red/orange color scheme.]</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rank</th><th>Drug</th><th>Model Score</th></tr></thead><tbody><tr><td>1</td><td>Cyclophosphamide</td><td>0.387</td></tr><tr><td>2</td><td>Cantide + Cisplatin</td><td>0.273</td></tr><tr><td>3</td><td>Vincristine</td><td>0.187</td></tr><tr><td>4</td><td>Methotrexate</td><td>0.116</td></tr><tr><td>5</td><td>Mitoxantrone</td><td>0.115</td></tr><tr><td>6</td><td>Taxol (Paclitaxel)</td><td>0.100</td></tr><tr><td>7</td><td>Bleomycin sulfate</td><td>0.096</td></tr><tr><td>8</td><td>Imatinib</td><td>0.083</td></tr><tr><td>9</td><td>Sorafenib</td><td>0.070</td></tr><tr><td>10</td><td>Metformin</td><td>0.069</td></tr></tbody></table></div>
+<p>The CRC scores are notably higher than the AD scores — cyclophosphamide scores 0.387 vs simvastatin’s 0.040 for AD. This likely reflects that GP-KG has more cancer-drug treatment edges than AD-drug treatment edges, giving the model stronger signal for CRC.</p>
+<p>Notice what’s <em>missing</em> from this CRC list: Oxaliplatin, Irinotecan, and Leucovorin — the backbone of standard CRC chemotherapy. They’re not here because they’re <strong>not in GP-KG at all</strong>. The dataset was built from DrugBank’s FDA-approved drugs as of its 2022 vintage, and these specific agents weren’t represented. This is an important limitation — and one of the main reasons we’re also training on PrimeKG, which has 7,957 drug nodes (vs GP-KG’s 1,430) and does include all the missing agents.</p>
+<hr/>
+<h2 id="how-close-did-we-get-to-the-paper">How Close Did We Get to the Paper?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#how-close-did-we-get-to-the-paper" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The paper’s AD top 10 looks quite different from ours:</p>
+<h3 id="papers-ad-top-10-from-case_study_predict_resultscsv">Paper’s AD Top 10 (from case_study_predict_results.csv):<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#papers-ad-top-10-from-case_study_predict_resultscsv" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rank</th><th>Drug</th></tr></thead><tbody><tr><td>1</td><td>Memantine</td></tr><tr><td>2</td><td>Risperidone</td></tr><tr><td>3</td><td>Donepezil</td></tr><tr><td>4</td><td>Galantamine</td></tr><tr><td>5</td><td>Rivastigmine</td></tr><tr><td>6</td><td>Quetiapine</td></tr><tr><td>7</td><td>Olanzapine</td></tr><tr><td>8</td><td>Haloperidol</td></tr><tr><td>9</td><td>Aripiprazole</td></tr><tr><td>10</td><td>Clozapine</td></tr></tbody></table></div>
+<p>Those top 10 are <em>all</em> FDA-approved drugs currently used in AD care — acetylcholinesterase inhibitors, NMDA antagonists, and antipsychotics used for behavioral symptoms. The paper’s model nailed established treatments.</p>
+<p>Our top 10 has simvastatin, cyclophosphamide, celecoxib. Different.</p>
+<p>Does that mean our model is wrong? Not exactly. We measure agreement using <strong>Spearman rank correlation (ρ)</strong> — a statistic that measures how well two ranked lists agree. ρ = 1.0 means perfect agreement; ρ = 0.0 means no relationship; ρ = -1.0 means perfect inverse.</p>
+<p><strong>[CHART 7: Scatter plot — x-axis is “paper’s rank” (1–1430), y-axis is “our rank” (1–1430), one dot per drug (1,430 dots total). Color the top-30 in the paper in orange, our top-30 in blue, overlap in green. Draw a diagonal trend line. Include a text annotation: “ρ = 0.740”. Caption: “Rank correlation between our model’s drug rankings and the paper’s rankings for Alzheimer’s disease. ρ = 0.740 indicates strong but imperfect agreement.”]</strong></p>
+<p>Our result: <strong>ρ = 0.740</strong> — strong correlation. The two models broadly agree on which drugs should rank high and which should rank low, but they disagree on the top end.</p>
+<p>Why? The most likely explanation: our training data was generated with a different random split than the paper’s. The <code>split_GPKG.py</code> script shuffles edges randomly, and the paper doesn’t document their exact random seed for the split. Our model and the paper’s model saw different training/test sets — so they learned slightly different internal representations.</p>
+<p>This is actually the well-understood problem of <strong>replication vs reproduction</strong> in machine learning:</p>
+<ul>
+<li><strong>Reproduction</strong>: run the exact same code on the exact same data → identical outputs</li>
+<li><strong>Replication</strong>: re-implement the method and get statistically similar results</li>
+</ul>
+<p>We’re currently at replication (ρ = 0.740). Getting to reproduction requires the paper’s original train/valid/test split files — which is our next step.</p>
+<hr/>
+<h2 id="what-we-learned-about-evaluating-a-model-like-this">What We Learned About Evaluating a Model Like This<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-we-learned-about-evaluating-a-model-like-this" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>A natural question: how do we know if ρ = 0.740 is “good”? And what metrics actually matter?</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Metric</th><th>What it measures</th></tr></thead><tbody><tr><td><strong>Spearman ρ</strong></td><td>Agreement of our ranked list with the paper’s ranked list. Our reproducibility metric.</td></tr><tr><td><strong>MRR</strong> (Mean Reciprocal Rank)</td><td>For known treatment triples held out of training: on average, what rank does the true drug get? MRR = 1/rank. MRR = 0.5 means the true drug is rank 2 on average. Our training MRR at convergence: 0.4923.</td></tr><tr><td><strong>AUROC</strong></td><td>If you pick a random known treatment drug and a random non-treatment drug, how often does the model rank the treatment higher? 0.5 = random, 1.0 = perfect. Paper reports: 0.981.</td></tr><tr><td><strong>AUPR</strong></td><td>Among the model’s top-ranked drugs, what fraction are confirmed treatments? Stricter than AUROC when true positives are rare — which they are here. Paper reports: 0.409.</td></tr></tbody></table></div>
+<p>We haven’t computed AUROC and AUPR yet — those require a labeled positive set of known treatment relationships and a scoring pass over all drugs. That’s coming in the next session.</p>
+<hr/>
+<h2 id="next-steps-100-reproduction">Next Steps: 100% Reproduction<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#next-steps-100-reproduction" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Our Spearman ρ = 0.740 is encouraging but not complete. Before we do anything else — before we run hyperparameter experiments, before we train on PrimeKG, before we apply any of this to Maureen’s data — we need to achieve full reproduction.</p>
+<p><strong>The goal:</strong> obtain the paper’s original train/valid/test split files (or request them from the authors), retrain with those exact files, and target ρ ≥ 0.90 and AUROC within 5% of the paper’s reported 0.981.</p>
+<p>Only once we’re that close to the paper can we be confident that deviations from the paper’s results in our future experiments are due to our intentional changes — not residual pipeline differences.</p>
+<p>After that:</p>
+<ol>
+<li><strong>Hyperparameter search</strong> — does more graph propagation (2-3 CompGCN layers) help? Does a larger embedding dimension improve AUROC? We have a parameter grid to explore.</li>
+<li><strong>PrimeKG training</strong> — train the same architecture on PrimeKG’s 8.1 million edges and 7,957 drugs. Finally get Oxaliplatin, Irinotecan, and Leucovorin in our results.</li>
+<li><strong>Cross-KG validation</strong> — drugs that rank highly on both GP-KG and PrimeKG are stronger candidates than those that only appear on one.</li>
+<li><strong>Personalization</strong> — map Maureen’s specific genomic alterations (BRAF V600E, APC truncation, and others) into the graph and see how that shifts the rankings.</li>
+</ol>
+<p>We’re building toward a system that doesn’t just reproduce a published result but produces a patient-specific ranked list grounded in both the graph structure and her tumor’s molecular profile. The neural network is the foundation. The work is just starting.</p>
+<hr/>
+<h2 id="technical-reference">Technical Reference<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#technical-reference" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For anyone wanting to follow the exact steps:</p>
+<p><strong>Data source:</strong> GP-KG from Case Western Reserve University KG-Predict project</p>
+<ul>
+<li>Entity file: <code>kg.txt</code> (61,146 entities, 1,246,726 edges)</li>
+<li>Split script: <code>split_GPKG.py</code> with <code>PYTHONHASHSEED=41504</code></li>
+</ul>
+<p><strong>Model:</strong> KG-Predict (Srivastava et al., J Biomed Inform 2022)</p>
+<ul>
+<li>Architecture: CompGCN (corr, 1 layer, 200-dim) + ConvE (200 filters, kernel 7)</li>
+<li>Training: 200 epochs, lr=0.001, batch=128, seed=41504, Colab A100 GPU, ~4 hours</li>
+</ul>
+<p><strong>Checkpoint:</strong> 254 MB (epoch 190, val MRR = 0.4923)</p>
+<p><strong>Results:</strong></p>
+<ul>
+<li>AD Spearman ρ vs paper: 0.740</li>
+<li>AD top drug: Simvastatin (score 0.0405)</li>
+<li>CRC top drug: Cyclophosphamide (score 0.387)</li>
+</ul>
+<p><strong>Key gotcha:</strong> Run inference in the same Colab session as training. Do not reload checkpoint in a new session.</p>
+<p><strong>Paper:</strong> Oğuztüzün et al., “Precision Drug Repurposing for Alzheimer’s Disease and Colorectal Cancer via Knowledge Graph Embedding,” J Biomed Inform 2025, doi:10.1016/j.jbi.2025.104786</p>
+<hr/>
+<h2 id="chart-production-notes">Chart Production Notes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chart-production-notes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Chart 1 — Neural network diagram</strong>
+Hand-drawn or use draw.io. 4 layers: input (4 nodes), hidden (6 nodes), hidden (6 nodes), output (2 nodes). Arrows between all adjacent layers. Label “weights” on a few connections. Add a curved arrow going right-to-left labeled “backpropagation.” Monochrome or minimal color.</p>
+<p><strong>Chart 2 — Knowledge graph</strong>
+Draw in draw.io or Gephi export. Nodes: 3 drugs (blue), 3 genes (green), 2 diseases (red), 1 phenotype (purple). Edges: drug→gene (target), drug→disease (treat), gene→disease (associate), gene→phenotype (gene_hp_phenotype). Use real names: Simvastatin, HMGCR, Alzheimer’s disease; Cyclophosphamide, DNMT1, Colorectal cancer.</p>
+<p><strong>Chart 3 — CompGCN message passing</strong>
+Three-step diagram: (1) Drug node with 4 neighbors connected by labeled edges; (2) Arrows from neighbors converging on drug node with “aggregate” label; (3) Drug node with new embedding labeled “context-enriched.” Keep it simple.</p>
+<p><strong>Chart 4 — Training curve</strong>
+Two y-axes (or two panels). Left: validation loss (starts ~2.5, drops to ~0.8, then levels). Right: validation MRR (starts ~0.1, rises to ~0.49, levels after epoch 150). Vertical dashed line at x=190. This is illustrative — we don’t have the epoch-by-epoch log, only the final result. Make it look plausible for this type of training run.</p>
+<p><strong>Chart 5 — AD top 10 bar chart (data ready)</strong></p>
+<pre><code>Simvastatin:          0.0405
+Cyclophosphamide:     0.0317
+Celecoxib:            0.0267
+Cantide + Cisplatin:  0.0263
+Verapamil:            0.0165
+Taxol:                0.0150
+Amiodarone:           0.0143
+5-Fluorouracil:       0.0142
+Propranolol:          0.0141
+Bromocriptine:        0.0133
+</code></pre>
+<p>Horizontal bars, longest at top, blue gradient. Label scores on bars.</p>
+<p><strong>Chart 6 — CRC top 10 bar chart (data ready)</strong></p>
+<pre><code>Cyclophosphamide:   0.3873
+Cantide + Cisplatin: 0.2728
+Vincristine:         0.1866
+Methotrexate:        0.1161
+Mitoxantrone:        0.1150
+Taxol:               0.0996
+Bleomycin sulfate:   0.0961
+Imatinib:            0.0834
+Sorafenib:           0.0696
+Metformin:           0.0692
+</code></pre>
+<p>Same format, orange/red gradient.</p>
+<p><strong>Chart 7 — Rank correlation scatter plot</strong>
+1,430 points. You don’t have all the data points — use the overlap data you do have (the paper’s CSV has all 1,430 ranks; our predictions file has all 1,430 ranks; you can compute this in Python). The key visual: a diagonal band of points from lower-left to upper-right (showing correlation), but with scatter. Annotate ρ = 0.740. Highlight top-30 paper drugs in orange, our top-30 in blue.</p>
+<p>To generate this chart, run:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> pandas </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">as</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> pd</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">from</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> scipy.stats </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> spearmanr</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> matplotlib.pyplot </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">as</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> plt</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">paper </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> pd.read_csv(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'docs/references/kg-predict/case_study_predict_results.csv'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">paper </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> paper.rename(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">columns</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">{</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'rank'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'p_rank'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'cid'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'object'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">})</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">ours </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> pd.read_csv(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'G:/My Drive/PDR/results/ad_predictions.txt'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">                   sep</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string">\t</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">names</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">[</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'s'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'r'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'object'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'rank'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'score'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">])</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">merged </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> paper.merge(ours, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">on</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'object'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">rho, _ </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function"> spearmanr(merged[</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'p_rank'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">], merged[</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'rank'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">])</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">plt.figure(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">figsize</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">8</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">8</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">))</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">plt.scatter(merged[</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'p_rank'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">], merged[</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'rank'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">], </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">alpha</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">0.3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">s</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">color</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'steelblue'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">plt.xlabel(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;Paper's Rank&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">plt.ylabel(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;Our Rank&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">plt.title(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">f</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;AD Drug Ranking Correlation (Spearman ρ = </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">{</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function">rho</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">:.3f</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">}</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">)&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">plt.tight_layout()</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">plt.savefig(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'docs/rank_correlation_ad.png'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">dpi</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">150</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span></code></pre></figure>
+<hr/>
+<p><em>Next post: getting to 100% — obtaining the paper’s original split and closing the gap.</em></p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-8" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#training-my-first-neural-network" data-for="training-my-first-neural-network">Training My First Neural Network</a></li><li class="depth-1"><a href="#why-im-doing-this" data-for="why-im-doing-this">Why I’m Doing This</a></li><li class="depth-1"><a href="#first-what-is-a-neural-network-actually" data-for="first-what-is-a-neural-network-actually">First: What Is a Neural Network, Actually?</a></li><li class="depth-2"><a href="#the-basic-idea" data-for="the-basic-idea">The basic idea</a></li><li class="depth-2"><a href="#training" data-for="training">Training</a></li><li class="depth-2"><a href="#embeddings" data-for="embeddings">Embeddings</a></li><li class="depth-1"><a href="#knowledge-graphs-data-as-a-web-of-relationships" data-for="knowledge-graphs-data-as-a-web-of-relationships">Knowledge Graphs: Data as a Web of Relationships</a></li><li class="depth-2"><a href="#the-task-link-prediction" data-for="the-task-link-prediction">The task: link prediction</a></li><li class="depth-1"><a href="#the-architecture-compgcn--conve" data-for="the-architecture-compgcn--conve">The Architecture: CompGCN + ConvE</a></li><li class="depth-2"><a href="#stage-1-compgcn-learning-what-each-entity-is" data-for="stage-1-compgcn-learning-what-each-entity-is">Stage 1: CompGCN (learning what each entity is)</a></li><li class="depth-2"><a href="#stage-2-conve-scoring-drug-disease-pairs" data-for="stage-2-conve-scoring-drug-disease-pairs">Stage 2: ConvE (scoring drug-disease pairs)</a></li><li class="depth-1"><a href="#getting-the-data-ready" data-for="getting-the-data-ready">Getting the Data Ready</a></li><li class="depth-1"><a href="#running-the-training" data-for="running-the-training">Running the Training</a></li><li class="depth-1"><a href="#the-gotchas" data-for="the-gotchas">The Gotchas</a></li><li class="depth-2"><a href="#gotcha-1-the-100-million-cid-mystery" data-for="gotcha-1-the-100-million-cid-mystery">Gotcha 1: The 100 Million CID Mystery</a></li><li class="depth-2"><a href="#gotcha-2-the-silent-entity-scrambling-problem" data-for="gotcha-2-the-silent-entity-scrambling-problem">Gotcha 2: The Silent Entity Scrambling Problem</a></li><li class="depth-2"><a href="#gotcha-3-cuda-checkpoint-on-a-cpu-machine" data-for="gotcha-3-cuda-checkpoint-on-a-cpu-machine">Gotcha 3: CUDA Checkpoint on a CPU Machine</a></li><li class="depth-2"><a href="#gotcha-4-the-drug-query-file-only-had-639-drugs" data-for="gotcha-4-the-drug-query-file-only-had-639-drugs">Gotcha 4: The Drug Query File Only Had 639 Drugs</a></li><li class="depth-2"><a href="#gotcha-5-windows-encoding-error" data-for="gotcha-5-windows-encoding-error">Gotcha 5: Windows Encoding Error</a></li><li class="depth-2"><a href="#gotcha-6-the-missing-log-directory" data-for="gotcha-6-the-missing-log-directory">Gotcha 6: The Missing Log Directory</a></li><li class="depth-1"><a href="#the-results" data-for="the-results">The Results</a></li><li class="depth-2"><a href="#alzheimers-disease-ad--our-top-10" data-for="alzheimers-disease-ad--our-top-10">Alzheimer’s Disease (AD) — Our Top 10</a></li><li class="depth-2"><a href="#colorectal-cancer-crc--our-top-10" data-for="colorectal-cancer-crc--our-top-10">Colorectal Cancer (CRC) — Our Top 10</a></li><li class="depth-1"><a href="#how-close-did-we-get-to-the-paper" data-for="how-close-did-we-get-to-the-paper">How Close Did We Get to the Paper?</a></li><li class="depth-2"><a href="#papers-ad-top-10-from-case_study_predict_resultscsv" data-for="papers-ad-top-10-from-case_study_predict_resultscsv">Paper’s AD Top 10 (from case_study_predict_results.csv):</a></li><li class="depth-1"><a href="#what-we-learned-about-evaluating-a-model-like-this" data-for="what-we-learned-about-evaluating-a-model-like-this">What We Learned About Evaluating a Model Like This</a></li><li class="depth-1"><a href="#next-steps-100-reproduction" data-for="next-steps-100-reproduction">Next Steps: 100% Reproduction</a></li><li class="depth-1"><a href="#technical-reference" data-for="technical-reference">Technical Reference</a></li><li class="depth-1"><a href="#chart-production-notes" data-for="chart-production-notes">Chart Production Notes</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../kg/kg_composition_pipeline_writeup" class="internal">KG Composition Pipeline</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

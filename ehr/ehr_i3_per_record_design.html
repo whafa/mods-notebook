@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Kaiser medications and conditions at one row per record</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Kaiser medications and conditions at one row per record"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Kaiser medications and conditions at one row per record"/><meta name="twitter:description" content="Design for GH #624 Lane I, PR I-3: store every Kaiser MedicationRequest and Condition as its own row, keep each one current, and derive 'current medication' and 'active condition' from an explicit rules table whose judgment calls are Richard's."/><meta property="og:description" content="Design for GH #624 Lane I, PR I-3: store every Kaiser MedicationRequest and Condition as its own row, keep each one current, and derive 'current medication' and 'active condition' from an explicit rules table whose judgment calls are Richard's."/><meta property="og:image:alt" content="Design for GH #624 Lane I, PR I-3: store every Kaiser MedicationRequest and Condition as its own row, keep each one current, and derive 'current medication' and 'active condition' from an explicit rules table whose judgment calls are Richard's."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/ehr/ehr_i3_per_record_design"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/ehr/ehr_i3_per_record_design"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Design for GH #624 Lane I, PR I-3: store every Kaiser MedicationRequest and Condition as its own row, keep each one current, and derive 'current medication' and 'active condition' from an explicit rules table whose judgment calls are Richard's."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/ehr/ehr_i3_per_record_design-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/ehr/ehr_i3_per_record_design-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/ehr/ehr_i3_per_record_design-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="ehr/ehr_i3_per_record_design" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-6" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-6" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../ehr/">ehr</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Kaiser medications and conditions at one row per record</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">5</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">model</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">claude-opus-5-5</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-10-02</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">review</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Design for GH #624 Lane I, PR I-3: store every Kaiser MedicationRequest and Condition as its own row, keep each one current, and derive 'current medication' and 'active condition' from an explicit rules table whose judgment calls are Richard's.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-02T07:00:00.000Z">Oct 02, 2026</time><span>40 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="kaiser-medications-and-conditions-at-one-row-per-record">Kaiser medications and conditions at one row per record<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#kaiser-medications-and-conditions-at-one-row-per-record" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Issue:</strong> <code>#624</code>, Lane I, PR I-3. <strong>Decision:</strong> D-Q4-16
+(<code>#631</code>) item 3, with items 2, 5 and 7. <strong>Builds on:</strong> I-2
+(<code>#674</code>: migration 111 and <code>mods_ehr_upsert</code>). <strong>Code read:</strong>
+<code>main</code> at <code>855b437</code>. <strong>Design only:</strong> no code, migration or database access went into this document.
+Where a number would change a recommendation, the read-only query is in Appendix A for the steward
+to run.</p>
+<p><em>(Status, 2026-10-05: built and merged (PR #814) after Richard took every default in §7 (D-Q4-18). Where the build differs from this text, the implementation notes at the end say so. Counts in §1 are as of 2026-10-02.)</em></p>
+<p>Maple keeps 141 Kaiser medication rows for 509 orders, and 42 condition rows for 392 conditions,
+because both tables are unique on a name. I-2 gave each stored row the Kaiser id of the record it was
+first imported from, and holds back every update to them. I-3 stores every record as its own row and
+turns updates on. “Current medication” and “active condition” then stop being a column that readers
+trust, and become a derived answer with written rules.</p>
+<ul>
+<li><strong>What it changes for her record.</strong> All 509 orders and 392 conditions are in Maple, and each stays
+in step with Kaiser: a stopped drug reads stopped, and an encounter diagnosis is no longer filed as
+a problem-list entry. “What is she on now” gets one answer with its reasons, which the Options
+Ledger’s safety check and the week-1 safety lane need.</li>
+<li><strong>What it changes for the model.</strong> Smoke run #1’s export excludes the medication edges (playbook
+D2), and Run #2 Arm A reuses that export, so none of the medication change reaches training.
+<strong>Condition edges are not excluded.</strong> <code>biolink:has_phenotypic_feature</code> edges built from
+<code>mods_condition</code> go into any export that includes <code>maple_patient</code>. Arm A is untouched. A later
+export, such as Arm B’s, would see I-3’s changes if the patient KG is re-materialized first (§5.4,
+J24).</li>
+</ul>
+<h2 id="0-summary">0. Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#0-summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>Identity is already in place.</strong> Migration 111’s unique index on the Kaiser id is the identity. I-3
+makes the two name indexes partial, covering only rows that have no Kaiser id. Kaiser records then
+never collapse on a name; the March HTML rows still dedupe exactly as today (§2.1).</li>
+<li><strong>The 137 + 42 stored rows with an id are already per-record rows</strong>, only stale. They stay, and each
+is updated in place from its own record, with every old value in <code>mods_ehr_record_change</code>. The
+first sync inserts the 370 orders and 350 conditions it collapses today. This replaces the hand-off
+outline’s “mark the old rows superseded” (§2.3).</li>
+<li><strong>Fidelity:</strong> I-3 also keeps intent, category, sig, dose, route, frequency and prescriber for orders,
+and category, verification status and recorded date for conditions (§2.2).</li>
+<li><strong>Derived views:</strong> one Python module classifies each record into a state, with an explicit rules
+table (§4). Consumers combine states by their own error costs. A safety screen over-includes; the
+KG under-asserts.</li>
+<li><strong>24 judgment calls</strong> are flagged, each with a proposed default (§7). Most are vocabulary
+mappings, which CLAUDE.md reserves for Richard.</li>
+<li><strong>Proof:</strong> a read-only compare script builds the old and new KG edges from one database snapshot and
+explains every difference by a rule row (§5.5). A positive control has to pass: each drug of her
+maintenance regimen must read current or on hold.</li>
+<li><strong>Staging:</strong> backup, then merge, then compare on the same data, then a sync at a login, then compare
+again. The KG is re-materialized last, on a schedule that respects the Run #2 exports (§6).</li>
+<li><strong>Migration 113,</strong> free on every branch as of 2026-10-02. Re-check it at implementation time (§2.5).
+<em>(Built as 116: see the implementation notes at the end.)</em></li>
+</ul>
+<h2 id="1-where-things-stand-2026-10-02">1. Where things stand (2026-10-02)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-where-things-stand-2026-10-02" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Kaiser</th><th>Maple, <code>epic_fhir</code> rows</th><th>of which carry a Kaiser id</th><th>Other sources</th></tr></thead><tbody><tr><td>MedicationRequest</td><td>509</td><td>141</td><td>137, plus 2 ids on 2 rows each (4 rows), left unfilled</td><td>15 <code>kaiser_html</code> (March 2026)</td></tr><tr><td>Condition</td><td>392</td><td>42</td><td>42</td><td>61 <code>kaiser_html</code></td></tr></tbody></table></div>
+<p>From the 15:55 PT sync (task 1041600, after I-2):</p>
+<ul>
+<li><strong>Collapsed:</strong> 370 orders and 350 conditions. The name index refused them.</li>
+<li><strong>Held:</strong> 131 medication and 41 condition rows differ from their own record. These updates are
+held back until I-3.</li>
+<li><strong>Ambiguous:</strong> 2 medication ids. Each sits on two rows, most likely because Kaiser renamed the drug
+between two early syncs.</li>
+<li><strong>No <code>meta.lastUpdated</code></strong> on any of the 2,964 records with an id, so I-2’s stale guard never fires
+and every record is compared.</li>
+</ul>
+<p><code>137 + 2 + 370 = 509</code> and <code>42 + 350 = 392</code>: every Kaiser record is accounted for.</p>
+<p>From the audit (2026-10-01):</p>
+<ul>
+<li><strong>Medication rows:</strong> 133 of 141 have no start date. Route, dose, frequency, prescriber, sig and
+RxNorm are empty on all 141. Nine have read <code>active</code> since 05-08.</li>
+<li><strong>Condition rows:</strong> all 42 read <code>problem-list-item</code>. 40 carry no Kaiser <code>clinicalStatus</code> (NULL since
+item 5), 40 have no onset date, and 41 have no ICD-10 or SNOMED code.</li>
+</ul>
+<h2 id="2-the-schema-change">2. The schema change<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-the-schema-change" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="21-identity-and-what-happens-to-the-name-indexes">2.1 Identity, and what happens to the name indexes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-identity-and-what-happens-to-the-name-indexes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Identity is the Kaiser id, already enforced by migration 111. <code>uq_mods_medication_source_record</code> and
+<code>uq_mods_condition_source_record</code> are unique on (patient, source, resource type, id) where the id is
+set. I-3 adds no identity. It changes the two indexes that collapse records today:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Index today</th><th>Columns</th><th>After I-3</th></tr></thead><tbody><tr><td><code>idx_mods_medication_dedup</code></td><td>UNIQUE (patient_id, name)</td><td>replaced by <code>uq_mods_medication_name_without_id</code>: the same columns, <code>WHERE source_record_id IS NULL</code></td></tr><tr><td><code>idx_mods_condition_dedup</code></td><td>UNIQUE (patient_id, name, category)</td><td>replaced by <code>uq_mods_condition_name_without_id</code>: the same columns, <code>WHERE source_record_id IS NULL</code></td></tr></tbody></table></div>
+<p><strong>Why partial, not dropped.</strong> Rows without an id still need a key:</p>
+<ul>
+<li>the March HTML rows (15 and 61): frozen, but a re-run must not duplicate them;</li>
+<li>a reconnected Cerbo: its <code>cerbo_id</code> is not read as an identity yet, so its rows fall back to the
+name index, as today;</li>
+<li>the 4 ambiguous rows, until J23 is applied.</li>
+</ul>
+<p>For these rows the partial index is exactly today’s rule: the same columns, still across sources. A
+record with a Kaiser id never touches it. So <code>medications_collapsed</code> and <code>conditions_collapsed</code> drop
+to 0 for Kaiser records by construction, and any nonzero value is a defect to stop on.</p>
+<p><strong>It cannot fail on prod’s data.</strong> The partial index covers a subset of the rows the full index
+already keeps unique, which is migration 112’s argument. The migration:</p>
+<ul>
+<li>builds the new index before it drops the old one;</li>
+<li>copies 112’s transaction-scoped advisory lock and catalog check. Cloud Run and the local backend
+both run the chain at boot, and two chains creating one index name would fail a boot.</li>
+</ul>
+<p><code>ModsMedication</code> and <code>ModsCondition</code> declare the new indexes, and a test compares the declared shape
+with the migrated one, as <code>tests/test_migration_112.py</code> does.</p>
+<h3 id="22-what-the-rows-keep">2.2 What the rows keep<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-what-the-rows-keep" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>I-3 stores what the parsers read and then drop, and what the rules in §4 need. New columns are guarded
+<code>ADD COLUMN</code>s in the same migration, and each starts NULL.</p>
+<p><strong><code>mods_medication</code>, from a FHIR R4 MedicationRequest:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Column</th><th>Today</th><th>After I-3</th></tr></thead><tbody><tr><td><code>status</code></td><td>Kaiser’s code, or <code>''</code> when absent (<code>metadata.get(&quot;status&quot;, &quot;active&quot;).lower()</code>, ingestion:746)</td><td>Kaiser’s R4 code. NULL when absent or not an R4 code, the rule I-2 set for encounter status</td></tr><tr><td><code>intent</code> (new)</td><td>dropped</td><td>Kaiser’s R4 code, NULL when absent or unrecognised</td></tr><tr><td><code>category</code> (new)</td><td>dropped</td><td>the first of <code>inpatient</code>, <code>outpatient</code>, <code>community</code>, <code>discharge</code>; NULL otherwise. All codings are kept in metadata</td></tr><tr><td><code>sig</code></td><td><code>metadata.sig</code>, which the FHIR parser never sets, so always NULL</td><td>every <code>dosageInstruction.text</code>, in <code>sequence</code> order, joined with ”; ”. Today the parser keeps only the last instruction’s text, as <code>metadata.dose</code> (connector:1356)</td></tr><tr><td><code>dose_text</code></td><td>never set</td><td>the first instruction’s <code>doseAndRate.doseQuantity</code>, value and unit</td></tr><tr><td><code>route</code></td><td>never set</td><td>the first instruction’s <code>route</code> display</td></tr><tr><td><code>frequency</code></td><td>never set</td><td>the first instruction’s <code>timing.code.text</code></td></tr><tr><td><code>prescriber</code></td><td>never set: <code>requester.display</code> goes to the document’s <code>provider</code></td><td><code>requester.display</code></td></tr><tr><td><code>start_date</code></td><td><code>authoredOn</code></td><td>unchanged</td></tr><tr><td><code>end_date</code></td><td><code>dispenseRequest.validityPeriod.end</code></td><td>unchanged. It ends the window in which the prescription may be filled, not the day therapy stopped. Readers label it “valid until” (§3)</td></tr><tr><td><code>rxnorm_code</code></td><td>written only by the #112 name backfill</td><td>unchanged: the sync does not write it (J10)</td></tr></tbody></table></div>
+<p>Kept verbatim in metadata:</p>
+<ul>
+<li>every medication coding (system, code, display), or the <code>medicationReference</code>;</li>
+<li><code>reportedBoolean</code>, <code>statusReason</code> and <code>courseOfTherapyType</code>;</li>
+<li>each instruction’s <code>timing.repeat.boundsPeriod</code>, and the <code>validityPeriod</code>;</li>
+<li>the <code>priorPrescription</code> and <code>basedOn</code> references. A renewal chain, if Kaiser states one, is worth
+having for later.</li>
+</ul>
+<p>The importer sends every one of these keys on every record, null when absent. I-2 merges metadata, so
+a key it is not sent survives, and a value Kaiser withdrew would otherwise stay.</p>
+<p><strong><code>mods_condition</code>, from a FHIR R4 Condition:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Column</th><th>Today</th><th>After I-3</th></tr></thead><tbody><tr><td><code>category</code></td><td>forced <code>problem-list-item</code> (ingestion:820); the parser drops the FHIR category</td><td>Kaiser’s code when it is <code>problem-list-item</code> or <code>encounter-diagnosis</code> (HL7 condition-category) or <code>health-concern</code> (US Core). NULL when absent, unrecognised, or more than one recognised code (J20). All codings in metadata</td></tr><tr><td><code>clinical_status</code></td><td>#67’s map; NULL when absent (item 5)</td><td>unchanged. The raw code stays in <code>metadata.clinical_status</code>, and the view reads it there. The map merges <code>recurrence</code> and <code>relapse</code> into <code>active</code> and <code>remission</code> into <code>inactive</code> (J19)</td></tr><tr><td><code>verification_status</code> (new)</td><td>metadata only</td><td>Kaiser’s R4 code, NULL when absent or unrecognised</td></tr><tr><td><code>recorded_date</code> (new)</td><td>not parsed</td><td><code>recordedDate</code>. An encounter diagnosis often has no onset, so this is its date</td></tr><tr><td><code>onset_date</code>, <code>abatement_date</code></td><td><code>onsetDateTime</code>, <code>abatementDateTime</code></td><td>unchanged. The other <code>onset[x]</code> and <code>abatement[x]</code> forms go into metadata verbatim and are not mapped</td></tr><tr><td><code>icd_code</code>, <code>snomed_code</code></td><td>by coding system (#66)</td><td>unchanged</td></tr></tbody></table></div>
+<p>The new rules apply only where <code>source</code> is a FHIR source, as I-2’s <code>resolve_encounter_status</code> does.
+The March HTML and Cerbo paths keep today’s values. A record the parser cannot name is counted
+(<code>medications_unparsed</code>, <code>conditions_unparsed</code>), not dropped silently. Each one would show up as a
+Kaiser-only id in the census.</p>
+<h3 id="23-how-the-existing-rows-map-to-per-record-rows">2.3 How the existing rows map to per-record rows<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-how-the-existing-rows-map-to-per-record-rows" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The 137 medication and 42 condition rows that carry a Kaiser id are already per-record rows. Each was
+inserted from one record, the first to carry its name, and I-2’s backfill gave it that record’s id.
+What is wrong with them is that they are stale, not that they stand for a name. So I-3 keeps them and
+updates each one from its own record at the first sync. Every replaced value goes to
+<code>mods_ehr_record_change</code>.</p>
+<p>This differs from the I-2 hand-off outline, which had the old rows marked superseded. Superseding:</p>
+<ul>
+<li>would need a marker column on both tables and a filter in every reader;</li>
+<li>would collide with the identity index: a superseded row keeps its id, so the fresh row for the
+same record would be refused;</li>
+<li>would keep nothing that update in place loses. The history table holds every old value, and the
+pre-sync backup (§6) holds every old row.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rows</th><th>Count</th><th>After the migration</th><th>After the first sync</th></tr></thead><tbody><tr><td>Kaiser medication rows with an id</td><td>137</td><td>unchanged</td><td>updated in place from their own order: about 131 change</td></tr><tr><td>Kaiser medication rows on an ambiguous id</td><td>4 (2 ids)</td><td>unchanged until J23 is applied by a guarded script, backup first</td><td>under J23’s default, the 2 kept rows are updated and nothing is ambiguous. Without it, 2 orders stay unstored and ambiguous on every sync</td></tr><tr><td>Kaiser orders never stored</td><td>370</td><td>—</td><td>inserted</td></tr><tr><td>Kaiser condition rows with an id</td><td>42</td><td>unchanged</td><td>updated in place: about 41 change</td></tr><tr><td>Kaiser conditions never stored</td><td>350</td><td>—</td><td>inserted</td></tr><tr><td>March HTML rows</td><td>15 + 61</td><td>unchanged, still deduplicated by the partial index</td><td>unchanged. I-5 marks the overlaps superseded (item 6)</td></tr></tbody></table></div>
+<h3 id="24-what-the-first-sync-after-i-3-should-show">2.4 What the first sync after I-3 should show<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-what-the-first-sync-after-i-3-should-show" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Counter</th><th>Expect</th><th>Stop and read <code>mods_ehr_record_change</code> by field first if</th></tr></thead><tbody><tr><td><code>medications_created</code></td><td>about 370, plus orders written since 2026-10-02</td><td>above (orders fetched − 139)</td></tr><tr><td><code>medications_updated</code></td><td>about 131, or 133 with J23</td><td>above 139: more updates than stored Kaiser rows is impossible</td></tr><tr><td><code>conditions_created</code></td><td>about 350, plus new ones</td><td>above (conditions fetched − 42)</td></tr><tr><td><code>conditions_updated</code></td><td>about 41</td><td>above 42</td></tr><tr><td><code>*_collapsed</code> and <code>*_conflicts</code>, both kinds</td><td>0</td><td>any. A Kaiser record met a name index, or two writers raced</td></tr><tr><td><code>medications_ambiguous</code></td><td>0 with J23, else 2</td><td>anything else</td></tr><tr><td><code>*_changes_held</code></td><td>always 0 from now on</td><td>—</td></tr><tr><td><code>record_changes</code></td><td>one per changed column or metadata key. This once it runs to the low thousands, because every stored row gains the new keys</td><td>above (rows updated) × (columns + metadata keys the importer sends). The PR prints that bound from its own field list</td></tr></tbody></table></div>
+<p>Per kind, created + updated + skipped + stale + ambiguous + collapsed + conflicts must equal the
+records parsed.</p>
+<p>A second sync in the same login hour must update about 0 rows and write about 0 changes. Anything
+else means a value differs on every pass, an unstable comparison. This is the live form of I-2’s
+“no write when unchanged” test.</p>
+<p>The delta printed after the first sync will list about 370 medications and 350 conditions as new.
+They are newly stored, not new at Kaiser (§3, reader 7).</p>
+<h3 id="25-the-migration-number">2.5 The migration number<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-the-migration-number" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Per CLAUDE.md, the number is picked against every branch at implementation time, and the second of
+two branches to merge renumbers. As of 2026-10-02 the highest migration anywhere is <strong>112</strong>
+(<code>112_document_file_hash_unique_non_ehr</code>). That holds:</p>
+<ul>
+<li>on <code>main</code>;</li>
+<li>on every local and remote ref: <code>git log --all -S &quot;def migration_11&quot;</code> finds only 110, 111 and 112;</li>
+<li>in the working copy of every local worktree: no <code>def migration_113</code> or higher on disk.</li>
+</ul>
+<p>So I-3 expects <strong>113</strong>. Two pieces of work are likely to want the same number: the Options Ledger’s
+migration (#565, planned for Q4 week 2) and I-4’s lab identity. The column and index guards make a
+renumbered migration safe to re-run.</p>
+<h2 id="3-reader-by-reader">3. Reader by reader<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-reader-by-reader" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>I grepped <code>backend/</code>, <code>frontend/</code>, <code>scripts/</code> and <code>docs/</code> for both models and both tables, and followed
+the patient KG predicates to their consumers. “Reads after I-3” says which form each reader needs: the
+record table as it is, the derived set, or a per-drug combination.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Reader</th><th>Assumes today</th><th>Reads after I-3</th><th>Change</th></tr></thead><tbody><tr><td>1</td><td>Patient KG, medication edges: <code>mods_patient_kg_service._build_medication_edges</code> (line 1405)</td><td>one row per drug. <code>status == 'active'</code> → <code>current_medication</code>; anything else, including cancelled, entered in error, draft and <code>''</code> → <code>past_medication</code></td><td>per-order states from §4, combined per resolved drug entity (M13). March HTML rows count as evidence of past use only (M14)</td><td>rewrite: classify and resolve every order, then decide per entity</td></tr><tr><td>2</td><td>Patient KG, condition edges: <code>_build_diagnosis_edges</code> (1044)</td><td>one row per name; status, category and verification ignored</td><td>records that are not void, refuted or unconfirmed, one edge per resolved entity, metadata aggregated (§5.3)</td><td>change</td></tr><tr><td>3</td><td><code>materialize_patient_kg</code>’s <code>predicate_counts</code> (<code>_DualEdgeBuilder.counts</code>, line 973)</td><td>one tally per row added, read as if it were edges</td><td>the same tally would read about 3.5 times higher for medications on the same edges</td><td>report inserted edges per predicate, or rename the field</td></tr><tr><td>4</td><td>Training export: <code>scripts/export_composition_for_training.py</code> (frozen until Arm A’s export)</td><td>relations at export time, minus <code>exclude_predicates</code></td><td>unchanged code. The medication predicates are excluded (D2); condition edges are not</td><td>sequencing only (J24)</td></tr><tr><td>5</td><td>KG Explorer: <code>NetworkGraph.jsx</code> labels, <code>useNeighborRanker.js</code> weights</td><td>edge predicate and metadata</td><td>the same keys (§5.3), plus aggregate keys</td><td>none required</td></tr><tr><td>6</td><td>Terminal <code>ehr ls medications</code> and <code>ehr ls conditions</code>: <code>mods_ehr_browse_service.py</code> (270–332)</td><td>one row per name, sorted by date</td><td>the record view stays and now lists every order and condition. Add <code>medications/current</code> and <code>conditions/active</code> paths from §4. Add INTENT, CATEGORY and VERIFIED columns; label END “valid until”</td><td>small</td></tr><tr><td>7</td><td>Sync delta: <code>get_sync_delta</code> (ingestion:1594–1648), rendered by <code>ehrSyncReport.js</code></td><td>a row created since the sync began is new at Kaiser</td><td>the first post-I-3 sync lists about 370 and 350 rows that are only newly stored. Split “first stored” (ordered or recorded before the previous sync) from “new at Kaiser”</td><td>small</td></tr><tr><td>8</td><td>Lab and Clinic entity browser: <code>mods_lab_api.py</code> <code>ENTITY_REGISTRY</code> (2254–2263) with list, get, PATCH and DELETE, re-mounted at <code>/api/mods/clinic/entities</code> (<code>mods_clinic_api.py</code> 99–103); <code>ModsLabDashboard.jsx</code></td><td>a row is editable data</td><td>a PATCH to a Kaiser row is overwritten at the next sync, recorded as an <code>ehr_sync</code> change. A DELETE is re-inserted</td><td>refuse PATCH and DELETE on rows with a Kaiser id (409, “change it at Kaiser”), or say so in the UI</td></tr><tr><td>9</td><td>mCODE export, MCP <code>mods_export_mcode</code>: <code>connectors/mcode_exporter.py</code> (151, 516–549)</td><td>one row is one MedicationRequest. <code>intent</code> is hard-coded <code>order</code>, and <code>end_date</code> goes out as <code>boundsPeriod.end</code>. <code>ModsCondition</code> is imported and never used</td><td>per-order rows are the right mCODE shape</td><td>emit the stored intent; stop presenting the validity end as therapy bounds</td></tr><tr><td>10</td><td>MCP <code>mods_patient_materialize_kg</code> (mods_server:5362)</td><td>→ readers 1 and 2</td><td>the same</td><td>none, or a <code>dry_run</code> flag</td></tr><tr><td>11</td><td>MCP <code>mods_ehr_sync</code> and <code>mods_ehr_status</code>; the sync’s counters</td><td><code>*_collapsed</code> and <code>*_changes_held</code> carry meaning</td><td>collapsed is 0 for Kaiser records; held is retired</td><td>counters only</td></tr><tr><td>12</td><td>Census: <code>scripts/ehr/kaiser_census.py</code> (226–231, 922–960)</td><td>MedicationRequest status is compared with the latest order of the same name; ids read from <code>metadata->>'fhir_id'</code></td><td>a per-id status comparison for both types, keyed on <code>source_record_id</code>. “Collapsed by Maple’s name key” goes to 0</td><td>small. I-5’s acceptance check depends on it</td></tr><tr><td>13</td><td>RxNorm backfill: <code>scripts/backfill_treatment_drug_rxnorm.py</code> (185)</td><td>about 141 rows, coded by name</td><td>works per row (509 or more). The sync never writes <code>rxnorm_code</code> (J10), so the two never fight over the column</td><td>none</td></tr><tr><td>14</td><td>Cancer profile (#106): <code>_import_condition_from_problem</code> feeds <code>CancerConditionCollector</code></td><td>every FHIR Condition record, during import, not the table</td><td>the same input: it already sees all 392 records</td><td>none by default (J22)</td></tr><tr><td>15</td><td>March HTML visit diagnoses: <code>_import_condition_from_visit_dx</code> with <code>_try_add</code></td><td>the (name, category) unique index</td><td>the partial index</td><td>none</td></tr><tr><td>16</td><td>Cerbo, once reconnected: <code>cerbo_connector</code> → <code>_import_medication</code>, <code>_import_condition_from_problem</code></td><td>the name indexes; <code>cerbo_id</code> is never an identity</td><td>the same, through the partial index</td><td>none. Cerbo identity is its own follow-up</td></tr><tr><td>17</td><td>PDR1 CSV CUI history: <code>scripts/build_pdr1_input_csv.py</code> <code>resolve_cui_history</code> (258–293)</td><td>selects <code>ModsCondition.code</code> and <code>.code_system</code>, columns that do not exist. The <code>AttributeError</code> is swallowed by <code>except Exception: pass</code>, so it always falls back to the cancer profile</td><td>unaffected by I-3: the path is dead</td><td>a latent bug, outside I-3. If revived, it should read the active-condition view</td></tr><tr><td>18</td><td>Options Ledger (#565, planned): <code>mods_option.safety_vs_regimen</code></td><td>—</td><td>the safety list from §4, which over-includes</td><td>API contract (§9)</td></tr><tr><td>19</td><td>Rules and docs: <code>.claude/rules/ehr-integrations.md</code> (two bullets), <code>.claude/rules/kg-ingest.md</code> (the <code>current_medication</code> bullet), <code>docs/ehr_sync_audit.md</code>, <code>docs/KGIA_PATIENT_PROFILE_QC.md</code> (C2), <code>docs/pdr_personalization_writeup.md</code></td><td>stale once I-3 lands</td><td>—</td><td>update in the same PR. <code>ehr-integrations.md</code> is at 8,190 of 8,192 bytes, so trim before adding</td></tr></tbody></table></div>
+<p><strong>Not readers, checked:</strong></p>
+<ul>
+<li>the KGIA profile builder (<code>mods_kgia_profile_service.py</code>), which reads treatment episodes and the
+cancer profile;</li>
+<li><code>mods_snapshot_service.py</code> and <code>research_api.get_patient_profile</code>;</li>
+<li><code>mods_kgia_finetune_service.py</code> and <code>scripts/score_pdr2_edges.py</code>, which rank RGCC and disease
+queries;</li>
+<li>the <code>mods_get_patient</code> MCP tool.</li>
+</ul>
+<p><code>research_api.kg_patient_me</code> reads her KG node, so it sees I-3 only through readers 1 and 2.</p>
+<h2 id="4-the-derived-views">4. The derived views<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-the-derived-views" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-shape">4.1 Shape<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-shape" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Per record, then per consumer.</strong> The view classifies each record into a state, and each consumer
+combines the states the way its error costs say:</p>
+<ul>
+<li><strong>A safety screen against her regimen must over-include.</strong> Missing a drug she takes is the
+dangerous error.</li>
+<li><strong>The knowledge graph must under-assert.</strong> An edge saying she takes a drug is a fact the explorer
+shows, and that a future export could train on.</li>
+</ul>
+<p>A single “current” boolean cannot serve both, so the view never collapses to one.</p>
+<p><strong>One implementation, in Python.</strong> I recommend a module, for example <code>backend/mods_ehr_derived.py</code>,
+with a pure classifier per record type and thin readers over them, rather than a SQL <code>VIEW</code>. The rules
+are judgment calls that will change, and a SQL view would make every change a migration. The KG
+builder, the Terminal and the Ledger are all Python, so a SQL view would also be a second
+implementation that could disagree with the first. D-Q4-16 says “derived view”, meaning derived, not
+necessarily a SQL <code>VIEW</code>. Each rules-table row below becomes one test case.</p>
+<p><strong>Stamped.</strong> Every result carries:</p>
+<ul>
+<li><code>rules_version</code> (starting at <code>ehr-derived/1</code>) and <code>as_of</code>. The KG writes both into edge metadata,
+so a materialization built under older rules is visible by comparing the stored stamp with the
+code’s.</li>
+<li><code>last_sync_at</code>: the last Kaiser sync that fetched the type without a failure. “Current” means
+current as of that sync, and a sync needs Richard’s login: there is no refresh token. A consumer
+shows it beside the list.</li>
+</ul>
+<p><strong>Scope.</strong> Kaiser FHIR records (<code>epic_fhir</code>). The March HTML rows enter only where a rule row says so.
+Cerbo needs its own rows once it is reconnected (#512). Its prescriptions and supplements are exactly
+what a safety screen needs, and nothing here covers them yet.</p>
+<p><strong>Readers.</strong></p>
+<ul>
+<li><code>classify_medication_order(row, as_of)</code> and <code>classify_condition(row)</code>, both pure;</li>
+<li><code>classify_medication_orders(rows, as_of)</code>: every order’s state, with M20 decided per drug
+(added 2026-10-08, §4.2). Every medication reader and the KG builder go through it;</li>
+<li><code>medications(db, patient, as_of)</code> → each order with its state and reason;</li>
+<li><code>medications_to_screen(...)</code>, the safety list;</li>
+<li><code>active_conditions(...)</code>, the active view.</li>
+</ul>
+<p>They are served at <code>GET /api/mods/clinic/medications/current</code> and
+<code>GET /api/mods/clinic/conditions/active</code>, mounted in <code>mods_clinic_api.py</code>, which touches no registry
+hotspot. The Terminal serves them as <code>ehr ls medications/current</code> and <code>ehr ls conditions/active</code>.</p>
+<p><strong>Dates.</strong> <code>as_of</code> is a date, defaulting to today in Pacific time. Kaiser datetimes are stored as UTC
+calendar days (audit §3), so a window can be one day off at its edge. No rule below is that sensitive.</p>
+<h3 id="42-medications">4.2 Medications<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-medications" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>States of one order:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>State</th><th>Meaning</th><th>Evidence that she took it?</th></tr></thead><tbody><tr><td><code>current</code></td><td>in effect now</td><td>yes</td></tr><tr><td><code>held</code></td><td>on hold: paused, expected to resume</td><td>yes</td></tr><tr><td><code>ended</code></td><td>was in effect and no longer is</td><td>yes</td></tr><tr><td><code>outside_window</code></td><td>Kaiser says active, but a date puts today outside the order’s window</td><td>yes if the window has closed; no if it has not opened</td></tr><tr><td><code>never_in_effect</code></td><td>cancelled, or a draft</td><td>no</td></tr><tr><td><code>void</code></td><td>entered in error</td><td>no</td></tr><tr><td><code>unknown</code></td><td>status <code>unknown</code>, absent, or not an R4 code</td><td>no</td></tr><tr><td><code>not_an_order</code></td><td>intent <code>plan</code>, <code>proposal</code> or <code>option</code></td><td>no</td></tr></tbody></table></div>
+<p>Rules. “KG” is what one order contributes to the per-drug decision (M13). “Safety list” is
+<code>medications_to_screen</code>. <strong>J</strong> marks a judgment call that is Richard’s (§7). “Clear” means the FHIR
+definition settles it.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>When</th><th>State</th><th>KG</th><th>Safety list</th><th>Settled?</th></tr></thead><tbody><tr><td>M1</td><td>intent in the R4 order family: <code>order</code>, <code>original-order</code>, <code>reflex-order</code>, <code>filler-order</code>, <code>instance-order</code></td><td>rows M4–M11 apply</td><td></td><td></td><td>clear</td></tr><tr><td>M2</td><td>intent <code>plan</code>, <code>proposal</code> or <code>option</code></td><td><code>not_an_order</code></td><td>nothing from it</td><td>listed as “planned” if its status is <code>active</code></td><td><strong>J6</strong></td></tr><tr><td>M3</td><td>intent absent: rows stored before I-3 parses it, and HTML rows</td><td>treated as an order, as every row is today; rows M4–M11 apply</td><td></td><td></td><td>interim. Kaiser rows carry intent after the first sync</td></tr><tr><td>M4</td><td>status <code>active</code>, and no date against it</td><td><code>current</code></td><td>current</td><td>listed</td><td>clear</td></tr><tr><td>M5</td><td>status <code>active</code>, but <code>validityPeriod.end</code> or any <code>boundsPeriod.end</code> is before <code>as_of</code></td><td><code>outside_window</code>, closed</td><td>past</td><td>listed: “active at Kaiser, window closed on D”</td><td><strong>J5</strong></td></tr><tr><td>M6</td><td>status <code>active</code>, and every <code>boundsPeriod.start</code> is after <code>as_of</code></td><td><code>outside_window</code>, not open</td><td>nothing from it</td><td>listed: “starts on D”</td><td><strong>J5</strong></td></tr><tr><td>M7</td><td>status <code>on-hold</code></td><td><code>held</code></td><td>past, not current</td><td>listed: “on hold”</td><td><strong>J1</strong></td></tr><tr><td>M8</td><td>status <code>completed</code> or <code>stopped</code></td><td><code>ended</code></td><td>past</td><td>not listed, but see M17</td><td>clear as evidence she took it. Whether a <code>completed</code> order can still be current is J9, and M20 for a drug given one order per dose</td></tr><tr><td>M9</td><td>status <code>cancelled</code> or <code>draft</code></td><td><code>never_in_effect</code></td><td>nothing from it (today: past)</td><td>not listed</td><td><strong>J2</strong></td></tr><tr><td>M10</td><td>status <code>entered-in-error</code></td><td><code>void</code></td><td>nothing (today: past)</td><td>not listed</td><td><strong>J3</strong></td></tr><tr><td>M11</td><td>status <code>unknown</code>, absent, or not an R4 code</td><td><code>unknown</code></td><td>nothing from it (today: past)</td><td>listed: “status not stated”</td><td><strong>J4</strong></td></tr><tr><td>M12</td><td><code>category</code> (<code>inpatient</code>, <code>outpatient</code>, <code>community</code>, <code>discharge</code>)</td><td>not a rule input in v1</td><td></td><td>shown</td><td><strong>J11</strong></td></tr><tr><td>M13</td><td>several orders resolve to one KG drug entity</td><td>—</td><td><code>current_medication</code> if any order is <code>current</code>; otherwise <code>past_medication</code> if any is evidence she took it; otherwise no edge. Never both</td><td>each order listed</td><td><strong>J7</strong></td></tr><tr><td>M14</td><td>a March HTML row</td><td>not classified</td><td>evidence she took it; never current</td><td>not listed</td><td><strong>J8</strong></td></tr><tr><td>M15</td><td>(I-5) a completed MedicationDispense that the order authorized, whose supply (<code>whenHandedOver</code> + <code>daysSupply</code>) covers <code>as_of</code></td><td>moves <code>unknown</code>, <code>outside_window</code> or a <code>completed</code> order to <code>current</code>. Never overrides <code>stopped</code>, <code>never_in_effect</code> or <code>void</code></td><td></td><td></td><td><strong>J9</strong></td></tr><tr><td>M16</td><td>(I-5) a dispense <code>entered-in-error</code>, <code>cancelled</code> or <code>declined</code></td><td>ignored</td><td></td><td></td><td>clear</td></tr><tr><td>M17</td><td>an <code>ended</code> order that started within the last 90 days</td><td>unchanged</td><td>unchanged</td><td>listed: “recent”</td><td><strong>J12</strong></td></tr><tr><td>M18</td><td>the drug is also in a treatment episode</td><td>—</td><td><code>tried_drug</code> wins and no medication edge is written, as today</td><td>listed</td><td>unchanged</td></tr><tr><td>M19</td><td>RxNorm codings</td><td>not a rule input; kept verbatim</td><td></td><td></td><td><strong>J10</strong> (what the column holds)</td></tr><tr><td>M20</td><td>a drug Kaiser records as one completed order per dose. Its latest completed dose ends a run of 3 or more completed doses on distinct days, each at most 42 days after the one before. No order of the drug dated on or after that dose, or undated, is stopped, on hold, cancelled, a draft or of unstated status</td><td>that day’s completed order is <code>current</code> until twice the run’s usual interval after the dose. The usual interval is the run’s median gap, the lower middle one when the count is even. After that, M8 again</td><td>current</td><td>listed: “current: one order per dose, about every N days; latest dose D, current until E”</td><td><strong>D-Q4-27 A</strong> (<code>#873</code>). The 3 and the 2× are Richard’s. The 42-day spacing, the run, the lower median and the stopping statuses are the implementing PR’s reading, flagged for him</td></tr></tbody></table></div>
+<p><code>medications_to_screen</code> is every order in <code>current</code>, <code>held</code>, <code>outside_window</code> or <code>unknown</code>, plus M17’s
+recent orders and M2’s active plans. <code>current_medications</code> for the Clinic view is <code>current</code> alone,
+with <code>held</code> shown beside it.</p>
+<p>M1–M19 decide each order alone. M20 decides per drug, from all of its orders, grouped by the KG
+builder’s first lookup key (the name’s first word, through <code>DRUG_ALIASES</code>). The derived lists and the
+KG builder both classify through <code>classify_medication_orders</code>, so they see one state per order.</p>
+<p>MedicationDispense (item 7) is not stored until I-5. M15 and M16 are here so Richard decides the
+combination once. I recommend that I-5 give dispenses their own table, <code>mods_medication_dispense</code>,
+keyed on the dispense’s id and linked to its order by the order’s Kaiser id. Stored as
+<code>mods_medication</code> rows, dispenses would make every reader that treats a row as an order wrong.</p>
+<h3 id="43-conditions">4.3 Conditions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-conditions" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>States of one Condition record:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>State</th><th>Meaning</th></tr></thead><tbody><tr><td><code>active</code></td><td>on her problem list as active now</td></tr><tr><td><code>remission</code></td><td>on her problem list, in remission</td></tr><tr><td><code>inactive</code></td><td>on her problem list, inactive or resolved</td></tr><tr><td><code>history</code></td><td>diagnosed at a visit (an encounter diagnosis)</td></tr><tr><td><code>not_stated</code></td><td>a problem or concern with no clinical status, or a record with no usable category</td></tr><tr><td><code>unconfirmed</code></td><td>verification <code>unconfirmed</code>, <code>provisional</code> or <code>differential</code></td></tr><tr><td><code>refuted</code></td><td>verification <code>refuted</code></td></tr><tr><td><code>void</code></td><td>verification <code>entered-in-error</code></td></tr></tbody></table></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>When</th><th>State</th><th>KG (<code>has_phenotypic_feature</code>)</th><th>Active view</th><th>Settled?</th></tr></thead><tbody><tr><td>C1</td><td>verification <code>entered-in-error</code></td><td><code>void</code></td><td>no edge</td><td>no</td><td><strong>J13</strong>: clear in meaning, but it changes model input</td></tr><tr><td>C2</td><td>verification <code>refuted</code></td><td><code>refuted</code></td><td>no edge</td><td>no</td><td><strong>J13</strong></td></tr><tr><td>C3</td><td>verification <code>unconfirmed</code>, <code>provisional</code> or <code>differential</code></td><td><code>unconfirmed</code></td><td>no edge</td><td>own group, “unconfirmed”</td><td><strong>J14</strong></td></tr><tr><td>C4</td><td>verification <code>confirmed</code></td><td>rows C6–C12 apply</td><td></td><td></td><td>clear</td></tr><tr><td>C5</td><td>verification absent</td><td>rows C6–C12 apply, as a recorded diagnosis</td><td></td><td></td><td><strong>J15</strong></td></tr><tr><td>C6</td><td><code>problem-list-item</code>, clinical status <code>active</code>, <code>recurrence</code> or <code>relapse</code></td><td><code>active</code></td><td>edge</td><td>yes</td><td>clear (#67’s grouping)</td></tr><tr><td>C7</td><td><code>problem-list-item</code>, <code>remission</code></td><td><code>remission</code></td><td>edge</td><td>own group, “in remission”</td><td><strong>J19</strong></td></tr><tr><td>C8</td><td><code>problem-list-item</code>, <code>inactive</code> or <code>resolved</code></td><td><code>inactive</code></td><td>edge</td><td>no</td><td>clear</td></tr><tr><td>C9</td><td><code>problem-list-item</code>, no clinical status</td><td><code>not_stated</code></td><td>edge, status NULL</td><td>own group, “status not stated”</td><td><strong>J18</strong></td></tr><tr><td>C10</td><td><code>encounter-diagnosis</code>, any clinical status</td><td><code>history</code></td><td>edge</td><td>no: diagnosis history, dated by <code>recorded_date</code></td><td><strong>J16</strong></td></tr><tr><td>C11</td><td><code>health-concern</code></td><td>as C6–C9</td><td>edge</td><td>own group, “health concerns”</td><td><strong>J17</strong></td></tr><tr><td>C12</td><td>category absent, unrecognised, or more than one</td><td><code>not_stated</code></td><td>edge</td><td>own group, “category not stated”</td><td><strong>J20</strong></td></tr><tr><td>C13</td><td>a March HTML row</td><td>not classified</td><td>edge, as today</td><td>no</td><td><strong>J21</strong></td></tr><tr><td>C14</td><td>several records resolve to one KG disease entity</td><td>—</td><td>one edge, metadata aggregated (§5.3)</td><td>each record listed</td><td>clear. The dedup exists today; aggregation replaces “first row wins”</td></tr><tr><td>C15</td><td>the entity is also the cancer profile’s</td><td>—</td><td>the cancer-profile edge wins, as today</td><td>—</td><td>unchanged</td></tr></tbody></table></div>
+<p>FHIR R4 expects <code>clinicalStatus</code> on a problem-list item (invariant con-3) but not on an encounter
+diagnosis. So the 40 stored conditions with no status are probably encounter diagnoses, filed as
+problems by the forced category. That is an inference; the first sync after I-3 will say, through Q4.</p>
+<h3 id="44-what-settles-the-open-calls">4.4 What settles the open calls<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-what-settles-the-open-calls" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The 2026-10-02 census already counted most of what these calls depend on, per record type and with
+no record contents:</p>
+<ul>
+<li><strong>MedicationRequest:</strong> <code>status</code>, <code>intent</code>, <code>with_rxnorm_coding</code>, <code>with_medication_reference</code>,
+<code>distinct_maple_names</code>;</li>
+<li><strong>Condition:</strong> <code>category / clinicalStatus</code>, <code>verificationStatus</code>, <code>with_icd10_coding</code>.</li>
+</ul>
+<p>The steward should read those fields from the census JSON before Richard decides J2–J6, J10 and
+J13–J20. A call whose case does not occur in her record (no <code>draft</code> orders, say, or no <code>differential</code>
+conditions) can take its default and be revisited only if the case appears. The PR should count every
+state on every sync so that it would show. If the JSON was not kept, run
+<code>kaiser_census.py --json --types MedicationRequest,Condition,MedicationDispense</code> at the next login. It
+takes a few minutes.</p>
+<p>The census does not measure three things:</p>
+<ul>
+<li>how many active orders have a closed window (J5);</li>
+<li>whether Kaiser sends <code>boundsPeriod</code> at all;</li>
+<li>the categories of active orders (J11).</li>
+</ul>
+<p>Those come from the database after the first post-I-3 sync (Appendix A, Q2–Q4).</p>
+<p><strong>The check that can fail.</strong> At the last report (Mission Spec §2.2, user-reported 2026-08-22), her
+maintenance regimen was cetuximab, encorafenib and binimetinib. Before anything consumes the view, it
+must put each of the three in <code>current</code> or <code>held</code>. If it does not, either the rules miss how Kaiser
+represents her regimen, or the regimen changed. The likely misses:</p>
+<ul>
+<li>infusion orders that Kaiser closes after each dose (M8);</li>
+<li>treatment-plan orders filed under <code>plan</code> intent (M2).</li>
+</ul>
+<p>Either way, ask Richard before any consumer reads the view. The check prints a count of orders per
+state for each of the three drugs, and nothing else (Appendix A, Q5).</p>
+<p><em>(2026-10-08: it failed at the first sync after I-3, on the first miss. Kaiser records each cetuximab
+infusion as its own order and marks it <code>completed</code> after the dose. Richard chose D-Q4-27 A
+(<code>#873</code>), built as M20 in §4.2.)</em></p>
+<h2 id="5-what-the-patient-kg-emits-after-i-3">5. What the patient KG emits after I-3<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-what-the-patient-kg-emits-after-i-3" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="51-medication-edges">5.1 Medication edges<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-medication-edges" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The builder classifies every Kaiser order and resolves each order’s drug as it does today: the name’s
+first word, then the full name, through <code>DRUG_ALIASES</code>. Then it decides per resolved entity (M13):</p>
+<ul>
+<li><code>current_medication</code> if any order is current;</li>
+<li>otherwise <code>past_medication</code> if any order, or any March HTML row, is evidence she took it;</li>
+<li>otherwise nothing.</li>
+</ul>
+<p>Treatment-episode drugs still win (M18). Compared with today, on the same rows:</p>
+<ul>
+<li>an order that is cancelled, a draft, entered in error, of unknown status, or not an order stops
+producing <code>past_medication</code>;</li>
+<li>an active order outside its window moves from <code>current_medication</code> to <code>past_medication</code>;</li>
+<li>a March HTML row reading active moves from current to past, unless a Kaiser order for the same drug
+is current;</li>
+<li>a drug with one current and one ended order gets one current edge, never both.</li>
+</ul>
+<h3 id="52-condition-edges">5.2 Condition edges<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-condition-edges" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>One <code>biolink:has_phenotypic_feature</code> edge per resolved disease entity, from every record that is not
+<code>void</code>, <code>refuted</code> or <code>unconfirmed</code>, of any category and any status. That keeps today’s “has had”
+meaning, the one the foundations trained on. Compared with today, on the same rows:</p>
+<ul>
+<li>refuted, entered-in-error and unconfirmed records stop producing edges;</li>
+<li>each edge’s metadata is aggregated, not copied from whichever row came first.</li>
+</ul>
+<p>The disease resolver matches names exactly, so most Kaiser condition names resolve to nothing today.
+<code>docs/pdr_personalization_writeup.md</code> counts 6 phenotype edges on her node. Expect the edge set to
+move little; the proof below measures it.</p>
+<h3 id="53-edge-metadata">5.3 Edge metadata<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-edge-metadata" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Today the first row added wins. Both edge tables insert with <code>ON CONFLICT DO NOTHING</code>
+(<code>mods_patient_kg_service</code> 995 and 1018), and the builders read rows with no <code>ORDER BY</code>. With 509
+orders for about 140 drug names, an edge’s <code>status</code> or <code>start_date</code> would then depend on row order:
+the tie-break the house rules forbid.</p>
+<p>The rule instead:</p>
+<ul>
+<li><strong>Scalar keys:</strong> each key the edge carries today holds the value when every contributing record
+agrees. Otherwise it is NULL, and the distinct values are listed under <code>&lt;key>_values</code>. The keys are
+<code>name</code>, <code>status</code> or <code>clinical_status</code>, <code>category</code>, <code>rxnorm_code</code>, <code>route</code>, <code>dose_text</code>,
+<code>frequency</code>, <code>icd_code</code>, <code>snomed_code</code> and <code>abatement_date</code>.</li>
+<li><strong>Dates:</strong> <code>start_date</code> and <code>onset_date</code> hold the earliest date.</li>
+<li><strong>Added:</strong> <code>record_count</code>, <code>source_record_ids</code> (sorted), <code>state_counts</code>, <code>rules_version</code> and
+<code>as_of</code>.</li>
+</ul>
+<p>A shuffled input must give identical edges and metadata; a test checks it.</p>
+<h3 id="54-training-exports">5.4 Training exports<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-training-exports" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Export</th><th>Patient edges in it</th><th>Affected by I-3?</th></tr></thead><tbody><tr><td>Smoke run #1</td><td>everything but the RGCC and medication predicates (D2)</td><td>no: already exported</td></tr><tr><td>Run #2 Arm A</td><td>the same export, split fingerprint <code>4518539f…</code> (roadmap S1)</td><td>no: it reuses that export</td></tr><tr><td>A later export (Arm B’s relation-fidelity export, #592)</td><td>the <code>maple_patient</code> relations stored when it runs</td><td>only if the patient KG is re-materialized after I-3 and before that export. Medication predicates stay excluded; condition edges would carry I-3’s changes</td></tr></tbody></table></div>
+<p>Arm A against Arm B is meant to test one change. A different patient phenotype edge set in Arm B would
+confound it. The exports keep (subject, predicate, object), not edge metadata, so only a change in the
+edge set matters. Hence J24.</p>
+<p>One check comes before J24 means anything: whether her stored phenotype edges still equal the ones in
+the smoke-run export. A re-materialization after that export, for any reason, would already have moved
+them. Comparing her triples in that export’s edge file with Q7 settles it.</p>
+<h3 id="55-proof-one-snapshot-two-builders">5.5 Proof: one snapshot, two builders<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#55-proof-one-snapshot-two-builders" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>backend/scripts/ehr/compare_patient_kg_edges.py</code>, new in the I-3 PR:</p>
+<ul>
+<li><strong>Read-only.</strong> One transaction, set READ ONLY and asserted with <code>SHOW transaction_read_only</code>, as the
+census does. Only the diagnosis, treatment-episode and medication builders run. They only read; the
+variant builder can upsert entities, so it is left out.</li>
+<li><strong>Two builders, one snapshot.</strong> It runs the pre-I-3 builders and the I-3 builders on the same rows,
+in memory, with no flush. The pre-I-3 builders are kept verbatim as <code>*_v1</code> functions until the
+proof is filed on #624, then deleted.</li>
+<li><strong>Counts only.</strong> Per predicate and side (legacy, canonical) it prints edges before and after, kept,
+added and removed. It prints how many records each rule row decided, and a digest of the sorted
+(predicate, object) set per predicate. It prints no names, ids or values.</li>
+<li><strong>Every difference explained.</strong> Each added or removed edge must trace to a rule row. The script
+exits nonzero on any edge none explains.</li>
+</ul>
+<p>It runs three times:</p>
+<ol>
+<li><strong>After the merge, before the next sync.</strong> The same data, so every difference is a rule’s doing.
+The condition digest says whether training-relevant edges moved (J24).</li>
+<li><strong>After the first post-I-3 sync.</strong> Old and new builders on the new rows: the rules’ effect on the
+full record.</li>
+<li><strong>The new builder across the sync.</strong> Run 2’s new side against run 1’s: what the 720 new records
+and the in-place updates did.</li>
+</ol>
+<p>The positive control from §4.4 runs before any of this is read as a result.</p>
+<h2 id="6-staging-and-rollback">6. Staging and rollback<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-staging-and-rollback" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>One PR, because two of its parts must land together.</strong> Either alone leaves a worse state than
+today:</p>
+<ul>
+<li>relaxing the name indexes without the updates stores 370 new orders beside 137 frozen rows that
+still claim stale statuses;</li>
+<li>turning updates on without relaxing the indexes makes each of the 141 rows track its first order,
+so a renewed drug reads <code>stopped</code>. That is the case I-2 held back for.</li>
+</ul>
+<p>The migration, the importer, the view module, the KG builder, the compare script, the readers and the
+tests ship together. If review needs it split, the readers can follow as a second PR, under one rule:
+nobody materializes the patient KG between the two.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Step</th><th>What</th><th>Reversible by</th></tr></thead><tbody><tr><td>0</td><td>Read-only preparation: the census fields from §4.4; Richard’s calls on §7; the migration re-scan (§2.5)</td><td>—</td></tr><tr><td>1</td><td>Merge. Prod redeploys and migration 113 runs at boot on Cloud Run and locally: columns and partial indexes only, which cannot fail on prod’s data. No row changes until a sync</td><td>revert, then a guarded script that restores the full name indexes, which still fit because nothing was inserted</td></tr><tr><td>2</td><td>Backup: every <code>mods_medication</code> and <code>mods_condition</code> row for the patient, as JSONL in a host-only backup directory. Apply J23 to the 4 ambiguous rows with a guarded script</td><td>the backup</td></tr><tr><td>3</td><td>Compare, run 1 (same data). File the counts on #624</td><td>nothing written</td></tr><tr><td>4</td><td>Next Kaiser login: one regular sync. Read §2.4’s counters against their stop thresholds. Compare, run 2. Run the positive control. A second sync if the hour allows: about 0 updates</td><td>the rollback script below</td></tr><tr><td>5</td><td>Re-materialize the patient KG, on J24’s terms. Compare, run 3</td><td>re-materialize with the pre-I-3 code: the materializer wipes and rebuilds her edges</td></tr><tr><td>6</td><td>I-5’s acceptance census: 0 Kaiser-only MedicationRequest and Condition ids, 0 collapsed, 0 per-id status drift</td><td>—</td></tr></tbody></table></div>
+<p><strong>The rollback script</strong> (part of I-3, tested, dry run by default, <code>--apply --expect N</code>, the house
+pattern):</p>
+<ol>
+<li>delete the Kaiser medication and condition rows whose ids are not in step 2’s backup;</li>
+<li>restore every other row to its backed-up values;</li>
+<li>restore the full name indexes, which fit again.</li>
+</ol>
+<p>History rows from the rolled-back sync stay: they record what happened. The history table is the
+audit trail. The backup is the restore source, because it is exact and needs no type conversion.</p>
+<h2 id="7-judgment-calls">7. Judgment calls<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-judgment-calls" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Each one is a mapping or a semantic choice that the data does not settle. Per CLAUDE.md, each is
+Richard’s to make. Each default is my proposal, and where the data cannot settle a call the default
+fails closed. The KG side never asserts what the record does not say; the safety side never drops
+what the record might mean.</p>
+<p><strong>Medications</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Call</th><th>Proposed default</th><th>Alternative</th></tr></thead><tbody><tr><td>J1</td><td>An order <code>on-hold</code></td><td><code>held</code>: not current in the KG, so past; listed “on hold” for safety</td><td>count as current</td></tr><tr><td>J2</td><td><code>cancelled</code> or <code>draft</code></td><td>no evidence she took it, so no KG edge from it</td><td>past, as today</td></tr><tr><td>J3</td><td><code>entered-in-error</code></td><td>void: no edge, kept in the record view</td><td>past, as today. R4 defines the code as a request on which some actions may already have occurred</td></tr><tr><td>J4</td><td>status <code>unknown</code>, absent, or not R4</td><td>no edge from it; listed “status not stated” for safety</td><td>past, as today</td></tr><tr><td>J5</td><td><code>active</code>, but outside its dated window (validity end or <code>boundsPeriod</code>)</td><td>not current. Past if the window closed, nothing if it has not opened. No grace days</td><td>trust Kaiser’s <code>active</code>; or allow a grace window of N days</td></tr><tr><td>J6</td><td>intent <code>plan</code>, <code>proposal</code>, <code>option</code></td><td>not an order: no KG edge; an active plan is listed “planned”</td><td>treat as an order. Revisit if the positive control fails on a <code>plan</code></td></tr><tr><td>J7</td><td>Several orders resolving to one drug</td><td>per drug: current if any order is current, else past. Never both, as today</td><td>per-order edges, so a renewed drug carries both</td></tr><tr><td>J8</td><td>March HTML medication rows</td><td>evidence of past use only, never current</td><td>as today: HTML <code>active</code> gives current</td></tr><tr><td>J9</td><td>Dispenses (I-5)</td><td>supply covering today makes an <code>unknown</code>, <code>outside_window</code> or <code>completed</code> order current. Never overrides <code>stopped</code>, <code>cancelled</code>, <code>draft</code> or <code>entered-in-error</code>. No adherence grace</td><td>a dispense alone makes a drug current; a grace window</td></tr><tr><td>J10</td><td><code>rxnorm_code</code></td><td>the sync does not write it. Kaiser’s codings are kept verbatim. Which RxNorm term type the column holds (ingredient, or clinical drug) waits for the census’s coding counts</td><td>fill from Kaiser’s first RxNorm coding</td></tr><tr><td>J11</td><td>MedicationRequest <code>category</code></td><td>stored and shown, not a rule input</td><td>inpatient orders never current outside an admission</td></tr><tr><td>J12</td><td>Safety list recency</td><td>also list <code>ended</code> orders that started within 90 days</td><td>another window; none</td></tr></tbody></table></div>
+<p><strong>Conditions</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Call</th><th>Proposed default</th><th>Alternative</th></tr></thead><tbody><tr><td>J13</td><td>verification <code>refuted</code> or <code>entered-in-error</code></td><td>no KG edge, not in the active view. Clear in meaning, but it changes model input</td><td>as today: edge emitted</td></tr><tr><td>J14</td><td><code>unconfirmed</code>, <code>provisional</code>, <code>differential</code></td><td>no KG edge; an “unconfirmed” group in the view</td><td>edge emitted, labelled</td></tr><tr><td>J15</td><td>verification absent</td><td>a recorded diagnosis</td><td>treated as unconfirmed</td></tr><tr><td>J16</td><td><code>encounter-diagnosis</code></td><td>diagnosis history, never an active problem. The KG edge is kept, as today</td><td>active when its clinical status is active</td></tr><tr><td>J17</td><td><code>health-concern</code></td><td>its own group, by the problem-list rule. The KG edge is kept, as today</td><td>excluded from the KG</td></tr><tr><td>J18</td><td>problem-list item with no clinical status</td><td>”status not stated”: neither active nor resolved. The KG edge is kept with status NULL</td><td>— (item 5 already rules out <code>resolved</code>)</td></tr><tr><td>J19</td><td><code>remission</code></td><td>not active, shown as “in remission”. The column keeps #67’s map; the view and edge metadata carry the raw code</td><td>count remission as active for an oncology reader</td></tr><tr><td>J20</td><td>Category absent, unrecognised, or several</td><td>column NULL, all codings in metadata, counted</td><td>take the first recognised code</td></tr><tr><td>J21</td><td>March HTML condition rows</td><td>outside the active view (a dated snapshot); KG edges as today</td><td>as today, in the active view</td></tr><tr><td>J22</td><td>Cancer-profile collector (#106)</td><td>unchanged: it keeps receiving every FHIR Condition, though the HTML import withholds visit diagnoses. Q6 says whether any profile field is still blank and could fill</td><td>problem-list records only, matching the HTML rule</td></tr></tbody></table></div>
+<p><strong>Data and sequencing</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Call</th><th>Proposed default</th><th>Alternative</th></tr></thead><tbody><tr><td>J23</td><td>The 2 ambiguous ids (4 rows)</td><td>item 1’s encounter rule: keep the most recently stored row of each pair, back up and delete the other. The next sync updates the kept row from Kaiser, so the choice only decides which row id survives</td><td>delete both and let the sync insert fresh rows; or leave both, so 2 orders stay unstored</td></tr><tr><td>J24</td><td>When to re-materialize the patient KG</td><td>when the compare script, run on the data as it stands, shows the new builder’s condition (predicate, object) set equal to the stored one: Arm B’s export would then carry the same phenotype edges as today. If the sets differ, wait until Arm B’s export is taken, or record the <code>maple_patient</code> digest in Arm B’s manifest and disclose the change</td><td>re-materialize at once</td></tr></tbody></table></div>
+<h2 id="8-tests-the-implementation-carries">8. Tests the implementation carries<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-tests-the-implementation-carries" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Every safeguard is reverted once to show its test fails, as I-2 did. Clinical content in fixtures is
+synthetic.</p>
+<ul>
+<li><strong>Migration 113:</strong>
+<ul>
+<li>a no-op on a fresh schema;</li>
+<li>applied to prod’s pre-113 shape: populated, names unique, one id on two rows, HTML rows;</li>
+<li>idempotent;</li>
+<li>the declared index shape equals the migrated one;</li>
+<li>the advisory-lock path that a second booting chain takes.</li>
+</ul>
+</li>
+<li><strong>Importer:</strong>
+<ul>
+<li>two orders for one drug give two rows and no collapse;</li>
+<li>a status change updates in place, with exact history rows;</li>
+<li><code>*_changes_held</code> stays 0;</li>
+<li>an HTML re-import and a Cerbo-shaped record still dedupe on the name;</li>
+<li>a Kaiser record never collapses on a name;</li>
+<li>an encounter diagnosis keeps its category;</li>
+<li>an absent <code>clinicalStatus</code> stays NULL; an unrecognised category is NULL;</li>
+<li>a metadata key sent as null clears a withdrawn value;</li>
+<li>the sync never writes <code>rxnorm_code</code>;</li>
+<li>unparsed records are counted.</li>
+</ul>
+</li>
+<li><strong>View:</strong> one case per rules-table row, M1 to M20 and C1 to C15. Each fails when its rule is
+sabotaged.</li>
+<li><strong>KG:</strong>
+<ul>
+<li>per-drug exclusivity: never both predicates;</li>
+<li>a shuffled input gives identical edges and metadata;</li>
+<li>the cancer-profile edge keeps precedence;</li>
+<li>void, refuted and unconfirmed records give no edge;</li>
+<li>the compare script exits nonzero on an unexplained edge.</li>
+</ul>
+</li>
+<li><strong>Readers:</strong>
+<ul>
+<li>the new browse paths;</li>
+<li>the delta’s “first stored” against “new at Kaiser” split;</li>
+<li>mCODE intent;</li>
+<li>the entity browser refusing PATCH and DELETE on a Kaiser row;</li>
+<li>the census’s per-id comparison.</li>
+</ul>
+</li>
+<li><strong>Rollback:</strong> apply, then roll back, gives the backup exactly. The dry run writes nothing, checked
+by <code>xmin</code>.</li>
+<li><strong>Counters:</strong> per kind, the outcomes sum to the records parsed.</li>
+</ul>
+<h2 id="9-parallelization-analysis">9. Parallelization Analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-parallelization-analysis" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Surfaces touched.</strong>
+<ul>
+<li><strong>This PR:</strong> docs only (this file). No backend API, frontend component, worker handler,
+migration, MCP tool, DB-stored config or test.</li>
+<li><strong>The I-3 implementation:</strong>
+<ul>
+<li>backend API: yes (the clinic routes for the derived views; the browse service; the delta;
+the entity browser refusal);</li>
+<li>frontend component: small (<code>ehrSyncReport.js</code> labels; optionally a lock notice in
+<code>ModsLabDashboard.jsx</code>);</li>
+<li>worker handler: no, because the sync runs only in the backend (item 8);</li>
+<li>migration: yes (113);</li>
+<li>MCP tool: small (<code>mods_export_mcode</code>’s intent; optionally a <code>dry_run</code> on
+<code>mods_patient_materialize_kg</code>);</li>
+<li>DB-stored config: no;</li>
+<li>docs: yes (the two rules files, the audit, two docs that cite the tables);</li>
+<li>tests: yes.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Parallel split.</strong>
+<ul>
+<li><strong>I-3 itself:</strong> the migration, importer, view module and KG builder land together (§6); the
+readers may follow under the no-materialization rule.</li>
+<li><strong>Can run beside it:</strong>
+<ul>
+<li>I-4 (labs): different import path and table; it shares files and the migration counter;</li>
+<li>Lane C (note text): independent;</li>
+<li>the Options Ledger (#565): builds against the view’s API contract (§4.1) and integrates after
+I-3 merges.</li>
+</ul>
+</li>
+<li><strong>Waits on I-3:</strong> I-5 (dispenses plug into M15; HTML superseding meets the partial indexes; its
+acceptance census needs I-3’s per-id comparison).</li>
+<li><strong>Run <code>#2</code></strong> is coupled only through J24.</li>
+</ul>
+</li>
+<li><strong>Collision hotspots.</strong>
+<ul>
+<li><code>backend/migrations.py</code>: 113, and the Ledger and I-4 want the next number. Second to merge
+renumbers.</li>
+<li><code>backend/mods_models.py</code>: two models’ indexes and columns.</li>
+<li><code>backend/mods_ehr_upsert.py</code>: the MEDICATION and CONDITION kinds. I-4 and Lane C touch this
+file too.</li>
+<li><code>backend/mods_ehr_ingestion_service.py</code> and <code>backend/connectors/epic_fhir_connector.py</code>: shared
+with I-4 and I-5.</li>
+<li><code>backend/mods_patient_kg_service.py</code>: its output feeds Arm B’s export.</li>
+<li><code>backend/mcp_servers/mods_server.py</code>.</li>
+<li><code>frontend/src/components/ModsLabDashboard.jsx</code>: the Ledger’s Options tab lands here too.</li>
+<li><code>.claude/rules/ehr-integrations.md</code>: 8,190 of 8,192 bytes, so an edit must trim first.</li>
+<li><code>.claude/rules/kg-ingest.md</code>.</li>
+<li>Not touched: <code>main.py</code>, <code>component_registry.py</code>, <code>ComponentLoader.jsx</code>, <code>Terminal.jsx</code> (the
+<code>ehr ls</code> categories come from the server), <code>package.json</code>, <code>requirements.txt</code>, <code>CLAUDE.md</code>,
+<code>MEMORY.md</code>.</li>
+</ul>
+</li>
+<li><strong>Verify how.</strong>
+<ul>
+<li><strong>Migration:</strong> pytest on prod’s pre-113 shape, plus <code>scripts/check_migration_bootstrap.py</code>; the
+boot log shows 113 once.</li>
+<li><strong>Importer:</strong> pytest with synthetic Kaiser fixtures; live, §2.4’s counters and the second sync
+at about 0.</li>
+<li><strong>View:</strong> a table-driven pytest per rule row; live, the positive control (Q5).</li>
+<li><strong>KG:</strong> the compare script, runs 1 to 3, counts filed on #624; a DB edge count per predicate
+(Q7).</li>
+<li><strong>Readers:</strong> pytest per reader; <code>node frontend/scripts/test_ehr_sync_report.mjs</code>; a Terminal
+walk-through of <code>ehr ls medications/current</code>.</li>
+<li><strong>Census:</strong> I-5’s re-run shows 0 collapsed and 0 per-id status drift for both types.</li>
+<li><strong>Docs:</strong> <code>python scripts/docs/scan_publish_safety.py --explain</code> on every doc touched.</li>
+</ul>
+</li>
+</ol>
+<h2 id="implementation-notes-2026-10-05">Implementation notes (2026-10-05)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#implementation-notes-2026-10-05" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Built on branch <code>claude/ehr-i3-per-record</code> after D-Q4-18 (#689), “A with all defaults”. Where
+the build differs from the text above, or had to read it:</p>
+<ul>
+<li><strong>Migration 116, not 113.</strong> <code>113_relation_key_includes_source_predicate</code> (#627), 114 and 115
+landed first. 116 was free on every ref (<code>git log --all -S &quot;def migration_116&quot;</code>, nothing)
+and in every worktree on disk.</li>
+<li><strong>The positive control asks for <code>current</code>.</strong> The card says “must come out current”; §4.4 and
+Q5 said <code>current</code> or <code>held</code>. <code>scripts/ehr/check_regimen_positive_control.py</code> follows the card:
+an on-hold order fails it.</li>
+<li><strong>Readers the design did not list.</strong> <code>mods_kgia_profile_service._build_conditions</code> (the
+Patient Profile’s C2 section, wired 2026-10-01) reads <code>mods_condition</code> and now lists every
+record; it is display and coverage only, not a model input, and is left reading the table.
+<code>materialize_patient_kg</code> and the compare script are the only KG readers changed.</li>
+<li><strong>Interpretations, each open to change:</strong>
+<ul>
+<li>§5.3’s scalar rule counts an unstated value as a value: a key holds its value only when
+every record states the same one, unstated included.</li>
+<li><code>end_date</code> (“valid until”) is on today’s medication edge but not in §5.3’s key list; it is
+treated as a scalar. The edge also carries <code>clinical_status_raw</code>, per J19.</li>
+<li>A “resolved entity” is a connected component: records that resolve to a common target on
+either side decide together, so no target can receive both medication predicates.</li>
+<li>C15: a condition whose disease is the cancer profile’s adds no edge there; its aggregate
+rides on the profile’s edge under <code>also_from</code>.</li>
+<li>M6 needs every dosage instruction to state a start after <code>as_of</code>; M17 calls an order
+without a start date not recent.</li>
+<li>Medication and condition rows from a source other than Kaiser FHIR and the March HTML
+import (Cerbo, once reconnected) are not classified and contribute nothing; none exist.</li>
+<li>The delta’s split uses <code>start_date</code> for orders and <code>recorded_date</code> for conditions, against
+the previous sync’s UTC day; an undated row is counted apart, never guessed.</li>
+<li>The entity browser refuses edits to medication and condition rows with a Kaiser id only.
+Since I-2, encounter, immunization, allergy and procedure rows are overwritten by a sync too.</li>
+</ul>
+</li>
+</ul>
+<h2 id="implementation-notes-m20-2026-10-08">Implementation notes: M20 (2026-10-08)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#implementation-notes-m20-2026-10-08" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The positive control failed at the first sync after I-3. Kaiser records each cetuximab infusion as
+its own MedicationRequest and marks it <code>completed</code> after the dose, so M8 read her current infusion as
+ended. Richard chose D-Q4-27 A (<code>#873</code>): a drug Kaiser
+records as repeated per-dose orders is current while its latest dose is within twice its own usual
+interval. It applies only to 3 or more completed orders at a regular spacing, so a one-off order never
+qualifies. Built as M20, <code>RULES_VERSION</code> <code>ehr-derived/2</code>. The decision fixes the 3 and the 2×. The
+rest is a reading of “at a regular spacing”, flagged for Richard on the PR:</p>
+<ul>
+<li><strong>A run, not the whole history.</strong> The latest dose must end a run of at least three, each dose at
+most 42 days after the one before. A longer gap is a break between courses, and the doses before it
+are not the drug’s spacing now.
+<ul>
+<li>Reading the whole history instead would let one order, months after an old series, read current
+for weeks.</li>
+<li>The cost of the run: after a break, a resumed drug reads not current until its third dose. In
+those weeks the safety list still lists its orders as recent (M17).</li>
+</ul>
+</li>
+<li><strong>42 days.</strong> In her record the gaps between consecutive completed doses of one drug are either at
+most five weeks (a delayed cycle within a course) or more than eight (a break between courses).
+Six weeks sits between the two. It also caps the window at twelve weeks after the latest dose.</li>
+<li><strong>The lower median.</strong> With an even number of gaps, the usual interval is the lower middle one: an
+interval that occurred, and the shorter window.</li>
+<li><strong>Doses.</strong> A dose is a completed Kaiser order of the drug (not a plan), counted once per start day.
+The start (<code>authoredOn</code>) is the only date a dose has, because Kaiser refuses our app’s
+MedicationAdministration requests.</li>
+<li><strong>What stops it.</strong> An order of the drug dated on or after its latest dose, or undated, that is
+stopped, on hold, cancelled, a draft or of unstated status. An active order is decided by M4–M6;
+one entered in error is void. M20 changes no order but the completed one(s) on the latest dose day.</li>
+</ul>
+<h2 id="appendix-a-read-only-queries-for-the-steward">Appendix A. Read-only queries for the steward<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#appendix-a-read-only-queries-for-the-steward" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Each runs as the census and the audit probes did:</p>
+<ul>
+<li><code>docker exec -i BACKEND python - &lt; probe.py</code>;</li>
+<li>inside one transaction set <code>READ ONLY</code> and asserted with <code>SHOW transaction_read_only</code>, then rolled
+back;</li>
+<li>counts and codes only, with <code>:p</code> bound to her patient id.</li>
+</ul>
+<p>Q1, Q6 and Q8 can run any time, and a first Q7 belongs before anything changes. Q2 to Q4 need the
+columns I-3 adds, so they run after the first post-I-3 sync, when Q1 and Q7 run again.</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- Q1. Rows by source and identity state (before and after).</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'mods_medication'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> tbl, source, source_record_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">IS NOT NULL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> has_id, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_medication </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> patient_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> :p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">3</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">UNION ALL</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'mods_condition'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, source, source_record_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">IS NOT NULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_condition </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> patient_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> :p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">3</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">ORDER BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- Q2. Kaiser orders by status and intent (J2-J6).</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">status</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'(null)'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> status</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(intent, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'(null)'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> intent, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_medication </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> patient_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> :p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AND</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'epic_fhir'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> ORDER BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 3</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> DESC</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- Q3. Active orders whose window has closed (J5), and their categories (J11).</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(category, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'(null)'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> category,</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">       CASE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> WHEN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> end_date </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">IS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> NULL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> THEN</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'no validity end'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">            WHEN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> end_date </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> current_date </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">THEN</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'window open'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">            WHEN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> end_date </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> current_date </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 90</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> THEN</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'closed under 90 days'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">            WHEN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> end_date </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> current_date </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 365</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> THEN</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'closed 90-365 days'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">            ELSE</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'closed over a year'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> END</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> validity_window, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_medication</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> patient_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> :p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AND</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'epic_fhir'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AND</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> status</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'active'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> ORDER BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- Q4. Conditions by category, raw clinical status and verification (J13-J20).</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(category, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'(null)'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> category,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">       coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(metadata</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">->></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'clinical_status'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'(absent)'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> clinical_status_raw,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">       coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(verification_status, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'(null)'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> verification, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_condition </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> patient_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> :p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AND</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'epic_fhir'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">3</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> ORDER BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 4</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> DESC</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- Q6. Cancer-profile fields the #106 collector could still fill (J22): blank or not, no values.</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(primary_site, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">''</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> ''</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> site_blank, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(histology, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">''</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> ''</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> histology_blank,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">       coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(icd10_code, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">''</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> ''</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> icd10_blank, diagnosis_date </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">IS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> NULL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> dx_date_blank,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">       coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(primary_site_snomed, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">''</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> ''</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> site_snomed_blank,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">       coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(histology_snomed, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">''</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> ''</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> histology_snomed_blank</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_cancer_profile </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> patient_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> :p;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- Q7. Her stored KG edges per predicate and builder (before and after re-materializing).</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> predicate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, metadata</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">->></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'source'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> built_from, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_relation</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'maple_patient'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AND</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> subject_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> :patient_entity_id</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> ORDER BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- Q8. The ambiguous pairs (J23): rows, distinct names and import times per id, without the id.</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> n_rows, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">DISTINCT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> n_names, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">DISTINCT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> created_at) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> n_imports</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_medication</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> patient_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> :p </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AND</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'epic_fhir'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AND</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source_record_id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">IS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> NULL</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  AND</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> coalesce</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(metadata</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">->></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'fhir_id'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">''</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> ''</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">GROUP BY</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> metadata</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">->></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'fhir_id'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> HAVING</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span></code></pre></figure>
+<p><strong>Q5, the positive control</strong>, is a call into the view, not SQL. For cetuximab, encorafenib and
+binimetinib it prints the number of Kaiser orders in each state, matched on the drug name as the KG
+resolver matches it, and nothing else. Pass: each of the three has at least one order in <code>current</code>
+or <code>held</code>.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-6" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#kaiser-medications-and-conditions-at-one-row-per-record" data-for="kaiser-medications-and-conditions-at-one-row-per-record">Kaiser medications and conditions at one row per record</a></li><li class="depth-1"><a href="#0-summary" data-for="0-summary">0. Summary</a></li><li class="depth-1"><a href="#1-where-things-stand-2026-10-02" data-for="1-where-things-stand-2026-10-02">1. Where things stand (2026-10-02)</a></li><li class="depth-1"><a href="#2-the-schema-change" data-for="2-the-schema-change">2. The schema change</a></li><li class="depth-2"><a href="#21-identity-and-what-happens-to-the-name-indexes" data-for="21-identity-and-what-happens-to-the-name-indexes">2.1 Identity, and what happens to the name indexes</a></li><li class="depth-2"><a href="#22-what-the-rows-keep" data-for="22-what-the-rows-keep">2.2 What the rows keep</a></li><li class="depth-2"><a href="#23-how-the-existing-rows-map-to-per-record-rows" data-for="23-how-the-existing-rows-map-to-per-record-rows">2.3 How the existing rows map to per-record rows</a></li><li class="depth-2"><a href="#24-what-the-first-sync-after-i-3-should-show" data-for="24-what-the-first-sync-after-i-3-should-show">2.4 What the first sync after I-3 should show</a></li><li class="depth-2"><a href="#25-the-migration-number" data-for="25-the-migration-number">2.5 The migration number</a></li><li class="depth-1"><a href="#3-reader-by-reader" data-for="3-reader-by-reader">3. Reader by reader</a></li><li class="depth-1"><a href="#4-the-derived-views" data-for="4-the-derived-views">4. The derived views</a></li><li class="depth-2"><a href="#41-shape" data-for="41-shape">4.1 Shape</a></li><li class="depth-2"><a href="#42-medications" data-for="42-medications">4.2 Medications</a></li><li class="depth-2"><a href="#43-conditions" data-for="43-conditions">4.3 Conditions</a></li><li class="depth-2"><a href="#44-what-settles-the-open-calls" data-for="44-what-settles-the-open-calls">4.4 What settles the open calls</a></li><li class="depth-1"><a href="#5-what-the-patient-kg-emits-after-i-3" data-for="5-what-the-patient-kg-emits-after-i-3">5. What the patient KG emits after I-3</a></li><li class="depth-2"><a href="#51-medication-edges" data-for="51-medication-edges">5.1 Medication edges</a></li><li class="depth-2"><a href="#52-condition-edges" data-for="52-condition-edges">5.2 Condition edges</a></li><li class="depth-2"><a href="#53-edge-metadata" data-for="53-edge-metadata">5.3 Edge metadata</a></li><li class="depth-2"><a href="#54-training-exports" data-for="54-training-exports">5.4 Training exports</a></li><li class="depth-2"><a href="#55-proof-one-snapshot-two-builders" data-for="55-proof-one-snapshot-two-builders">5.5 Proof: one snapshot, two builders</a></li><li class="depth-1"><a href="#6-staging-and-rollback" data-for="6-staging-and-rollback">6. Staging and rollback</a></li><li class="depth-1"><a href="#7-judgment-calls" data-for="7-judgment-calls">7. Judgment calls</a></li><li class="depth-1"><a href="#8-tests-the-implementation-carries" data-for="8-tests-the-implementation-carries">8. Tests the implementation carries</a></li><li class="depth-1"><a href="#9-parallelization-analysis" data-for="9-parallelization-analysis">9. Parallelization Analysis</a></li><li class="depth-1"><a href="#implementation-notes-2026-10-05" data-for="implementation-notes-2026-10-05">Implementation notes (2026-10-05)</a></li><li class="depth-1"><a href="#implementation-notes-m20-2026-10-08" data-for="implementation-notes-m20-2026-10-08">Implementation notes: M20 (2026-10-08)</a></li><li class="depth-1"><a href="#appendix-a-read-only-queries-for-the-steward" data-for="appendix-a-read-only-queries-for-the-steward">Appendix A. Read-only queries for the steward</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>KGIA Patient Profile — Data QC</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="KGIA Patient Profile — Data QC"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="KGIA Patient Profile — Data QC"/><meta name="twitter:description" content="The data-quality checklist standing between a patient feature schema and the model that consumes it."/><meta property="og:description" content="The data-quality checklist standing between a patient feature schema and the model that consumes it."/><meta property="og:image:alt" content="The data-quality checklist standing between a patient feature schema and the model that consumes it."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/results/kgia_patient_profile_qc"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/results/kgia_patient_profile_qc"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="The data-quality checklist standing between a patient feature schema and the model that consumes it."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/results/kgia_patient_profile_qc-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/results/kgia_patient_profile_qc-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/results/kgia_patient_profile_qc-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="results/kgia_patient_profile_qc" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-93" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-93" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../results/">results</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>KGIA Patient Profile — Data QC</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-25</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">reference</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">The data-quality checklist standing between a patient feature schema and the model that consumes it.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.258Z">Oct 09, 2026</time><span>12 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="kgia-patient-profile--data-qc-checklist">KGIA Patient Profile — Data QC Checklist<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#kgia-patient-profile--data-qc-checklist" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>Use this document to track data-quality review of every section that feeds the
+KGIA fine-tuning input file (<code>GET /api/mods/research/patient-profile</code>). One row
+per section. Check the <code>[ ]</code> once we’ve QC’d that section’s data and confirmed
+the records, the query shape, and any cleanup are good.</p>
+<p>The “final file” = whatever the API returns when you toggle on the sections you
+want. Toggling a section off in the UI <strong>also drops its entities from PrimeKG
+coverage</strong>, so this is the same gate KGIA will see.</p>
+<ul>
+<li><strong>Schema:</strong> <code>kgia-profile/1.1</code></li>
+<li><strong>Endpoint:</strong> <code>GET /api/mods/research/patient-profile?include=&lt;csv-of-section-keys></code></li>
+<li><strong>Builder:</strong> <code>backend/mods_kgia_profile_service.py</code></li>
+<li><strong>Frontend:</strong> <code>frontend/src/components/ResearchDashboard.jsx</code> → “Patient Profile” tab</li>
+</ul>
+<hr/>
+<h2 id="always-on-no-toggle">Always-on (no toggle)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#always-on-no-toggle" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Field</th><th>Source</th><th>Notes</th></tr></thead><tbody><tr><td><code>patient</code></td><td><code>mods_patient</code> (single row by id)</td><td>Demographics: id, name, DOB, notes</td></tr><tr><td><code>primekg_coverage</code></td><td>derived — <code>PrimeKgMapper</code> lookups against <code>mods_kg_node</code> (<code>kg_source='prime_kg'</code>)</td><td>Counts entities collected from the <em>enabled</em> sections</td></tr><tr><td><code>kgia_inputs</code></td><td>derived from biomarker scalars + coverage</td><td><code>--use_ploss</code> eligibility, λ defaults, available biomarker names</td></tr></tbody></table></div>
+<hr/>
+<h2 id="section-checklist">Section checklist<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#section-checklist" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="--1-cancer_profile">[ ] 1. <code>cancer_profile</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--1-cancer_profile" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Table:</strong> <code>mods_cancer_profile</code></li>
+<li><strong>Query:</strong> <code>SELECT primary_site, histology, stage, stage_group, t/n/m_stage, ms_status, tmb, cms_subtype, pdl1_*, loh_percentage, icd10_code, primary_site_snomed, histology_snomed, diagnosis_date, cancer_type, notes WHERE patient_id = :pid ORDER BY diagnosis_date DESC NULLS LAST</code></li>
+<li><strong>Builder:</strong> <code>_build_cancer_profile</code></li>
+<li><strong>External identifiers exposed:</strong> <code>icd10_code</code> (clinical billing), <code>primary_site_snomed</code>, <code>histology_snomed</code> (SNOMED CT)</li>
+<li><strong>PrimeKG contribution:</strong> disease (via <code>primary_site</code> then fallback <code>histology</code>); currently maps <code>Adenocarcinoma</code> → MONDO 35979</li>
+<li><strong>Current state for Maureen</strong> <em>(after cleanup + reparse 2026-05-05)</em>:
+<ul>
+<li><code>primary_site=Colon</code>, <code>histology=Adenocarcinoma</code>, <code>stage=IV</code>, <code>icd10_code=C18.9</code> (seeded)</li>
+<li><code>ms_status=Stable</code> (parsed from Guardant360 “MSI-High NOT DETECTED” → MSS)</li>
+<li><code>pdl1_score=0</code>, <code>pdl1_clone=22c3</code>, <code>pdl1_score_type=TPS</code> (parsed from Caris)</li>
+<li><code>tmb</code>, <code>cms_subtype</code>, <code>loh_percentage</code>, <code>t/n/m_stage</code> still null (not present in source reports)</li>
+</ul>
+</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Backfill <code>primary_site_snomed</code> (e.g., 71854001 = Colon structure) and <code>histology_snomed</code></li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Verify <code>pdl1_score=0</code> is correct (was originally extracted before cleanup; could be a false positive from a still-real Caris report — spot-check the report text)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Add LOH%, CMS, TMB once those values appear in real reports (currently absent)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Confirm <code>icd10_code=C18.9</code> matches the active diagnosis (per oncologist notes)</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong>
+<ul>
+<li><code>2026-05-05</code> Cleaned 5 misclassified docs that were inflating the profile with parser noise (Pine Street letters, Kaiser EMR exports). See <code>backend/scripts/cleanup_misclassified_genomic_reports.py</code>.</li>
+<li><code>2026-05-05</code> Tightened MSI regex in <code>caris_parser.py</code> (require colon between key and value) and <code>guardant360_parser.py</code> (recognize Guardant tabular form “MSI-High NOT DETECTED” → MSS). Without these fixes the parser was reading “microsatellite instability high” out of CMS subtype definitions and “MSI-High” labels out of biomarker tables.</li>
+<li><code>2026-05-05</code> Fixed <code>mods_genomic_report_service.py</code> to upsert (auto-create) cancer_profile and persist <code>pdl1_*</code>, <code>tmb</code>, <code>ms_status</code> (previously they were extracted but silently dropped).</li>
+</ul>
+</li>
+</ul>
+<h3 id="--2-genomic_alterations">[ ] 2. <code>genomic_alterations</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--2-genomic_alterations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Table:</strong> <code>mods_genomic_alteration</code></li>
+<li><strong>Query:</strong> <code>SELECT gene, variant, consequence, vaf, hgnc_id, alteration_type, interpretation, origin, zygosity, hgvs_protein, hgvs_coding, exon, test_type, report_date, source_report WHERE patient_id = :pid ORDER BY gene</code></li>
+<li><strong>Builder:</strong> <code>_build_genomic_alterations</code></li>
+<li><strong>Current state for Maureen:</strong> 21 rows</li>
+<li><strong>PrimeKG contribution:</strong> gene (matched against PrimeKG gene/protein nodes)</li>
+<li><strong>Known noise (parser artifacts to clean):</strong> <code>gene='AND'</code>, <code>gene='FOR'</code>, <code>gene='V600E'</code> (variant slipped into gene field). HGNC IDs are sparse.</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Strip parser artifact rows (AND, FOR, V600E)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Backfill missing <code>hgnc_id</code> for real gene symbols</li>
+<li class="task-list-item is-checked" data-task="x"><input type="checkbox" checked class="checkbox-toggle"/> Verified (2026-07-07): an earlier second-hit reading at one locus did not hold up (BAF-checked); KRAS has no variant (not present in any report)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Confirm <code>origin</code> (somatic vs germline) is populated where known</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<h3 id="--3-gene_expression">[ ] 3. <code>gene_expression</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--3-gene_expression" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Table:</strong> <code>mods_gene_expression</code></li>
+<li><strong>Query:</strong> <code>SELECT gene, hgnc_id, expression_value, expression_unit, cohort, regulation, test_type, report_date WHERE patient_id = :pid ORDER BY regulation NULLS LAST, expression_value DESC NULLS LAST</code></li>
+<li><strong>Builder:</strong> <code>_build_gene_expression</code></li>
+<li><strong>Current state for Maureen:</strong> 88 rows</li>
+<li><strong>PrimeKG contribution:</strong> gene</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Confirm <code>expression_unit</code> consistency (<code>tpm_percentile</code> vs <code>tpm</code> vs <code>livak_ratio</code>)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Verify <code>cohort</code> is populated for percentiles (e.g., “colorectal”)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Spot-check <code>regulation</code> ∈ {<code>over_expressed</code>, <code>under_expressed</code>, <code>normal</code>}</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Cross-check Caris WTS top-N against this table</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<h3 id="--4-therapy_associations">[ ] 4. <code>therapy_associations</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--4-therapy_associations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Table:</strong> <code>mods_therapy_association</code></li>
+<li><strong>Query:</strong> <code>SELECT biomarker_name, drug_name, drug_rxnorm, association_type, evidence_level, cancer_type, source, trial_nct_id, trial_phase WHERE patient_id = :pid ORDER BY association_type, evidence_level NULLS LAST, drug_name</code> — bucketed by <code>association_type</code></li>
+<li><strong>Builder:</strong> <code>_build_therapy_associations</code></li>
+<li><strong>Current state for Maureen:</strong> 19 rows, <strong>all</strong> in <code>clinical_trial</code> bucket. 0 benefit, 0 resistance, 0 lack_of_benefit.</li>
+<li><strong>PrimeKG contribution:</strong> drug (via <code>drug_name</code>). Note: <code>biomarker_name</code> is <em>not</em> used as a gene source — too noisy.</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Verify the parsers should have populated <code>benefit</code> / <code>resistance</code> / <code>lack_of_benefit</code> from Caris/Guardant therapy match sections — currently they’re all landing as trials</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> One trial row has narrative text in <code>drug_name</code> (“This trial is not yet recruiting at Stanford…”) — sanitize parser output</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Cross-walk <code>drug_rxnorm</code> to PrimeKG nodes (currently we match only on canonical name)</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<h3 id="--5-ctc_profiles">[ ] 5. <code>ctc_profiles</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--5-ctc_profiles" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Tables:</strong> <code>mods_ctc_profile</code> + <code>mods_ctc_phenotype</code></li>
+<li><strong>Query:</strong> Per profile: <code>SELECT * FROM mods_ctc_phenotype WHERE ctc_profile_id = :cid ORDER BY marker_category NULLS LAST, marker_name</code></li>
+<li><strong>Builder:</strong> <code>_build_ctc_profiles</code></li>
+<li><strong>Current state for Maureen:</strong> 5 profiles</li>
+<li><strong>PrimeKG contribution:</strong> none directly (markers are gene names but currently not fed to mapper)</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Decide whether CTC marker names (CD44, CD45, etc.) should also feed PrimeKG gene mapping</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Verify <code>ctc_count</code> units consistency</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Confirm phenotype <code>result</code> ∈ {Positive, Negative, Dim}</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<h3 id="--6-resistance_factors">[ ] 6. <code>resistance_factors</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--6-resistance_factors" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Table:</strong> <code>mods_resistance_factor</code></li>
+<li><strong>Query:</strong> <code>SELECT factor_name, value, unit, report_date WHERE patient_id = :pid ORDER BY report_date DESC NULLS LAST, factor_name</code></li>
+<li><strong>Builder:</strong> <code>_build_resistance_factors</code></li>
+<li><strong>Current state for Maureen:</strong> 7 rows (MDR1, MRP1, GSTP1, TYMS, DHFR, …)</li>
+<li><strong>PrimeKG contribution:</strong> none directly</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Decide whether factor names should map to PrimeKG genes (MDR1 = ABCB1, etc.)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Confirm <code>unit</code> is <code>%</code> for all rows</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Verify values within RGCC’s expected 0–100 range</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<h3 id="--7-biomarker_series">[ ] 7. <code>biomarker_series</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--7-biomarker_series" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Tables:</strong> <code>mods_biomarker_series</code> + <code>mods_biomarker_value</code></li>
+<li><strong>Query:</strong> Single LATERAL-join query, top 50 series by latest <code>ts</code>. Returns latest + prior + count per series.</li>
+<li><strong>Builder:</strong> <code>_build_biomarker_series</code> (this is the perf-critical one — replaces ~800 N+1 round trips)</li>
+<li><strong>Current state for Maureen:</strong> 50 of ~800 series shown. Lots of vital-sign / imaging / lab noise mixed with cancer-relevant markers (CEA, CA19-9, NLR).</li>
+<li><strong>PrimeKG contribution:</strong> none directly. Names are passed to <code>kgia_inputs.available_biomarker_scalars</code>.</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Decide which biomarker subset is KGIA-relevant (cancer markers + immune ratios, <em>not</em> echocardiogram measurements)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Consider tagging series with a <code>category</code> column (<code>cancer_marker</code>, <code>vital_sign</code>, <code>imaging</code>, …) so we can filter</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Verify <code>units</code> and <code>reference_range</code> are populated for the cancer-relevant ones</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Confirm latest values look right vs. what’s in EHR</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<h3 id="--8-treatment_episodes">[ ] 8. <code>treatment_episodes</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--8-treatment_episodes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Tables:</strong> <code>mods_treatment_episode</code> + <code>mods_treatment_drug</code></li>
+<li><strong>Query:</strong> Per episode: <code>SELECT * FROM mods_treatment_drug WHERE episode_id = :eid ORDER BY drug_name</code></li>
+<li><strong>Builder:</strong> <code>_build_treatment_episodes</code></li>
+<li><strong>Current state for Maureen:</strong> 3 episodes</li>
+<li><strong>PrimeKG contribution:</strong> drug (via <code>drug_name</code>)</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Verify episode dates match clinical timeline</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Confirm <code>intent</code> (curative / palliative / adjuvant) populated</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Spot-check drug names — Keytruda vs Pembrolizumab (which one will PrimeKG match?)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Add <code>outcome_summary</code> if known</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<h3 id="--9-rgcc_drug_sensitivities">[ ] 9. <code>rgcc_drug_sensitivities</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--9-rgcc_drug_sensitivities" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Tables:</strong> <code>mods_functional_test_profile</code> + <code>mods_functional_test_agent_result</code></li>
+<li><strong>Query:</strong> Per test: <code>SELECT * FROM mods_functional_test_agent_result WHERE functional_test_id = :tid ORDER BY sensitivity, agent_name</code></li>
+<li><strong>Builder:</strong> <code>_build_rgcc_sensitivities</code></li>
+<li><strong>Current state for Maureen:</strong> 2 tests, hundreds of agents (RGCC OncoMedicine + ChemoResponse)</li>
+<li><strong>PrimeKG contribution:</strong> drug (via <code>agent_name</code>)</li>
+<li><strong>Known noise:</strong> lots of supplement names, some encoding artifacts (“Cordyceps\nSinensis”), markers stored as agents</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Clean up agent_name encoding (newlines embedded)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Decide whether non-drug agents (markers, modulators) belong here</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Verify <code>sensitivity</code> enum values (HIGH / MEDIUM / LOW / Resistant / Partial)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Confirm <code>score_raw</code> units (percent cell death per RGCC method)</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<h3 id="--10-prs_vector">[ ] 10. <code>prs_vector</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--10-prs_vector" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Source:</strong> <strong>placeholder only</strong> (no DB row)</li>
+<li><strong>Builder:</strong> <code>_build_prs_placeholder</code> — returns <code>{status: &quot;not_computed&quot;, message: &quot;…&quot;, available: false}</code></li>
+<li><strong>Current state:</strong> Not computed. Requires germline VCF parsing + GWAS catalog ingestion.</li>
+<li><strong>PrimeKG contribution:</strong> none yet</li>
+<li><strong>QC notes:</strong>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Decide PRS strategy (GWAS catalog scoring vs. simple counts of pathogenic germline variants)</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Ingest germline data from Invitae if available</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Add <code>mods_prs_score</code> table when ready</li>
+</ul>
+</li>
+<li><strong>Changes made:</strong></li>
+</ul>
+<hr/>
+<h2 id="candidate-tables-for-future-iterations-not-yet-wired">Candidate tables for future iterations (not yet wired)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#candidate-tables-for-future-iterations-not-yet-wired" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These are MODS tables that could feed KGIA. Six were wired as toggleable sections
+on 2026-10-01 (GH #110); the section keys below are what <code>?include=</code> takes. “Wired”
+means the builder, toggle and card exist. It does <strong>not</strong> mean the section has
+been QC’d: none of these has a row in the section checklist above yet.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Table</th><th>What it adds</th><th>Section key / builder</th><th>PrimeKG contribution</th><th>Rows for Maureen</th><th>Wired?</th></tr></thead><tbody><tr><td>C1</td><td><code>mods_immune_profile</code></td><td>TIL counts, CD4/CD8 ratios, cytokines — informs immunotherapy lines</td><td><code>immune_profile</code> / <code>_build_immune_profile</code></td><td>none</td><td>not yet measured</td><td>[x]</td></tr><tr><td>C2</td><td><code>mods_condition</code> (FHIR)</td><td>Comorbidities (diabetes, IBD, prior cancers) → KG nodes</td><td><code>conditions</code> / <code>_build_conditions</code></td><td><strong>disease</strong>: each <code>name</code> goes through <code>PrimeKgMapper.lookup_diseases</code>, the same name lookup as <code>cancer_profile</code>, and counts toward <code>primekg_coverage.diseases</code></td><td>not yet measured</td><td>[x]</td></tr><tr><td>C3</td><td><code>mods_observation</code> (FHIR)</td><td>Structured vital signs / labs not in <code>biomarker_series</code></td><td>—</td><td>—</td><td>—</td><td>[ ] no <code>mods_observation</code> model or table exists</td></tr><tr><td>C4</td><td><code>mods_cancer_disease_status</code> (mCODE)</td><td>Progression timeline → temporal context for response</td><td><code>disease_status</code> / <code>_build_disease_status</code></td><td>none</td><td>not yet measured</td><td>[x]</td></tr><tr><td>C5</td><td><code>mods_performance_status</code></td><td>ECOG / Karnofsky → eligibility filter for ranked drugs</td><td><code>performance_status</code> / <code>_build_performance_status</code></td><td>none</td><td>not yet measured</td><td>[x]</td></tr><tr><td>C6</td><td><code>mods_tumor_measurement</code></td><td>RECIST measurements → quantified response signal</td><td><code>tumor_measurements</code> / <code>_build_tumor_measurements</code></td><td>none</td><td>not yet measured</td><td>[x]</td></tr><tr><td>C7</td><td><code>mods_family_history</code></td><td>First-degree-relative cancers → real PRS feature</td><td><code>family_history</code> / <code>_build_family_history</code></td><td><strong>none, deliberately.</strong> A relative’s condition is not the patient’s, so it is not looked up as one of her diseases</td><td>not yet measured</td><td>[x]</td></tr><tr><td>C8</td><td><code>mods_patient_state_snapshot</code></td><td>Existing snapshots / clinical states (potentially redundant — review)</td><td>—</td><td>—</td><td>—</td><td>[ ] needs the redundancy review first</td></tr></tbody></table></div>
+<p>“Not yet measured”: the change was made in an unattended run with no access to
+the production database. Fill in each count with
+<code>SELECT count(*) FROM &lt;table> WHERE patient_id = (SELECT id FROM mods_patient ORDER BY created_at, id LIMIT 1)</code>,
+the backend’s no-argument rule for the primary patient.</p>
+<p>Only C2 changes <code>primekg_coverage</code>. Mapping <code>mods_condition</code> names by free-text
+lookup inherits that lookup’s known limits (see the cancer-profile notes above).
+Mapping by <code>snomed_code</code> / <code>icd_code</code> would be more precise, but it is a
+vocabulary-mapping decision, so it needs sign-off first.</p>
+<p><em>(2026-10-05, GH #624 I-3: <code>mods_condition</code> is one row per Kaiser record, so C2
+lists every record, encounter diagnoses included, each with Kaiser’s own
+<code>category</code>. Before the first sync after I-3 it held one row per name. Which
+records are an active problem is not a column: <code>mods_ehr_derived.active_conditions</code>
+(<code>GET /api/mods/clinic/conditions/active</code>) decides it by written rules. C2 still
+lists the record table; whether it should read the active view instead is open.)</em></p>
+<hr/>
+<h2 id="how-sections-were-chosen-for-v1">How sections were chosen for v1<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#how-sections-were-chosen-for-v1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Three filters, in order:</p>
+<ol>
+<li><strong>MEMORY notes about Maureen’s record.</strong> The “Genomic report parsing COMPLETE (2026-03-18)” memory enumerates the tables MODS parsers populated (alterations, gene expression, therapy associations, resistance factors, CTC profiles, drug sensitivities). Picked exactly those, plus their dependencies.</li>
+<li><strong>Existing snapshot service coverage.</strong> <code>ModsSnapshotService</code> already builds patient + cancer + biomarkers + treatments + RGCC. Kept those, added the post-snapshot tables.</li>
+<li><strong>KGIA’s input shape.</strong> <code>--use_ploss</code> consumes a PRS scalar + biomarker scalars + a patient-local KG. Anything that gives us biomarker scalars or KG-mappable entities (genes, drugs, diseases) earns a section.</li>
+</ol>
+<h2 id="what-can-contribute-to-the-final-file">What can contribute to the final file<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-can-contribute-to-the-final-file" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Strictly:</strong> anything we choose to feed in. The KGIA loss is <code>λ₁·PRS + λ₂·biomarker</code>, so the floor is just PRS + biomarker scalars. Everything else expands the patient-local PrimeKG subgraph that surrounds the fine-tuning. The toggles let us experiment with which substrate gives the best ranking for Maureen.</p>
+<h2 id="workflow">Workflow<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#workflow" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>Pick a section. Read its current row count + notes above.</li>
+<li>Inspect the data: hit the API with <code>?include=&lt;key></code> and look at the JSON, or open the Patient Profile tab and toggle just that one on.</li>
+<li>Note any cleanup needed under “QC notes” (add bullets).</li>
+<li>When the data is good, check the section box at the top.</li>
+<li>When <em>all</em> sections are checked, the v1 substrate is QC’d and we can move to PRS computation + biomarker vector serialization (next iteration).</li>
+</ol>
+<hr/>
+<h2 id="gh-108-status-2026-05-29--fixed-feature-schema-landed">GH #108 status (2026-05-29) — fixed feature schema landed<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gh-108-status-2026-05-29--fixed-feature-schema-landed" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The open QC items about <em>which gene / biomarker subset feeds KGIA</em> and <em>stable
+PRS + biomarker vectors</em> are answered by the committed, versioned cross-patient
+feature schema (<code>backend/mods_kgia_schema_service.py</code>, table <code>pdr2_feature_schema</code>,
+descriptor <code>backend/pdr2_schemas/kgia_schema_v1.json</code>):</p>
+<ul>
+<li><code>expr_values</code> is fed by <code>mods_gene_expression</code> (Caris WTS / RGCC gene
+expression), <strong>not</strong> the noisy <code>biomarker_series</code> section — so the vital-sign /
+imaging noise flagged for <code>biomarker_series</code> does not reach the model input.
+Gene axis = union of assay-observed genes ∩ canonical KG, ordered by symbol.</li>
+<li><code>prs_values</code> = supported PRS traits (<code>default_disease_pgs_set()</code>) ∩ KG,
+fixed across patients, ordered by CUI.</li>
+<li>Every patient projects onto the SAME axis; a <code>schema_hash</code> +
+<code>validate_against_schema</code> guard train==infer.</li>
+<li>New endpoint <code>GET /api/mods/research/patient-profile/kgia-tensors</code> returns the
+serialized vectors + hash + measured mask.</li>
+</ul>
+<p>Still open (tracked, not blocking): biomarker categorization (#107) for the
+<code>biomarker_series</code> <em>display</em> section; cross-assay unit normalization (Olink NPX
+↔ Caris percentile) once a non-Caris patient lands.</p>
+<hr/>
+<h2 id="gh-114--qcing-the-personalized-ranking">GH #114 — QC’ing the personalized ranking<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gh-114--qcing-the-personalized-ranking" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Once a <code>--use_ploss</code> fine-tune exists (<code>POST .../runs/{id}/submit_finetune</code>),
+<code>POST .../kgia/finetune/{run_id}/rank</code> scores every candidate drug as a tail of
+<code>(patient, MAPLE:sensitive_to_drug, ?)</code> under that checkpoint. The ranked top-K
+lands on the run as a <code>kgia_personalized_ranking</code> validation row, read at
+<code>GET .../kgia/finetune/{run_id}/ranking</code> and rendered in the Research dashboard’s
+<strong>KGIA Ranking</strong> tab. Code: <code>backend/mods_kgia_finetune_service.py</code>.</p>
+<h3 id="--qc-the-ranking-not-just-the-profile">[ ] QC the ranking, not just the profile<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#--qc-the-ranking-not-just-the-profile" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Which track was it?</strong> With no released PRS the fine-tune ran Track A
+(<code>prs_values</code> all zeros, so the disease weights got no gradient). Never
+describe a Track A ranking as PRS-personalized.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Anchor recovery.</strong> The payload’s <code>anchors</code> block gives the rank of drugs
+from her <em>own</em> record — her <code>mods_treatment_episode</code> drugs and her
+<code>high_sensitivity</code> RGCC agents. Deliberately <strong>not</strong> a clinical expectation
+list: an anchor has to trace to a row in her record, not to what is typical for
+her cancer type. A ranking that buries all of them is a finding about the
+ranking.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Read the held-out ranking.</strong> A candidate she already has a
+<code>MAPLE:sensitive_to_drug</code> edge to was in the foundation’s training data, so its
+rank is recall, not prediction (GH #214). Rows carry <code>seen_in_training</code> and a
+<code>held_out_rank</code>; the UI defaults to held-out-only.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Check <code>counts.skipped</code></strong> — candidates the scorer could not resolve into
+the dataset vocab, usually drugs this composition excluded. A large fraction
+means the candidate set and the trained graph have drifted.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Sanity-check the spread.</strong> All candidates share one <code>(head, relation)</code>
+pair and one forward pass, so a near-constant score column means the model is
+not discriminating — not that every drug is promising.</li>
+</ul>
+<p>Per <code>MODS_MISSION_SPEC</code> §1.4 a high score means the graph’s geometry is consistent
+with the drug being relevant; it is not evidence the drug works or is safe
+alongside her regimen.</p>
+<p>Still open for #114: a one-click launch (stage the patient bundle to GCS and
+submit the fine-tune in one call) — today the pickle is built with
+<code>scripts/build_pdr2_input_pickle.py</code> and uploaded by hand.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-73" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#kgia-patient-profile--data-qc-checklist" data-for="kgia-patient-profile--data-qc-checklist">KGIA Patient Profile — Data QC Checklist</a></li><li class="depth-1"><a href="#always-on-no-toggle" data-for="always-on-no-toggle">Always-on (no toggle)</a></li><li class="depth-1"><a href="#section-checklist" data-for="section-checklist">Section checklist</a></li><li class="depth-2"><a href="#--1-cancer_profile" data-for="--1-cancer_profile">[ ] 1. cancer_profile</a></li><li class="depth-2"><a href="#--2-genomic_alterations" data-for="--2-genomic_alterations">[ ] 2. genomic_alterations</a></li><li class="depth-2"><a href="#--3-gene_expression" data-for="--3-gene_expression">[ ] 3. gene_expression</a></li><li class="depth-2"><a href="#--4-therapy_associations" data-for="--4-therapy_associations">[ ] 4. therapy_associations</a></li><li class="depth-2"><a href="#--5-ctc_profiles" data-for="--5-ctc_profiles">[ ] 5. ctc_profiles</a></li><li class="depth-2"><a href="#--6-resistance_factors" data-for="--6-resistance_factors">[ ] 6. resistance_factors</a></li><li class="depth-2"><a href="#--7-biomarker_series" data-for="--7-biomarker_series">[ ] 7. biomarker_series</a></li><li class="depth-2"><a href="#--8-treatment_episodes" data-for="--8-treatment_episodes">[ ] 8. treatment_episodes</a></li><li class="depth-2"><a href="#--9-rgcc_drug_sensitivities" data-for="--9-rgcc_drug_sensitivities">[ ] 9. rgcc_drug_sensitivities</a></li><li class="depth-2"><a href="#--10-prs_vector" data-for="--10-prs_vector">[ ] 10. prs_vector</a></li><li class="depth-1"><a href="#candidate-tables-for-future-iterations-not-yet-wired" data-for="candidate-tables-for-future-iterations-not-yet-wired">Candidate tables for future iterations (not yet wired)</a></li><li class="depth-1"><a href="#how-sections-were-chosen-for-v1" data-for="how-sections-were-chosen-for-v1">How sections were chosen for v1</a></li><li class="depth-1"><a href="#what-can-contribute-to-the-final-file" data-for="what-can-contribute-to-the-final-file">What can contribute to the final file</a></li><li class="depth-1"><a href="#workflow" data-for="workflow">Workflow</a></li><li class="depth-1"><a href="#gh-108-status-2026-05-29--fixed-feature-schema-landed" data-for="gh-108-status-2026-05-29--fixed-feature-schema-landed">GH #108 status (2026-05-29) — fixed feature schema landed</a></li><li class="depth-1"><a href="#gh-114--qcing-the-personalized-ranking" data-for="gh-114--qcing-the-personalized-ranking">GH #114 — QC’ing the personalized ranking</a></li><li class="depth-2"><a href="#--qc-the-ranking-not-just-the-profile" data-for="--qc-the-ranking-not-just-the-profile">[ ] QC the ranking, not just the profile</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

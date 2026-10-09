@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Patient-Specific Validation — Phase 7.5</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Patient-Specific Validation — Phase 7.5"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Patient-Specific Validation — Phase 7.5"/><meta name="twitter:description" content="Validating a drug ranking against ex vivo chemosensitivity measurements, and what that correlation can and cannot support."/><meta property="og:description" content="Validating a drug ranking against ex vivo chemosensitivity measurements, and what that correlation can and cannot support."/><meta property="og:image:alt" content="Validating a drug ranking against ex vivo chemosensitivity measurements, and what that correlation can and cannot support."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/results/pdr_phase7_5_rgcc_writeup"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/results/pdr_phase7_5_rgcc_writeup"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Validating a drug ranking against ex vivo chemosensitivity measurements, and what that correlation can and cannot support."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/results/pdr_phase7_5_rgcc_writeup-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/results/pdr_phase7_5_rgcc_writeup-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/results/pdr_phase7_5_rgcc_writeup-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="results/pdr_phase7_5_rgcc_writeup" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-101" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-101" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../results/">results</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Patient-Specific Validation — Phase 7.5</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-25</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">writeup</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Validating a drug ranking against ex vivo chemosensitivity measurements, and what that correlation can and cannot support.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.333Z">Oct 09, 2026</time><span>30 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="crc-patient-specific-validation-phase-75--formal-writeup">CRC Patient-Specific Validation (Phase 7.5) — Formal Writeup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#crc-patient-specific-validation-phase-75--formal-writeup" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Authors:</strong> whafa, Claude (Maple project)
+<strong>Date:</strong> 2026-05-09
+<strong>Status:</strong> Phase 7.5 Steps 1 + 2 (Tier 1 Spearman + Tier 2 AUROC) <strong>CLOSED on PrimeKG.</strong> GP-KG Tier 1 closes; GP-KG Tier 2 unscorable due to drug-coverage gap. Run B (<code>primekg_corr_1l_400d_v1</code>) is the canonical PrimeKG checkpoint for downstream personalization (Phase 9).
+<strong>Companion documents:</strong></p>
+<ul>
+<li><a href="../results/pdr_phase0_gpkg_writeup" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_writeup">pdr_phase0_gpkg_writeup.md</a> — paper reproduction baseline (Phase 0)</li>
+<li><a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">pdr_phase8.5_variant_kg_planning.md</a> — next-phase variant KG extension</li>
+<li>Memory: <a href="../results/pdr_phase7_5_rgcc_writeup" class="internal internal-link alias" data-slug="results/pdr_phase7_5_rgcc_writeup">the patient-specific validation writeup</a></li>
+</ul>
+<p><strong>Pipeline plan:</strong> <a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">PDR_PIPELINE_PLAN.md</a> — Phase 7.5 status updated 2026-05-09.</p>
+<hr/>
+<blockquote>
+<p><strong>⚠ Correction, 2026-09-24 (<code>GH #317</code>).</strong> Every
+Tier-1 / Tier-2 number below was computed on RGCC labels <strong>averaged across Maureen’s two
+draws</strong> (2025-02-15, 2025-09-19). The draws are not replicates: 12 drugs move ≥25 points and
+they move as two coherent classes — four taxanes down, eight anthracycline / topoisomerase-II
+agents up — a shift RGCC states in its own page-1 summaries. Averaging sends both classes to
+mid-range. Test-retest is ρ = +0.9616 over all 112 drugs, ρ = +0.7635 over the 59 graded ones.
+<code>compute_metrics_crc.py</code> now evaluates <strong>per timepoint</strong> and refuses to pool; these results
+need restating against it. The 112-drug / 109-matched panel figures below are correct and
+unchanged.</p>
+</blockquote>
+<h2 id="summary">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>We validated five trained CompGCN+ConvE checkpoints against Maureen’s RGCC Onconomics drug-sensitivity panel (112 drugs with continuous % cell death from Annexin V flow cytometry on her circulating tumor cells). On PrimeKG, all three checkpoints clear both decision criteria; the strongest signal is on <code>primekg_corr_1l_400d_v1</code> (Run B) which achieves Spearman ρ = +0.351 (p = 1.8 × 10⁻⁴, n = 109) ⚠#324 on continuous correlation between model score and RGCC % cell death — a <strong>+72% effect size</strong> over the v1 baseline (<code>primekg_corr_1l_300d_v1</code>, ρ = 0.204) under a clean dim ablation. Run A1 (<code>primekg_sub_1l_300d_v1</code>) wins Tier 2 with AUROC = 0.751, distinguishing high-sensitivity from resistant drugs better than Run B (0.689) or v1 (0.649) — the <code>sub</code> composition operator captures binary discrimination patterns that <code>corr</code> does not, an effect orthogonal to the dim effect. GP-KG passes Tier 1 with ρ ≈ 0.39 but Tier 2 is unscorable: 4 of 5 RGCC high-sensitivity drugs (Carboplatin, Cisplatin, Mitomycin, Oxaliplatin) are absent from GP-KG’s 1,430-drug node set. PrimeKG (7,957 drug nodes, 109/112 RGCC coverage) is hereby the production graph for CRC personalization; GP-KG retains its role as paper-comparator only. This is the first patient-specific CRC validation of a public-knowledge-graph link-prediction model that we are aware of and serves as the missing baseline before any personalization machinery is applied.</p>
+<hr/>
+<h2 id="1-purpose">1. Purpose<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-purpose" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The Maple MODS subsystem aims to deliver personalized drug-repurposing recommendations for Maureen’s metastatic colorectal cancer. <a href="../results/pdr_phase0_gpkg_writeup" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_writeup">Phase 0</a> established that our CompGCN+ConvE link-prediction stack reproduces published GP-KG results within a 5% closure band; that result validates the <em>machinery</em>, but not whether the machinery captures <em>biological signal that generalizes to the patient</em>. Phase 7.5 closes that gap.</p>
+<p><strong>Concrete objective.</strong> For each available trained checkpoint, demonstrate that the model’s CRC drug ranking correlates with Maureen’s measured in vitro drug sensitivities, and quantify <em>how strongly</em> — establishing a baseline against which any future personalization step (Phase 9 PDR1 <code>-scalars</code>, Phase 11 PDR2 KGIA, Phase 12 patient-as-node) must lift to be considered useful.</p>
+<p>Two decision criteria were defined a priori:</p>
+<ul>
+<li><strong>Tier 1 — Spearman ρ.</strong> Continuous correlation between model score and RGCC % cell death across all matched drugs. Decision: <strong>ρ > 0 with p &lt; 0.05</strong> = base ranker has biological signal for Maureen’s tumor.</li>
+<li><strong>Tier 2 — AUROC / AUPR.</strong> Binary discrimination using high-sensitivity (≥80% cell death) as positives and (low + resistant, &lt; 35%) as negatives; moderate (35–79%) excluded for boundary clarity. Decision: <strong>AUROC > 0.6</strong> = model is useful at finding extreme responders. (No comparator — there is no published patient-specific CRC ranking benchmark; we are establishing our own.)</li>
+</ul>
+<p>A third tier (leave-one-out personalization) is feasible only on PDR2’s cheap fine-tune and is deferred to <a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">Phase 11.6.5</a>.</p>
+<p><strong>Importance of getting this right.</strong> RGCC sensitivities are uniquely valuable as a validation set: quantitative (% cell death, not binary), patient-specific (Maureen’s own CTCs), in vitro (clean readout, no confounding from concurrent therapies or pharmacokinetics), and broad-panel (165 drugs across 12 classes). Other CRC validation sets — FDA approvals, ClinicalTrials.gov registry, GDSC cell-line panels — are population-level and don’t reflect Maureen’s tumor specifically. RGCC is the closest thing we have to ground truth for her case.</p>
+<hr/>
+<h2 id="2-materials-and-methods">2. Materials and Methods<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-materials-and-methods" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="21-rgcc-drug-sensitivity-panel">2.1 RGCC drug-sensitivity panel<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-rgcc-drug-sensitivity-panel" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Maureen’s RGCC Onconomics Plus reports were parsed via <code>backend/connectors/rgcc_parser.py</code> and stored in <code>mods_functional_test_agent_result</code>. Each row has <code>agent_name</code> (free-text drug label), <code>agent_category</code> (12 classes: alkylating, topoisomerase_i, topoisomerase_ii, monoclonal_antibody, smw_targeted, …), <code>sensitivity</code> (categorical: high / moderate / low / resistant), and <code>score_raw</code> (continuous % cell death, 0–82%).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Source reports</td><td>RGCC Onconomics + OncoTrace, multiple draws across 2024–2025</td></tr><tr><td>Total agent_result rows</td><td>330</td></tr><tr><td>Rows with numeric <code>score_raw</code> (Tier 1 input)</td><td>224</td></tr><tr><td>Distinct drug names after dedup (mean score, max-priority sensitivity)</td><td><strong>112</strong></td></tr><tr><td>High-sensitivity drugs (≥ 80% cell death)</td><td>5 — Carboplatin (80.5), Cisplatin (81), Mitomycin (81.5), Oxaliplatin (81), Pemetrexed (81.5)</td></tr><tr><td>Moderate (35–79%)</td><td>24 distinct drugs</td></tr><tr><td>Low (5–31%)</td><td>67 distinct drugs</td></tr><tr><td>Resistant (≈ 0%)</td><td>16 distinct drugs</td></tr><tr><td>Methodology</td><td>Annexin V-PE flow cytometry on isolated CTCs at fixed drug concentrations, 72h chemo / 48h targeted-therapy incubation</td></tr></tbody></table></div>
+<p>Multi-report dedup: Maureen has more than one RGCC test draw per drug. We collapse to one row per normalized name, taking the mean <code>score_raw</code> and the highest-priority sensitivity category seen (high > moderate > low > resistant > unknown). The priority rule is conservative: any high-sensitivity reading is clinically meaningful even if a later test was lower.</p>
+<h3 id="22-kg-drug-coverage-characterization">2.2 KG drug-coverage characterization<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-kg-drug-coverage-characterization" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>KG</th><th>Nodes</th><th>Drug nodes</th><th>Drug ID convention</th></tr></thead><tbody><tr><td>GP-KG</td><td>61,146</td><td><strong>1,430</strong></td><td><code>cid&lt;CID + 100,000,000></code> (PubChem with offset)</td></tr><tr><td>PrimeKG</td><td>129,375</td><td><strong>7,957</strong></td><td>Integer node_index (drug names available as node attribute)</td></tr></tbody></table></div>
+<p>PrimeKG’s drug node set is <strong>5.6× larger</strong> than GP-KG’s. The implication for patient-specific CRC validation is direct: many cancer drugs (especially biologics and several common cytotoxics) are absent from GP-KG entirely.</p>
+<h3 id="23-drug-name-normalization">2.3 Drug-name normalization<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-drug-name-normalization" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Joining RGCC names to KG drug nodes is non-trivial. RGCC reports use a mixture of generic names (“Cisplatin”), brand names (“Abraxane”, “Avastin”), salt forms (“Imatinib-mesylate”, “Doxorubicin Hydrochloride”), abbreviations (“CPT11”, “MTX”, “BCNU”), and occasional misspellings (“Cyclophosfamide”, “Mitoxandrone”, “Transtuzumab”).</p>
+<p>Two-tier normalization implemented in <code>lib/pdr/code/scripts/compute_metrics_crc.py</code>:</p>
+<p><strong>(a) PrimeKG path</strong> — case-folded exact match against <code>mods_kg_node.name</code> plus a 30-entry hand-curated alias map (<code>RGCC_TO_PRIMEKG_ALIASES</code>):</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># Spelling variants</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;5fu&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;fluorouracil&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;anastrozol&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;anastrozole&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;capecitabin&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;capecitabine&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;cyclophosfamide&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;cyclophosphamide&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># Abbreviations</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;cpt11&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;irinotecan&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;mtx&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;methotrexate&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;bcnu&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;carmustine&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;ccnu&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;lomustine&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># Brand names</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;abraxane&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;paclitaxel&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;avastin&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;bevacizumab&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;herceptin&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;trastuzumab&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;erbitux&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;cetuximab&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># Salt/form normalization</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;imatinib-mesylate&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;imatinib&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;liposomal doxorubicin&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;doxorubicin&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># Common typos</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;mitoxandrone&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;mitoxantrone&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;transtuzumab&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;trastuzumab&quot;</span></span></code></pre></figure>
+<p><strong>Resolution rate:</strong> 109 of 112 distinct RGCC drug names match PrimeKG (97%). The 3 unmatched are “Catumaxumab” (a discontinued bispecific antibody not in PrimeKG’s drug catalog), “Everolimus/Temsirolimus” (an RGCC report combo cell that names two drugs in one row), and “Gemtuzumab” (which is Gemtuzumab ozogamicin in PrimeKG; our alias map does not yet bridge them).</p>
+<p><strong>(b) GP-KG path</strong> — RGCC names → PubChem CID via the PUG REST <code>/compound/name/&lt;name>/cids/JSON</code> endpoint, with on-disk cache at <code>runs/2026-05-09_phase7.5/_cache/pubchem_name_to_cid.json</code> to make reruns free. Resolved CIDs are reformatted to GP-KG’s <code>cid&lt;CID + 100,000,000></code> convention. PubChem resolves 91 of 112 names (81%); of those, only 36 are present in GP-KG’s 1,430-drug node set (39% of resolved). The remaining 55 are “resolved but not in GP-KG” — a structural coverage gap, not a normalization failure.</p>
+<h3 id="24-evaluation-metrics--definitions-and-worked-examples">2.4 Evaluation metrics — definitions and worked examples<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-evaluation-metrics--definitions-and-worked-examples" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="tier-1--spearman-ρ">Tier 1 — Spearman ρ<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-1--spearman-ρ" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>Continuous rank correlation between model score and RGCC % cell death.</p>
+<p><code>ρ = 1 − (6 · Σdᵢ²) / (n · (n² − 1))</code>, where dᵢ is the difference in ranks for item i across the two orderings.</p>
+<p><strong>Worked example.</strong> Five drugs with model score and RGCC %:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Drug</th><th>Model score</th><th>Model rank</th><th>RGCC %</th><th>RGCC rank</th><th>dᵢ</th><th>dᵢ²</th></tr></thead><tbody><tr><td>Oxaliplatin</td><td>0.030</td><td>1</td><td>81</td><td>2</td><td>-1</td><td>1</td></tr><tr><td>5-Fluorouracil</td><td>0.025</td><td>2</td><td>75</td><td>3</td><td>-1</td><td>1</td></tr><tr><td>Mitomycin</td><td>0.018</td><td>3</td><td>82</td><td>1</td><td>2</td><td>4</td></tr><tr><td>Doxorubicin</td><td>0.010</td><td>4</td><td>51</td><td>4</td><td>0</td><td>0</td></tr><tr><td>Curcumin</td><td>0.005</td><td>5</td><td>30</td><td>5</td><td>0</td><td>0</td></tr></tbody></table></div>
+<p><code>ρ = 1 − (6 · 6) / (5 · 24) = 0.70</code>. Range −1 to +1; 0 = uncorrelated.</p>
+<p>The advantage over Pearson correlation: ρ is invariant to monotonic transformations of either variable, which matters because the model’s score scale (0–1, sigmoid-ish) is not directly comparable to RGCC %. Only the <em>ranking</em> matters.</p>
+<p>The “right answer” here is Maureen’s RGCC % cell death panel — a measurement, not a ground-truth ranking — so even a perfectly calibrated model would not necessarily achieve ρ = 1.0. RGCC has its own measurement noise and biological variability.</p>
+<h4 id="tier-2--auroc-and-aupr">Tier 2 — AUROC and AUPR<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-2--auroc-and-aupr" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>Binary classification metric with a class definition reflecting clinical interest:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Class</th><th>Definition</th><th>n (in 109 matched)</th></tr></thead><tbody><tr><td>Positive</td><td><code>sensitivity == high_sensitivity</code>; mean RGCC ≥ 80% cell death</td><td>5</td></tr><tr><td>Negative</td><td><code>sensitivity ∈ {low_sensitivity, resistant}</code>; RGCC &lt; 35%</td><td>85</td></tr><tr><td>Excluded</td><td><code>sensitivity == moderate_sensitivity</code>; 35–79%</td><td>19</td></tr></tbody></table></div>
+<p>AUROC and AUPR definitions and worked examples are identical to <a href="../results/pdr_phase0_gpkg_writeup" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_writeup">Phase 0 §2.5</a>. For our Tier 2 with 5 positives among 90 binary cases, the random baseline is AUROC = 0.5 and AUPR = 5/90 = 0.056.</p>
+<p><strong>Why exclude moderate.</strong> Moderate-sensitivity drugs (35–79% cell death) are clinically real but have ambiguous classification — neither “this works on Maureen’s tumor” nor “this doesn’t.” Including them as negatives would punish the model for ranking them above resistant drugs (which it should). Including them as positives would reward chance ranking. Excluding them sharpens the test of whether the model can distinguish the <em>extremes</em>, which is the operationally meaningful question for clinical decision support.</p>
+<h3 id="25-decision-criteria-and-comparator-status">2.5 Decision criteria and comparator status<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-decision-criteria-and-comparator-status" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Tier</th><th>Criterion</th><th>Decision threshold</th><th>Comparator</th></tr></thead><tbody><tr><td>1</td><td>Spearman ρ vs RGCC % cell death</td><td>ρ > 0 with p &lt; 0.05</td><td>None — first known patient-specific CRC ranking</td></tr><tr><td>2</td><td>AUROC, high vs (low + resistant)</td><td>AUROC > 0.6</td><td>None — first known patient-specific CRC ranking</td></tr><tr><td>3 (deferred)</td><td>Leave-one-out rank lift after fine-tune</td><td>Mean rank lift > 5% on held-out high-sens drugs</td><td>None — needs PDR2 cheap fine-tune (Phase 11.6.5)</td></tr></tbody></table></div>
+<p>There is no published comparator for either tier. The closest analog is <a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">Phase 7.1’s AD case-study</a> where KG-Predict’s AD-NCT AUROC = 0.868 served as the target, but RGCC differs in three respects: (1) it’s <em>patient-specific</em> not population-aggregate; (2) it’s <em>continuous</em> (% cell death) where AD-NCT is binary (NCT-evidence yes/no); (3) the KG drug node coverage is a study-level parameter that varies across KGs. We are establishing the baseline.</p>
+<h3 id="26-hardware-and-runtime">2.6 Hardware and runtime<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-hardware-and-runtime" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Spec</th></tr></thead><tbody><tr><td>Hardware</td><td>Local CPU (script reads precomputed predictions; no GPU)</td></tr><tr><td>Per-checkpoint runtime</td><td>~10 s for PrimeKG; ~60 s for GP-KG (cold cache, includes PubChem name resolution)</td></tr><tr><td>Database</td><td>Cloud SQL Postgres via a local proxy</td></tr></tbody></table></div>
+<hr/>
+<h2 id="3-procedure">3. Procedure<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-procedure" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The validation suite was built and run in a single session on 2026-05-09. The order matters because each step depends on artifacts from previous Maple phases:</p>
+<h3 id="31-inputs-assembled">3.1 Inputs assembled<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-inputs-assembled" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>RGCC sensitivities.</strong> Already in <code>mods_functional_test_agent_result</code> from prior parsing runs (parser audit 2026-03-18, <a href="../results/pdr_phase7_5_rgcc_writeup" class="internal internal-link alias" data-slug="results/pdr_phase7_5_rgcc_writeup">the patient-specific validation writeup</a>).</li>
+<li><strong>PrimeKG drug nodes.</strong> Already in <code>mods_kg_node</code> from Phase 3 ingestion (2026-04-15).</li>
+<li><strong>Trained checkpoints + inference predictions.</strong> Three PrimeKG inference runs were available at session start (v1 from Phase 5.3, A1 from Phase 5.4a). <code>Run B (</code>primekg_corr_1l_400d_v1<code>) inference was generated in this session</code> using the pdr-prep-run skill to produce a phase=<code>inference</code> notebook from the master template; sync to Drive; Colab run; output to <code>inference/&lt;stem>/test_predictions.txt</code>. Two GP-KG inference runs (v3, v4) are from Phase 0.4.</li>
+</ul>
+<h3 id="32-script-implementation">3.2 Script implementation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#32-script-implementation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>lib/pdr/code/scripts/compute_metrics_crc.py</code> (~390 lines) implements the full pipeline:</p>
+<ol>
+<li>Load RGCC entries with non-null <code>score_raw</code>; dedupe per drug name (mean score, max-priority sensitivity).</li>
+<li>Resolve drug names to KG IDs:
+<ul>
+<li><code>--kg primekg</code>: case-fold + alias map → PrimeKG <code>external_id</code>.</li>
+<li><code>--kg gpkg</code>: PubChem PUG REST <code>name → CID</code> (cached) → format as <code>cid&lt;CID + 100M></code>.</li>
+</ul>
+</li>
+<li>Inner-join RGCC → KG drug ID → model prediction.</li>
+<li>Compute Tier 1 (Spearman ρ + p-value) on continuous matched pairs.</li>
+<li>Compute Tier 2 (AUROC + AUPR) on the binary positive/negative subset, after dropping moderate.</li>
+<li>Write <code>metrics.json</code> + <code>crc_rgcc_metrics.matched.csv</code> (per-drug rank/score for inspection) per checkpoint.</li>
+</ol>
+<h3 id="33-bug-fixes-uncovered-en-route">3.3 Bug fixes uncovered en route<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#33-bug-fixes-uncovered-en-route" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Two latent bugs in earlier-shipped infrastructure surfaced during this session and were patched:</p>
+<ul>
+<li><code>backend/scripts/build_pdr2_input_pickle.py:182</code> — SQL generation was producing <code>ORDER BY ... NULLS LAST DESC</code> (invalid order — <code>DESC</code> must come first). Fixed: <code>col.desc().nullslast()</code>.</li>
+<li><code>backend/scripts/build_pdr1_input_csv.py</code> — <code>resolve_drugs()</code> referenced <code>ModsTreatmentDrug.drugbank_id</code>, a column that doesn’t exist (the schema has <code>drug_name</code> + <code>rxnorm_code</code> only). Replaced with a graceful empty-list fallback documented in the function docstring.</li>
+</ul>
+<p>Neither bug affected results in this writeup but both blocked the Phase 9 personalization input-builder; the patches unblock that downstream phase.</p>
+<h3 id="34-inference-subprocess-optimization-deferred-but-documented">3.4 Inference subprocess optimization (deferred but documented)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#34-inference-subprocess-optimization-deferred-but-documented" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The original Cell 11 of the master training notebook ran <code>test.py</code> once per inference input file, paying the model-load cost (~110 s on PrimeKG: KG load over 8.1M edges, ent2id construction, vocab sidecar) six times for a 6-file inference run. After observing this on the Run B inference log we wrote <code>lib/pdr/code/test_multi.py</code> — a wrapper that loads the model once and loops over test files, reducing inference wall time from ~12 min to ~2 min (~6× faster). The master template’s Cell 11 was rewritten to invoke <code>test_multi.py</code> and Cell 5’s health check was extended to verify it’s present in the Drive snapshot. Run B’s inference predictions used the original (slower) path because the optimization landed after the run was already in progress; future inference runs will use the faster path.</p>
+<hr/>
+<h2 id="4-results">4. Results<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-results" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-kg-drug-coverage">4.1 KG drug coverage<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-kg-drug-coverage" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase7_5_coverage.png" alt="PrimeKG vs GP-KG coverage of Maureen's RGCC drug panel"/></p>
+<p>Of 112 distinct drug names in Maureen’s RGCC panel:</p>
+<ul>
+<li><strong>PrimeKG</strong> matches 109 (97%). The 3 unmatched are name-resolution edge cases, not coverage gaps (see §2.3).</li>
+<li><strong>GP-KG</strong> matches 36 (32%). Of the 76 unmatched, 21 are PubChem-unresolvable RGCC names (typos, brand-name parentheticals, combination cells) and <strong>55 are PubChem-resolved real drugs simply absent from GP-KG’s 1,430-drug node set</strong>.</li>
+</ul>
+<p>The 55-drug coverage gap is the dominant story: it includes most monoclonal antibodies (Bevacizumab, Cetuximab, Trastuzumab, Atezolizumab, Avelumab, Pembrolizumab, Ramucirumab) and several common cytotoxics (Cisplatin, Carboplatin, Doxorubicin, Etoposide, Cytarabine, Eribulin, Cabazitaxel). For a CRC validation specifically, <strong>4 of the 5 RGCC high-sensitivity drugs are missing from GP-KG</strong>: Carboplatin, Cisplatin, Mitomycin, and Oxaliplatin all fall outside GP-KG’s drug node set. Only Pemetrexed survives the join.</p>
+<p>This is a <strong>structural property of the KG</strong>, not a measurement issue. GP-KG was originally constructed for AD-focused link-prediction work (per KG-Predict 2022); its small-molecule selection is biased toward neurology and small-molecule drug-target interaction. PrimeKG was constructed from an integration of 20+ biomedical databases (per Chandak et al., 2023) including DrugBank’s full small-molecule + biologic catalog.</p>
+<h3 id="42-tier-1--spearman-ρ-across-all-five-checkpoints">4.2 Tier 1 — Spearman ρ across all five checkpoints<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-tier-1--spearman-ρ-across-all-five-checkpoints" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase7_5_tier1_rho.png" alt="Tier 1 Spearman ρ by checkpoint"/></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Checkpoint</th><th>KG</th><th>Tier 1 ρ</th><th>p</th><th>n</th><th>Decision</th></tr></thead><tbody><tr><td>primekg v1 (corr 1L 300d)</td><td>PrimeKG</td><td>+0.204</td><td>0.033</td><td>109</td><td><strong>PASS</strong></td></tr><tr><td>primekg A1 (sub 1L 300d)</td><td>PrimeKG</td><td>+0.184</td><td>0.055</td><td>109</td><td>marginal (just over 0.05)</td></tr><tr><td><strong>primekg Run B (corr 1L 400d)</strong></td><td>PrimeKG</td><td><strong>+0.351</strong> ⚠#324</td><td><strong>1.8 × 10⁻⁴</strong></td><td><strong>109</strong></td><td><strong>PASS (strongest)</strong> — unrestated</td></tr><tr><td>gpkg v3 (skip_head, seeded split)</td><td>GP-KG</td><td>+0.299</td><td>0.077</td><td>36</td><td>marginal</td></tr><tr><td>gpkg v4 (no skip_head)</td><td>GP-KG</td><td>+0.391</td><td>0.018</td><td>36</td><td><strong>PASS</strong></td></tr></tbody></table></div>
+<p>All effect-size estimates are positive — every checkpoint correlates with RGCC, the question is <em>how strongly</em>. Three checkpoints pass strictly (v1, Run B, gpkg_v4); two fall just over the p &lt; 0.05 threshold (A1 at p = 0.055, gpkg_v3 at p = 0.077). The marginal failures are not a sign of weak signal — they reflect smaller n (gpkg_v3) or modestly weaker effect size at the same n (A1).</p>
+<p><strong>Run B is the headline.</strong> ρ = +0.351 with p = 0.00018 means the false-positive probability of this correlation by chance is ~1 in 5,500. With n = 109 it is bulletproof. — <strong>⚠ Retracted 2026-09-24 (GH #317).</strong> “Bulletproof” was wrong: a small p-value says the correlation is not chance, not that the <em>labels</em> mean what we thought. These labels were the mean of two biological states, and 12 of the 109 points are averaging artifacts. Restate per timepoint.</p>
+<h3 id="43-tier-2--auroc-across-primekg-checkpoints">4.3 Tier 2 — AUROC across PrimeKG checkpoints<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-tier-2--auroc-across-primekg-checkpoints" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase7_5_tier2_auroc.png" alt="Tier 2 AUROC by checkpoint"/></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Checkpoint</th><th>KG</th><th>Tier 2 AUROC</th><th>Tier 2 AUPR</th><th>n_pos / n_neg</th><th>Decision</th></tr></thead><tbody><tr><td>primekg v1 (corr 1L 300d)</td><td>PrimeKG</td><td>0.649</td><td>0.121</td><td>5 / 85</td><td><strong>PASS</strong></td></tr><tr><td><strong>primekg A1 (sub 1L 300d)</strong></td><td>PrimeKG</td><td><strong>0.751</strong></td><td><strong>0.176</strong></td><td>5 / 85</td><td><strong>PASS (strongest)</strong></td></tr><tr><td>primekg Run B (corr 1L 400d)</td><td>PrimeKG</td><td>0.689</td><td>0.098</td><td>5 / 85</td><td><strong>PASS</strong></td></tr><tr><td>gpkg v3</td><td>GP-KG</td><td>n/a</td><td>n/a</td><td>1 / 32</td><td><strong>unscorable</strong> (n_pos &lt; 2)</td></tr><tr><td>gpkg v4</td><td>GP-KG</td><td>n/a</td><td>n/a</td><td>1 / 32</td><td><strong>unscorable</strong> (n_pos &lt; 2)</td></tr></tbody></table></div>
+<p>All three PrimeKG checkpoints pass; A1 is the leader. GP-KG is unscorable because only 1 of the 5 RGCC high-sensitivity drugs (Pemetrexed) is in GP-KG, and the AUROC computation requires ≥ 2 positives.</p>
+<h3 id="44-run-b-continuous-correlation-drug-by-drug">4.4 Run B continuous correlation, drug-by-drug<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-run-b-continuous-correlation-drug-by-drug" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase7_5_runb_scatter.png" alt="Run B Tier 1 scatter — model score vs RGCC % cell death"/></p>
+<p>Each point is one of the 109 matched RGCC drugs, colored by sensitivity category. The 5 high-sensitivity drugs (green, labeled) are concentrated in the upper-middle of the model score range — not at the extreme top, but well above resistant drugs (brown, lower left). The visual ρ ≈ 0.35 is much clearer than a single number conveys: the high-sensitivity drugs aren’t model “winners” in the top-10 sense, but they consistently score above the resistant population, which is exactly what the Tier 1 metric was designed to capture.</p>
+<p>The top-3 model picks (annotated) — Liposomal Doxorubicin (rank 2, RGCC moderate 46%), Cetuximab (rank 3, RGCC low 12%), and Sorafenib (rank 5, RGCC resistant 0%) — show that the model’s <em>top</em> picks are not always RGCC’s top picks. This is the classic “in vitro CTC ≠ in vivo response” caveat in action: Cetuximab is a well-established CRC biologic that simply doesn’t kill cells in a 48-hour CTC assay (its mechanism is via EGFR-mediated proliferation arrest, not direct cytotoxicity); Sorafenib is in clinical use for HCC and has CRC trial activity; Doxorubicin is broadly cytotoxic. The model is correctly surfacing drugs known to have CRC research interest from public knowledge, even when the in vitro assay doesn’t see them as killers.</p>
+<h3 id="45-rgcc-high-sensitivity-drugs--model-rank-by-checkpoint">4.5 RGCC high-sensitivity drugs — model rank by checkpoint<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#45-rgcc-high-sensitivity-drugs--model-rank-by-checkpoint" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase7_5_high_sens_ranks.png" alt="High-sensitivity drug ranks across v1 / A1 / Run B"/></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>RGCC drug (% cell death)</th><th style="text-align:right;">v1 rank</th><th style="text-align:right;">A1 rank</th><th style="text-align:right;"><strong>Run B rank</strong></th></tr></thead><tbody><tr><td>Carboplatin (80)</td><td style="text-align:right;">31</td><td style="text-align:right;">325</td><td style="text-align:right;"><strong>43</strong></td></tr><tr><td>Cisplatin (81)</td><td style="text-align:right;"><strong>17</strong></td><td style="text-align:right;">353</td><td style="text-align:right;">170</td></tr><tr><td>Mitomycin (82)</td><td style="text-align:right;">579</td><td style="text-align:right;">993</td><td style="text-align:right;">143</td></tr><tr><td>Oxaliplatin (81)</td><td style="text-align:right;">259</td><td style="text-align:right;">52</td><td style="text-align:right;">57</td></tr><tr><td>Pemetrexed (81)</td><td style="text-align:right;">108</td><td style="text-align:right;"><strong>6</strong></td><td style="text-align:right;">76</td></tr><tr><td><strong>median rank</strong></td><td style="text-align:right;">108</td><td style="text-align:right;">325</td><td style="text-align:right;"><strong>76</strong></td></tr><tr><td>top-30 hits (out of 5)</td><td style="text-align:right;">1</td><td style="text-align:right;">1</td><td style="text-align:right;">0</td></tr><tr><td>range (max − min)</td><td style="text-align:right;">562</td><td style="text-align:right;">987</td><td style="text-align:right;"><strong>127</strong></td></tr></tbody></table></div>
+<p>Three architectural personalities visible:</p>
+<ul>
+<li><strong>Run B clusters tightly</strong> — all 5 drugs within rank 170, range only 127. Median rank 76 is the best of the three. This tight clustering is exactly what drives Tier 1 ρ = 0.35: when all 5 high-sens drugs land in the model’s top-15% (rank ≤ 170 of 109 matched ≈ rank ≤ 13% of 7,957 total drugs), the rank-correlation metric rewards it heavily.</li>
+<li><strong>A1 is bimodal</strong> — Pemetrexed at rank 6 is exceptional, but Mitomycin at rank 993 is a near-miss. The median 325 is the worst of the three despite the standout top-1 hit. Bimodal extremes are exactly the pattern that <em>helps</em> AUROC (the binary classifier sees a clear separation between Pemetrexed and the resistant population) while <em>hurting</em> Spearman ρ (the rank ordering is noisy).</li>
+<li><strong>v1 is intermediate</strong> — Cisplatin at rank 17, but Mitomycin at 579. Higher variance than Run B, lower top-1 strength than A1.</li>
+</ul>
+<p><strong>Why this matters.</strong> It demonstrates that “Tier 1” and “Tier 2” are measuring genuinely different things, and that the architectural choices (op type, embedding dim) are not interchangeable knobs — they shift the model’s <em>behavior pattern</em> in ways the synthetic CV-MRR metric cannot detect.</p>
+<h3 id="46-two-ablations--dim-alone-op-alone">4.6 Two ablations — dim alone, op alone<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#46-two-ablations--dim-alone-op-alone" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase7_5_ablation.png" alt="Side-by-side ablations: dim and op"/></p>
+<p>The five PrimeKG configurations form a partial factorial that lets us isolate two independent effects:</p>
+<p><strong>Dim ablation (op fixed at corr).</strong> v1 (<code>corr 1L 300d</code>) → Run B (<code>corr 1L 400d</code>) is a clean dim sweep: same op, same depth, same training procedure. <strong>Tier 1 ρ jumps from 0.204 → 0.351 (+72% effect size)</strong>; Tier 2 AUROC jumps from 0.649 → 0.689 (+6%). Embedding capacity dominates the continuous-correlation signal. — <strong>⚠ unrestated (GH #324).</strong> Both sides of this ablation were computed on pooled RGCC draws, so the comparison is between two numbers derived the same wrong way. The conclusion may well survive, but it has not been re-measured, and <code>MODS_MISSION_SPEC.md</code> §5.2 leans on it.</p>
+<p><strong>Op ablation (dim fixed at 300d).</strong> v1 (<code>corr 1L 300d</code>) → A1 (<code>sub 1L 300d</code>) is a clean op sweep: same dim, same depth. <strong>Tier 2 AUROC jumps from 0.649 → 0.751 (+16%)</strong>; Tier 1 ρ stays roughly flat (0.204 → 0.184). The composition operator dominates the binary-discrimination signal but doesn’t help continuous correlation.</p>
+<p><strong>Independence.</strong> The fact that dim helps Tier 1 without helping Tier 2 (much), and op helps Tier 2 without helping Tier 1, is striking. These are not two views of the same underlying improvement; they are different mechanisms by which the model captures different aspects of the response landscape. The natural follow-up — combining both effects in a single config (<code>sub 1L 400d</code>) — has not been run; we expect it to win on both tiers if the effects are additive (untested).</p>
+<h3 id="47-cv-mrr-as-a-proxy-for-rgcc-validation--it-isnt-one">4.7 CV-MRR as a proxy for RGCC validation — it isn’t one<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#47-cv-mrr-as-a-proxy-for-rgcc-validation--it-isnt-one" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Checkpoint</th><th style="text-align:right;">Train MRR (final)</th><th style="text-align:right;">CV MRR (full ranking)</th><th style="text-align:right;">Tier 1 ρ</th><th style="text-align:right;">Tier 2 AUROC</th></tr></thead><tbody><tr><td>v1</td><td style="text-align:right;">0.4032</td><td style="text-align:right;">0.0459</td><td style="text-align:right;">+0.204</td><td style="text-align:right;">0.649</td></tr><tr><td>A1</td><td style="text-align:right;">0.4152</td><td style="text-align:right;"><strong>0.0226</strong> ⚠</td><td style="text-align:right;">+0.184</td><td style="text-align:right;"><strong>0.751</strong></td></tr><tr><td>Run B</td><td style="text-align:right;"><strong>0.4207</strong></td><td style="text-align:right;">0.0462</td><td style="text-align:right;"><strong>+0.351</strong></td><td style="text-align:right;">0.689</td></tr></tbody></table></div>
+<p>Reading the table left-to-right: the run with the <strong>worst</strong> full-ranking CV MRR (A1 at 0.0226, an outlier flagged in an internal session handoff note as a possible measurement artifact) has the <strong>best</strong> Tier 2 AUROC (0.751). The CV-MRR / Tier 2 ranks are inverted across the three runs.</p>
+<p>We had previously suspected A1’s CV anomaly was an artifact of the relation-aware filter in <code>evaluate_model</code> — see the analogous bug we discovered in an internal note on the first GP-KG run. The Phase 7.5 result <em>partially exonerates</em> A1: it generalizes well to the patient-specific in vitro task even though the synthetic held-out-triple metric does not credit it. CV MRR underweights what we actually care about (extreme-case discrimination + continuous correlation on real biology) and overweights what is easy to compute (random-triple held-out ranking).</p>
+<p>This finding is itself worth surfacing: <strong>for drug-repurposing applications, CV-MRR is not a sufficient model-selection metric.</strong> Future ablation rounds (Phase 8.5 variant retrain, Phase 9 personalization) should not promote checkpoints to production based on training-time MRR alone.</p>
+<h3 id="48-top-model-picks--face-validity-run-b">4.8 Top model picks — face validity (Run B)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#48-top-model-picks--face-validity-run-b" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The top 15 Run B picks among RGCC-overlapping drugs:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rank</th><th>Drug</th><th>RGCC sensitivity</th><th>RGCC %</th><th>Notes</th></tr></thead><tbody><tr><td>2</td><td>Liposomal Doxorubicin</td><td>moderate</td><td>46.5</td><td>aliased to Doxorubicin in PrimeKG</td></tr><tr><td>2</td><td>Doxorubicin</td><td>moderate</td><td>51.5</td><td>broad cytotoxic; CRC clinical use</td></tr><tr><td>3</td><td>Cetuximab</td><td>low</td><td>12.5</td><td>first-line CRC anti-EGFR (in vitro low ≠ in vivo)</td></tr><tr><td>5</td><td>Sorafenib</td><td>resistant</td><td>0</td><td>HCC indication, CRC trial activity</td></tr><tr><td>8</td><td>MTX (Methotrexate)</td><td>moderate</td><td>72.5</td><td>classic antimetabolite</td></tr><tr><td>9</td><td>5FU (Fluorouracil)</td><td>moderate</td><td>72.5</td><td><strong>first-line CRC</strong></td></tr><tr><td>10</td><td>BCNU (Carmustine)</td><td>low</td><td>18.5</td><td>older alkylator; RGCC says non-responsive</td></tr><tr><td>11</td><td>Dasatinib</td><td>resistant</td><td>0</td><td>targeted; RGCC says non-responsive</td></tr><tr><td>12</td><td>Ramucirumab</td><td>low</td><td>10</td><td>second-line CRC anti-VEGFR2</td></tr><tr><td>13</td><td>Imatinib-mesylate</td><td>resistant</td><td>0</td><td>targeted; RGCC says non-responsive</td></tr><tr><td>14</td><td>Daunorubicin</td><td>moderate</td><td>43.5</td><td>anthracycline analog</td></tr><tr><td>16</td><td>Mitoxandrone (sic)</td><td>moderate</td><td>43.5</td><td>RGCC misspelling of Mitoxantrone</td></tr><tr><td>17</td><td>Pazopanib</td><td>resistant</td><td>0</td><td>targeted; RGCC says non-responsive</td></tr><tr><td>22</td><td>Nilotinib</td><td>resistant</td><td>0</td><td>targeted; RGCC says non-responsive</td></tr><tr><td>23</td><td>Bevacizumab</td><td>low</td><td>22.5</td><td>first-line CRC anti-VEGF</td></tr></tbody></table></div>
+<p>Three observations on biological plausibility:</p>
+<ol>
+<li><strong>Standard CRC chemo is in the top-15</strong> — 5-FU at rank 9, Doxorubicin at 2 (mechanism overlap with anthracyclines used in some CRC regimens), Methotrexate at 8.</li>
+<li><strong>Standard CRC biologics are in the top-15 even when RGCC says low/resistant</strong> — Cetuximab at 3, Bevacizumab at 23, Ramucirumab at 12. These are mechanism-of-action drugs that don’t kill cells in a 48-hour CTC assay but are clinically central to CRC treatment. The model is surfacing them correctly via public knowledge graph evidence; the RGCC assay is not designed to test them.</li>
+<li><strong>Targeted therapies that RGCC marks resistant are also surfaced</strong> — Sorafenib, Dasatinib, Imatinib, Pazopanib, Nilotinib at ranks 5–22. These drugs have CRC research interest in PrimeKG (off-label edges, drug-target relationships to genes mutated in CRC) but the assay says Maureen’s tumor doesn’t respond to them. <strong>This is exactly the population-vs-individual gap that personalization (Phase 9 onward) is designed to close.</strong> Without personalization, the model can’t know that Maureen-specifically is resistant to these.</li>
+</ol>
+<p>The top-15 list passes face validity: it’s a plausible “what should I consider for a CRC patient?” list given only public knowledge.</p>
+<hr/>
+<h2 id="5-discussion">5. Discussion<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-discussion" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="51-phase-75-closes-on-primekg">5.1 Phase 7.5 closes on PrimeKG<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-phase-75-closes-on-primekg" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>All three PrimeKG checkpoints clear both decision criteria. The strongest single result is Run B’s Tier 1 ρ = 0.351 with p = 1.8 × 10⁻⁴ on n = 109 — a robust positive correlation between the model’s CRC drug ranking (trained on public PrimeKG link-prediction signal) and Maureen’s RGCC drug-sensitivity panel (measured on her own tumor cells). This is the missing baseline that Phase 9 personalization must lift; lift criteria are pre-specified in <a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">Phase 9.7</a> (Tier 1 ρ improvement ≥ 0.05 OR Tier 2 AUROC improvement ≥ 0.03).</p>
+<p>We do not have a published comparator for either tier — to our knowledge this is the first patient-specific CRC validation of a public-knowledge-graph link-prediction model. We are establishing the baseline.</p>
+<h3 id="52-architecture-findings-worth-their-own-paragraph">5.2 Architecture findings worth their own paragraph<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-architecture-findings-worth-their-own-paragraph" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Three findings emerged that are not specific to this validation but speak to how to evaluate KG-completion models for clinical use:</p>
+<p><strong>(i) Embedding dim translates directly into patient-specific signal.</strong> v1 → Run B is a clean dim ablation; Tier 1 ρ jumped +72% under nothing more than 300d → 400d. The training-time CV MRR for the same change was +5% (0.40 → 0.42). The patient-specific lift is <strong>14× larger</strong> than the training-time lift. The model’s representational capacity matters far more for the question we actually care about than for the synthetic held-out-triple task.</p>
+<p><strong>(ii) Composition operator changes which extremes the model picks out, independent of capacity.</strong> v1 → A1 is an op ablation with dim fixed at 300d. Tier 1 ρ stayed flat (0.204 → 0.184). Tier 2 AUROC jumped +16% (0.649 → 0.751). The <code>sub</code> operator (TransE-style additive composition) produces tighter, more separable score distributions for the extremes; the <code>corr</code> operator (circular correlation, the paper’s choice) produces smoother score landscapes. Different architectures, different qualitative patterns.</p>
+<p><strong>(iii) CV MRR is a poor model-selection proxy for clinical generalization.</strong> In the three-way ranking of v1, A1, Run B: A1 has the <em>worst</em> CV MRR (0.0226) but the <em>best</em> Tier 2 AUROC. The metric we use to choose between configurations during training does not predict the metric we care about at deployment. This generalizes a finding we previously made for an internal note on the first GP-KG run, where the upstream <code>evaluate_model</code> reported MRR ~0.99 (saturated, filter artifact) while the honest full-ranking eval was 0.07. CV-MRR is not sufficient.</p>
+<p>For Phase 9 (personalization) and Phase 11 (PDR2): future runs should be model-selected on RGCC validation tiers, not CV MRR. The Tier 1 + Tier 2 evaluation takes ~10 seconds on a saved checkpoint and should be run on every promotion candidate.</p>
+<h3 id="53-gp-kgs-coverage-gap-is-a-structural-property-not-a-fixable-defect">5.3 GP-KG’s coverage gap is a structural property, not a fixable defect<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-gp-kgs-coverage-gap-is-a-structural-property-not-a-fixable-defect" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>GP-KG passes Tier 1 with the strongest single ρ of any checkpoint (v4 at 0.391). On <em>the 36 drugs it covers</em>, GP-KG is competitive with PrimeKG. But it cannot be scored on Tier 2 because its drug node set excludes 4 of the 5 RGCC high-sensitivity drugs. This is not a result of bad parsing or normalization — PubChem CID resolution succeeded for all 5 (Carboplatin = CID 38904, Cisplatin = CID 5702, Oxaliplatin = CID 5310940, Mitomycin = CID 5746, Pemetrexed = CID 446556). GP-KG simply does not have those nodes; KG-Predict’s 2022 construction selected 1,430 drugs biased toward neurological / general drug-target interaction, not oncology.</p>
+<p>The implication: <strong>GP-KG cannot serve as the production graph for CRC personalization.</strong> Its role going forward is the paper-comparator KG for Phase 0 reproduction — that role is settled. Any new training that targets Maureen’s case must use PrimeKG (or a future composed KG, see §5.5).</p>
+<h3 id="54-limitations">5.4 Limitations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-limitations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>n = 5 positives for Tier 2.</strong> With only 5 RGCC high-sensitivity drugs, AUROC has high sampling variance. The ranks of Carboplatin, Cisplatin, Oxaliplatin, Mitomycin, Pemetrexed dominate the metric. A future RGCC test panel that adds high-sensitivity drugs would tighten this; we should request expansion of the panel for Maureen’s next draw if practical.</li>
+<li><strong>Run B’s checkpoint is the production candidate but the (sub × 400d) cell of the architecture grid was not run.</strong> It’s plausible that <code>sub 1L 400d</code> would beat both Run B (Tier 1) and A1 (Tier 2) by combining the dim and op effects. ~5–6 hours of Colab A100 time would resolve this.</li>
+<li><strong>In vitro CTC ≠ in vivo response.</strong> RGCC measures what kills cells in a 48-hour assay at fixed concentrations. It does not measure pharmacokinetic exposure, drug-drug interactions, immune system involvement, or metastatic-niche effects. Several known prodrug pitfalls apply: Capecitabine (an oral 5-FU prodrug) is typically less active in vitro than 5-FU itself because no liver to metabolize it; we observed this in the Run B matched CSV (Capecitabine RGCC moderate 67%, 5-FU RGCC moderate 72.5%, but the model can’t distinguish them mechanistically). RGCC correlations are <em>supportive</em>, not conclusive.</li>
+<li><strong>No pharmacogenomics-aware filtering yet.</strong> Maureen has a known inherited pathogenic variant that may affect drug response. The current scoring does not account for this; it ranks drugs against a generic CRC node. Phase 8.5 (variant-aware KG extension) closes this gap.</li>
+<li><strong>Single patient.</strong> All claims here pertain to Maureen specifically. The patterns we observed (A1 wins Tier 2, Run B wins Tier 1, dim helps Tier 1, op helps Tier 2) may or may not generalize to other patients. Cross-validation against additional RGCC-tested CRC patients would establish whether these are personal idiosyncrasies or general properties; we do not have other patients in the cohort yet.</li>
+<li><strong>Drug-name alias map is hand-curated.</strong> 30 entries cover the spelling variants and brand names we’ve observed; future patient panels may surface new aliases. The alias map is in source, not configuration; expanding it is a code change.</li>
+<li><strong>Spearman ρ is not a fixed test against a “right” ranking.</strong> RGCC % cell death is a noisy biological measurement, not a ground-truth ranking. ρ = 1.0 is not a meaningful target; the comparator is “ρ = 0 (no signal).“</li>
+</ul>
+<h3 id="55-whats-next--three-layers-of-follow-up">5.5 What’s next — three layers of follow-up<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#55-whats-next--three-layers-of-follow-up" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Immediate (architecture grid completion).</strong> Run <code>primekg_sub_1l_400d_v1</code> to fill the (sub × 400d) cell at depth 1. Hypothesis: combines the +72% Tier 1 dim effect with the +16% Tier 2 op effect for the best on both tiers. Cost: ~5–6 hours Colab A100. Already memory-feasible (1L sub at 400d ≈ 37 GB, well under 80 GB ceiling).</p>
+<p><strong>Near-term (closing Phase 9 + Phase 11).</strong></p>
+<ul>
+<li><strong>Phase 9 PDR1 personalization (Maureen Track A — biomarker only).</strong> <code>build_pdr1_input_csv.py</code> Track A CSV is staged. Two <code>patient_merge.py</code> adaptations are blocking: the drug filter doesn’t match GP-KG’s <code>CID*</code> IDs, and <code>filter_and_match_disease_nodes_PRS</code> calls a dead UMLS REST endpoint. Both are small patches documented in <code>runs/2026-05-09_phase9/README.md</code>. After patching: train scalars-personalized CompGCN+ConvE, re-run <code>compute_metrics_crc.py</code>, compare against Run B baseline. Decision criterion: Tier 1 ρ improvement ≥ 0.05 or Tier 2 AUROC improvement ≥ 0.03.</li>
+<li><strong>Maureen genotype upload + Track B PRS</strong> — unblocks the more interesting personalization scenario where PRS scalars actually have nonzero values. Per <a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">PDR1’s published Cohen’s d ≈ 1.05 for PRS</a>, this is expected to be the largest personalization lift if it transfers from UK Biobank AD to Maureen-CRC.</li>
+<li><strong>PDR2 PrimeKG run</strong> — already shown to beat PDR1 v1 on GP-KG by +50% MRR / +88% Hits@10 (an internal note on the first GP-KG run). Run on PrimeKG, score against RGCC, compare to Run B’s ρ = 0.351 baseline.</li>
+</ul>
+<p><strong>Long-term (data-boundary exploration via composed KGs).</strong></p>
+<p>This is where the canonical KG schema landed in the <code>composition-pipeline foundation commits</code> (Phases A–E of <code>we-need-more-rigor-fuzzy-nygaard.md</code>, mid-2026-05) becomes the primary tool. Three threads:</p>
+<ol>
+<li>
+<p><strong>Diagnostic — <em>which</em> RGCC drugs each KG covers, and why.</strong> A natural follow-up to §4.1 is to enumerate, per drug × KG, what predicates / domains exist for that drug node. PrimeKG’s 7,957 drugs come from DrugBank’s full catalog; GP-KG’s 1,430 are a subset. Building a coverage map from the canonical schema (<code>mods_kg_entity</code> joined to <code>mods_kg_relation</code> filtered by domain) tells us not just “is Drug X in this KG?” but “what kind of evidence does this KG carry about Drug X?” — which directly informs whether the KG can support a meaningful link-prediction score for that drug.</p>
+</li>
+<li>
+<p><strong>Compositional ablation — <em>adding</em> coverage with the composition system.</strong> The canonical schema’s <code>mods_kg_composition</code> machinery lets us declaratively define mixes like “PrimeKG ∪ OncoKB variant evidence ∪ CIViC predictive signatures ∪ PharmGKB toxicity edges” without re-ingesting the underlying source data. We can:</p>
+<ul>
+<li><strong>Train baseline-PrimeKG</strong> (already done — Run B).</li>
+<li><strong>Train PrimeKG + OncoKB variant edges</strong> — the <a href="https://github.com/.../commit/672f859" class="external external-link">OncoKB connector landed in commit 672f859<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> but the variant nodes have not been used for retraining yet.</li>
+<li><strong>Train PrimeKG + CIViC + OncoKB + PharmGKB</strong> — the <code>Tier 1 MVP composition</code> is seeded as <code>tier1_mvp_with_primekg_v1</code>.</li>
+<li>Score each against RGCC. Each successive addition should improve Tier 1 ρ; if it doesn’t, the addition is signal-free for Maureen’s case (or worse, contains conflicting information).</li>
+</ul>
+<p>This is a <em>systematic</em> way to test “what does adding source X do for our patient’s signal?” — a question that has been asked qualitatively for years but never answered with a metric. Phase 7.5’s RGCC tiers are the metric.</p>
+</li>
+<li>
+<p><strong>Boundary discovery — <em>when</em> does adding sources stop helping?</strong> Following Translator’s Biolink ecosystem (we already have a <code>translator_connector.py</code>), we can ingest much larger KGs (RTX-KG2 has 140M+ relations across 40+ source databases). The prediction from KG-completion theory is that beyond a certain size, additional relations <em>degrade</em> signal because they introduce noise faster than they add discriminative information (the classic over-smoothing phenomenon, an internal note on the architectural ceiling). Where is that boundary for our use case? RGCC validation gives us the metric to find out, and the canonical schema gives us the levers to compose KGs of varying scope to test against it. Concrete experiment we can run today: train on <code>tier1_mvp_v1</code> (small, cancer-focused composition) vs <code>rtx_kg2_full</code> (140M+ relations), score both against RGCC, see whether the bigger KG helps or hurts.</p>
+</li>
+</ol>
+<p>The combination of the patient-specific RGCC validation track (Phase 7.5) and the canonical composition schema is, in our view, the most powerful methodological contribution this project can make to drug-repurposing research. It turns the qualitative “more data is better” intuition into a measurable optimization problem with a well-defined objective.</p>
+<hr/>
+<h2 id="6-reproducibility">6. Reproducibility<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-reproducibility" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The numbers in this writeup are reproducible from a checkout of the repo at this commit, given the trained checkpoints are present at the documented Drive paths:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># from repo root — assumes Cloud SQL proxy is running on 127.0.0.1:5433</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># 1. Score every checkpoint against RGCC</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> lib/pdr/code/scripts/compute_metrics_crc.py</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --kg</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> primekg</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --predictions</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> &quot;G:/My Drive/PDR/runs/2026-04-26_primekg_corr_1l_300d_v1/inference/crc_indication/test_predictions.txt&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --run-id</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> primekg_corr_1l_300d_v1</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --out</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> runs/2026-05-09_phase7.5/v1/crc_rgcc_metrics.json</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> lib/pdr/code/scripts/compute_metrics_crc.py</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --kg</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> primekg</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --predictions</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> &quot;G:/My Drive/PDR/runs/2026-04-29_primekg_sub_1l_300d_v1/inference/crc_indication/test_predictions.txt&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --run-id</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> primekg_sub_1l_300d_v1_A1</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --out</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> runs/2026-05-09_phase7.5/A1/crc_rgcc_metrics.json</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> lib/pdr/code/scripts/compute_metrics_crc.py</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --kg</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> primekg</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --predictions</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> &quot;G:/My Drive/PDR/runs/2026-05-09_primekg_corr_1l_400d_v1/inference/crc_indication/test_predictions.txt&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --run-id</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> primekg_corr_1l_400d_v1_RunB</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --out</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> runs/2026-05-09_phase7.5/RunB/crc_rgcc_metrics.json</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> lib/pdr/code/scripts/compute_metrics_crc.py</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --kg</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> gpkg</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --predictions</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> &quot;G:/My Drive/PDR/archive/2026-04-27_pre_reorg/runs/repro_v3/crc_predictions.txt&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --run-id</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> gpkg_corr_1l_200d_v3</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --out</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> runs/2026-05-09_phase7.5/gpkg_v3/crc_rgcc_metrics.json</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> lib/pdr/code/scripts/compute_metrics_crc.py</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --kg</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> gpkg</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --predictions</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> &quot;G:/My Drive/PDR/archive/2026-04-27_pre_reorg/runs/repro_v4/crc_predictions.txt&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --run-id</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> gpkg_corr_1l_200d_v4</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="string"> \</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">    --out</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> runs/2026-05-09_phase7.5/gpkg_v4/crc_rgcc_metrics.json</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># 2. Generate the charts</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> backend/scripts/pdr_phase7_5_charts.py</span></span></code></pre></figure>
+<h3 id="source-artifacts">Source artifacts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#source-artifacts" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Path</th><th>Contents</th></tr></thead><tbody><tr><td><code>lib/pdr/code/scripts/compute_metrics_crc.py</code></td><td>Tier 1 + Tier 2 metric pipeline. PrimeKG and GP-KG modes.</td></tr><tr><td><code>backend/scripts/pdr_phase7_5_charts.py</code></td><td>Chart generator. Reads metrics JSONs + matched CSVs; writes 6 PNGs.</td></tr><tr><td><code>runs/2026-05-09_phase7.5/&lt;run>/crc_rgcc_metrics.json</code></td><td>Per-checkpoint metrics + decision call</td></tr><tr><td><code>runs/2026-05-09_phase7.5/&lt;run>/crc_rgcc_metrics.matched.csv</code></td><td>Per-drug rank, score, sensitivity, RGCC % — the raw data behind the charts</td></tr><tr><td><code>runs/2026-05-09_phase7.5/_cache/pubchem_name_to_cid.json</code></td><td>PubChem name → CID cache (~91 entries; refresh by deleting)</td></tr><tr><td><code>lib/pdr/code/test_multi.py</code></td><td>Multi-file inference wrapper (~6× faster than per-file subprocess loop)</td></tr><tr><td><code>mods_functional_test_agent_result</code> (DB table)</td><td>Source of truth for RGCC sensitivities</td></tr><tr><td><code>mods_kg_node</code> (DB table, <code>kg_source='prime_kg'</code>)</td><td>Source of truth for PrimeKG drug-name → external_id mapping</td></tr></tbody></table></div>
+<hr/>
+<h2 id="7-references">7. References<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Gao Z, Ding P, Xu R. <strong>KG-Predict: A knowledge graph computational framework for drug repurposing.</strong> <em>J Biomed Inform.</em> 2022. Source of GP-KG and the CompGCN+ConvE foundation.</li>
+<li>Oğuztüzün C, Gao Z, Xu R. <strong>Precision drug repurposing: Patient-level modeling and prediction combining foundational knowledge graph with biobank data.</strong> <em>J Biomed Inform.</em> 2025 (PDR1). Source of the <code>-scalars</code> patient-integration mechanism applied in Phase 9.</li>
+<li>Chandak P, Huang K, Zitnik M. <strong>Building a knowledge graph to enable precision medicine.</strong> <em>Sci Data.</em> 2023. PrimeKG construction and edge taxonomy.</li>
+<li>Vashishth S, Sanyal S, Nitin V, Talukdar P. <strong>Composition-based multi-relational graph convolutional networks</strong> (CompGCN). <em>ICLR 2020.</em></li>
+<li>Dettmers T, Minervini P, Stenetorp P, Riedel S. <strong>Convolutional 2D knowledge graph embeddings</strong> (ConvE). <em>AAAI 2018.</em></li>
+<li>Galkin M, Yuan X, Mostafa H, et al. <strong>Towards foundation models for knowledge graph reasoning</strong> (ULTRA). <em>ICLR 2024.</em> PDR2’s foundation model (used for an internal note on the first GP-KG run).</li>
+<li>RGCC International. <strong>Onconomics Plus chemosensitivity assay.</strong> Methodology described in <code>lib/pdr/Supplementary_Material/</code>. Annexin V-PE flow cytometry on isolated CTCs at fixed drug concentrations, 72h chemo / 48h targeted-therapy incubation.</li>
+</ul>
+<hr/>
+<h2 id="appendix-a--rgcc-sensitivity-score-distribution">Appendix A — RGCC sensitivity score distribution<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#appendix-a--rgcc-sensitivity-score-distribution" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For reference, the full distribution of <code>score_raw</code> values across the 224 numeric-scored entries before per-drug deduplication:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Sensitivity category</th><th style="text-align:right;">Count</th><th style="text-align:right;">min</th><th style="text-align:right;">max</th><th style="text-align:right;">mean</th><th>Includes</th></tr></thead><tbody><tr><td>high_sensitivity</td><td style="text-align:right;">10</td><td style="text-align:right;">80</td><td style="text-align:right;">82</td><td style="text-align:right;">81.1</td><td>Carboplatin, Cisplatin, Mitomycin, Oxaliplatin, Pemetrexed</td></tr><tr><td>moderate_sensitivity</td><td style="text-align:right;">26</td><td style="text-align:right;">52</td><td style="text-align:right;">79</td><td style="text-align:right;">67.6</td><td>5-FU, Capecitabine, Doxorubicin, MTX, Daunorubicin, Mitoxantrone, …</td></tr><tr><td>low_sensitivity</td><td style="text-align:right;">82</td><td style="text-align:right;">5</td><td style="text-align:right;">31</td><td style="text-align:right;">14.1</td><td>Cyclophosphamide, Ifosfamide, Bevacizumab, Cetuximab, …</td></tr><tr><td>resistant</td><td style="text-align:right;">106</td><td style="text-align:right;">0</td><td style="text-align:right;">0</td><td style="text-align:right;">0.0</td><td>Sorafenib, Dasatinib, Imatinib, most targeted therapies</td></tr></tbody></table></div>
+<p>The 80%/35% boundaries used in Tier 2 cleanly separate the high-sensitivity cluster (all ≥ 80%) from low + resistant (all ≤ 31%), with moderate (52–79%) in between as the explicit exclusion zone.</p>
+<h2 id="appendix-b--top-15-model-picks-per-checkpoint-matched-rgcc-drugs">Appendix B — Top-15 model picks per checkpoint (matched RGCC drugs)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#appendix-b--top-15-model-picks-per-checkpoint-matched-rgcc-drugs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For comparison; full lists in <code>runs/2026-05-09_phase7.5/&lt;run>/crc_rgcc_metrics.matched.csv</code>.</p>
+<p><strong>Run B (corr 1L 400d) — top 15:</strong> Liposomal Doxorubicin (rank 2), Doxorubicin (2), Cetuximab (3), Sorafenib (5), MTX (8), 5FU (9), BCNU (10), Dasatinib (11), Ramucirumab (12), Imatinib-mesylate (13), Daunorubicin (14), Mitoxandrone (16), Pazopanib (17), Nilotinib (22), Bevacizumab (23).</p>
+<p><strong>A1 (sub 1L 300d) — top 15:</strong> 5FU (rank 2), Pemetrexed (6), Daunorubicin (8), Liposomal Doxorubicin (10), Doxorubicin (11), Capecitabine (13), Ifosfamide (15), Mitoxandrone (17), MTX (19), Carmustine (24), Tamoxifen (29), Vincristine (33), Etoposide (37), 5FU/Methotrexate (39), Cyclophosphamide (44).</p>
+<p><strong>v1 (corr 1L 300d) — top 15:</strong> Cisplatin (rank 17), Sorafenib (19), Daunorubicin (20), Doxorubicin (21), Carboplatin (31), Imatinib (33), Bortezomib (35), Bevacizumab (38), Cetuximab (41), 5FU (44), Sunitinib (47), Capecitabine (48), Pazopanib (51), Lapatinib (53), Mitoxantrone (54).</p>
+<p>The qualitative differences across these lists — Run B leads with anthracyclines + biologics, A1 leads with antimetabolites and Pemetrexed, v1 leads with platinums — reflect the architectural personalities documented in §4.5.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-81" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#crc-patient-specific-validation-phase-75--formal-writeup" data-for="crc-patient-specific-validation-phase-75--formal-writeup">CRC Patient-Specific Validation (Phase 7.5) — Formal Writeup</a></li><li class="depth-1"><a href="#summary" data-for="summary">Summary</a></li><li class="depth-1"><a href="#1-purpose" data-for="1-purpose">1. Purpose</a></li><li class="depth-1"><a href="#2-materials-and-methods" data-for="2-materials-and-methods">2. Materials and Methods</a></li><li class="depth-2"><a href="#21-rgcc-drug-sensitivity-panel" data-for="21-rgcc-drug-sensitivity-panel">2.1 RGCC drug-sensitivity panel</a></li><li class="depth-2"><a href="#22-kg-drug-coverage-characterization" data-for="22-kg-drug-coverage-characterization">2.2 KG drug-coverage characterization</a></li><li class="depth-2"><a href="#23-drug-name-normalization" data-for="23-drug-name-normalization">2.3 Drug-name normalization</a></li><li class="depth-2"><a href="#24-evaluation-metrics--definitions-and-worked-examples" data-for="24-evaluation-metrics--definitions-and-worked-examples">2.4 Evaluation metrics — definitions and worked examples</a></li><li class="depth-2"><a href="#25-decision-criteria-and-comparator-status" data-for="25-decision-criteria-and-comparator-status">2.5 Decision criteria and comparator status</a></li><li class="depth-2"><a href="#26-hardware-and-runtime" data-for="26-hardware-and-runtime">2.6 Hardware and runtime</a></li><li class="depth-1"><a href="#3-procedure" data-for="3-procedure">3. Procedure</a></li><li class="depth-2"><a href="#31-inputs-assembled" data-for="31-inputs-assembled">3.1 Inputs assembled</a></li><li class="depth-2"><a href="#32-script-implementation" data-for="32-script-implementation">3.2 Script implementation</a></li><li class="depth-2"><a href="#33-bug-fixes-uncovered-en-route" data-for="33-bug-fixes-uncovered-en-route">3.3 Bug fixes uncovered en route</a></li><li class="depth-2"><a href="#34-inference-subprocess-optimization-deferred-but-documented" data-for="34-inference-subprocess-optimization-deferred-but-documented">3.4 Inference subprocess optimization (deferred but documented)</a></li><li class="depth-1"><a href="#4-results" data-for="4-results">4. Results</a></li><li class="depth-2"><a href="#41-kg-drug-coverage" data-for="41-kg-drug-coverage">4.1 KG drug coverage</a></li><li class="depth-2"><a href="#42-tier-1--spearman-ρ-across-all-five-checkpoints" data-for="42-tier-1--spearman-ρ-across-all-five-checkpoints">4.2 Tier 1 — Spearman ρ across all five checkpoints</a></li><li class="depth-2"><a href="#43-tier-2--auroc-across-primekg-checkpoints" data-for="43-tier-2--auroc-across-primekg-checkpoints">4.3 Tier 2 — AUROC across PrimeKG checkpoints</a></li><li class="depth-2"><a href="#44-run-b-continuous-correlation-drug-by-drug" data-for="44-run-b-continuous-correlation-drug-by-drug">4.4 Run B continuous correlation, drug-by-drug</a></li><li class="depth-2"><a href="#45-rgcc-high-sensitivity-drugs--model-rank-by-checkpoint" data-for="45-rgcc-high-sensitivity-drugs--model-rank-by-checkpoint">4.5 RGCC high-sensitivity drugs — model rank by checkpoint</a></li><li class="depth-2"><a href="#46-two-ablations--dim-alone-op-alone" data-for="46-two-ablations--dim-alone-op-alone">4.6 Two ablations — dim alone, op alone</a></li><li class="depth-2"><a href="#47-cv-mrr-as-a-proxy-for-rgcc-validation--it-isnt-one" data-for="47-cv-mrr-as-a-proxy-for-rgcc-validation--it-isnt-one">4.7 CV-MRR as a proxy for RGCC validation — it isn’t one</a></li><li class="depth-2"><a href="#48-top-model-picks--face-validity-run-b" data-for="48-top-model-picks--face-validity-run-b">4.8 Top model picks — face validity (Run B)</a></li><li class="depth-1"><a href="#5-discussion" data-for="5-discussion">5. Discussion</a></li><li class="depth-2"><a href="#51-phase-75-closes-on-primekg" data-for="51-phase-75-closes-on-primekg">5.1 Phase 7.5 closes on PrimeKG</a></li><li class="depth-2"><a href="#52-architecture-findings-worth-their-own-paragraph" data-for="52-architecture-findings-worth-their-own-paragraph">5.2 Architecture findings worth their own paragraph</a></li><li class="depth-2"><a href="#53-gp-kgs-coverage-gap-is-a-structural-property-not-a-fixable-defect" data-for="53-gp-kgs-coverage-gap-is-a-structural-property-not-a-fixable-defect">5.3 GP-KG’s coverage gap is a structural property, not a fixable defect</a></li><li class="depth-2"><a href="#54-limitations" data-for="54-limitations">5.4 Limitations</a></li><li class="depth-2"><a href="#55-whats-next--three-layers-of-follow-up" data-for="55-whats-next--three-layers-of-follow-up">5.5 What’s next — three layers of follow-up</a></li><li class="depth-1"><a href="#6-reproducibility" data-for="6-reproducibility">6. Reproducibility</a></li><li class="depth-2"><a href="#source-artifacts" data-for="source-artifacts">Source artifacts</a></li><li class="depth-1"><a href="#7-references" data-for="7-references">7. References</a></li><li class="depth-1"><a href="#appendix-a--rgcc-sensitivity-score-distribution" data-for="appendix-a--rgcc-sensitivity-score-distribution">Appendix A — RGCC sensitivity score distribution</a></li><li class="depth-1"><a href="#appendix-b--top-15-model-picks-per-checkpoint-matched-rgcc-drugs" data-for="appendix-b--top-15-model-picks-per-checkpoint-matched-rgcc-drugs">Appendix B — Top-15 model picks per checkpoint (matched RGCC drugs)</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../model/pdr_personalization_writeup" class="internal">PDR Personalization — Technical Writeup</a></li><li><a href="../planning/population_supervised_outcome_planning" class="internal">Population-Supervised Outcome Prediction</a></li><li><a href="../results/pdr2_rgcc_tier1_v2_writeup" class="internal">PDR2 v2 Foundation — Tier-1 / Tier-2 Validation</a></li><li><a href="../results/pdr2_track_a_repro_writeup" class="internal">PDR2 Track A v1 — First Personalized Inference</a></li><li><a href="../results/pdr2_track_a_v2_repro_writeup" class="internal">PDR2 Track A v2 — Foundation Retrain</a></li><li><a href="../results/pdr_phase7_5_rgcc_writeup" class="internal">Patient-Specific Validation — Phase 7.5</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

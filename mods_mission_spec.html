@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>MODS — Mission Spec</title><meta charset="utf-8"/><link rel="preload" href="./index-cd2294b5.css" as="style"/><link rel="preload" href="./prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="MODS — Mission Spec"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="MODS — Mission Spec"/><meta name="twitter:description" content="A goal-oriented briefing on the whole project — the objective, the patient, what has been built, and what it has honestly shown."/><meta property="og:description" content="A goal-oriented briefing on the whole project — the objective, the patient, what has been built, and what it has honestly shown."/><meta property="og:image:alt" content="A goal-oriented briefing on the whole project — the objective, the patient, what has been built, and what it has honestly shown."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/mods_mission_spec"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/mods_mission_spec"/><link rel="icon" href="./static/icon.png"/><meta name="description" content="A goal-oriented briefing on the whole project — the objective, the patient, what has been built, and what it has honestly shown."/><meta name="generator" content="Quartz"/><link href="./index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="./static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="./prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("./static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/mods_mission_spec-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/mods_mission_spec-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/mods_mission_spec-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="mods_mission_spec" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href=".">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-0" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-0" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="./">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>MODS — Mission Spec</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-25</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">reference</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">A goal-oriented briefing on the whole project — the objective, the patient, what has been built, and what it has honestly shown.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.306Z">Oct 09, 2026</time><span>43 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="mods--mission-spec">MODS — Mission Spec<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mods--mission-spec" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>A goal-oriented briefing for an agent arriving with no prior context.</strong></p>
+<p><strong>Version:</strong> 1.0 · <strong>Written:</strong> 2026-09-07 · <strong>Repo:</strong> <code>whafa/Maple</code></p>
+<hr/>
+<h2 id="0-what-this-document-is-and-how-to-read-it">0. What this document is, and how to read it<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#0-what-this-document-is-and-how-to-read-it" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Every other planning document in this repository is organized around a <em>system</em>:
+the knowledge graph, the training pipeline, the PRS gates, the dashboards. This
+one is organized around the <em>goal</em>. It exists because the systems are now complex
+enough that a capable agent can spend a week doing excellent work on a subsystem
+that does not move the actual objective.</p>
+<p>Read it in order. §1–§3 are the why and the who; skipping them will cause you to
+make locally-reasonable decisions that are globally wrong. §4–§6 are what has been
+built and what it has actually shown, stated honestly including the null results.
+§7 is the rules that were paid for in lost data or wrong clinical claims. §8 is the
+open frontier, ordered by expected value to the patient. §9–§11 are orientation.</p>
+<p><strong>This document goes stale.</strong> Anything with a number in it should be re-verified
+against the live source named beside it before you rely on it. §10 tells you how.</p>
+<p><strong>The one-line summary, if you read nothing else:</strong> we are trying to find drugs
+that might work for one specific woman with stage IV colorectal cancer, using a
+biomedical knowledge graph and a graph neural network conditioned on her own
+molecular data, and to do it rigorously enough that an oncologist would take the
+output seriously.</p>
+<hr/>
+<h2 id="1-the-mission">1. The mission<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-the-mission" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="11-the-objective">1.1 The objective<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-the-objective" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Extend Maureen’s life, and the quality of it, by finding treatments for
+her disease that the standard of care will not surface on its own.</strong></p>
+<p>That is the top of the goal tree. Everything below it is instrumental. The project
+is not “reproduce a paper,” not “build a knowledge graph,” and not “ship a
+dashboard,” although it has done all three. When a decision is genuinely ambiguous,
+resolve it by asking which branch gets closer to a defensible, actionable candidate
+list for this patient.</p>
+<h3 id="12-the-goal-hierarchy">1.2 The goal hierarchy<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-the-goal-hierarchy" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>ID</th><th>Goal</th><th>Status</th></tr></thead><tbody><tr><td><strong>G0</strong></td><td>Treat Maureen’s disease.</td><td>Ongoing, indefinite</td></tr><tr><td><strong>G1</strong></td><td>Produce a ranked, evidence-backed shortlist of repurposing candidates specific to <em>her</em> tumor, that her clinicians would actually discuss.</td><td><strong>Not yet achieved.</strong> This is the deliverable.</td></tr><tr><td><strong>G2</strong></td><td>Prove the ranking mechanism works, by showing it recovers biology we independently measured in her (see §6).</td><td><strong>Unknown as of 2026-09-24.</strong> Every Tier-1/Tier-2 number to date was computed on pooled RGCC draws and is superseded pending restatement (GH #324). Previously read “Tier-2 passes; Tier-1 marginal.”</td></tr><tr><td><strong>G3</strong></td><td>Personalize the ranking with her own genetics, expression, variants and history, rather than serving a generic “colorectal cancer” answer.</td><td><strong>Mechanism built, signal not yet demonstrated.</strong> See §5.4.</td></tr><tr><td><strong>G4</strong></td><td>Keep the pipeline reproducible, auditable and inspectable end to end, so that any candidate can be traced back to its evidence.</td><td>Largely achieved and worth protecting.</td></tr></tbody></table></div>
+<p>G1 has never been shipped. Everything to date has been building and validating the
+machine that would produce it. That is the correct order of operations, but it is
+worth naming plainly: <strong>the project began in earnest in January 2026 and there is
+still no candidate list.</strong> Any plan that does not shorten the distance to one should
+justify itself.</p>
+<h3 id="13-the-precedent-this-is-modeled-on">1.3 The precedent this is modeled on<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-the-precedent-this-is-modeled-on" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>David Fajgenbaum, as a medical student, was dying of Castleman disease with no
+approved treatment and nobody working on a cure. He worked out that sirolimus, a
+25-year-old immunosuppressant approved for something else entirely, should work on
+his pathway. He tried it. He is alive. He co-founded <a href="https://everycure.org/" class="external external-link">Every Cure<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>
+in 2022 to do that systematically, scanning roughly 22,000 diseases against 3,000
+drugs.</p>
+<p>Richard heard Fajgenbaum tell this story on the Huberman podcast on 2025-11-03. That
+is the origin of this project — in his words, “it flipped some switch in my head.” When framing MODS in a writeup or an intro, anchor on
+Fajgenbaum and sirolimus, not on generic “AI for drug discovery.”</p>
+<p>The bet MODS makes is the n-of-one version: among the ~20,000 approved drugs there
+may be one that nobody has thought to try for colorectal cancer, or for <em>this</em>
+colorectal cancer, and a knowledge graph plus a link-prediction model is a
+defensible way to look for it.</p>
+<h3 id="14-what-this-is-not">1.4 What this is not<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#14-what-this-is-not" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Not medical advice, and not a substitute for oncology.</strong> Maureen is on the
+standard of care and will stay on it while it works. Nothing produced here reaches
+her without going through her treating physicians.</li>
+<li><strong>Not a decision maker.</strong> A high model score means “the literature’s geometry is
+consistent with this drug being relevant.” It does not mean the drug works, is
+safe in combination with her current regimen, or is compatible with her liver
+function and blood counts.</li>
+<li><strong>Not a product.</strong> There is one user and one patient.</li>
+</ul>
+<p>The value, if there is value, is precision. A tool that surfaces one surprising,
+plausible candidate her oncologist has not considered is worth building. A tool that
+surfaces fifty is not.</p>
+<hr/>
+<h2 id="2-the-patient">2. The patient<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-the-patient" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Everything in this section must trace to her actual data. Before asserting any
+clinical or genomic fact about Maureen, confirm it comes from a real report row,
+not from memory, not from a test fixture, and not from what is typical for
+colorectal cancer. See §7.1 — this rule was written because a phantom driver
+mutation propagated across six documents and produced a clinically inverted claim.</p>
+<h3 id="21-who-she-is">2.1 Who she is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-who-she-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Maureen, the user’s wife and the mother of their children. She is the primary
+MODS patient. In the database she is <code>mods_patient.id = a withheld UUID</code>, user ID 26, with
+<code>role:patient</code> and <code>api:med:*</code> permissions.</p>
+<p>There is a second patient row (<code>hu52B7E5</code>, a Personal Genome Project stand-in used
+for proxy-patient work). Any no-argument patient lookup resolves to the
+earliest-created row, which is Maureen, by design. Do not write a resolver that
+raises on ambiguity; three separate implementations have made that mistake.</p>
+<h3 id="22-disease-course">2.2 Disease course<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-disease-course" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>When</th><th>What</th></tr></thead><tbody><tr><td>Early 2024</td><td>Diagnosed stage IV colon adenocarcinoma after persistent back pain.</td></tr><tr><td>2024</td><td>First-line <strong>FOLFOXIRI + bevacizumab</strong> (TRIBE-style). Aggressive polydrug regimen; she was young enough to tolerate it. Toxic but effective.</td></tr><tr><td>2024</td><td>Three consecutive quarterly CT scans show no evidence of disease.</td></tr><tr><td>Dec 2024</td><td>Stops maintenance chemo. Adopts whole-food plant-based diet, juicing, fasting, daily exercise, QiGong, TCM under the TCM practitioner.</td></tr><tr><td>Spring 2025</td><td>Blood markers creep up. CA 19-9 78 in May, flat into August. CTC counts rising. Mold exposure found and remediated; EBV and Lyme-associated viral titers positive.</td></tr><tr><td>Jul 2025</td><td>RGCC SOT injection (Buffalo, NY).</td></tr><tr><td>Aug 2025</td><td>Lump above the chemo port. CT 2025-08-12: <strong>enlarged lymph nodes in neck and chest, nothing in any other organ.</strong> Port and lump excised 2025-08-25.</td></tr><tr><td>Sep 2025</td><td>Pathology confirms recurrent adenocarcinoma. Nodal-predominant recurrence, <strong>no liver metastases</strong> — see §2.5, this is load-bearing.</td></tr><tr><td>Late 2025</td><td>Second course: <strong>FOLFOX + cetuximab + encorafenib</strong> (the BREAKWATER regimen, FDA-approved June 2025 for BRAF V600E mCRC). Six cycles. Roughly doubles expected progression-free time versus the TRIBE-era combination, with somewhat less toxicity.</td></tr><tr><td>2026</td><td>Maintenance: <strong>cetuximab + encorafenib + binimetinib</strong>. Albumin dropped to 3.1 in Feb 2026, attributed to the MEK inhibitor. CA 19-9 fell to 22.</td></tr><tr><td>Aug 2026</td><td><strong>NED on BREAKWATER maintenance</strong> (user-reported 2026-08-22).</td></tr></tbody></table></div>
+<p>She also carries a <strong>separate melanoma primary</strong> (Caris <code>the melanoma specimen</code>, NRAS Q61K,
+skin, likely treatment-associated). It is local and was definitively treated. It is
+<strong>not</strong> a later timepoint of the colorectal disease, and any narrative that reads a
+“BRAF to NRAS clonal switch” across her Caris specimens is wrong. Two cancers.</p>
+<h3 id="23-current-clinical-state-verify-before-relying-on-it">2.3 Current clinical state (verify before relying on it)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-current-clinical-state-verify-before-relying-on-it" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>NED by imaging on maintenance, as of the last user report.</li>
+<li><strong>Signatera ctDNA negative monthly from 2025-12-05 to 2026-03-03</strong>, the last report on
+file. The series runs back to 2025-01-29; see §2.6. <em>(⚠ 2026-09-28: no document of any
+kind has reached Maple since 2026-05-08 except one lab, so Apr–Sep 2026 results
+probably exist upstream. Keeping the record current is GH #512.)</em></li>
+<li>CA 19-9 trending down and flat: 30 → 22 → 20 → 18 → 18 across 2025-12 to 2026-08,
+reference ≤37 U/mL. <strong>One outlier of 78 on 2026-03-16 is suspect</strong> (sits between
+23 and 22, coincides with null rows the same day) — treat as a probable mis-parse.</li>
+<li><strong>CEA has no numeric value after 2025-09-16.</strong> Kaiser appears to have switched her
+surveillance marker to CA 19-9. Any analysis that uses CEA as the trajectory test
+case will train on a series that flatlines to null. Re-base on CA 19-9.</li>
+</ul>
+<h3 id="24-verified-molecular-profile">2.4 Verified molecular profile<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-verified-molecular-profile" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Colorectal tumor, somatic. Sources: Caris MI Profile <code>the 2024 colorectal specimen</code> (2024-01-23) and
+<code>the 2025 colorectal specimen</code> (2025-09-13), Guardant360 <code>the 2025 liquid biopsy</code> (2025-02-08), Genomic Health /
+Natera Altera <code>the tumour-informed ctDNA profile</code> (2025-02-25).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Gene</th><th>Variant</th><th>Type</th><th>Concordance</th></tr></thead><tbody><tr><td><strong>APC</strong></td><td>T1556fs (<code>c.4666dupA</code>)</td><td>pathogenic frameshift, in the mutation cluster region</td><td>4 reports</td></tr><tr><td><strong>BRAF</strong></td><td>V600E (<code>c.1799T>A</code>)</td><td>pathogenic</td><td>4 reports</td></tr><tr><td><strong>ATM</strong></td><td>S151fs (<code>c.450_453delTTCT</code>)</td><td>pathogenic frameshift, somatic</td><td>3 reports</td></tr><tr><td><strong>TGFBR2</strong></td><td>D522fs</td><td>pathogenic</td><td>Caris 2024</td></tr><tr><td><strong>MGA</strong></td><td>I945fs</td><td>pathogenic</td><td>Caris 2025</td></tr><tr><td><strong>NTRK2</strong></td><td>V717M</td><td>VUS</td><td>both Caris</td></tr><tr><td>MYC / EP300</td><td>copy number</td><td>indeterminate</td><td>Caris</td></tr></tbody></table></div>
+<p>Tumor characteristics: <strong>MSS</strong> (microsatellite stable), <strong>TMB 2–3 mut/Mb (low)</strong>,
+<strong>PD-L1 0</strong> by 22c3 TPS, CMS1 subtype called on the 2025 report. RAS <strong>wild type</strong> —
+which is why cetuximab is appropriate for her.</p>
+<p>Germline: one pathogenic variant, confirmed on two platforms — the clinical panel and
+her own 30× WGS. Gene, variant class, coordinate and genotype are withheld here.</p>
+<p><strong>Two corrections that must not regress:</strong></p>
+<ol>
+<li><strong>She has no KRAS mutation.</strong> A phantom <code>KRAS G12C</code> propagated through memory and
+documentation and produced the inverted claim that anti-EGFR therapy did not apply
+to her. KRAS is absent from all nine of her genomic reports. It was most likely
+seeded by a parser test fixture. Do not re-add it.</li>
+<li><strong>An earlier loss-of-heterozygosity reading did not survive scrutiny.</strong> An
+inference from allele fraction to loss of heterozygosity was overturned by
+B-allele-frequency analysis on the real specimens: the arm is balanced across all
+three, with a per-arm deviation of 0.02–0.03. A treatment rationale built on that
+reading does <strong>not</strong> hold as stated.</li>
+</ol>
+<h3 id="25-the-single-most-important-clinical-fact-for-repurposing">2.5 The single most important clinical fact for repurposing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-the-single-most-important-clinical-fact-for-repurposing" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Her recurrence is nodal-predominant with no liver metastases.</strong></p>
+<p>Active liver metastases are the strongest negative predictor for immunotherapy in
+MSS colorectal cancer; the mechanism is that liver involvement induces systemic
+immune tolerance. The no-liver-met subgroup is not a post-hoc slice, it is the entire
+efficacy story for checkpoint blockade in this disease.</p>
+<p>Botensilimab + balstilimab (Fc-enhanced anti-CTLA-4 plus anti-PD-1) in refractory MSS
+mCRC <em>without</em> active liver metastases: ORR 20%, median duration of response 16.6
+months, median OS ~21 months, 2-year OS 42%, 3-year OS 33% (n=123, phase 1b/2
+C-800-01). For context, the expected ORR from checkpoint inhibitors in refractory MSS
+CRC is approximately zero.</p>
+<p>Use this as the interpretive key when reading any MSS-CRC immunotherapy result:
+<strong>always ask what fraction of the cohort had liver metastases.</strong></p>
+<p>Caveats, current as of 2026-08-29 and worth re-checking:</p>
+<ul>
+<li>Not FDA approved; the agency discouraged the accelerated-approval pathway.</li>
+<li>The phase 3 BATTMAN trial (<code>NCT07152821</code>) is <strong>TERMINATED</strong> as of 2026-07-13,
+<code>whyStopped</code> = “Pharmaceutical Sponsor discontinued trial financial support.”
+Agenus press releases announcing enrollment and a $340M raise are still live and
+still wrong. Sponsor financial durability is a material risk to the whole program.</li>
+<li>France granted reimbursed compassionate access (AAC, ANSM, 2025-09-09) for exactly
+her phenotype. France-only; applicability to a US patient is unestablished.</li>
+<li><code>NCT07227636</code> (MSK, adjuvant BOT/BAL for ctDNA-positive CRC) is the closest fit to
+her situation but its cohorts require R0 resection of stage III disease or of a
+liver metastasis; stage IV nodal-only may map to neither.</li>
+</ul>
+<p><strong>The NED eligibility gap.</strong> Being NED by systemic therapy is its own category and
+fits neither trial bucket: too well for treatment trials, which almost all require
+measurable disease per RECIST; not the right kind of NED for adjuvant and
+minimal-residual-disease trials, which require R0 surgical resection. This will keep
+recurring. The highest-value unblocking action is <strong>tumor-informed ctDNA testing
+(Signatera)</strong> — CT resolution bottoms out around 5 mm, ctDNA positivity is the entry
+criterion for every MRD trial, and it informs maintenance duration regardless.
+<em>(⚠ 2026-09-28: stale. She has had monthly Signatera since 2025-01-29, ordered through
+her integrative practice, and has been ctDNA-negative since 2025-12-05. So MRD trials that require a positive
+result do not apply while it stays negative. See §2.6 and GH #131.)</em></p>
+<h3 id="26-what-she-has-that-most-patients-do-not">2.6 What she has that most patients do not<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-what-she-has-that-most-patients-do-not" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This is why an n-of-one approach is tractable here at all.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Asset</th><th>Detail</th></tr></thead><tbody><tr><td><strong>Ex vivo drug sensitivity</strong></td><td>RGCC <strong>Onconomics Plus ×2</strong> (2025-02-15, 2025-09-19) — the only sensitivity source. <strong>330 agent results, of which 224 carry a numeric score</strong>: 112 distinct drugs × 2 draws. Of each report’s 112, <strong>59 sit on a graded % scale</strong> (the chemo panel) and 53 are MoAb/SMW agents RGCC grades on a <em>binary</em> “No sensitivity / Sensitivity” legend and encodes as 0. % cell death by Annexin V-PE flow cytometry on her own circulating tumor cells. Real per-patient supervision; the PDR papers have none. Corrected 2026-09-24 — see GH #317.</td></tr><tr><td><strong>CTC burden + immune profile</strong></td><td>RGCC <strong>OncoTrace</strong> (CTC enumeration: 2.7 cells/ml Feb 2025, 2.6 cells/ml Sep 2025, SD ±0.3; colon-cancer reference &lt; 5 cells/ml) and <strong>IMMUNE-FRAME</strong> (ELISA cytokine + flow immunophenotype; reported down-regulated immunity via CD25/CTLA4 overproduction). <strong>Neither carries any drug-sensitivity data</strong> — they were miscounted as sensitivity sources until 2026-09-24. Not yet parsed into structured rows.</td></tr><tr><td><strong>Full transcriptome</strong></td><td>Caris WTS tabular export: 3 specimens × 59,960 genes × 41 reference lineages, TPM plus percentile. 179,880 rows ingested at matched lineage.</td></tr><tr><td><strong>Germline WGS</strong></td><td>30× whole genome, sequencing.com kit <code>the WGS kit</code>, GRCh38, MGI/BGI DNBSEQ platform. 5.26M variants, 4.43M with rsIDs, 4,419,571 genotype rows loaded.</td></tr><tr><td><strong>Tumor exome + RNA</strong></td><td>Caris DNA and RNA BAMs, VCFs and FASTQs for all three tumors, ~140 GB on local disk.</td></tr><tr><td><strong>Longitudinal clinical record</strong></td><td>Kaiser EHR via Epic FHIR plus HTML import; the integrative clinic via Cerbo. Labs, conditions, medications, encounters.</td></tr><tr><td><strong>Documents</strong></td><td>1,903 rows in <code>mods_document</code>; 9 genomic reports fully parsed.</td></tr></tbody></table></div>
+<p>Nine Natera Signatera ctDNA reports are on file but <strong>unparsed</strong> — no parser exists
+for that report shape yet (GH #131). Given §2.5, this is a higher-value gap than its
+priority label suggests. <em>(⚠ 2026-09-28: there are 21 documents, not nine: 19 distinct
+draws plus 2 duplicates, and one more draw appears only in the history tables. Each
+report carries one number, MTM/mL (circulating tumor DNA, not circulating tumor cells):</em></p>
+<ul>
+<li><em>7.26 on 2025-01-29, rising off treatment to 20.74 on 2025-10-01. The first-ever draw
+was already positive, about a month after maintenance chemo stopped and about 7 months
+before the August CT.</em></li>
+<li><em>0.15 on 2025-10-27, after FOLFOX + cetuximab + encorafenib began. Six rounds were
+complete by late December, so the start was around early October.</em></li>
+<li><em>Negative from 2025-12-05 on.</em></li>
+</ul>
+<p><em>For model validation that is worth little. It gives one regimen-level response label
+(BREAKWATER, a combination, so nothing can be attributed to a single drug) and an
+untreated-growth period. At zero, it is a relapse tripwire, not a source of drug-level
+labels. Parse the text layer; the OCR block in <code>content_text</code> misreads the history
+table.)</em></p>
+<h3 id="27-care-team-and-context">2.7 Care team and context<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#27-care-team-and-context" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Her health plan’s oncology service</strong> — medical oncology. The conventional path.</li>
+<li><strong>An integrative oncology clinic</strong> — all the genomic testing (Caris, Guardant,
+Invitae, RGCC) was ordered here and paid cash. Their EHR is Cerbo, not FHIR.</li>
+<li><strong>A trial-strategy consultant</strong> — clinical-trial strategy, supplement protocol
+cycling around chemo, abscopal-effect thinking.</li>
+<li><strong>A TCM practice</strong> — herbal formula, acupuncture.</li>
+</ul>
+<p>She is doing everything that is not dangerous. The project sits alongside that, not
+in place of it.</p>
+<hr/>
+<h2 id="3-the-approach-and-why-it-is-shaped-this-way">3. The approach, and why it is shaped this way<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-the-approach-and-why-it-is-shaped-this-way" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="31-the-core-idea-in-plain-terms">3.1 The core idea in plain terms<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-the-core-idea-in-plain-terms" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A biomedical knowledge graph is a map of facts: <em>drug X treats disease Y</em>, <em>gene Z is
+associated with disease Y</em>, <em>drug X targets protein P</em>. Do this for a few million
+facts and you get a web connecting drugs, diseases, genes, proteins, phenotypes and
+pathways.</p>
+<p>A graph neural network can learn the <em>shape</em> of that map — not the facts, the
+geometry. Once it has the geometry you can ask about edges that are not written
+down: if this drug and this disease are not linked in the data, how strongly does the
+geometry say the link should exist? That is the repurposing signal.</p>
+<p>Then you condition it. A model trained on published facts gives the best answer the
+literature supports for “colorectal cancer” as a category. That is not what is
+needed. It has to be the best answer for <em>this</em> tumor, with its specific mutations,
+its specific expression profile, and its specific history of what has already been
+tried. That conditioning is the hard part, and it is where the project currently is.</p>
+<h3 id="32-the-papers-this-is-built-on">3.2 The papers this is built on<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#32-the-papers-this-is-built-on" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Four papers form the lineage. <strong>Do not conflate them</strong> — they report different metrics
+on different tasks, and cross-comparing their numbers is a recurring error. The core
+papers are auto-loaded into every session via <code>@</code>-imports in <code>CLAUDE.md</code>; the full
+text lives in <code>docs/References/</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Key</th><th>Paper</th><th>Role</th><th>Headline numbers</th></tr></thead><tbody><tr><td><strong>KG-Predict</strong></td><td>Gao, Ding, Xu, <em>JBI</em> 2022</td><td>Introduced GP-KG and the CompGCN+ConvE foundation model.</td><td>CV link prediction: AUROC 0.981, AUPR 0.409, MRR 0.261. Alzheimer’s case study: AUROC 0.868, AUPR 0.364.</td></tr><tr><td><strong>PDR1</strong></td><td>Oğuztüzün et al., <em>JBI</em> 2025</td><td>Individualized KG-Predict per patient using UK Biobank PRS and biomarker scalars.</td><td>Table 3 foundational: MRR 0.192, Hits@10 0.313, AUC 0.866.</td></tr><tr><td><strong>PDR2</strong></td><td>Oğuztüzün et al., <em>JBI</em> 2026 (DOI <code>10.1016/j.jbi.2026.105039</code>)</td><td>Re-architecture on ULTRA/NBFNet; personalization moves into the <strong>loss function</strong>.</td><td>Reports 1.3×–5.4× AUPRC improvement per patient.</td></tr><tr><td><strong>NBFNet / ULTRA / PrimeKG</strong></td><td>Zhu 2021 / Galkin 2024 / Chandak 2023</td><td>The architectural and graph substrate underneath PDR2.</td><td>ULTRA on Hetionet (density comparable to PrimeKG): fine-tuned MRR 0.399 at 6 layers.</td></tr></tbody></table></div>
+<h3 id="33-why-two-knowledge-graphs">3.3 Why two knowledge graphs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#33-why-two-knowledge-graphs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>GP-KG</strong> (61,097 entities, 1.24M relations) is the <strong>paper comparator only</strong>. If the
+pipeline reproduces the published numbers on the data the papers used, the tooling
+is trustworthy. It is insufficient for the real work: only 1 of Maureen’s 5
+high-sensitivity RGCC drugs is in it, and most biologics are missing entirely.</li>
+<li><strong>PrimeKG</strong> (129,157 entities, 7.99M relations) is the <strong>production graph</strong>. It
+contains the drugs she is actually on, and it carries indication, contraindication
+and off-label-use edges that most graphs lack — exactly the edges repurposing needs.</li>
+</ul>
+<p>Agreement between the two on a candidate is a stronger signal than either alone.</p>
+<h3 id="34-why-a-graph-neural-network-rather-than-a-language-model">3.4 Why a graph neural network rather than a language model<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#34-why-a-graph-neural-network-rather-than-a-language-model" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Large language models are trained on human language, not molecular language, and are
+weak at the chemistry and biology this requires. The knowledge graph gives explicit,
+traceable, multi-hop structure; the GNN learns over that structure; every prediction
+can be walked back to the edges that produced it. Interpretability is not a nicety
+here — a candidate that cannot be explained to an oncologist is not actionable.</p>
+<hr/>
+<h2 id="4-what-has-been-built">4. What has been built<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-what-has-been-built" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-maple-the-platform">4.1 Maple, the platform<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-maple-the-platform" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A terminal-centric web application that is also the workbench for all of this.
+React/Vite frontend, FastAPI backend, PostgreSQL with pgvector, a Postgres-native
+worker queue (<code>SELECT FOR UPDATE SKIP LOCKED</code>, no Redis), deployed on Google Cloud
+Run, with MCP servers exposing the whole surface to Claude. Full architecture in
+<code>technical_guide.md</code> and <code>CLAUDE.md</code>.</p>
+<p>MODS is the oncology component inside Maple, split along three duty lines:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Dashboard</th><th>Alias</th><th>Duty</th></tr></thead><tbody><tr><td><strong>Research</strong></td><td><code>research</code></td><td>Knowledge graph: Explorer, Health, Compositions</td></tr><tr><td><strong>Lab</strong></td><td><code>lab</code></td><td>Modeling workbench, connectors, training runs</td></tr><tr><td><strong>Clinic</strong></td><td><code>clinic</code></td><td>Patient data</td></tr><tr><td><strong>Genomic Browser</strong></td><td><code>genome</code></td><td>Caris VCF/BAM/RNA — 11 tabs, oncoprint, lollipop, pileup, expression, copy/LOH</td></tr><tr><td><strong>PRS Pipeline</strong></td><td><code>prs</code></td><td>Polygenic score gates and manifest</td></tr><tr><td><strong>Metro Map</strong></td><td><code>metro</code></td><td>McLelland’s metabolic fuel lines, with her RGCC results and tumor expression on them. The one feature she has asked about (§8)</td></tr></tbody></table></div>
+<h3 id="42-the-knowledge-graph">4.2 The knowledge graph<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-the-knowledge-graph" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Canonical schema is <code>mods_kg_entity</code> / <code>mods_kg_entity_source</code> / <code>mods_kg_relation</code>.
+The legacy <code>mods_kg_node</code> / <code>mods_kg_edge</code> tables are deprecated and reading them
+gives misleadingly empty answers.</p>
+<p>Live totals, 2026-09-07 (<code>mods_kg_canonical_stats</code>):</p>
+<p><strong>3,695,039 entities · 19,478,158 relations · 11 sources</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Source</th><th>Entities</th><th>Relations</th><th>Note</th></tr></thead><tbody><tr><td><code>rtx_kg2</code></td><td>3,540,372</td><td>10,222,708</td><td><strong>PARTIAL — ~7% of upstream.</strong> Do not trust its coverage. GH #85</td></tr><tr><td><code>prime_kg</code></td><td>129,157</td><td>7,987,620</td><td>production graph</td></tr><tr><td><code>gp_kg</code></td><td>61,097</td><td>1,244,554</td><td>paper comparator</td></tr><tr><td><code>civic</code></td><td>6,001</td><td>11,456</td><td>variant evidence</td></tr><tr><td><code>pharmgkb_variants</code></td><td>5,017</td><td>9,376</td><td>pharmacogenomics</td></tr><tr><td><code>clinvar</code> / <code>oncokb</code></td><td>932 / 176</td><td>1,622 / 483</td><td>variant evidence</td></tr><tr><td><code>maple_patient</code></td><td>5</td><td>339</td><td><strong>Maureen and proxies</strong></td></tr></tbody></table></div>
+<p>Maureen is a first-class node: <code>MAPLE_PATIENT:maureen-1173a8db</code>, with roughly 250
+outbound relations covering gene-level alterations, RGCC sensitivities, expression,
+medications and phenotypes, materialized by
+<code>backend/mods_patient_kg_service.py::materialize_patient_kg</code>.</p>
+<p><strong>Compositions</strong> are named, versioned graph recipes that training runs point at. Ten
+exist. The two that matter: <code>maureen_focus_v1</code> (PrimeKG domain-pruned plus the full
+variant-evidence stack) and <code>maureen_full_v1</code> (identical but with no PrimeKG domain
+exclusions, for ablation).</p>
+<h3 id="43-the-training-platform">4.3 The training platform<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-the-training-platform" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Vertex AI CustomJobs, submitted through the Maple worker queue so every run lands in
+<code>mods_research_run</code> and appears in the Training Cockpit. <strong>Never submit via raw
+<code>gcloud</code></strong> — it makes the run invisible to the system and requires manual backfill.</p>
+<p>The PDR2 container dispatches five modes via a <code>MODE</code> env var: <code>train</code>, <code>fine_tune</code>,
+<code>eval_patient</code>, <code>evaluate_personalized</code>, <code>score_edges</code>.</p>
+<p>47 runs recorded to date: 23 complete foundation runs, 5 complete fine-tunes, the
+rest failed, queued or halted.</p>
+<h3 id="44-data-assets-on-disk">4.4 Data assets on disk<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-data-assets-on-disk" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>backend/data/</code> is host-only, gitignored, and excluded from Docker images. It holds
+roughly 140 GB: Maureen’s germline WGS and FASTQs, all three Caris tumor BAM/VCF sets,
+the full-transcriptome WTS exports, the PGS Catalog cache (5,377 scoring files, 59 GB),
+and the raw knowledge-graph dumps. <strong>Never commit any of it.</strong></p>
+<hr/>
+<h2 id="5-where-the-science-actually-stands">5. Where the science actually stands<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-where-the-science-actually-stands" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This section is the honest ledger. Read the null results as carefully as the positive
+ones; they are the reason the project is where it is.</p>
+<h3 id="51-paper-reproduction-phase-0--mostly-closed-one-asterisk">5.1 Paper reproduction (Phase 0) — mostly closed, one asterisk<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-paper-reproduction-phase-0--mostly-closed-one-asterisk" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>GP-KG loaded and trained; ranking correlation against the published drug ranking is
+<strong>Spearman ρ = 0.740</strong>. Strong, not the ≥0.90 that would let us claim full
+reproduction. The gap is not a bug: the authors never shipped their train/test split
+and their split script sets no random seed, so the exact split is unrecoverable.</p>
+<p>The Alzheimer’s case study sits at <strong>AUROC 0.79–0.81</strong> against the paper’s 0.868, a
+~7% gap from the same cause. Open decision: chase it or document it as an asterisk.</p>
+<h3 id="52-architecture--a-real-finding">5.2 Architecture — a real finding<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-architecture--a-real-finding" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Vanilla CompGCN cannot go deeper than about 2 layers on PrimeKG. At average degree
+125, a 2-hop neighborhood already covers 12% of the graph and a 3-hop one saturates
+it; this is textbook over-smoothing, and 1 layer empirically beats 2 by ~12%.</p>
+<p>Depth is an architectural problem, not a hyperparameter one. Within CompGCN,
+<strong>embedding dimension is the lever, not depth.</strong> NBFNet and ULTRA use a labeling trick
+that makes per-query rooted features rather than whole-graph smoothing, which is why
+they scale to 6 layers on dense biomedical graphs. This is the justification for the
+whole PDR2 move.</p>
+<h3 id="53-best-patient-specific-signal-to-date">5.3 Best patient-specific signal to date<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-best-patient-specific-signal-to-date" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Run</th><th>Architecture</th><th>Tier-1 (Spearman ρ vs RGCC)</th><th>Tier-2 (AUROC)</th></tr></thead><tbody><tr><td><strong>Run B</strong> <code>primekg_corr_1l_400d_v1</code></td><td>CompGCN, 1 layer, 400d</td><td><strong>+0.351, p = 0.00018, n = 109</strong> — ⚠ superseded, see below</td><td>—</td></tr><tr><td><strong>PDR2 v2 foundation</strong> <code>maureen_focus_v1</code></td><td>ULTRA/NBFNet from scratch</td><td>+0.181, p = 0.062 (marginal) — ⚠ superseded</td><td><strong>0.835 (pass)</strong> — ⚠ superseded</td></tr></tbody></table></div>
+<blockquote>
+<p><strong>⚠ Run B’s Tier-1 number is superseded pending restatement (GH #324; root cause GH #317, 2026-09-24).</strong>
+ρ = +0.351 (n=109) was computed against RGCC labels <strong>averaged across her two draws</strong>.
+For ~100 of the 112 panel drugs the average is harmless, but the 12 that moved ≥25 points
+— four taxanes down, eight anthracycline / topoisomerase-II up — were collapsed to a
+mid-range value that occurred at <em>neither</em> timepoint. So ~11% of the ranked points are
+artifacts of the averaging, the quantity is a correlation with the mean of two biological
+states rather than with her drug sensitivity, and the magnitude is not trustworthy. The
+sign probably survives. <strong>Re-run per timepoint through the fixed <code>compute_metrics_crc.py</code>
+before citing it as a baseline.</strong> The same applies to every Phase 7.5 / PDR2 v2 Tier-1 and
+Tier-2 figure.</p>
+</blockquote>
+<blockquote>
+<p><strong>⚠ The PDR2 v2 row is leak-driven, not merely pooled (2026-09-27, GH #214, #439).</strong>
+That foundation (<code>916bdd2c</code>) trained on 74 of her 135 RGCC edges.</p>
+<ul>
+<li><strong>4 of the 5 Tier-2 positives were in its training graph:</strong> oxaliplatin, cisplatin and
+mitomycin directly, pemetrexed through a PharmGKB twin.</li>
+<li><strong>Carboplatin was the only held-out positive.</strong> It is the “outlier at rank 260” below.</li>
+<li><strong>Per draw, Tier-1 is flat on clean drugs.</strong> On the 49 drugs whose label never reached
+training, ρ = −0.051 / −0.045 (n.s.); on the 56 whose label did, +0.363 / +0.407.</li>
+</ul>
+<p>Read the v2 row as memorization. The first clean numbers will come from smoke run #1
+(<code>docs/mods_smoke_run_1_playbook.md</code>).</p>
+</blockquote>
+<p>Run B remains the strongest correlation with her measured drug sensitivities. The PDR2
+foundation has the better Tier-2 AUROC — it beats every PDR1 baseline at separating
+her high-sensitivity drugs from her resistant ones — but roughly half the Tier-1
+correlation. One carboplatin outlier at rank 260 suppresses PDR2’s Tier-1; excluding
+it gives ρ ≈ +0.26.</p>
+<p>Also established: training on a smaller, patient-focused composition beats a generic
+one. <code>maureen_focus_v1</code> lifted her own-edge filtered MRR from 0.0052 to 0.0167, a
+224% improvement over training on the full graph. <em>(⚠ 2026-09-27: unrestated. Almost all
+of the lift sits on <code>current_medication</code> and <code>sensitive_to_drug</code>, the predicates both
+foundations trained on, and the patient MRRs were computed on re-split data (GH #433).
+The composition effect may still be real, but these numbers cannot show it.)</em></p>
+<h3 id="54-personalization--the-central-open-problem">5.4 Personalization — the central open problem<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-personalization--the-central-open-problem" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>The published PDR2 personalization mechanism does not, as released, produce lift on
+Maureen’s data.</strong> This is the most important negative result in the project.</p>
+<p>PDR2 personalizes through two independent mechanisms that only combine at inference:</p>
+<ul>
+<li><strong>Mechanism A, patient-as-a-node.</strong> Maureen is a first-class entity in the training
+graph from epoch 1, so the foundation learns an embedding for her and queries of the
+form <code>(Maureen, r, ?)</code> are possible. This works and is required for anything else.</li>
+<li><strong>Mechanism B, the personalized loss.</strong> The foundation is frozen; the only trainable
+parameters are per-disease and per-protein weights inside the loss, multiplied by
+her polygenic risk scores and expression values. At test time these produce an
+additive bias on each candidate’s score.</li>
+</ul>
+<p>Measured results on her Track A profile:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Loss variant</th><th>λ</th><th>Baseline MRR</th><th>Personalized MRR</th><th>Δ</th></tr></thead><tbody><tr><td>Released code (<code>paper_code</code>)</td><td>0.01</td><td>0.005152</td><td>0.005131</td><td><strong>−0.4% (null)</strong></td></tr><tr><td>Paper-text formula</td><td>0.01</td><td>0.005152</td><td>0.000391</td><td><strong>−92.4% (destructive)</strong></td></tr><tr><td>Paper-text formula</td><td>0.1</td><td>0.005152</td><td>0.000288</td><td>−94.4%</td></tr><tr><td>Minimal patch</td><td>0.01</td><td>0.005152</td><td>0.005215</td><td>+1.2% (marginal)</td></tr></tbody></table></div>
+<p>Four things are known about why:</p>
+<ol>
+<li><strong>The released loss and the paper text disagree</strong> in four places: sign on the λ
+terms, per-triple coupling to the prediction score, a <code>tanh</code>, and L2 weight
+normalization. Implementing the paper text literally is catastrophic. The <code>tanh</code>
+and normalization are load-bearing stability tricks the text omits.</li>
+<li><strong>The criterion is gradient-degenerate.</strong> Both loss terms are functions purely of
+(criterion weights, fixed patient values) and do not depend on the batch, so their
+gradient is identical at every step. The optimum is reachable in closed form; a
+20-epoch fine-tune buys nothing after the first few.</li>
+<li><strong>The criterion is edge-blind.</strong> In <code>apply_personalization</code>, adjacency strength is
+hardcoded to 1.0, so a <code>sensitive_to</code> edge and a <code>contraindication</code> edge push the
+same direction. The identified fix is a learned <strong>signed per-relation</strong> term
+(Phase 12, GH #47, design in <code>docs/pdr2_phase12_per_relation_criterion_planning.md</code>).
+It requires no foundation retrain.</li>
+<li><strong>The genetic half has never been fed real numbers.</strong> Every run to date used
+“Track A” — zero PRS. Disease weights stayed at random initialization because with
+<code>prs_values = 0</code> there is no gradient. In the PDR1 paper, PRS was the single
+highest-impact feature (Cohen’s d = 1.05, dropping to 0.77 without it). We have
+been running the personalization with its most important input set to zero.
+<em>(2026-09-28: the first release of her PRS: a v0 smoke release of <strong>590 scores over 109 disease anchors</strong> (tag <code>smoke_v0</code>, release run <code>c3be9df0</code>), normalized against the 667-sample EUR reference. Smoke run #1’s Track B fine-tunes are the first to feed it; §5.5.)</em></li>
+</ol>
+<h3 id="55-polygenic-risk-scores--rebuilt-not-yet-computed">5.5 Polygenic risk scores — rebuilt, not yet computed<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#55-polygenic-risk-scores--rebuilt-not-yet-computed" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The PRS work is a cautionary tale worth understanding before you touch it.</p>
+<p>The original scorer read a variant-only genotype store and treated an absent locus as
+<a href="./genomics_glossary#2-what-the-person-actually-carries-genotype" class="internal internal-link alias" data-slug="genomics_glossary">dosage</a> zero. For a scoring file whose <a href="./genomics_glossary#2-what-the-person-actually-carries-genotype" class="internal internal-link alias" data-slug="genomics_glossary">effect allele</a> is the <em>reference</em> allele — about
+half of all loci — a homozygous-reference call should contribute 2 × weight, not 0.
+<strong>Every score in the legacy fleet was wrong.</strong> The fleet was wiped on 2026-07-13. An
+external audit independently reproduced the ~49% drop across 40 scores.</p>
+<p>The rebuild is gated:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Gate</th><th>What it does</th><th>Status</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>Read the genome correctly — dense callset where hom-ref says <code>0/0</code> instead of being absent</td><td><strong>Done, live on prod, merged (PR #235)</strong></td></tr><tr><td><strong>B</strong></td><td>Catalog which published scores are computable</td><td><strong>Done.</strong> All 5,377 cached GRCh38 scores classified. Classifier <strong>v4</strong> (2026-09-24) promoted <code>unplaceable_rows</code> at a ≤1% threshold: <strong>3,753 production-eligible (69.8%)</strong>, 2.166B variant rows. (The earlier 3,863 was a v2-era figure; v3 fell to 2,322 when the <code>hm_pos</code> fallback was closed, then v4 recovered to 3,753.)</td></tr><tr><td><strong>C</strong></td><td>Rewrite the arithmetic onto the dense callset</td><td><strong>Built (2026-09-22).</strong> <code>backend/mods_prs_scorer.py</code>; <code>compute_prs_pure</code> is deleted. Scores write at <code>validity='quarantined'</code> — Gate F releases.</td></tr><tr><td><strong>D</strong></td><td>Ancestry and percentile normalization</td><td><strong>Built; first real pass 2026-09-28 on the v0 set</strong> (D1 <code>61aaccdf</code>, D2 <code>d63b3439</code> under the #499 fix, D3 against 667 EUR samples). Not run fleet-wide, and ancestry PCs are not computed yet. Before that it was built, not run. The <code>pgsc_HGDP+1kGP_v1</code> panel is downloaded, md5-verified and extracted (15 GB plink2, <strong>3,942 samples</strong> / 84.3M variants; 3,330 unrelated after the KING cutoff). D3 (PC regression + percentile) was built in PR #386, and D1 (allele frequencies) and D2 (the panel, and the patient beside it, scored under her policy) in GH #396. The real pass waits on the worker-image rebuild (GH #339) and, for D2, on E3 (GH #422). Nothing yet computes the ancestry PCs D3 reads.</td></tr><tr><td><strong>E</strong></td><td>Actually compute the numbers</td><td><strong>Done twice.</strong> E1 2026-09-24 (2,321 of 2,322 at v3 scope, a measurement run). <strong>E2 2026-09-26: 3,752 of 3,753 at v4 scope</strong>, all reconciling, none outside theoretical bounds, fleet outcomes summing to the manifest’s eligible rows exactly.</td></tr><tr><td><strong>F</strong></td><td>Biological sanity checks + PDR manifest</td><td><strong>v0 writer built (#296; <code>backend/mods_prs_release.py</code>, <code>scripts/prs/release_gate_f.py</code>) and run: 590 released as of 2026-09-28</strong> (smoke run #1, #296’s rules with recorded waivers): 590 scores over 109 anchors, <code>smoke_v0</code>. The final release is not started. Inputs now measured (927 scores carry an unverified weight scale).</td></tr></tbody></table></div>
+<blockquote>
+<p><strong>Superseded 2026-09-28:</strong> the first release of her PRS: a v0 smoke release of <strong>590 scores over 109 disease anchors</strong> (tag <code>smoke_v0</code>, release run <code>c3be9df0</code>), normalized against the 667-sample EUR reference. The final Gate F release is still ahead. The paragraph below describes the state before it.</p>
+</blockquote>
+<p><strong>No <em>released</em> PRS exists, and that is still true after E2.</strong> 3,752 scores are computed
+and every one is <code>quarantined</code>; only Gate F promotes, so every reader correctly returns
+nothing. The remaining blocker on §5.4 item 4, and therefore on G3, is <strong>D and F</strong> — the
+reference FASTA and the panel are both staged.</p>
+<p><strong>One decision sits between E2 and release.</strong> Gate C defers palindromic SNVs (2.99% of
+rows, but a median 10.4% of rows for each of the 1,687 affected scores), and their strand
+can only be resolved from panel allele frequencies. So after D1 either palindromes stay
+deferred and E2 is the release candidate, or they are resolved and Maureen needs one more
+fleet pass. See <code>docs/prs_primer.md</code> §5.5 open decision 2.</p>
+<p><strong>Resolved (Richard, 2026-09-22): run both, every time, and mine the divergence.</strong>
+This document used to say <code>pgsc_calc</code> v2.3.0 was “the scoring engine of record, not the
+bespoke scorer”, while <code>docs/prs_primer.md</code> defined Gate C as building the bespoke scorer
+and reconciling it <em>against</em> <code>pgsc_calc</code>. That either/or was the wrong frame. Both run on
+every scoring pass; the <strong>delta between them is a first-class output</strong>, not a one-time
+acceptance test.</p>
+<p>The reason this is stronger than picking one: the July audit’s lesson was that a check
+sharing the scorer’s assumptions cannot fail. A permanent second opinion is the structural
+answer to that, where a one-off gate is only a snapshot. And the divergence <em>decomposes</em> —
+<code>pgsc_calc</code> mean-imputes missing dosages to <code>2p</code> and resolves palindromes by allele
+frequency, both of which MODS deliberately does not do (§ <code>prs_primer.md</code> 5.4). So each
+per-score delta splits into an imputation term, a palindrome term, and a <strong>residual that
+should be zero</strong>. A non-zero residual points at a real defect in one of the two
+calculators; the imputation term separately quantifies how much of a published score’s
+value is <em>invented</em> rather than measured, which is worth knowing about a score no matter
+who computed it.</p>
+<p>Division of labour that follows: MODS is canonical for the released value (it is the only
+one that emits the <code>coverage_v1</code> payload the read layer renders, and it is reproducible
+in-repo), <code>pgsc_calc</code> is the independent witness, and <strong>agreement within tolerance is a
+Gate F release criterion</strong>. <code>backend/scripts/prs/reconcile_pgsc_calc.py</code> already exports
+the bundle and diffs the sums; what it still needs is Nextflow and a container runtime —
+plausibly the existing digest-pinned Vertex <code>image_uri</code> seam. Smaller question still open:
+where the per-score delta is stored (a <code>reconciliation_v1</code> block in the score’s metadata
+is the obvious home, and needs no migration).</p>
+<p>The other trap here, closed in code on 2026-09-28 (GH #244): the 13-entry list then
+named <code>UKB_TRAIT_TO_PGS_DEFAULTS</code> silently sized the model’s disease axis (schema <code>v1</code>:
+6 diseases, no colorectal cancer), and three of those 13 are labeled for the wrong
+disease. It is now <code>SMOKE_TEST_PGS_SET</code>, used only where it is asked for by name. Axis
+<code>v2</code> is built from the released Gate F axis picks, one position per anchor, with
+colorectal cancer’s <code>MONDO:0005575</code> required, and <code>v1</code> is never rewritten. Gate C does
+<strong>not</strong> use the list either — an omitted <code>pgs_ids</code> resolves to the Gate B manifest’s
+production-eligible set.</p>
+<p>Ancestry note: Maureen is almost entirely European, corroborated from her own WGS at
+ancestry-informative loci. European-trained scores are best-case portability for her,
+so no elaborate per-score portability flagging is needed.</p>
+<h3 id="56-a-validation-flaw-you-must-know-about">5.6 A validation flaw you must know about<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#56-a-validation-flaw-you-must-know-about" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>mods_patient_kg_service._build_drug_sensitivity_edges</code> materializes her RGCC
+sensitivities as <code>MAPLE:sensitive_to_drug</code> edges on her patient node. Any foundation
+exported with <code>--include-source maple_patient</code> therefore <strong>trains on the RGCC data we
+then validate against.</strong> The reported Tier-1 and Tier-2 numbers are not a clean
+holdout. Tracked as GH #214.</p>
+<p><strong>Quantified 2026-09-27.</strong> The de-facto foundation’s training split held 74 of 135 RGCC
+edges and 62 medication edges; §5.3 has what that did to the v2 numbers. The export also
+splits PrimeKG’s mirror pairs apart: 60.6% of that foundation’s test triples have their
+reverse in train, which inflates every PrimeKG foundation MRR (GH #432).</p>
+<p>The design of record is: train on her orthogonal biology — genetics, expression, PRS,
+variants — hold RGCC out entirely, and trust the ranking only if it recovers her
+measured sensitivities. The fix is roughly one export flag. <em>(2026-09-27: it is not one
+flag. The overlay branch applies no predicate filter, and every downstream handler
+re-exports and re-adds the overlay (GH #432, #433). The patient query also has to
+change: a foundation trained without these edges cannot score <code>MAPLE:sensitive_to_drug</code>
+at all.)</em></p>
+<hr/>
+<h2 id="6-validation-doctrine">6. Validation doctrine<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-validation-doctrine" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>There is no ground truth for “which drug will work for Maureen.” There are proxies,
+and their quality determines what can be claimed.</p>
+<h3 id="61-the-three-tiers">6.1 The three tiers<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#61-the-three-tiers" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>RGCC gives 224 quantitative drug-sensitivity measurements on her own circulating
+tumor cells — 112 distinct drugs across two draws. This is the colorectal analogue
+of the papers’ Alzheimer’s case study, but stronger, because it is patient-specific
+and continuous rather than population-level and binary.</p>
+<p>Three properties of this label set govern what can be claimed from it, all
+established 2026-09-24 (GH #317):</p>
+<ul>
+<li><strong>Two grading schemes, one column.</strong> 59 of the 112 per report are graded on a
+percentage scale; the other 53 (MoAb, SMW) come off a binary
+“No sensitivity / Sensitivity” chart encoded as 0. They are real negatives, but
+a Spearman over all 112 carries 53 pairs tied at zero. <strong>Report Tier-1 both
+ways</strong> — all-panel and graded-only.</li>
+<li><strong>The two draws are not replicates.</strong> All-panel test-retest is ρ = +0.9616
+(n = 112); graded-only is ρ = +0.7635 (n = 59, mean |Δ| 14.5 points). The panel
+is globally stable, but <strong>12 drugs move ≥25 points and they move as two coherent
+classes</strong> — four taxanes down (Abraxane 75→15, Paclitaxel 75→22, Docetaxel 70→20,
+Cabazitaxel 70→14) and eight anthracycline / topoisomerase-II agents up
+(Doxorubicin 24→79, Etoposide 22→71, Epirubicin 20→67, …). RGCC says so itself:
+its page-1 summary lists “Partial sensitivity: <strong>taxanes</strong>” in February and
+“inhibitors of topoisomerase I, inhibitors of topoisomerase II” in September,
+with taxanes dropped. That straddles the Aug 2025 recurrence and the BREAKWATER
+start.</li>
+<li><strong>Therefore: never pool the draws.</strong> Averaging sends both classes to mid-range
+and erases the only real longitudinal signal in the set while leaving the other
+100 drugs almost unchanged. <code>compute_metrics_crc.py</code> now evaluates per timepoint
+and prints the test-retest figures on every run.</li>
+</ul>
+<ol>
+<li><strong>Tier 1 — Spearman ρ</strong> between model score and % cell death. Works on any
+checkpoint, no fine-tuning. Most permissive test.</li>
+<li><strong>Tier 2 — AUROC/AUPR</strong> with >80% cell death as positives, &lt;35% as negatives.
+Direct analogue of KG-Predict’s AD case study.</li>
+<li><strong>Tier 3 — leave-one-out personalization.</strong> Hold out one responsive drug,
+fine-tune on the rest, check whether the held-out drug climbs. Only feasible on
+PDR2, where fine-tuning is cheap.</li>
+</ol>
+<p>Tiers 1 and 2 validate the base ranker. Tier 3 validates whether personalization adds
+anything, and is only worth running once the base ranker shows nonzero correlation.</p>
+<h3 id="62-what-must-be-disclosed-every-time-rgcc-is-cited">6.2 What must be disclosed every time RGCC is cited<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#62-what-must-be-disclosed-every-time-rgcc-is-cited" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>In vitro circulating tumor cells at fixed drug concentrations, not in vivo response.</li>
+<li>Prodrugs such as capecitabine will underperform relative to their active metabolite.</li>
+<li>Two time points, which must be reported separately rather than averaged.</li>
+<li>Non-uniform panel coverage.</li>
+<li>Correlation is supportive, never conclusive.</li>
+<li><strong>Single agents only, so it cannot see her working regimen.</strong> Encorafenib and binimetinib
+are not on the panel. The BRAF/MEK inhibitors it does test (dabrafenib, vemurafenib,
+trametinib) score 0 on both draws, and cetuximab scores 10 → 15. Yet her ctDNA fell
+from 20.74 to 0.15 MTM/mL between the 2025-10-01 and 2025-10-27 draws, after the
+combination began. In colorectal cancer, BRAF
+inhibition works only when EGFR feedback is also blocked (Prahallad 2012). So a ranker
+that correctly puts BRAF/MEK/EGFR agents high is penalized by RGCC; flag or exclude them
+in Tier-1/Tier-2. <em>(Added 2026-09-28.)</em></li>
+<li><strong>RGCC’s own outcome study.</strong> Guadagni et al., <em>BMC Cancer</em> 2022, co-authored by RGCC:
+36 refractory CRC patients treated with RGCC-selected drugs. PPV 47%, specificity 5%,
+overall accuracy 47%. The design is selection-biased, but it is the only outcome
+validation the assay has. <em>(Added 2026-09-28.)</em></li>
+</ul>
+<h3 id="63-other-validation-surfaces">6.3 Other validation surfaces<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#63-other-validation-surfaces" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Cross-KG agreement.</strong> A candidate scoring high on both GP-KG and PrimeKG is more
+trustworthy than one scoring high on either.</li>
+<li><strong>Her medication history.</strong> The models should rank drugs she was actually
+prescribed and responded to above random. 14 response episodes are labeled.
+<em>(⚠ 2026-09-27: circular on every foundation trained so far. All 14 episodes are
+“beneficial”, every drug involved is a <code>tried_drug</code> target, and 7 of the 8 had a
+patient→drug edge in the training split. The surface is usable only on a foundation
+exported without the medication predicates, and even then, with no negative episodes,
+it tests rank-above-random only.)</em></li>
+<li><strong>Literature review of top candidates.</strong> What the PDR2 paper did. Weakest form, but
+it is the last gate before anything goes to a clinician.</li>
+</ul>
+<p><strong>CV MRR is a poor proxy for any of this.</strong> Training-time metrics do not predict
+patient-specific generalization. Validate against RGCC directly.</p>
+<p>One more warning: never trust an upstream evaluation function without auditing what
+it computes. PDR2’s own <code>validate()</code> reported MRR ≈ 0.99 because of a
+relation-aware filter bug. Use <code>eval_maple.py</code> full-ranking evaluation for any
+cross-method comparison.</p>
+<hr/>
+<h2 id="7-rules">7. Rules<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-rules" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These were paid for. Several cost real data; two produced wrong clinical claims.</p>
+<h3 id="71-clinical-truth">7.1 Clinical truth<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#71-clinical-truth" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Trace every patient fact to her data.</strong> A driver that “sounds typical” for
+colorectal cancer (KRAS, TP53) is exactly the failure mode. Cross-check
+<code>mods_list_alterations</code> and follow <code>alteration.document_id</code> to the source report.</li>
+<li><strong>Trial status comes from the ClinicalTrials.gov v2 API</strong>, never from press
+releases, sponsor sites, or news coverage. Read <code>overallStatus</code> <em>and</em> <code>whyStopped</code>.
+A wrong trial status can send Maureen and her oncologist chasing a dead program.</li>
+<li><strong>VAF across specimens is not a trajectory.</strong> Variant allele fraction scales with
+tumor purity and copy number. Every variant rising together across her two Caris
+reports is the signature of a purity shift, not three clonal expansions. Use serial
+plasma ctDNA for trajectory.</li>
+</ul>
+<h3 id="72-data-integrity-hard-rules-from-claudemd">7.2 Data integrity (hard rules, from <code>CLAUDE.md</code>)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#72-data-integrity-hard-rules-from-claudemd" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Never collapse rows that look like duplicates but carry distinct semantics.</strong> A
+<code>(subject, object, source)</code> triple appearing with two <code>source_predicate</code> values is
+the source asserting two different things. A prior migration silently deleted 15,045
+rows this way and lost the drug-metabolism distinction from the canonical graph.</li>
+<li><strong>Never decide an ontology or vocabulary mapping that is not crystal clear.</strong>
+Propose the mapping as a table with the judgment calls flagged, get approval, then
+commit. <code>biolink:related_to</code> is the giving-up predicate.</li>
+<li>Any new edge must preserve <code>source_predicate</code>.</li>
+<li>Register every schema change in <code>backend/migrations.py</code>. Never ship a standalone
+<code>.sql</code> file. Pick the next migration number against <em>all</em> branches, not just HEAD.</li>
+</ul>
+<h3 id="73-operating-discipline">7.3 Operating discipline<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#73-operating-discipline" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Long jobs go through the worker queue</strong>, never raw <code>gcloud</code>, so they are visible
+in the Training Cockpit.</li>
+<li><strong>Assume multi-step jobs fail on the first try.</strong> Build them batched and resumable
+up front, commit per item, and measure progress in the costly unit (bytes, rows),
+not item count.</li>
+<li><strong>Do not edit <code>docs/PDR_PIPELINE_PLAN.md</code>, its checklists, or the run catalog
+without being asked.</strong> Report results and wait.</li>
+<li><strong>Repository documents are the source of truth.</strong> Open the doc; do not infer from
+its title or a commit message.</li>
+<li><strong>Verify before defending.</strong> When Richard pushes back, that is context you lack.
+Dump the actual data or open the actual file first, then concede or push back with
+evidence. He does not want a yes-AI.</li>
+</ul>
+<h3 id="74-scope">7.4 Scope<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#74-scope" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Mobile is maintained, not extended. New work needs no mobile view.</li>
+<li>Issues live in GitHub, not in markdown and not in memory. Memory is for durable
+lessons; lifecycle state belongs in issues.</li>
+<li>Richard handles the ethical and contractual calls. Surface a technical risk once,
+then defer.</li>
+</ul>
+<hr/>
+<h2 id="8-the-open-frontier">8. The open frontier<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-the-open-frontier" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Ordered by expected value to Maureen, not by how interesting the work is.</p>
+<p><strong>The executable sequence (2026-09-27).</strong> The issues that block the first end-to-end run
+carry the <code>critical-path</code> label, paired with <code>p0</code>. Their order, the decisions to fix
+first and the acceptance checks are in GH #439 and <code>docs/mods_smoke_run_1_playbook.md</code>.
+That run is a machinery test; items 2–4 below become its science follow-up.</p>
+<p><strong>Metro is a priority lane (Richard, 2026-10-05, D-Q4-04, GH #612).</strong> The Metro Map is the
+only Maple feature Maureen has asked about or researched. A useful Metro is the fastest way to
+get her using the system, and her use is the only user feedback this project will get.</p>
+<ul>
+<li>Do as much with it as data and architecture allow.</li>
+<li>Look for ways to bring new work into it, and its ideas into other surfaces.</li>
+<li>Treat the metabolic hypotheses as research beside PDR, not a detour from it. The repurposing
+machinery can also be pointed at combinations of metabolic changes (diet, drugs or other), not
+only at single prescription drugs.</li>
+</ul>
+<p>The lane is GH #595; the plan is <code>docs/q4_2026_roadmap.md</code> §4.5.</p>
+<h3 id="tier-1--directly-on-the-critical-path-to-g1">Tier 1 — directly on the critical path to G1<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-1--directly-on-the-critical-path-to-g1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li><strong>Normalize and release her polygenic risk scores.</strong> PRS Gates <strong>D and F</strong> — the
+computation is done. This unblocks the disease half of the personalization loss, which
+has never seen a nonzero value. As of 2026-09-26, <strong>3,752 scores are computed and
+quarantined</strong> against the v4 callset (E2), the reference FASTA and the HGDP+1kGP panel
+are both staged, and D1/D2/D3 are built (2026-09-27). What remains is running D1 → the
+palindrome decision → E3 → D2 → ancestry PCs → D3 → F release. <em>(2026-09-28: done for the v0 set: E3, D1, D2, D3 against EUR and a v0 Gate F release ran for smoke run #1. The palindrome decision, the final policy and ancestry PCs remain for the full release.)</em> The last hop to the model is already
+wired: <code>build_pdr2_input_pickle.py</code> reads the normalized field (<code>z_score</code>, else
+<code>percentile</code>) and refuses raw sums unless explicitly opted in (GH #297), so Gate D’s
+output has somewhere to go the moment it exists.</li>
+<li><strong>Fix the edge-blind criterion (Phase 12, GH #47).</strong> Learn a signed per-relation
+strength so that <code>sensitive_to</code> pushes up and <code>contraindication</code> pushes down. No
+foundation retrain needed; each candidate is a fast criterion fine-tune. This is
+the most likely single cause of the null personalization result. <em>(Implementation is
+GH #420; #47 was closed when the design doc was written. The released loss is also
+closed-form, ŵ → −PRS/‖PRS‖, so the fine-tune needs an outcome signal too.)</em></li>
+<li><strong>Clean the RGCC leak (GH #214).</strong> Export a foundation without the
+<code>MAPLE:*_to_drug</code> edges, keeping her biology edges, then score all ~112 RGCC drugs
+as a genuine holdout. Until this is done, no validation number is defensible.
+<em>(2026-09-27: GH #432, #433. The smoke run scores a disease query, because the
+patient relation disappears with the edges.)</em></li>
+<li><strong>Actually run the personalized ranking and look at it (GH #114).</strong> Launch the
+fine-tune on her profile, render the ranked drug list, annotate the top 30. This is
+G1. It has been blocked behind infrastructure for months.</li>
+<li><strong>Order tumor-informed ctDNA (Signatera).</strong> Not a code task. It is the gating test
+for every MRD trial and it resolves the NED eligibility gap in §2.5. The Natera
+tissue pathway already exists from her Altera profiling. <em>(⚠ 2026-09-28: already
+happening. It has run monthly since January 2025 (§2.6). The actions are to parse
+it (item 12) and to fetch the reports after March 2026 (GH #512). A more sensitive
+whole-genome assay built from the August 2025 block would be an optional add-on,
+likely self-pay, e.g. Personalis NeXT Personal.)</em></li>
+</ol>
+<h3 id="tier-2--high-value-larger-scope">Tier 2 — high value, larger scope<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-2--high-value-larger-scope" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol start="6">
+<li><strong>Variant-aware personalization (Phase 8.5).</strong> Her patient-to-variant edges are
+still gene-level, so BRAF V600E is indistinguishable from wild-type BRAF in the
+graph. The resolver fix is specified: HGNC to transcript, construct qualified HGVS,
+resolve to a ClinGen CAID, link. 71% of her variants resolved in the spike.</li>
+<li><strong>Temporal modeling (Phase 13).</strong> The model sees CA 19-9 = 18 today, not that it
+halved over nine months. No published precedent exists in this lineage; this is
+genuine research. Tier 1 trajectory features are cheap and could ship anytime.</li>
+<li><strong>Expand the expression channel</strong> from the 84-gene report panel to the full
+59,960-gene transcriptome now sitting in the database. Note that rebuilding the
+feature schema against it is a schema-version change.</li>
+<li><strong>Population-supervised training.</strong> Add cell lines, PDX models and public cohorts
+(GDSC, CCLE, DepMap, TCGA, GENIE) as proxy patients so the model learns from
+thousands of (subject, drug, outcome) triples rather than one. Design doc exists at
+<code>docs/population_supervised_outcome_planning.md</code>.</li>
+</ol>
+<h3 id="tier-3--infrastructure-that-unblocks-the-above">Tier 3 — infrastructure that unblocks the above<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-3--infrastructure-that-unblocks-the-above" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol start="10">
+<li>RTX-KG2 is 7% ingested; either finish it or stop treating it as a source (GH #85).</li>
+<li>Close or asterisk the Phase 0 Alzheimer’s gap.</li>
+<li>Parse the nine Signatera reports (GH #131). <em>(⚠ 2026-09-28: 21 documents,
+20 timepoints; see §2.6.)</em></li>
+<li>Ingest the melanoma Caris report (GH #213).</li>
+</ol>
+<hr/>
+<h2 id="9-what-done-looks-like">9. What “done” looks like<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-what-done-looks-like" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Level</th><th>Done means</th></tr></thead><tbody><tr><td><strong>G4</strong></td><td>Any candidate on the list can be walked back to the edges, the model, the checkpoint and the source data that produced it, by someone who was not there.</td></tr><tr><td><strong>G3</strong></td><td>Personalized and non-personalized rankings on the same checkpoint differ measurably in her favor: Tier-1 ρ improves by ≥0.05, or Tier-2 AUROC by ≥0.03.</td></tr><tr><td><strong>G2</strong></td><td>On a clean holdout with RGCC excluded from training, the ranking still recovers her measured sensitivities at Tier-1 and Tier-2.</td></tr><tr><td><strong>G1</strong></td><td>A ranked list of candidates exists, each with mechanism, evidence level, her own supporting data, interaction and contraindication flags, and an access path — trial, off-label, or compassionate use. Short enough that a physician will read all of it.</td></tr><tr><td><strong>G0</strong></td><td>Not ours to declare.</td></tr></tbody></table></div>
+<hr/>
+<h2 id="10-orientation-kit">10. Orientation kit<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-orientation-kit" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="101-answer-what-is-true-right-now-here-not-from-this-document">10.1 Answer “what is true right now” here, not from this document<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#101-answer-what-is-true-right-now-here-not-from-this-document" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote>
+<p><strong>If you are reading this on the public site, you cannot reach any of the
+sources below.</strong> Every one of them — the MCP tools, the database tables, the
+REST endpoints, the issue tracker, the memory store — is private. That is not
+a reason to fall back on the numbers in this document as though they were
+live; it is a reason to quote them as of the <code>last-verified</code> date at the top
+of the page, and to say that is what you are doing.</p>
+<p>What the public site <em>does</em> carry, in preference to any figure quoted
+elsewhere: §5 and §8 below for what has been built and what remains, the PRS
+primer’s gate table for where that pipeline actually stands, and the pipeline
+plan for where operational state lives. A manifest of the whole published
+corpus, with a <code>last-verified</code> date per page, is at <code>/llms.txt</code>.</p>
+<p>Two corrections worth carrying, because both have propagated before: the
+patient has <strong>no KRAS mutation</strong> (§2.4), and every patient-specific
+correlation figure predating 2026-09-24 was computed on pooled ex vivo draws
+and awaits restatement (§5.3). Pages carrying those figures flag them inline.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Question</th><th>Source</th></tr></thead><tbody><tr><td>What should I work on?</td><td>GitHub issues labelled <code>critical-path</code> (tracking issue #439, <code>docs/mods_smoke_run_1_playbook.md</code>). The <code>pdr_status</code> task list is deprecated as of 2026-09-28; its in-flight runs and recent decisions are still current.</td></tr><tr><td>Open work items</td><td><code>gh issue list</code> — labels are type + area + priority; <code>auto</code> means fix-now</td></tr><tr><td>Training run history</td><td><code>mods_research_run</code> + <code>mods_run_metric</code>; <code>GET /api/mods/research/runs</code></td></tr><tr><td>Decisions and learnings</td><td><code>pdr_note_search</code> MCP tool (vector search) or <code>docs/PDR_NOTES.md</code></td></tr><tr><td>KG state</td><td><code>mods_kg_canonical_stats</code>, <code>mods_kg_list_sources</code>, <code>mods_kg_list_compositions</code></td></tr><tr><td>Which sources are trustworthy</td><td>Memory <code>project_kg_source_completeness</code>; check <code>status</code> before trusting coverage</td></tr><tr><td>Her clinical facts</td><td><code>mods_get_patient</code>, <code>mods_list_alterations</code>, <code>mods_list_genomic_reports</code>, <code>mods_get_drug_sensitivity</code>, <code>mods_get_expression_profile</code></td></tr><tr><td>PRS state</td><td><code>mods_prs_status</code>, <code>mods_prs_manifest_stats</code></td></tr></tbody></table></div>
+<h3 id="102-documents-worth-reading-in-this-order">10.2 Documents worth reading, in this order<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#102-documents-worth-reading-in-this-order" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li><code>CLAUDE.md</code> — repository conventions and the hard rules. Non-optional.</li>
+<li>This file.</li>
+<li><a href="./pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">`PDR_PIPELINE_PLAN.md`</a> — 80-line navigation kernel; tells you where state lives.</li>
+<li><a href="./planning/paan_planning" class="internal internal-link alias" data-slug="planning/paan_planning">`paan_planning.md`</a> — the strategic architecture argument, including the
+supervision primer and the population-tapestry direction.</li>
+<li><a href="./results/pdr_phase0_gpkg_writeup" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_writeup">`pdr_phase0_gpkg_writeup.md`</a> — the canonical writeup format, and the first
+real reproduction.</li>
+<li><a href="./model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">`pdr_personalization_writeup.md`</a> — PDR1 vs PDR2 mechanism reference.</li>
+<li><a href="./model/pdr2_alt_loss_ab_writeup" class="internal internal-link alias" data-slug="model/pdr2_alt_loss_ab_writeup">`pdr2_alt_loss_ab_writeup.md`</a> — why the paper-text loss is destructive.</li>
+<li><a href="./kg/kg_catalog" class="internal internal-link alias" data-slug="kg/kg_catalog">`KG_CATALOG.md`</a> — every knowledge graph identified, with published baselines.</li>
+<li><code>docs/essays/intro_the_project.md</code> — the lay-audience framing, as of April 2026.</li>
+<li><code>docs/Project Post for Substack.txt</code> — Richard’s own account. Read it for the why.</li>
+</ol>
+<p>Full index: memory file <code>docs_catalog.md</code>.</p>
+<h3 id="103-working-environment">10.3 Working environment<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#103-working-environment" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Windows 11, PowerShell primary, Bash available. Docker Desktop runs the local stack.</li>
+<li>Port map: 5432 legacy Docker DB, <strong>5433 production Cloud SQL proxy</strong>, 5434 local
+non-production test DB.</li>
+<li><code>backend/data/</code> is host-only and gitignored. Never commit it.</li>
+<li>Long jobs run on workers, Vertex AI, or Colab, never in the foreground.</li>
+<li>Richard pays Cloud SQL egress by the byte. Design for one-time pulls and shared
+caches, not per-task streaming.</li>
+</ul>
+<hr/>
+<h2 id="11-glossary">11. Glossary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-glossary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td><strong>MODS</strong></td><td>Maureen Oncologic Decision Support — the oncology component of Maple</td></tr><tr><td><strong>PDR / PDR1 / PDR2</strong></td><td>Precision Drug Repurposing, the 2025 and 2026 papers this replicates</td></tr><tr><td><strong>GP-KG</strong></td><td>Genotypic-Phenotypic Knowledge Graph (KG-Predict, Case Western). Paper comparator</td></tr><tr><td><strong>PrimeKG</strong></td><td>Precision Medicine Knowledge Graph (Zitnik Lab, Harvard). Production graph</td></tr><tr><td><strong>RGCC</strong></td><td>Greek lab providing ex vivo chemosensitivity testing on circulating tumor cells</td></tr><tr><td><strong>CTC</strong></td><td>Circulating tumor cell</td></tr><tr><td><strong>MSS / MSI</strong></td><td>Microsatellite stable / instable. Maureen is MSS, which historically predicts immunotherapy failure</td></tr><tr><td><strong>TMB</strong></td><td>Tumor mutational burden. Hers is low (2–3 mut/Mb)</td></tr><tr><td><strong>PRS / PGS</strong></td><td>Polygenic risk score; PGS Catalog is the public repository of scoring files. Full arc: [[prs/prs_primer</td></tr><tr><td><strong>KGIA</strong></td><td>The patient feature schema for PDR2 fine-tuning: N diseases × M genes. Data QC: [[results/KGIA_PATIENT_PROFILE_QC</td></tr><tr><td><strong>Track A / Track B</strong></td><td>Zero-PRS (all runs to date) vs real-PRS (computed at E2; first released 2026-09-28 as <code>smoke_v0</code>, 590 scores over 109 diseases)</td></tr><tr><td><strong>Composition</strong></td><td>A named, versioned recipe of KG sources and filters that a run points at</td></tr><tr><td><strong>PaaN</strong></td><td>Patient-as-a-Node — the architecture where the patient is a first-class KG entity. Argued in [[planning/paan_planning</td></tr><tr><td><strong>NED</strong></td><td>No evidence of disease</td></tr><tr><td><strong>MRD</strong></td><td>Minimal residual disease</td></tr><tr><td><strong>BOT/BAL</strong></td><td>Botensilimab + balstilimab, the leading immunotherapy option for her phenotype</td></tr><tr><td><strong>Breakwater</strong></td><td>The trial that established FOLFOX + cetuximab + encorafenib for BRAF V600E mCRC</td></tr></tbody></table></div>
+<hr/>
+<h2 id="12-provenance">12. Provenance<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-provenance" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Assembled 2026-09-07 from: the MODS memory store, <code>CLAUDE.md</code>, <code>docs/PDR_PIPELINE_PLAN.md</code>,
+<code>docs/paan_planning.md</code>, <code>docs/pdr_framework_gap_analysis.md</code>, <code>docs/KG_CATALOG.md</code>,
+<code>docs/temporal_patient_modeling_planning.md</code>, <code>docs/maureen_clinical_journal_archive.md</code>,
+<code>docs/essays/intro_the_project.md</code>, <code>docs/Project Post for Substack.txt</code>, the PDR2
+writeups, live queries against the production database via the MODS MCP tools, the
+GitHub issue backlog, and the <code>mods_research_run</code> catalog.</p>
+<p>Clinical facts were verified against <code>mods_get_patient</code>, <code>mods_list_alterations</code>,
+<code>mods_list_genomic_reports</code> and <code>mods_list_functional_tests</code> rather than taken from
+memory, per §7.1.</p>
+<p>Numbers current as of 2026-09-07. Re-verify via §10.1 before relying on any of them.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-0" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#mods--mission-spec" data-for="mods--mission-spec">MODS — Mission Spec</a></li><li class="depth-1"><a href="#0-what-this-document-is-and-how-to-read-it" data-for="0-what-this-document-is-and-how-to-read-it">0. What this document is, and how to read it</a></li><li class="depth-1"><a href="#1-the-mission" data-for="1-the-mission">1. The mission</a></li><li class="depth-2"><a href="#11-the-objective" data-for="11-the-objective">1.1 The objective</a></li><li class="depth-2"><a href="#12-the-goal-hierarchy" data-for="12-the-goal-hierarchy">1.2 The goal hierarchy</a></li><li class="depth-2"><a href="#13-the-precedent-this-is-modeled-on" data-for="13-the-precedent-this-is-modeled-on">1.3 The precedent this is modeled on</a></li><li class="depth-2"><a href="#14-what-this-is-not" data-for="14-what-this-is-not">1.4 What this is not</a></li><li class="depth-1"><a href="#2-the-patient" data-for="2-the-patient">2. The patient</a></li><li class="depth-2"><a href="#21-who-she-is" data-for="21-who-she-is">2.1 Who she is</a></li><li class="depth-2"><a href="#22-disease-course" data-for="22-disease-course">2.2 Disease course</a></li><li class="depth-2"><a href="#23-current-clinical-state-verify-before-relying-on-it" data-for="23-current-clinical-state-verify-before-relying-on-it">2.3 Current clinical state (verify before relying on it)</a></li><li class="depth-2"><a href="#24-verified-molecular-profile" data-for="24-verified-molecular-profile">2.4 Verified molecular profile</a></li><li class="depth-2"><a href="#25-the-single-most-important-clinical-fact-for-repurposing" data-for="25-the-single-most-important-clinical-fact-for-repurposing">2.5 The single most important clinical fact for repurposing</a></li><li class="depth-2"><a href="#26-what-she-has-that-most-patients-do-not" data-for="26-what-she-has-that-most-patients-do-not">2.6 What she has that most patients do not</a></li><li class="depth-2"><a href="#27-care-team-and-context" data-for="27-care-team-and-context">2.7 Care team and context</a></li><li class="depth-1"><a href="#3-the-approach-and-why-it-is-shaped-this-way" data-for="3-the-approach-and-why-it-is-shaped-this-way">3. The approach, and why it is shaped this way</a></li><li class="depth-2"><a href="#31-the-core-idea-in-plain-terms" data-for="31-the-core-idea-in-plain-terms">3.1 The core idea in plain terms</a></li><li class="depth-2"><a href="#32-the-papers-this-is-built-on" data-for="32-the-papers-this-is-built-on">3.2 The papers this is built on</a></li><li class="depth-2"><a href="#33-why-two-knowledge-graphs" data-for="33-why-two-knowledge-graphs">3.3 Why two knowledge graphs</a></li><li class="depth-2"><a href="#34-why-a-graph-neural-network-rather-than-a-language-model" data-for="34-why-a-graph-neural-network-rather-than-a-language-model">3.4 Why a graph neural network rather than a language model</a></li><li class="depth-1"><a href="#4-what-has-been-built" data-for="4-what-has-been-built">4. What has been built</a></li><li class="depth-2"><a href="#41-maple-the-platform" data-for="41-maple-the-platform">4.1 Maple, the platform</a></li><li class="depth-2"><a href="#42-the-knowledge-graph" data-for="42-the-knowledge-graph">4.2 The knowledge graph</a></li><li class="depth-2"><a href="#43-the-training-platform" data-for="43-the-training-platform">4.3 The training platform</a></li><li class="depth-2"><a href="#44-data-assets-on-disk" data-for="44-data-assets-on-disk">4.4 Data assets on disk</a></li><li class="depth-1"><a href="#5-where-the-science-actually-stands" data-for="5-where-the-science-actually-stands">5. Where the science actually stands</a></li><li class="depth-2"><a href="#51-paper-reproduction-phase-0--mostly-closed-one-asterisk" data-for="51-paper-reproduction-phase-0--mostly-closed-one-asterisk">5.1 Paper reproduction (Phase 0) — mostly closed, one asterisk</a></li><li class="depth-2"><a href="#52-architecture--a-real-finding" data-for="52-architecture--a-real-finding">5.2 Architecture — a real finding</a></li><li class="depth-2"><a href="#53-best-patient-specific-signal-to-date" data-for="53-best-patient-specific-signal-to-date">5.3 Best patient-specific signal to date</a></li><li class="depth-2"><a href="#54-personalization--the-central-open-problem" data-for="54-personalization--the-central-open-problem">5.4 Personalization — the central open problem</a></li><li class="depth-2"><a href="#55-polygenic-risk-scores--rebuilt-not-yet-computed" data-for="55-polygenic-risk-scores--rebuilt-not-yet-computed">5.5 Polygenic risk scores — rebuilt, not yet computed</a></li><li class="depth-2"><a href="#56-a-validation-flaw-you-must-know-about" data-for="56-a-validation-flaw-you-must-know-about">5.6 A validation flaw you must know about</a></li><li class="depth-1"><a href="#6-validation-doctrine" data-for="6-validation-doctrine">6. Validation doctrine</a></li><li class="depth-2"><a href="#61-the-three-tiers" data-for="61-the-three-tiers">6.1 The three tiers</a></li><li class="depth-2"><a href="#62-what-must-be-disclosed-every-time-rgcc-is-cited" data-for="62-what-must-be-disclosed-every-time-rgcc-is-cited">6.2 What must be disclosed every time RGCC is cited</a></li><li class="depth-2"><a href="#63-other-validation-surfaces" data-for="63-other-validation-surfaces">6.3 Other validation surfaces</a></li><li class="depth-1"><a href="#7-rules" data-for="7-rules">7. Rules</a></li><li class="depth-2"><a href="#71-clinical-truth" data-for="71-clinical-truth">7.1 Clinical truth</a></li><li class="depth-2"><a href="#72-data-integrity-hard-rules-from-claudemd" data-for="72-data-integrity-hard-rules-from-claudemd">7.2 Data integrity (hard rules, from CLAUDE.md)</a></li><li class="depth-2"><a href="#73-operating-discipline" data-for="73-operating-discipline">7.3 Operating discipline</a></li><li class="depth-2"><a href="#74-scope" data-for="74-scope">7.4 Scope</a></li><li class="depth-1"><a href="#8-the-open-frontier" data-for="8-the-open-frontier">8. The open frontier</a></li><li class="depth-2"><a href="#tier-1--directly-on-the-critical-path-to-g1" data-for="tier-1--directly-on-the-critical-path-to-g1">Tier 1 — directly on the critical path to G1</a></li><li class="depth-2"><a href="#tier-2--high-value-larger-scope" data-for="tier-2--high-value-larger-scope">Tier 2 — high value, larger scope</a></li><li class="depth-2"><a href="#tier-3--infrastructure-that-unblocks-the-above" data-for="tier-3--infrastructure-that-unblocks-the-above">Tier 3 — infrastructure that unblocks the above</a></li><li class="depth-1"><a href="#9-what-done-looks-like" data-for="9-what-done-looks-like">9. What “done” looks like</a></li><li class="depth-1"><a href="#10-orientation-kit" data-for="10-orientation-kit">10. Orientation kit</a></li><li class="depth-2"><a href="#101-answer-what-is-true-right-now-here-not-from-this-document" data-for="101-answer-what-is-true-right-now-here-not-from-this-document">10.1 Answer “what is true right now” here, not from this document</a></li><li class="depth-2"><a href="#102-documents-worth-reading-in-this-order" data-for="102-documents-worth-reading-in-this-order">10.2 Documents worth reading, in this order</a></li><li class="depth-2"><a href="#103-working-environment" data-for="103-working-environment">10.3 Working environment</a></li><li class="depth-1"><a href="#11-glossary" data-for="11-glossary">11. Glossary</a></li><li class="depth-1"><a href="#12-provenance" data-for="12-provenance">12. Provenance</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="./" class="internal">MODS Notebook</a></li><li><a href="./meta/research_steward_charter" class="internal">Research Steward charter</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="./static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="./static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="./static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="./static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="./postscript-cea27323.js" type="module" data-persist="true"></script></html>

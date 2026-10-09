@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Can a file's own unambiguous SNVs orient its palindromes?</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Can a file's own unambiguous SNVs orient its palindromes?"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Can a file's own unambiguous SNVs orient its palindromes?"/><meta name="twitter:description" content="GH #404 tested whether a scoring file whose unambiguous SNVs match the reference forward also wrote its palindromes forward. Mostly yes. The one file that says no is why the rule is written per class of file, not as a threshold."/><meta property="og:description" content="GH #404 tested whether a scoring file whose unambiguous SNVs match the reference forward also wrote its palindromes forward. Mostly yes. The one file that says no is why the rule is written per class of file, not as a threshold."/><meta property="og:image:alt" content="GH #404 tested whether a scoring file whose unambiguous SNVs match the reference forward also wrote its palindromes forward. Mostly yes. The one file that says no is why the rule is written per class of file, not as a threshold."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/prs/palindrome_forward_rule"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/prs/palindrome_forward_rule"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="GH #404 tested whether a scoring file whose unambiguous SNVs match the reference forward also wrote its palindromes forward. Mostly yes. The one file that says no is why the rule is written per class of file, not as a threshold."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/prs/palindrome_forward_rule-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/prs/palindrome_forward_rule-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/prs/palindrome_forward_rule-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="prs/palindrome_forward_rule" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-88" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-88" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../prs/">prs</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Can a file's own unambiguous SNVs orient its palindromes?</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-27</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">reference</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">GH #404 tested whether a scoring file whose unambiguous SNVs match the reference forward also wrote its palindromes forward. Mostly yes. The one file that says no is why the rule is written per class of file, not as a threshold.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.349Z">Oct 09, 2026</time><span>16 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="can-a-files-own-unambiguous-snvs-orient-its-palindromes">Can a file’s own unambiguous SNVs orient its palindromes?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#can-a-files-own-unambiguous-snvs-orient-its-palindromes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><em>GH <code>#404</code>, the successor to
+<a href="../prs/palindrome_orientation_spike" class="internal internal-link alias" data-slug="prs/palindrome_orientation_spike">#371</a>. The short answer is: for most files, yes, with a
+measured error under 1 %. The rule cannot tell which files are the exceptions, though, and
+the exceptions are real. So it is licensed per class of file, and the class that holds most
+of the rows cannot be measured with the data we have.</em></p>
+<hr/>
+<h2 id="0-why-this-was-asked">0. Why this was asked<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#0-why-this-was-asked" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Gate C defers <a href="../genomics_glossary#2-what-the-person-actually-carries-genotype" class="internal internal-link alias" data-slug="genomics_glossary">palindromic SNVs</a>
+(A/T and C/G pairs, whose <a href="https://en.wikipedia.org/wiki/Complementarity_(molecular_biology)" class="external external-link">strand complement<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>
+is the pair itself). A wrong strand guess <strong>inverts the dosage silently</strong>. At E2 scope that
+deferral costs 64,834,179 rows across 1,687 production-eligible scores.</p>
+<p><a href="../prs/palindrome_orientation_spike" class="internal internal-link alias" data-slug="prs/palindrome_orientation_spike">#371</a> closed the <code>hm_source</code> route and proved something
+more useful along the way: the PGS Catalog’s harmonizer <strong>never touches an allele</strong>. So
+every scoring file’s alleles are its author’s, verbatim, and its <em>unambiguous</em> rows (which
+Gate C checks against the pinned GRCh38 reference) are a direct readout of the author’s
+strand convention. #404 proposed to lean on that corollary: if a file’s unambiguous rows
+all match forward, read its palindromes forward too.</p>
+<p>The issue named the risk precisely. A pipeline that orients the variants it <em>can</em> check and
+leaves the palindromes alone produces a file that looks forward everywhere we can look and
+is unoriented exactly where we cannot. The complement-only rate is blind to that by
+construction. Only ground truth can price it, and the 167 scores that declare an
+effect-allele frequency (EAF) are the only ground truth there is.</p>
+<hr/>
+<h2 id="1-the-answer">1. The answer<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-the-answer" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Class of file</th><th>What the frequency test found</th><th>Measured flipped share (95 % bound)</th></tr></thead><tbody><tr><td><strong>Genome-wide</strong> (≥ 100k rows), complement-only ≤ 0.1 %</td><td>11 files, 6 publications, 5,353,342 decidable palindromes</td><td><strong>≤ 0.12 %</strong>, and it tracks each file’s own complement-only rate</td></tr><tr><td><strong>Small curated</strong> (&lt; 1k rows), zero complement-only rows</td><td>61 files, 49 publications, 953 decidable palindromes</td><td><strong>≤ 0.96 %</strong></td></tr><tr><td><strong>Mid-size</strong> (1k–100k rows)</td><td>one file, PGS000020: unambiguous rows forward, <strong>~40 % of palindromes reversed</strong></td><td>refuted</td></tr><tr><td>Strand-mixed, A/B-coded (the control)</td><td>PGS000714: 5 of 5 palindromes reversed</td><td>as expected</td></tr></tbody></table></div>
+<p>So the forward rule is right almost everywhere it was measured. Three things stop that from
+becoming a fleet-wide licence:</p>
+<ol>
+<li><strong>The counterexample exists.</strong> PGS000020 has a complement-only rate of <strong>0.175 %</strong>, the
+same order as the clean genome-wide files (up to 0.098 %). No threshold separates them
+except a post hoc one.</li>
+<li><strong>The measured genome-wide files are not the ones the rule would mostly touch.</strong> They hold
+9.7 % of the genome-wide class’s palindromic rows. <strong>87 % sit in three publications that
+declare no frequency</strong>: Ma 2022, Truong 2024 (PRSmix) and Bakker 2023 (metaGRS). Nothing
+we hold can test them.</li>
+<li><strong>The EAF-carrying set under-samples mid-size files.</strong> It has one, and it fails; the
+fleet has 535.</li>
+</ol>
+<p>The recommendation (§7) is to license the small-curated class, which the measurement
+covers well, and to put the genome-wide class to Richard as an explicit extrapolation. That
+class is 98.8 % of the rows, so its answer decides the arithmetic.</p>
+<hr/>
+<h2 id="2-the-instrument-and-why-agreement-alone-is-not-the-answer">2. The instrument, and why agreement alone is not the answer<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-the-instrument-and-why-agreement-alone-is-not-the-answer" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>The test.</strong> For an A/T pair, reading the effect allele on the other strand turns it into
+the <em>other</em> allele, so the reverse reading’s panel frequency is exactly <code>1 − p</code>. Comparing
+the author’s declared EAF with the panel’s
+<a href="https://en.wikipedia.org/wiki/Allele_frequency" class="external external-link">allele frequency<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> for the effect base read
+forward is therefore a sign test. <strong>Same side of 0.5 is forward, opposite sides is
+flipped</strong>, decisive only when both frequencies are clear of 0.5 by a margin (0.08 here, the
+usual <code>MAF &lt; 0.42</code> convention). This is exactly the rule
+<code>mods_prs_normalization.resolve_palindrome_strand</code> implements for Gate D, so this spike also
+validates the code D1 will run.</p>
+<p><strong>The panel.</strong> HGDP+1kGP (<code>pgsc_HGDP+1kGP_v1</code>), read from its <code>.pgen</code> with pgenlib: allele
+counts over the 3,330 unrelated samples, overall and per super-population. Each file’s
+frequencies are compared with the population that sits closest to its EAF on its own
+unambiguous rows (European for 114 of 167 files).</p>
+<p><strong>Why agreement is not the answer.</strong> A cohort frequency and a panel frequency can straddle
+0.5 for reasons that have nothing to do with strand: ancestry mismatch, sampling noise, an
+EAF column that means something else. So raw agreement sits below 100 % even if every
+palindrome is forward. The same file’s <strong>unambiguous</strong> SNVs calibrate the instrument: their
+strand is known from the panel’s own alleles, so its error rate on them is <em>measured</em>. Under
+“every palindrome is forward” the palindromic discordance should equal that error rate, cell
+for cell in (|EAF − 0.5|, |p − 0.5|). Each flipped palindrome raises its cell from <code>e</code> to
+<code>1 − e</code>, so</p>
+<pre><code>f_hat = (observed discordant palindromes − expected) / (n − 2·expected)
+</code></pre>
+<p>estimates the flipped share. On synthetic data with known flip rates of 0, 1 %, 5 % and
+50 % it recovers each within its interval.</p>
+<p><strong>The bound that needs no calibration.</strong> Observed discordance is <code>r = e + f(1 − 2e)</code>. For
+any instrument error <code>e</code> below 0.5, <code>f ≤ r</code>. So the raw discordance
+<a href="https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval" class="external external-link">upper-bounds<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> the
+flipped share without trusting the calibration at all. §5 leads with these bounds wherever
+the calibration is shaky.</p>
+<hr/>
+<h2 id="3-three-ways-the-ground-truth-could-lie-and-the-check-for-each">3. Three ways the ground truth could lie, and the check for each<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-three-ways-the-ground-truth-could-lie-and-the-check-for-each" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>A population mismatch.</strong> An East Asian cohort’s EAF compared with a European panel
+frequency straddles 0.5 far more often, which would inflate discordance. <em>Check:</em> each file
+is compared with its closest population (above). The calibration then absorbs whatever
+mismatch remains, cell by cell.</p>
+<p><strong>An EAF column that is not an effect-allele frequency.</strong> Some files report a minor-allele
+frequency, a constant, or the <em>other</em> allele’s frequency. Such a column would read as a
+wholesale “flip”. <em>Check:</em> a file’s instrument must call ≥ 80 % of its own known-strand SNVs
+correctly before its palindromes count. <strong>8 files fail</strong>, set aside rather than pooled.
+PGS001775 calls <strong>0 %</strong> of them right: its column is the other allele’s frequency, which
+without this check would have counted as 100 % flipped palindromes.</p>
+<p><strong>A frequency that was looked up, not measured.</strong> This is the circularity threat, and the
+reason it matters is structural. An EAF copied from a forward-strand reference by allele
+<em>letter</em> reports the forward frequency of whatever letter the file wrote. It therefore calls
+every palindrome forward whether it is or not: a check that shares the assumption it is
+checking, the lesson of the <a href="../prs/prs_primer#51-the-bug-that-defines-the-design" class="internal internal-link alias" data-slug="prs/prs_primer">REF-effect bug</a>.
+<em>Check:</em> the commonest such reference is 1000 Genomes, whose samples are inside the panel.
+So a copied EAF sits almost exactly on those subsets’ frequencies, far closer than an
+independent cohort can (every publication judged independent here sits at a median of
+0.0055 or more from the nearest 1000 Genomes subset).
+<strong>One publication fails</strong>: PGP000324 (PGS002294) sits a median 0.0015 from 1000 Genomes EAS
+against 0.0095 from the full EAS group. Every genome-wide file is measured (medians
+0.0065–0.0125, no closer to 1000 Genomes than to the full group).</p>
+<hr/>
+<h2 id="4-the-ground-truth-set">4. The ground-truth set<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-the-ground-truth-set" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>167 EAF-carrying scores from <strong>103 publications</strong>, streamed through the connector’s own row
+parser and classified by the same branch order Gate B uses. The palindromic counts reconcile
+file by file against the manifest. 6,180,181 palindromic and 35,688,115 unambiguous rows
+carry a frequency and a position, and 99.31 % of their positions are present in the panel.</p>
+<p>The set is two populations wearing one label, and every result is reported in that shape:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Files</th><th>Publications</th><th>Decidable palindromes (margin 0.08)</th></tr></thead><tbody><tr><td>Genome-wide (≥ 10k palindromic EAF rows)</td><td>11</td><td>6</td><td>5,353,342</td></tr><tr><td>Curated</td><td>156 (118 with a verified instrument)</td><td>97</td><td>1,831</td></tr></tbody></table></div>
+<p>A pooled row rate over all 167 would be a statement about 6 pipelines. This is the
+row-aggregate-versus-per-score trap of <a href="../prs/prs_primer" class="internal internal-link alias" data-slug="prs/prs_primer">`prs_primer.md`</a> §5.4, arriving
+again.</p>
+<p>The reconciliation that anchors everything: the complement-only bands recomputed here match
+the issue’s table exactly (784 / 298 / 325 / 81 / 9 / 190 scores; 64,834,179 palindromic
+rows).</p>
+<hr/>
+<h2 id="5-results">5. Results<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-results" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="51-the-instrument-on-rows-whose-strand-is-known">5.1 The instrument, on rows whose strand is known<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-the-instrument-on-rows-whose-strand-is-known" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rows</th><th>Genome-wide</th><th>Curated</th></tr></thead><tbody><tr><td>Forward unambiguous SNVs, called forward</td><td><strong>99.982 %</strong> of 30,997,612</td><td>97.735 % of 17,261</td></tr><tr><td>Complement-only SNVs, called reversed</td><td><strong>99.905 %</strong> of 23,103</td><td>85.3 % of 68</td></tr></tbody></table></div>
+<p>The second row is the positive control. Complement-only rows are genuinely written on the
+reverse strand, and the frequency test sees them as reversed. So it has the power to see a
+real flip, on real data, at the rate that matters.</p>
+<h3 id="52-genome-wide-files">5.2 Genome-wide files<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-genome-wide-files" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Score</th><th>Publication</th><th>Complement-only rate</th><th>Decidable palindromes</th><th>Agreement</th><th>Ceiling</th><th>Flipped share</th></tr></thead><tbody><tr><td>PGS003576–85 (×4)</td><td>Dahl 2022</td><td>0.098 %</td><td>756,112 each</td><td>99.817 %</td><td>99.958 %</td><td>0.141 %</td></tr><tr><td>PGS005349</td><td>Tanha 2026</td><td>~0</td><td>721,600</td><td>99.998 %</td><td>99.998 %</td><td>0.001 %</td></tr><tr><td>PGS005241</td><td>Tanha 2025</td><td>~0</td><td>528,018</td><td>99.999 %</td><td>99.999 %</td><td>0.000 %</td></tr><tr><td>PGS000909</td><td>Campos 2021</td><td>0.055 %</td><td>367,893</td><td>99.924 %</td><td>99.998 %</td><td>0.075 %</td></tr><tr><td>PGS000908</td><td>Campos 2021</td><td>0.056 %</td><td>350,186</td><td>99.925 %</td><td>99.998 %</td><td>0.073 %</td></tr><tr><td>PGS000907</td><td>Campos 2021</td><td>0.009 %</td><td>218,452</td><td>99.962 %</td><td>99.998 %</td><td>0.036 %</td></tr><tr><td>PGS000882</td><td>Revez 2020</td><td>0.057 %</td><td>71,597</td><td>99.950 %</td><td>99.999 %</td><td>0.050 %</td></tr><tr><td>PGS004926</td><td>Tsepilov 2023</td><td>0.057 %</td><td>71,148</td><td>99.949 %</td><td>99.999 %</td><td>0.050 %</td></tr></tbody></table></div>
+<p>Pooled: agreement 99.883 % against a ceiling of 99.976 %. The <strong>calibration-free bound is
+6,258 / 5,353,342 = 0.117 %, ≤ 0.119 %.</strong></p>
+<p>The column worth reading is the complement-only rate beside the flipped share: <strong>they move
+together</strong>, from ~0 with ~0 up to 0.098 % with 0.141 %. That is what <em>uniform</em> residual
+strand error looks like: whatever put 0.1 % of the unambiguous rows on the wrong strand put
+about the same share of the palindromes there, where no allele check can see them. It is also
+flat across the margin. The flipped share is 0.090 % at a margin of 0.20 and 0.104 % at
+0.02, with no sign of a pipeline that aligned the easy palindromes by frequency and left the
+near-0.5 ones unaligned.</p>
+<h3 id="53-curated-files">5.3 Curated files<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-curated-files" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Set</th><th>Files</th><th>Discordant / decidable</th><th>Flipped share, 95 % bound</th></tr></thead><tbody><tr><td>Rate = 0</td><td>62 (61 with a decidable palindrome)</td><td>4 / 953 = 0.420 %</td><td><strong>≤ 0.958 %</strong></td></tr><tr><td>Rate ≤ 1 %, excluding the two outliers of §5.4</td><td>66</td><td>4 / 1,068 = 0.375 %</td><td>≤ 0.855 %</td></tr><tr><td>Fewer than 20 orientable rows</td><td>24</td><td>2 / 36</td><td>≤ 16.5 % (too small to judge)</td></tr></tbody></table></div>
+<p>For curated files the calibration runs slightly <em>pessimistic</em>: the rate-0 band’s <code>f_hat</code> is
+−1.4 %, meaning palindromes agree better than the files’ unambiguous rows predict. So the
+calibration-free bounds are the numbers to use here. Of the curated files with any discordant
+palindrome, 9 were observed against 21.5 expected from instrument noise alone.</p>
+<h3 id="54-the-counterexample-pgs000020">5.4 The counterexample: PGS000020<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-the-counterexample-pgs000020" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>PGS000020 is a type 2 diabetes score (Läll <em>et al.</em>, <em>Genet Med</em> 2016; pruning and
+thresholding on external GWAS summary statistics). It has 7,502 rows. Its unambiguous rows
+match GRCh38 forward: <strong>12 complement-only of 6,867, 0.175 %</strong>, with a balanced allele
+profile (<code>top_fraction</code> 0.483, so not an A/B convention). Its instrument calls its own
+unambiguous SNVs almost perfectly (expected palindromic discordance 0.10). Its palindromes:
+<strong>169 of 425 decidable are reversed</strong>, across both pair types (A/T 75 of 169, C/G 94 of 256).
+The examples are unambiguous: <code>10:112989181 A</code> declared at 2 % where the panel has A at 97 %.</p>
+<p>That is the failure mode the issue described, observed. The forward rule would have silently
+inverted roughly 40 % of this score’s palindromes. Nothing in the file’s unambiguous
+behaviour warns of it, and its complement-only rate is within a factor of two of the cleanest
+genome-wide files’. <strong>A clean complement-only rate is necessary and not sufficient.</strong></p>
+<p>It matters beyond its own rows because of what it is. It is the <strong>only mid-size (1k–100k
+rows) file in the ground truth</strong>, and the fleet has 535 of them.</p>
+<h3 id="55-the-control">5.5 The control<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#55-the-control" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The issue asked for the comparison to be run on files that fail the complement-rate gate,
+expecting no better than chance. The one genuinely strand-mixed EAF file, <strong>PGS000714</strong>
+(Sipeky 2020, all-<code>A/x</code> allele convention, 47.8 % complement-only), has <strong>5 of 5</strong> decidable
+palindromes reversed (binomial p ≈ 4 × 10⁻⁸ against its calibration). The gate is measuring
+what we think. The band-level “gate-failing” pool (302 decidable, 6 discordant) is mostly
+small files in the 1–5 % band, where one or two complement-only rows out of fifty is not
+strand-mixing. Their palindromes are fine, which is itself a finding about how coarse the
+rate is for small files.</p>
+<hr/>
+<h2 id="6-where-the-rule-would-land">6. Where the rule would land<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-where-the-rule-would-land" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The fleet’s deferred palindromic rows by size of file and complement-only band, beside the
+ground truth covering each cell:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>File size</th><th>Band</th><th>Scores</th><th>Palindromic rows</th><th>Share</th><th>Ground truth</th></tr></thead><tbody><tr><td>&lt; 1k</td><td>rate = 0</td><td>527</td><td>14,250</td><td>0.022 %</td><td>62 files → ≤ 0.96 %</td></tr><tr><td>&lt; 1k</td><td>0.1–1 %</td><td>156</td><td>7,739</td><td>0.012 %</td><td>4 files → ≤ 2.6 %</td></tr><tr><td>&lt; 1k</td><td>1–5 %</td><td>81</td><td>2,279</td><td>0.004 %</td><td>24 files → ≤ 1.7 %</td></tr><tr><td>&lt; 1k</td><td>> 5 %</td><td>9</td><td>46</td><td>—</td><td>the control</td></tr><tr><td>&lt; 1k</td><td>&lt; 20 orientable</td><td>190</td><td>394</td><td>0.001 %</td><td>too small to judge</td></tr><tr><td>1k–100k</td><td>rate = 0</td><td>182</td><td>277,032</td><td>0.43 %</td><td><strong>none</strong></td></tr><tr><td>1k–100k</td><td>0–0.1 %</td><td>184</td><td>399,563</td><td>0.62 %</td><td><strong>none</strong></td></tr><tr><td>1k–100k</td><td>0.1–1 %</td><td>169</td><td>55,092</td><td>0.09 %</td><td>PGS000020 → <strong>~40 % reversed</strong></td></tr><tr><td>≥ 100k</td><td>rate = 0</td><td>75</td><td>12,412,327</td><td>19.1 %</td><td><strong>none</strong></td></tr><tr><td>≥ 100k</td><td>0–0.1 %</td><td>114</td><td>51,665,457</td><td>79.7 %</td><td>11 files → ≤ 0.12 %</td></tr></tbody></table></div>
+<p>And the genome-wide class (≥ 100k rows, ≤ 0.1 %) by publication, since a pipeline’s strand
+handling belongs to its publication:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Publication</th><th>Files</th><th>Palindromic rows</th><th>Share</th><th>Method (PGS Catalog)</th><th>EAF?</th></tr></thead><tbody><tr><td>Ma <em>et al.</em> 2022, <em>AJHG</em></td><td>74</td><td>37,998,118</td><td>59.3 %</td><td>DBSLMM, lassosum, P+T and others</td><td>no</td></tr><tr><td>Truong <em>et al.</em> 2024, <em>Cell Genom</em></td><td>64</td><td>12,057,352</td><td>18.8 %</td><td>PRSmix</td><td>no</td></tr><tr><td>Bakker <em>et al.</em> 2023, <em>Stroke</em></td><td>6</td><td>5,696,454</td><td>8.9 %</td><td>elastic-net metaGRS</td><td>no</td></tr><tr><td>the 6 measured publications</td><td>11</td><td>6,184,026</td><td><strong>9.7 %</strong></td><td>PRSice-2, SBayesR(C), SCT</td><td>yes</td></tr><tr><td>10 others</td><td>34</td><td>2,141,834</td><td>3.3 %</td><td>mixed</td><td>no</td></tr></tbody></table></div>
+<p>Two of the three dominant pipelines deserve a sentence each, labelled as inference from the
+method rather than measurement. PRSmix and metaGRS files are <strong>weighted mixtures of existing
+PGS Catalog scores</strong>, so their palindromes carry whatever orientation their components had.
+If any component was a PGS000020, the mixture inherited it. Ma 2022 is a multi-method
+benchmark built on external summary statistics. The measured set does include external
+consortium pipelines (Tanha on BCAC; Campos), which is some comfort, but it is not these.</p>
+<hr/>
+<h2 id="7-recommendation">7. Recommendation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-recommendation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Option</th><th>Scope</th><th>Scores</th><th>Palindromic rows</th><th>Measured flipped share</th></tr></thead><tbody><tr><td>A. Refuse</td><td>nothing</td><td>0</td><td>0</td><td>n/a</td></tr><tr><td><strong>B. Small curated</strong> <em>(recommended)</em></td><td>&lt; 1k rows, zero complement-only over ≥ 20 orientable</td><td><strong>527</strong></td><td>14,250</td><td><strong>≤ 0.96 %</strong>, 61 files from 49 publications</td></tr><tr><td>C. B + genome-wide</td><td>adds ≥ 100k rows at ≤ 0.1 % complement-only</td><td>716</td><td>64,092,034</td><td>≤ 0.12 % on 9.7 % of the added rows; <strong>unmeasured on the rest</strong></td></tr><tr><td>never</td><td>1k–100k rows</td><td>535</td><td>731,687</td><td>counterexample</td></tr></tbody></table></div>
+<p><strong>Recommended rule (B).</strong> Read a file’s palindromic SNVs on the forward strand when it has
+fewer than 1,000 rows, <strong>zero</strong> complement-only rows over at least 20 orientable rows, and is
+not strand-mixed by the two-signal test. <strong>Measured error: ≤ 0.96 % of palindromes reversed
+(95 %), point estimate 0.42 % raw, indistinguishable from zero after calibration.</strong></p>
+<p>It is small in rows and large where it counts. The primer’s §1.4 point is that these scores
+are ML features, consumed one score at a time. For the 527 scores in B, palindromes are a
+<strong>median 11.3 %</strong> of each score’s rows (IQR 8.0–14.3 %), the curated, interpretable scores
+where the deferral hurts most per score.</p>
+<p><strong>C is Richard’s call, and it is a real one.</strong> For the pipelines measured, the genome-wide
+rule is excellent: ≤ 0.12 %, error tracking each file’s own complement-only rate. The case
+for C is that it recovers ~10 % of the loci (median 10.1 % per score) in 189 genome-wide
+scores, at a probable error that small. The case against is that 87 % of those rows are in pipelines built differently
+from anything measured. Two of them mix existing scores and inherit their components’
+orientation, and PGS000020 shows the unseen failure is not hypothetical. My lean is to hold C
+until one of the two routes in §8 can measure the dominant publications. For a genome-wide
+score, the deferral mostly costs variance that Gate D’s normalization carries, while a
+systematic inversion is exactly what <a href="../prs/prs_primer#14-why-maple-computes-them" class="internal internal-link alias" data-slug="prs/prs_primer">§1.4</a>
+calls “a confident, learnable lie”.</p>
+<p><strong>What landed, inert until someone chooses:</strong></p>
+<ul>
+<li><code>ScoringPolicy.palindrome_forward_scores</code> has the shape of <code>strand_flip_recovery_scores</code>:
+a set of ids, <strong>empty by default</strong>, named in the run’s provenance. Each score records
+<code>palindrome_forward_rule</code> and <code>n_palindromic_read_forward</code> in its <code>gate_c</code> payload, so
+Gate F can gate on them and a reader can see how much of a score rests on the rule.</li>
+<li><code>scripts/prs/palindrome_forward_candidates.py</code> derives the set <strong>per class</strong>. B is the
+default; C only with <code>--include-genome-wide</code>, which prints the caveat. The mid-size class
+is not offered at all, and <code>tests/test_palindrome_forward_candidates.py</code> keeps it that way.
+Like the strand-recovery script, it exits non-zero while any manifest row is on an older
+classifier.</li>
+<li>Populating the set <strong>changes the policy fingerprint</strong>, so it rides E3 with the patient and
+D2 with the panel, never a pass of its own (GH #360).</li>
+</ul>
+<hr/>
+<h2 id="8-what-this-does-not-settle">8. What this does not settle<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-what-this-does-not-settle" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>The genome-wide class, and two ways to measure it.</strong> Both are feasible and neither was in
+scope.</p>
+<ol>
+<li><strong>The source GWAS as the second frequency.</strong> <a href="../prs/palindrome_orientation_spike#51-why-a-bigger-frequency-source-would-not-raise-the-ceiling" class="internal internal-link alias" data-slug="prs/palindrome_orientation_spike">#371 §5.1</a>
+argued that a bigger panel cannot help, because orientation needs the <em>author’s</em>
+frequency and a file without EAF has none. The source summary statistics do have one. The
+Catalog records the GWAS accession (Ma 2022’s scores cite <code>GCST</code> sources), and most
+harmonized summary statistics carry effect-allele frequencies and β signs. Joining a
+scoring file to its source by position recovers the author-side frequency, and comparing
+weight sign with β sign on unambiguous rows calibrates the join. That would measure
+Ma 2022 directly.</li>
+<li><strong>Mixtures through their components.</strong> A PRSmix or metaGRS file’s palindromes come from
+named component scores. Where a component is EAF-carrying or already measured, its
+verdict transfers.</li>
+</ol>
+<p><strong>The weight-sign mode.</strong> A pipeline can relabel a palindrome’s letters to its reference and
+attach the other allele’s β. The letters then look perfect and the contribution is inverted
+anyway. The frequency test catches this only when the EAF travels with the β, i.e. when it
+was measured in the author’s cohort, which is what §3’s provenance check establishes. Letter
+checks, including the REF/ALT convention of a file’s unambiguous rows (strict in Truong,
+Bakker, Tanha and Revez), cannot catch it. So they are not offered as evidence here.</p>
+<p><strong>The last 0.02.</strong> Palindromes within 0.02 of 0.5 are invisible to any frequency test.
+§5.2’s flat margin curve says the genome-wide flip rate does not climb toward 0.5 through
+0.02. Below that it is unmeasurable, and the rule reads those palindromes forward on the
+strength of the neighbouring bins.</p>
+<p><strong>The EAF route and the forward rule, together.</strong> 73 of the 527 scores in B also carry an
+EAF, so D1’s frequency route could orient their palindromes row by row. The frequency route
+is the better instrument where it is decisive. When both are implemented, it should take
+precedence per row and the forward rule should cover what it leaves undecided. That wiring
+belongs to D1.</p>
+<p><strong>A trap in the fingerprint, noted rather than fixed.</strong> Today’s default policy fingerprint
+(<code>b96ec1786f6f19b4</code>) already differs from E2’s (<code>c6a513393403a5cb</code>), because #376 added a
+field after E2 ran. This change adds another. That is by design: a new knob must move the
+fingerprint. But it means <strong>a D2 panel scored with current code will refuse every E2 row</strong>,
+which is right, since E3 is planned before normalization anyway, and it would be confusing
+to discover mid-run.</p>
+<hr/>
+<h2 id="9-reproducing-it">9. Reproducing it<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-reproducing-it" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><code>backend/scripts/prs/spike_palindrome_forward_rule.py</code>. Four stages, each resumable. The
+module docstring carries the exact commands, including the throwaway-container step that
+reads the <code>.pgen</code> (pgenlib has no Windows wheel and lives only in the live worker’s writable
+layer, not in the <code>maple-worker</code> image). The stages were measured at 102 s, 175 s, 7.3 min
+over 8,041,370 panel records, and ~4 min. The report prints the reconciliation first: if the
+recomputed bands do not match the issue’s table, every number under it is void. Outputs land
+in <code>backend/data/prs_palindrome_404/</code> (host-only): <code>report.txt</code>, <code>results.json</code>, and the
+per-file target rows.</p>
+<p><strong>Further reading:</strong> <a href="../prs/palindrome_orientation_spike" class="internal internal-link alias" data-slug="prs/palindrome_orientation_spike">`palindrome_orientation_spike.md`</a>
+(#371, the harmonizer and the EAF ceiling) · <a href="../prs/prs_primer" class="internal internal-link alias" data-slug="prs/prs_primer">`prs_primer.md`</a> §5.4 and
+§5.7b (why Gate C defers, and the road to release) ·
+<a href="../prs/compatibility_classification" class="internal internal-link alias" data-slug="prs/compatibility_classification">`compatibility_classification.md`</a> (how a palindromic row
+is counted in the first place).</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-68" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#can-a-files-own-unambiguous-snvs-orient-its-palindromes" data-for="can-a-files-own-unambiguous-snvs-orient-its-palindromes">Can a file’s own unambiguous SNVs orient its palindromes?</a></li><li class="depth-1"><a href="#0-why-this-was-asked" data-for="0-why-this-was-asked">0. Why this was asked</a></li><li class="depth-1"><a href="#1-the-answer" data-for="1-the-answer">1. The answer</a></li><li class="depth-1"><a href="#2-the-instrument-and-why-agreement-alone-is-not-the-answer" data-for="2-the-instrument-and-why-agreement-alone-is-not-the-answer">2. The instrument, and why agreement alone is not the answer</a></li><li class="depth-1"><a href="#3-three-ways-the-ground-truth-could-lie-and-the-check-for-each" data-for="3-three-ways-the-ground-truth-could-lie-and-the-check-for-each">3. Three ways the ground truth could lie, and the check for each</a></li><li class="depth-1"><a href="#4-the-ground-truth-set" data-for="4-the-ground-truth-set">4. The ground-truth set</a></li><li class="depth-1"><a href="#5-results" data-for="5-results">5. Results</a></li><li class="depth-2"><a href="#51-the-instrument-on-rows-whose-strand-is-known" data-for="51-the-instrument-on-rows-whose-strand-is-known">5.1 The instrument, on rows whose strand is known</a></li><li class="depth-2"><a href="#52-genome-wide-files" data-for="52-genome-wide-files">5.2 Genome-wide files</a></li><li class="depth-2"><a href="#53-curated-files" data-for="53-curated-files">5.3 Curated files</a></li><li class="depth-2"><a href="#54-the-counterexample-pgs000020" data-for="54-the-counterexample-pgs000020">5.4 The counterexample: PGS000020</a></li><li class="depth-2"><a href="#55-the-control" data-for="55-the-control">5.5 The control</a></li><li class="depth-1"><a href="#6-where-the-rule-would-land" data-for="6-where-the-rule-would-land">6. Where the rule would land</a></li><li class="depth-1"><a href="#7-recommendation" data-for="7-recommendation">7. Recommendation</a></li><li class="depth-1"><a href="#8-what-this-does-not-settle" data-for="8-what-this-does-not-settle">8. What this does not settle</a></li><li class="depth-1"><a href="#9-reproducing-it" data-for="9-reproducing-it">9. Reproducing it</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../prs/palindrome_orientation_spike" class="internal">Can hm_source orient a palindromic SNV?</a></li><li><a href="../prs/prs_primer" class="internal">Polygenic Risk Scores - a primer</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

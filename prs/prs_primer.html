@@ -1,0 +1,2594 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Polygenic Risk Scores - a primer</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Polygenic Risk Scores - a primer"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Polygenic Risk Scores - a primer"/><meta name="twitter:description" content="What a polygenic score is, where the idea came from, and the machinery MODS uses to compute one."/><meta property="og:description" content="What a polygenic score is, where the idea came from, and the machinery MODS uses to compute one."/><meta property="og:image:alt" content="What a polygenic score is, where the idea came from, and the machinery MODS uses to compute one."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/prs/prs_primer"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/prs/prs_primer"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="What a polygenic score is, where the idea came from, and the machinery MODS uses to compute one."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/prs/prs_primer-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/prs/prs_primer-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/prs/prs_primer-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="prs/prs_primer" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-91" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-91" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../prs/">prs</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Polygenic Risk Scores - a primer</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-23</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">growing</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">What a polygenic score is, where the idea came from, and the machinery MODS uses to compute one.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.347Z">Oct 09, 2026</time><span>86 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="polygenic-risk-scores--a-primer-and-how-maple-computes-them">Polygenic Risk Scores — a primer, and how Maple computes them<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#polygenic-risk-scores--a-primer-and-how-maple-computes-them" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><em>What a polygenic score is, where the idea came from, what a scoring file actually
+contains, and the machinery MODS uses to turn one genome plus five thousand published
+scores into numbers we are willing to stand behind.</em></p>
+<p><strong>Status as of 2026-09-26:</strong> Gates A, B, C, <strong>E1 and E2</strong> are done; D is part-staged and F
+is not started. <em>(2026-09-29: stale on D and F. Both have now run for the v0 set, and the Gate F v0
+release writer is built: <code>backend/mods_prs_release.py</code>, driven by
+<code>backend/scripts/prs/release_gate_f.py</code> (GH #296); see §5.5.)</em> <em>(2026-09-27: all three Gate D stages are now built — D3 in PR #386, D1 and D2
+in GH #396 — and none has run against the real panel; §5.7.)</em> The scorer has now been run over the whole <strong>v4</strong> eligible set: <strong>3,752 of
+3,753 scores</strong> computed against a 16,964,243-record callset (19,215,298-locus union), every
+one reconciling and every one inside its theoretical bounds, with the fleet’s outcome
+counts summing to the manifest’s eligible row total <strong>exactly</strong> (§5.8). <strong>No <em>released</em>
+patient scores exist</strong> — Gate C writes at <code>validity='quarantined'</code> and only Gate F
+promotes, so every reader still correctly returns nothing (§5.5). <em>(2026-09-28: <strong>superseded</strong> by the first release of her PRS: a v0 smoke release of <strong>590 scores over 109 disease anchors</strong> (tag <code>smoke_v0</code>, release run <code>c3be9df0</code>), normalized against the 667-sample EUR reference, after D1–D3 ran on the 594 v0 candidates. The final Gate F is still ahead; §5.5.)</em></p>
+<p><strong>E1 was a measurement run by design, and it paid for itself the same day.</strong> Its histograms
+closed the largest open policy question (<code>unplaceable_rows</code>, §3.5) and corrected this
+document’s palindrome figures by 4× (§5.4), so classifier <strong>v4</strong> promoted <code>unplaceable_rows</code>
+at a coverage threshold and the <strong>eligible set went 2,322 → 3,753 scores, 894.5M → 2.166B
+variant rows</strong>. Every “2,322” below is a statement about the E1 run, which is history and
+correct as written; the forward-looking number is 3,753.</p>
+<blockquote>
+<p><strong>Read “E2” carefully: the running order changed, and the name did not.</strong> The plan below
+was E1 → settle policy → <strong>D</strong> → E2, where E2 meant <em>“the re-run under the final policy —
+the one that can be released.”</em> That is <strong>not</strong> what E2 was. Gate D has never run
+(<code>mods_prs_run</code> holds zero <code>gate_d</code> rows), so E2 is better understood as <strong>E1 repeated at
+the corrected v4 scope</strong> — a second measurement run, not the post-D final one.</p>
+<p>This was not drift for its own sake. E1’s histograms settled <code>unplaceable_rows</code> <em>from E1’s
+own data</em>, needing nothing from the panel, and that alone moved eligibility 2,322 → 3,753
+— which invalidated the union and the callset. Since <strong>D1 extracts frequencies over the
+union</strong>, the union had to be rebuilt at final scope <em>before</em> D or it would be built twice.
+Rebuilding it was therefore correct and necessary; re-scoring the patient against it was
+the optional part, and it bought the measurements that close out the remaining policy
+questions (§5.8) plus a clean baseline to diff against later.</p>
+<p>So E2 is final with respect to <strong>eligibility</strong>, and <em>not</em> final with respect to
+<strong>palindromic SNVs</strong>, which Gate C still defers — 64,810,321 rows, 2.99 % of the fleet.</p>
+<p><strong>Decided (Richard, 2026-09-26): no release candidate is declared until the palindrome
+question is settled, and an E3 follows D1.</strong> So E2 is explicitly <em>not</em> the release
+candidate. Note what “settled” can mean, because it is narrower than it sounds: only
+<strong>167 of the 1,687</strong> affected scores carry the effect-allele frequency that orientation
+needs, so D1 can recover at most <strong>9.5 %</strong> of the deferred rows and the rest become a
+Gate F coverage gate rather than a pending decision. The staged plan, with what each
+stage is for, is <strong>§5.7b</strong>. Nothing else is outstanding except the <code>NR</code> weight-type call,
+which is Gate F’s and does not require re-scoring.</p>
+</blockquote>
+<p><strong>Companion documents.</strong> <a href="../genomics_glossary" class="internal internal-link alias" data-slug="genomics_glossary">`genomics_glossary.md`</a> defines the
+vocabulary for readers who want the terms first — allele, <a href="../genomics_glossary#2-what-the-person-actually-carries-genotype" class="internal internal-link alias" data-slug="genomics_glossary">dosage</a>, <a href="../genomics_glossary#2-what-the-person-actually-carries-genotype" class="internal internal-link alias" data-slug="genomics_glossary">strand flip</a>, <a href="../genomics_glossary#3-the-files-rawest--most-processed" class="internal internal-link alias" data-slug="genomics_glossary">gVCF</a>, plus
+<strong>what “calling” means</strong> (§2.1, with <code>GQ</code>/<code>DP</code>/<code>MIN_DP</code>/<code>FILTER</code>), <strong><a href="../genomics_glossary#1-naming-a-spot-in-the-genome" class="internal internal-link alias" data-slug="genomics_glossary">contig</a></strong>, and <strong>FASTA
+vs FASTQ</strong> including the provenance of our pinned reference (§4.1).
+<a href="../prs/compatibility_classification" class="internal internal-link alias" data-slug="prs/compatibility_classification">`prs_validation/compatibility_classification.md`</a>
+is the standalone explainer for the classifier in §4.5–4.6. This primer is the wider arc
+that connects them.</p>
+<hr/>
+<h2 id="1-what-a-polygenic-score-is">1. What a polygenic score is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-what-a-polygenic-score-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="11-the-arithmetic">1.1 The arithmetic<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-the-arithmetic" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A polygenic score is a weighted sum, and that is genuinely all it is:</p>
+<pre><code>PRS = Σ  dosageᵢ × weightᵢ
+</code></pre>
+<p>For each of a set of positions in the genome, <strong>dosage</strong> is how many copies of the
+trait-associated allele this person carries — 0, 1, or 2, because we have two copies of
+each autosome — and <strong>weight</strong> is how much that allele shifted the trait in a large
+association study. Multiply, add, done. A thousand multiplications and one sum.</p>
+<p>The entire difficulty of the field lives in three places, none of which is the
+arithmetic:</p>
+<ol>
+<li><strong>Getting the weights.</strong> That is the <a href="https://en.wikipedia.org/wiki/Genome-wide_association_study" class="external external-link">GWAS<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>
+literature’s job, and it is upstream of us.</li>
+<li><strong>Lining the two sides up.</strong> Deciding that <em>this row in a scoring file</em> and <em>this
+position in this person’s genome</em> refer to the same thing, on the same strand, with
+the same allele playing the same role. This is where essentially every bug we have
+hit actually lived.</li>
+<li><strong>Interpreting the total.</strong> A raw sum is a number with no units and no meaning until
+it is placed against a reference distribution of people (§1.4).</li>
+</ol>
+<h3 id="12-a-short-history">1.2 A short history<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-a-short-history" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>When</th><th>What happened</th><th>Why it matters here</th></tr></thead><tbody><tr><td><strong>1918</strong></td><td>R. A. Fisher shows that many small Mendelian effects, added up, produce the smooth bell-curve inheritance seen in traits like height — the <em>infinitesimal model</em>.</td><td>This is the theoretical licence for adding thousands of tiny effects together. The additive sum in §1.1 is Fisher’s model, unchanged.</td></tr><tr><td><strong>1965</strong></td><td>Falconer’s <em>liability-threshold</em> model: a yes/no disease is modelled as a continuous underlying liability with a cutoff.</td><td>Why it is coherent to give someone a continuous “risk score” for a binary outcome like colorectal cancer.</td></tr><tr><td><strong>2002–2005</strong></td><td>The HapMap project maps <a href="https://en.wikipedia.org/wiki/Linkage_disequilibrium" class="external external-link">linkage disequilibrium<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> — which variants travel together — making cheap tag-SNP genotyping arrays viable.</td><td>Made large-scale association studies economically possible. Also the reason scores can use <em>proxy</em> variants rather than causal ones.</td></tr><tr><td><strong>2005</strong></td><td>Klein <em>et al.</em> link complement factor H to age-related macular degeneration: the first widely accepted GWAS hit.</td><td>Proof the approach finds real biology.</td></tr><tr><td><strong>2007</strong></td><td>The Wellcome Trust Case Control Consortium publishes 7 diseases × ~14,000 cases.</td><td>The GWAS era starts in earnest; effect sizes turn out to be <em>tiny</em>, which kills the one-gene-one-disease hope and makes aggregation mandatory.</td></tr><tr><td><strong>2009</strong></td><td>The International Schizophrenia Consortium (Purcell <em>et al.</em>) takes thousands of SNPs that individually <em>failed</em> significance, weights them by effect size, sums them, and shows the aggregate predicts schizophrenia in an independent cohort.</td><td><strong>This is the birth of the modern polygenic score.</strong> The key insight: signal too weak to be individually credible is still real in aggregate.</td></tr><tr><td><strong>2015–2019</strong></td><td>Method generation: LDpred, LDpred2, lassosum, PRS-CS, SBayesR, MegaPRS. Instead of picking significant SNPs, these re-weight <em>every</em> variant using an LD reference panel.</td><td>This is why the modern catalog contains scores with <strong>millions</strong> of variants and no rsIDs (§3.3) — they are genome-wide posterior weights, not curated hit lists.</td></tr><tr><td><strong>2018</strong></td><td>Khera <em>et al.</em> publish genome-wide scores for five common diseases and argue that the top few percent carry risk comparable to a monogenic mutation.</td><td>The paper that pushed PRS toward clinical translation — and toward controversy.</td></tr><tr><td><strong>2017–2019</strong></td><td>Martin <em>et al.</em> quantify the <strong>portability problem</strong>: scores trained in European-ancestry cohorts lose much of their accuracy in other ancestries.</td><td>A first-order limitation, not a footnote. It determines how we normalize (§1.4) and is why ancestry is a pipeline input, not a nicety.</td></tr><tr><td><strong>2021</strong></td><td>The PGS Catalog launches (Lambert <em>et al.</em>) with a standardized scoring-file format, harmonized coordinates, and a reference calculator (<code>pgsc_calc</code>).</td><td>The entire supply side of our pipeline. Without a common file format, §3 does not exist.</td></tr><tr><td><strong>2022</strong></td><td>T2T-CHM13: the first gapless human genome.</td><td>Not yet our reference (§2.2) — but it is where the field is going.</td></tr><tr><td><strong>now</strong></td><td>Prospective clinical trials (eMERGE, GenoVA, WISDOM), regulatory caution, and a large direct-to-consumer market of varying rigour.</td><td>The reason a pipeline like ours has to be able to say <em>“not calculated, and here is why”</em> out loud.</td></tr></tbody></table></div>
+<p>The through-line: the idea (Fisher) is a century old, the data (GWAS) is twenty years
+old, the practical method (ISC) is fifteen, and the standardized <em>plumbing</em> (PGS
+Catalog) is five. We are working entirely in that last layer.</p>
+<h3 id="13-what-a-polygenic-score-is-not">1.3 What a polygenic score is not<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-what-a-polygenic-score-is-not" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Worth stating plainly, because the failure modes of this pipeline are mostly failures of
+interpretation rather than of code:</p>
+<ul>
+<li><strong>Not a diagnosis, and not a probability.</strong> A raw PRS is an unnormalized sum. On its
+own it is meaningless — it only acquires meaning relative to a population.</li>
+<li><strong>Not portable across ancestries without care.</strong> See 2017–2019 above.</li>
+<li><strong>Not the whole genetic story.</strong> A PRS captures <em>common, additive</em> liability. It says
+nothing about a rare high-penetrance variant. A rare high-penetrance germline
+variant is exactly the kind of thing a PRS structurally cannot see — which is why the
+variant-level pipeline and the PRS pipeline are separate inputs to the same model.</li>
+<li><strong>Not causal.</strong> Weights sit on tag variants in LD with whatever is actually doing the
+work.</li>
+<li><strong>Not comparable between scores.</strong> Two scores for the same trait, from different
+studies with different weight conventions, produce numbers on different scales.</li>
+</ul>
+<h3 id="14-why-maple-computes-them">1.4 Why <em>Maple</em> computes them<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#14-why-maple-computes-them" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This matters for design, because our use is not the usual one. MODS does not compute
+PRS in order to hand somebody a clinical risk report. It computes them as a <strong>broad,
+patient-specific genetic feature vector</strong> that feeds the PDR2 personalized loss:</p>
+<pre><code>L = L_pred − λ₁·L_prs − λ₂·L_expr
+</code></pre>
+<p>where <code>L_prs</code> aggregates, over diseases <em>i</em>, a learnable weight <code>wᵢ</code> times the patient’s
+<code>PRSᵢ</code> times the model’s per-triple score. The polygenic score for each trait becomes a
+signed, learnable nudge on drug–disease edges incident to that disease node — the patient
+enters the <em>objective</em>, not just the inputs.</p>
+<blockquote>
+<p>Take the shape, not the algebra. The paper’s literal formula
+(<code>L_prs = Σᵢ wᵢ·PRSᵢ·s_pred</code>) is unbounded as written, and the released code adds
+<code>tanh(·)</code> and L2 weight normalization that the text omits. We verified those
+nonlinearities are load-bearing. <strong><code>losses.py</code> is the operational specification</strong> — see
+<a href="../model/pdr2_loss_text_vs_code_note" class="internal internal-link alias" data-slug="model/pdr2_loss_text_vs_code_note">`pdr2_loss_text_vs_code_note.md`</a> and
+<a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">`pdr_personalization_writeup.md`</a>.</p>
+</blockquote>
+<p>Three consequences follow, and they explain choices that would otherwise look strange:</p>
+<ol>
+<li>
+<p><strong>Breadth beats depth.</strong> We want <em>as many scores as the genome supports</em>, not a
+curated clinical shortlist. A wide feature vector is the point. This is why the
+target is the ~5,377-score catalog and not thirteen diseases.</p>
+<blockquote>
+<p><strong>The trap this is guarding against, stated bluntly</strong> (Richard, 2026-09-23, after
+a session report led with “44 colorectal scores are eligible”): <em>counting
+disease-relevant scores is not a result.</em> We already know she has colorectal
+cancer, and we know a great deal about it. A colorectal PRS can, at best, tell us
+whether she was unlucky in getting it — which changes no decision. <strong>No individual
+score and no individual disease is the object of interest.</strong> These are ML inputs.
+The goal is to maximise the number of usable data points <em>without regard to what
+they predict</em>; anything that refines that data is a direction to move toward, and
+anything that degrades it a direction to move away from. When tempted to report
+“N scores for disease X”, report the size and quality of the feature vector
+instead.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>The relative ordering across a cohort matters more than any absolute number</strong> — but
+we have a cohort of one, so a reference distribution is required to make the value
+mean anything at all. That is Gate D.</p>
+</li>
+<li>
+<p><strong>A wrong number is worse than a missing number.</strong> A missing feature is a zero the
+loss ignores. A wrong feature is a confident, learnable lie. Every “we defer this
+rather than approximate it” decision below traces back to this line.</p>
+</li>
+</ol>
+<p><strong>A corollary that changes how the partial-coverage decision should be made — and a
+correction to how this document used to justify it.</strong> A score computed on only part of its
+loci is not simply “wrong” the way it would be clinically, so the coverage bar for “usable
+as an ML feature” sits genuinely lower than for “usable as a clinical risk estimate.” That
+conclusion stands. The reason previously given for it did not.</p>
+<blockquote>
+<p><strong>Superseded (2026-09-23).</strong> This section used to argue that a roughly constant deflation
+is <em>“largely absorbable by <code>wᵢ</code> — the model can rescale a feature.”</em> <strong>The released loss
+cannot do that.</strong> <code>losses.py</code> L2-normalizes the
+weight vector before the inner product and then squashes the result:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">disease_weights_norm </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> F.normalize(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">self</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">.disease_weights, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">p</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">dim</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs_impact </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> torch.sum(disease_weights_norm </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function"> prs_values)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">prs_term   </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> torch.tanh(prs_impact)</span></span></code></pre></figure>
+<p><code>‖ŵ‖₂ = 1</code> is a hard constraint, so the model cannot rescale a feature — it can only
+<em>re-allocate a fixed unit budget</em> across diseases. Feature scale therefore is not
+absorbed; it decides the answer.</p>
+</blockquote>
+<p><strong>What actually absorbs a constant deflation is Gate D, not the model.</strong> A percentile (or
+a z-score) is computed against a reference distribution, and a multiplicative deflation
+applied equally to the patient and the panel is a monotone transform — it preserves rank
+exactly, so the normalised feature is unchanged. The absorption is in the normalisation,
+which is another reason Gate D is not optional (§5.5).</p>
+<p>Three things keep it from being free, and the first is now the mechanism rather than a
+caveat:</p>
+<ul>
+<li>The deflation must be <strong>consistent between the patient and the reference distribution</strong>
+(Gate D). Coverage that differs between Maureen and the panel biases the percentile, and
+nothing downstream can undo a bias introduced in normalisation. Score the panel through
+the same Gate C policy or this guarantee evaporates.</li>
+<li>It is <strong>not a pure scale</strong>: which loci are missing matters, and a few large-weight loci
+can deflate a score disproportionately, which breaks the exact rank preservation above.
+Over many loci it approximates one.</li>
+<li>Fewer loci means a noisier estimate of the same liability. That is <strong>variance, not
+bias</strong> — and variance is far more tolerable in a feature than bias is.</li>
+</ul>
+<p><strong>The corresponding trap on the other side: raw sums are not a usable feature vector.</strong>
+Across the 2,322 production-eligible scores the theoretical magnitude bound
+<code>max(|lo|, |hi|)</code> spans roughly twelve orders of magnitude — median 15.9, p95 706, max
+2.59 × 10⁷, with 1,818 of 2,322 (78 %) already above 3. Under <code>tanh(⟨ŵ, PRS⟩)</code> with
+<code>‖ŵ‖₂ = 1</code>, a vector on those scales saturates the squash, <code>1 − tanh² ≈ 0</code>, and the
+gradient dies. Track A (all-zero PRS) produced no gradient because <code>tanh(0) = 0</code>; feeding
+<em>raw</em> sums would produce no gradient from the opposite end, and the “interpretable” disease
+weights would converge to a readout of which published score happens to carry the largest
+raw magnitude rather than which disease matters. Normalised features are what put
+<code>⟨ŵ, PRS⟩</code> back inside tanh’s live band.</p>
+<p>The operational consequence: <strong><code>unplaceable_rows</code> should not be a binary promote/defer
+flag.</strong> It should be a <em>coverage threshold</em>, chosen empirically by what it does to the
+feature vector. The instrument for choosing it already exists — the <code>coverage_v1</code> payload’s
+third quantity (effective variance-weighted information, §5.4) is exactly the right
+statistic, and the dual-scorer reconciliation (§5.4) separates the <strong>imputation term</strong>,
+which measures precisely how much a partially-covered score changes when the missing
+dosages are filled in. Run that on the affected scores and the threshold stops being a
+judgement call.</p>
+<hr/>
+<h2 id="2-reference-genomes">2. Reference genomes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-reference-genomes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Every coordinate in this pipeline — in the patient’s gVCF, in a scoring file, in dbSNP —
+is meaningless except relative to a specific <a href="../genomics_glossary#4-the-reference-and-the-scores" class="internal internal-link alias" data-slug="genomics_glossary">reference genome</a> build. Mixing builds is
+the single easiest way to produce a plausible, entirely wrong score.</p>
+<h3 id="21-what-the-reference-actually-is">2.1 What the reference actually is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-what-the-reference-actually-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The human reference genome is <strong>not any one person’s genome</strong>. It is a curated haploid
+consensus assembled from a handful of anonymous donors (with one donor, RP11,
+contributing a majority), maintained by the Genome Reference Consortium. It carries the
+<em>reference allele</em> at every position by convention, not by biological privilege — at
+plenty of loci the “reference” base is the minor allele in most populations.</p>
+<p>This matters directly for us: §5.1’s bug is precisely a case where being
+reference-matching is <em>not</em> the same as being effect-free.</p>
+<h3 id="22-the-builds">2.2 The builds<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-the-builds" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Build</th><th>Released</th><th>Notes</th></tr></thead><tbody><tr><td>NCBI36 / hg18</td><td>2006</td><td>Still the original build of 11 catalog scoring files.</td></tr><tr><td><strong>GRCh37 / hg19</strong></td><td>Feb 2009</td><td>The workhorse of the GWAS era. <strong>3,951 of our 5,377 scoring files were authored on it</strong> (plus 415 more labelled <code>hg19</code>).</td></tr><tr><td><strong>GRCh38 / hg38</strong></td><td>Dec 2013</td><td>Current production standard. Fixed thousands of assembly errors, modelled centromeres, added alt loci for highly polymorphic regions (HLA).</td></tr><tr><td>GRCh38.p1 … p14</td><td>2014–2022</td><td><em>Patch</em> releases. Patches add fix/novel scaffolds but <strong>never move an existing coordinate</strong> — so p13 and p14 are coordinate-compatible on the primary assembly.</td></tr><tr><td>T2T-CHM13</td><td>2022</td><td>The first truly complete, gapless genome — centromeres, acrocentric short arms, ~200 Mb of new sequence. Not yet our reference: dbSNP, the GWAS corpus, and the PGS Catalog are all still keyed to GRCh38.</td></tr></tbody></table></div>
+<p><code>GRCh37</code> and <code>hg19</code> are the <em>same assembly</em> under UCSC vs GRC naming — with the
+irritating exception of the mitochondrial sequence, which differs. Likewise <code>GRCh38</code> and
+<code>hg38</code>. The catalog uses all four spellings, which is why our build handling normalizes
+rather than string-matches.</p>
+<h3 id="23-naming-and-assembly-flavors">2.3 Naming and assembly flavors<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-naming-and-assembly-flavors" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Two orthogonal traps:</p>
+<p><strong>Contig naming.</strong> UCSC writes <code>chr1</code>, <code>chrX</code>, <code>chrM</code>. Ensembl and the GRC write <code>1</code>,
+<code>X</code>, <code>MT</code>. NCBI writes accessions (<code>NC_000001.11</code>). These name identical sequence.
+Every entry point in our code normalizes through
+<code>connectors/reference_fasta.py::normalize_chrom</code> (strip a leading <code>chr</code>), and we
+standardize on the <strong>Ensembl</strong> convention because that is what the patient’s gVCF and
+the PGS Catalog’s <code>hm_chr</code> column both use.</p>
+<p><strong>Assembly flavor.</strong> “GRCh38” can mean the <em><a href="../genomics_glossary#4-the-reference-and-the-scores" class="internal internal-link alias" data-slug="genomics_glossary">primary assembly</a></em> (chromosomes + unplaced
+scaffolds), the <em>full analysis set</em> (primary + alt contigs + decoys), or a <em>no-alt</em>
+subset. Alt contigs are alternate versions of polymorphic regions; if reads can align to
+both an alt and its primary counterpart, mapping quality collapses and variant calls
+quietly degrade. We use the <strong>primary assembly</strong> — 194 contigs — which matches how the
+gVCF was called.</p>
+<h3 id="24-liftover-and-why-we-do-not-do-it-at-score-time">2.4 Liftover, and why we do not do it at score time<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-liftover-and-why-we-do-not-do-it-at-score-time" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong><a href="../genomics_glossary#1-naming-a-spot-in-the-genome" class="internal internal-link alias" data-slug="genomics_glossary">Liftover</a></strong> converts coordinates between builds using a chain file of mapped blocks. It
+is lossy: some regions have no equivalent, some invert, some map many-to-one. The
+GRCh37→GRCh38 shift is large and irregular — on PGS000006, only 3 of 313 loci kept the
+same coordinate, with shifts up to 2.87 Mb.</p>
+<p>Our position is that liftover is the <strong>PGS Catalog’s</strong> job, not ours. We download only
+the <code>_hmPOS_GRCh38</code> harmonized files, so every scoring file arrives already on our build.
+The patient’s gVCF was called on GRCh38. No conversion happens anywhere in the scoring
+path, which removes an entire class of error.</p>
+<h3 id="25-our-pinned-reference">2.5 Our pinned reference<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-our-pinned-reference" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Because the FASTA is the arbiter of what the reference allele <em>is</em> at every scored locus,
+it is pinned in code, by checksum, and a mismatch hard-fails rather than falling back.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td><strong>Build</strong></td><td>GRCh38.p13</td></tr><tr><td><strong>Source</strong></td><td>Ensembl release-109, DNA primary assembly</td></tr><tr><td><strong>Path</strong></td><td><code>backend/data/reference/GRCh38/Homo_sapiens.GRCh38.dna.primary_assembly.fa</code> (host-only; <code>backend/data/</code> is gitignored)</td></tr><tr><td><strong>sha256</strong></td><td><code>78777b0886e8dfa5e14e4957fbbaa53736fcbaa5668d59e09b6b7945fca93d8c</code></td></tr><tr><td><strong>Contigs</strong></td><td>194</td></tr><tr><td><strong>Naming</strong></td><td>Ensembl (<code>1</code>, not <code>chr1</code>)</td></tr><tr><td><strong>Pinned at</strong></td><td><code>connectors/reference_fasta.py::PINNED_GRCH38</code></td></tr><tr><td><strong>Access</strong></td><td><code>ReferenceFasta.ref_base</code> / <code>.ref_bases</code>, via pyfaidx</td></tr></tbody></table></div>
+<p>Validated base-identical to the patient’s gVCF <code>REF</code> field at three
+ancestry/clinically-informative loci: one clinically-informative locus,
+<code>5:33951588</code> = C (<em>SLC45A2</em>), <code>2:135851076</code> = G (<em>LCT</em>).</p>
+<p>Two operational notes. Ensembl ships <strong>plain gzip</strong>, not bgzip, so the file must be
+decompressed to <code>.fa</code> before pyfaidx can index it —
+<code>scripts/prs/prepare_reference_fasta.py</code> downloads, verifies, and decompresses in one
+step. And the checksum is <em>not</em> verified on every load (hashing 3.15 GB is slow); it is
+verified once at pin time and recorded on the <code>mods_prs_run</code> row so any run is
+reproducible against the exact bytes used.</p>
+<h3 id="26-the-two-build-fields-inside-a-scoring-file--a-live-gotcha">2.6 The two build fields inside a scoring file — a live gotcha<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-the-two-build-fields-inside-a-scoring-file--a-live-gotcha" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A harmonized scoring file carries <strong>two different build declarations</strong>, and they mean
+different things:</p>
+<ul>
+<li><code>#genome_build=</code> — the <strong>author’s original</strong> build. This is what pgscatalog.org
+displays as “Original Genome Build.”</li>
+<li><code>#HmPOS_build=</code> — the build the <strong>harmonized</strong> positions are on.</li>
+</ul>
+<p>Catalog-wide across our 5,377 cached files (scanned from the headers, 2026-07-26):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><code>genome_build</code> — the author’s original</th><th>Files</th></tr></thead><tbody><tr><td>GRCh37</td><td>3,951</td></tr><tr><td>GRCh38</td><td>457</td></tr><tr><td>hg19</td><td>415</td></tr><tr><td>NR (not reported)</td><td>357</td></tr><tr><td>hg38</td><td>182</td></tr><tr><td>NCBI36 (11) / hg18 (3) / NCBI35 (1)</td><td>15</td></tr></tbody></table></div>
+<p><code>HmPOS_build</code>, by contrast, is <strong>GRCh38 for all 5,377</strong> — because we only ever download
+the GRCh38 harmonized file. Per-row, the same split repeats: <code>chr_position</code> is on the
+original build, <code>hm_pos</code> is on GRCh38.</p>
+<p>A practical consequence worth knowing: <code>open_scoring_file</code> stores
+<code>HmPOS_build or genome_build</code>, so <code>mods_prs_score_manifest.genome_build</code> is uniformly
+GRCh38 and the dashboard’s “Genome build” panel is a degenerate one-row table. That
+column is <em>not</em> the number pgscatalog.org shows; the table above is.</p>
+<p><strong>The gotcha.</strong> <code>connectors/pgs_catalog_connector.py::_row_to_variant</code> coalesces
+<code>hm_pos → chr_position</code> and <code>hm_chr → chr_name</code> as a fallback when the harmonized field
+is blank. For <code>hm_rsID → rsID</code> that fallback is safe, because rsIDs are
+build-independent. For <strong>position it silently substitutes an original-build coordinate</strong>
+into a pipeline that assumes GRCh38. Measured 2026-07-26: it fires in 85 of 200 randomly
+sampled files, at ~0.0–0.1 % of rows each; the worst case is PGS000016 (atrial
+fibrillation, authored on hg19) with 1,316 of 6,730,541 rows. Those rows are counted as
+<code>placed_loci</code>, not as unplaceable, so <code>n_no_position</code> under-reports.</p>
+<p><strong>Closed (GH #250), before Gate C computed anything.</strong> <code>_ColumnIndex</code> now decides once
+per file whether the original coordinates share the harmonized frame
+(<code>original_coords_share_harmonized_frame</code>: true only when the file is not harmonized at
+all, or when both builds resolve to the same assembly — “NR” does not count). A blank
+<code>hm_pos</code> on a score authored against another assembly is now an unplaceable row, which is
+what it always meant. Gate C counts those rows as <code>unplaceable_row</code> and they never enter
+a sum.</p>
+<hr/>
+<h2 id="3-scoring-files">3. Scoring files<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-scoring-files" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="31-where-they-come-from">3.1 Where they come from<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-where-they-come-from" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The <a href="https://www.pgscatalog.org/" class="external external-link">PGS Catalog<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> (EMBL-EBI + University of Cambridge) is
+the standardized public repository of published polygenic scores. Each score gets a
+stable <code>PGS######</code> accession, structured metadata (trait, EFO/MONDO mapping, citation,
+training cohort, ancestry), and a downloadable scoring file.</p>
+<p>Three file flavors exist per score:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Flavor</th><th>What it is</th><th>Do we use it?</th></tr></thead><tbody><tr><td>Author-submitted</td><td>Exactly what the authors deposited. Build varies, may be rsID-only, columns inconsistent.</td><td>No.</td></tr><tr><td><strong><code>hmPOS</code></strong> (harmonized positions)</td><td>Every variant mapped to a common build with <code>hm_chr</code>/<code>hm_pos</code>/<code>hm_rsID</code> columns added.</td><td><strong>Yes — exclusively.</strong></td></tr><tr><td><code>hmVCF</code></td><td>Harmonized and emitted as VCF.</td><td>No.</td></tr></tbody></table></div>
+<p>Our fetch path is <code>PGSCatalogConnector.download_scoring_file(pgs_id, build=&quot;GRCh38&quot;)</code>,
+which caches to <code>&lt;cache>/PGS######/PGS######_hmPOS_GRCh38.txt.gz</code> alongside the REST
+metadata JSON. <strong>The full catalog is already on disk</strong> at
+<code>C:\Maple\worker\data\pgs_catalog</code> — 5,377 GRCh38-harmonized files, ~59 GB, bind-mounted
+into the workers. Do not re-download it. (<code>DEFAULT_CACHE_DIR</code> is a <em>relative</em> path, so it
+resolves differently per working directory — always pass <code>cache_dir</code> explicitly.)</p>
+<h3 id="32-file-structure">3.2 File structure<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#32-file-structure" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A scoring file is a gzipped TSV with a <code>#key=value</code> header. Here is a real one in full —
+PGS000004, the Mavaddat 313-variant breast cancer score, annotated:</p>
+<pre><code>#format_version=2.0
+##POLYGENIC SCORE (PGS) INFORMATION
+#pgs_id=PGS000004
+#pgs_name=PRS313_BC
+#trait_reported=Breast Cancer          ← free text, as the authors described it
+#trait_mapped=breast carcinoma         ← ontology term
+#trait_efo=MONDO_0004989               ← the machine-readable trait ID
+#genome_build=GRCh37                   ← the AUTHOR's build  (§2.6)
+#variants_number=313
+#weight_type=NR                        ← &quot;not reported&quot;      (§3.4)
+##SOURCE INFORMATION
+#pgp_id=PGP000002
+#citation=Mavaddat N et al. Am J Hum Genet (2018). doi:10.1016/j.ajhg.2018.11.002
+##HARMONIZATION DETAILS
+#HmPOS_build=GRCh38                    ← the build hm_pos is on  (§2.6)
+#HmPOS_date=2022-07-29
+</code></pre>
+<p>then a column header and rows:</p>
+<pre><code>chr_name  chr_position  effect_allele  other_allele  effect_weight  allelefrequency_effect  hm_source  hm_rsID  hm_chr  hm_pos     hm_inferOtherAllele
+1         100880328     T              A             0.0373         0.4097                  liftover   (blank)  1       100414772  (blank)
+1         10566215      G              A            -0.0586         0.329                   liftover   (blank)  1       10506158   (blank)
+1         110198129     C              CAAA          0.0458         0.7755                  liftover   (blank)  1       109655507  (blank)
+</code></pre>
+<p>Four things are visible in three rows, and each has cost us something:</p>
+<ol>
+<li><strong><code>chr_position</code> ≠ <code>hm_pos</code>.</strong> 100880328 vs 100414772 — a 466 kb shift from the
+GRCh37→GRCh38 harmonization. Reading the wrong column is a silent catastrophe.</li>
+<li><strong><code>hm_rsID</code> is blank</strong> — and not just in these rows: <strong>all 313 of them.</strong> This score
+identifies its variants <em>by position only</em>. A pipeline that joins on <a href="../genomics_glossary#1-naming-a-spot-in-the-genome" class="internal internal-link alias" data-slug="genomics_glossary">rsID</a> matches
+literally zero rows here and reports a confident zero.</li>
+<li><strong>Row 3 is an <a href="../genomics_glossary#1-naming-a-spot-in-the-genome" class="internal internal-link alias" data-slug="genomics_glossary">indel</a></strong> — <code>C</code> → <code>CAAA</code>, an insertion. Note the <a href="../genomics_glossary#2-what-the-person-actually-carries-genotype" class="internal internal-link alias" data-slug="genomics_glossary">effect allele</a> is the
+<em>longer</em> one; the shared anchor base <code>C</code> is what makes indel orientation unresolvable
+from the reference alone (§5.2).</li>
+<li><strong><code>allelefrequency_effect</code> is present.</strong> This is the field that lets a scorer resolve
+a strand-ambiguous <a href="../genomics_glossary#2-what-the-person-actually-carries-genotype" class="internal internal-link alias" data-slug="genomics_glossary">palindromic SNV</a> — if the effect <a href="../genomics_glossary#4-the-reference-and-the-scores" class="internal internal-link alias" data-slug="genomics_glossary">allele frequency</a> is far from 0.5,
+the strand can be inferred.</li>
+</ol>
+<p><strong>Optional columns that change everything.</strong> Beyond the core schema, a scoring file may
+carry <code>is_haplotype</code>, <code>is_diplotype</code>, <code>is_interaction</code>, <code>is_dominant</code>, <code>is_recessive</code>,
+<code>dosage_0_weight</code>/<code>dosage_1_weight</code>/<code>dosage_2_weight</code>, <code>variant_description</code>,
+<code>locus_name</code>, <code>OR</code>, <code>HR</code>. Any of these means the file is <strong>not</strong> a plain additive sum,
+and quietly summing <code>effect_weight</code> over such a file produces a number that looks fine
+and means nothing. Detecting them is the classifier’s first job (§4).</p>
+<p>Here is what one of those looks like — PGS004262, a GenoBoost psoriasis score:</p>
+<pre><code>chr_name  chr_position  effect_allele  other_allele  dosage_0_weight  dosage_1_weight  dosage_2_weight  ...
+6         31274555      T              C            -0.0324954        0.1051552        0.2502743
+</code></pre>
+<p>There is <strong>no <code>effect_weight</code> column at all</strong>. The weights are per-genotype, and they
+are not linear in dosage (−0.032 → +0.105 → +0.250). An <code>effect_weight</code>-based parser
+reads <em>zero rows</em> from this file. Fifteen catalog scores are exactly this case, and the
+right conclusion is “needs a dedicated calculator,” not “the file is broken” — a
+distinction §4.4 encodes deliberately.</p>
+<h3 id="33-scale-and-complexity">3.3 Scale and complexity<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#33-scale-and-complexity" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The catalog is not uniform. It is two populations of file wearing one format.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Bucket</th><th>Files</th><th>Bytes</th></tr></thead><tbody><tr><td>> 50 MB</td><td>219</td><td>22.3 GB</td></tr><tr><td>10–50 MB</td><td>1,725</td><td>33.7 GB</td></tr><tr><td>1–10 MB</td><td>543</td><td>2.6 GB</td></tr><tr><td>&lt; 1 MB</td><td>2,890</td><td>0.3 GB</td></tr></tbody></table></div>
+<p>Half the files are under a megabyte; 4 % of them hold 38 % of the bytes. The largest
+score by variant count is <strong>PGS003162 at 10,318,272 variants</strong> (five scores exceed
+10 M); the largest by <em>compressed size</em> is PGS005197 — 9,503,677 variants in 185.8 MB.
+Those two rankings differ, which is a small but recurring trap: sizing work by file
+count, by bytes, and by rows gives three different answers. Across all 5,377 files the
+classifier examined <strong>3,452,540,960 variant rows.</strong></p>
+<p>The split is historical, not arbitrary: pre-2015 scores are curated lists of genome-wide
+significant hits (tens to hundreds of variants, rsID-labelled), and post-2015 scores are
+LD-aware genome-wide posteriors (millions of variants, position-only). Any assumption
+that holds for one population fails for the other — which is why a 25-score smoke test
+once suggested <code>weight_type</code> was uniformly <code>NR</code>, a conclusion the full fleet demolished.</p>
+<p><strong>Cost model</strong> (measured, after optimization): <strong>~0.98 s per MB of gzip → ~16.7 CPU-hours
+for the whole catalog.</strong> Sharded six ways on a 16-logical-core box that is ~2.9 h wall.
+Two non-obvious facts from profiling a 19.4 MB / 972k-row file:</p>
+<ul>
+<li>The time is <strong>not I/O</strong>. gzip decompression plus <code>readlines</code> is <strong>6 %</strong>. Tab-splitting
+is 8 %. Per-row <code>dict</code> construction plus <code>PGSVariant</code> allocation is <strong>45 %</strong>, and
+feature accumulation another 41 %. The lever is Python object allocation, not
+decompression.</li>
+<li>Therefore: shard by <strong>bytes</strong>, not by file count, and compute ETA from bytes. Under
+largest-first ordering, byte-progress and count-progress diverge wildly — at 1.2 % of
+scores the fleet run was already 12.1 % of bytes.</li>
+</ul>
+<p><strong>Cache integrity.</strong> Five of the 5,377 cached files were truncated by interrupted
+downloads (PGS002938, PGS002153, PGS000257, PGS003724, PGS004604); re-downloads were
+25–62 % larger. A truncated gzip always fails its CRC/length trailer, so
+<code>EOFError: Compressed file ended before the end-of-stream marker</code> detects this
+reliably — a partial file can never be silently parsed as complete. Do not assume a
+cached scoring file is intact merely because it exists.</p>
+<h3 id="34-weights-and-weight-types">3.4 Weights and weight types<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#34-weights-and-weight-types" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A <strong>weight</strong> is the per-allele effect size the study estimated. What scale it is on is
+declared (sometimes) in the <code>#weight_type=</code> header, and getting this wrong is a
+biological error the arithmetic cannot catch.</p>
+<p><strong>The scales you should expect:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Weight type</th><th>Meaning</th><th>Additive-summable?</th></tr></thead><tbody><tr><td><code>beta</code> (β)</td><td>Effect on a continuous trait, in the trait’s own units (or SD units).</td><td>✅ Yes — this is the natural additive scale.</td></tr><tr><td><code>log(OR)</code>, <code>ln(OR)</code></td><td>Natural log of the odds ratio, for a binary disease.</td><td>✅ Yes. Logs add; that is the point of taking them.</td></tr><tr><td><code>log(HR)</code></td><td>Log hazard ratio, from survival analysis.</td><td>✅ Yes, on the log-hazard scale.</td></tr><tr><td><strong>raw <code>OR</code> / <code>HR</code></strong></td><td>The odds/hazard ratio itself.</td><td>❌ <strong>No.</strong> Ratios <em>multiply</em>. Summing an OR as if it were a β is meaningless — and produces a plausible-looking number.</td></tr><tr><td><code>NR</code></td><td>Not reported. The authors did not say.</td><td>⚠️ Unknown. Usually a β or log(OR), but that is an inference, not a fact.</td></tr><tr><td><code>Unweighted</code></td><td>Every variant counts equally — an allele count, not a weighted score.</td><td>⚠️ Computable, but it is a different object.</td></tr></tbody></table></div>
+<p><strong>What the catalog actually contains</strong> (live from <code>mods_prs_score_manifest</code>, all 5,377
+scores):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><code>weight_type</code></th><th>Scores</th></tr></thead><tbody><tr><td><code>beta</code></td><td>3,250</td></tr><tr><td><code>NR</code></td><td>1,390</td></tr><tr><td><code>BETA</code></td><td>441</td></tr><tr><td><code>log(OR)</code></td><td>199</td></tr><tr><td><code>Inverse-variance weighting</code></td><td>16</td></tr><tr><td><code>Beta (corrected for sample overlap)</code></td><td>12</td></tr><tr><td><code>Odds Ratio over expected risk</code></td><td>11</td></tr><tr><td><code>Unweighted</code></td><td>9</td></tr><tr><td><code>ln(OR)</code></td><td>9</td></tr><tr><td><code>Beta</code></td><td>8</td></tr><tr><td><code>metaGRS</code></td><td>6</td></tr><tr><td><code>log(HR)</code></td><td>4</td></tr><tr><td><code>log(OR) …*NOTE* a EAF-normalised weight was used…</code></td><td>3</td></tr><tr><td><code>Dosage</code>, <code>metaPRS</code>, <code>posterior beta</code>, <code>MetaPRS Weight</code>, <code>PHS log(HR)</code>, <code>weighted by functional implication</code>, <code>weights.HC132/HC171/HC215/HC225/HC294/HC299</code></td><td>1 each</td></tr></tbody></table></div>
+<p>Three things to take from that table:</p>
+<ol>
+<li><strong>Case normalization is mandatory.</strong> <code>beta</code> + <code>BETA</code> + <code>Beta</code> = 3,699 scores, or 69 %
+of the catalog — but only if you lowercase first. A case-sensitive match sees 3,250
+and misclassifies 449.</li>
+<li><strong><code>NR</code> is 26 % of the catalog and is not a scale.</strong> Roughly one score in four does not
+tell you what its numbers mean. Notably, <strong>9 of the 13 scores in our own curated
+default set are <code>NR</code></strong> (§4).</li>
+<li><strong>The tail is free text.</strong> <code>weights.HC171</code> is not a unit. These need
+explicit per-score handling or explicit deferral, never a regex that shrugs.</li>
+</ol>
+<p><strong>The theoretical-bounds check.</strong> For any additive score, the raw total is
+mathematically bounded:</p>
+<pre><code>L = Σ min(0, 2·wᵢ)        U = Σ max(0, 2·wᵢ)
+</code></pre>
+<p>because every dosage is in {0, 1, 2}. Every computed score <strong>must</strong> satisfy <code>L ≤ S ≤ U</code>;
+a value outside that interval is a scorer defect, not a biological finding. It is free,
+it is computed for every score at classify time (stored as <code>theoretical_lo</code>/<code>_hi</code>), and
+it catches whole families of allele-orientation and arithmetic bugs.</p>
+<p>It is also <strong>one-sided and scale-blind</strong>, which is worth internalizing: it cannot detect
+an odds-ratio-summed-as-a-beta, and it cannot detect a wrong-but-attainable score. We
+learned that concretely — a bounds check over the 40 legacy scores with <code>|raw| > 1000</code>
+found <strong>all 40 inside their bounds</strong>, while every one of them was in fact wrong (§5.1).
+Bounds are a floor on correctness, not a ceiling.</p>
+<h3 id="35-our-internal-classification">3.5 Our internal classification<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#35-our-internal-classification" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Given a scoring file, MODS assigns it exactly one <strong>compatibility class</strong>, plus the
+evidence for that assignment. This is <em>Gate B</em> of the rebuild, and it happens before any
+patient is involved — classification is a pure function of the file.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Class</th><th>Meaning</th><th>Outcome</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>Clean: additive, biallelic, autosomal SNVs, position-resolvable, explicit alleles, no complex-format columns.</td><td>Computed in production.</td></tr><tr><td><strong>B</strong></td><td>Conditionally supported: computable <em>with care</em> — indels, palindromic SNVs, chrX, inferred alleles, multiallelic sites, dominant/recessive models, some unplaceable rows.</td><td>Computed <strong>only</strong> if every one of its complications is on the promoted list.</td></tr><tr><td><strong>C</strong></td><td>Needs a dedicated calculator: haplotypes, diplotypes, interactions, per-genotype dosage weights (APOE/HLA/CYP star-allele style biology).</td><td>Deferred — “not calculated,” with a reason.</td></tr><tr><td><strong>D</strong></td><td>Unavailable: nothing in the file can be placed on the genome, or there are no usable rows.</td><td>”Not calculated.”</td></tr></tbody></table></div>
+<p><strong>The signals</strong> the classifier reads, all structural:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Signal</th><th>Why it threatens the score</th></tr></thead><tbody><tr><td>Unplaceable rows (no <code>chr</code>/<code>pos</code>)</td><td>Our genotype path is position-keyed; an unplaceable variant cannot be looked up.</td></tr><tr><td>Indel</td><td>The two alleles share an anchor base, so naive matching cannot orient them (§5.2).</td></tr><tr><td>Unresolvable allele</td><td>The allele names no single sequence — a harmonizer candidate set (<code>A/T</code>, <code>C/G/T</code>), an unknown base (<code>N</code>), presence/absence notation (<code>-</code>, <code>P</code>), or a star-allele name. Nothing to orient against the reference.</td></tr><tr><td>Palindromic SNV (A/T, C/G)</td><td>The strand complement looks identical, so a strand flip silently inverts the dosage. Resolvable only via allele frequency.</td></tr><tr><td>Multiallelic site</td><td>More than two alleles at one position; ordinary biallelic matching picks the wrong one.</td></tr><tr><td>chrX variant</td><td>Dosage is sex-dependent — a single-X person is hemizygous (0/1), not 0/1/2.</td></tr><tr><td>Inferred other-allele</td><td>The harmonizer <em>guessed</em> it. Not authoritative; trusting it can misassign reference vs. alternate and thus the dosage.</td></tr><tr><td>Missing other-allele</td><td>Cannot orient the variant against the reference at all, so a wild-type person’s dosage is undefined.</td></tr><tr><td>Dedicated-calculator columns</td><td>The score is not an additive sum.</td></tr><tr><td>Inheritance-model columns</td><td>The dosage → contribution mapping is not linear.</td></tr></tbody></table></div>
+<p><strong>Promotion.</strong> Class B carries a second, <em>signed-off</em> decision: which complications we
+are actually willing to compute. A Class-B score is production-eligible <strong>iff every one
+of its categories is promoted</strong> — one un-promoted signal defers the whole score. The
+strict-AND is deliberate: it stops a mostly-simple score from sneaking through on the
+strength of its simple parts.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Class-B signal</th><th>Promoted?</th><th>Rationale</th></tr></thead><tbody><tr><td>Indels</td><td>✅</td><td>The dense-callset builder emits normalized, reference-verified indel alleles.</td></tr><tr><td>chrX</td><td>✅</td><td>The current patient has two X chromosomes, so X dosage behaves like an autosome. <em>A single-X patient would need hemizygous handling — this promotion is patient-specific.</em></td></tr><tr><td>Inferred other-allele</td><td>✅</td><td>Every allele is verified against the reference genome, so an inferred allele that matches is safe.</td></tr><tr><td>Palindromic SNV</td><td>✅ (resolvable subset)</td><td>Strand is resolved by allele frequency; genuinely ambiguous ones stay deferred at compute time.</td></tr><tr><td>Unresolvable allele (<code>ambiguous_other</code>)</td><td>❌</td><td>Added in classifier <strong>v3</strong> (<code>GH #273</code>). Promoting it would mean deciding what <code>A/T</code> <em>means</em> — a mapping decision, not a threshold.</td></tr><tr><td>Multiallelic site</td><td>❌</td><td>Duplicate-position handling needs golden tests first.</td></tr><tr><td>Missing other-allele</td><td>❌</td><td>Cannot orient a wild-type dosage with no other allele.</td></tr><tr><td>Inheritance model</td><td>❌</td><td>Non-additive; out of scope for an additive scorer.</td></tr><tr><td>Unplaceable rows</td><td>❌</td><td>Partial coverage; handled by the coverage gate, not promoted here.</td></tr></tbody></table></div>
+<blockquote>
+<p><strong>Re-classified under <code>v3</code> on 2026-09-22.</strong> The numbers below are that run. Two fixes
+landed between the original 2026-07-21 classify and this one, and they move eligibility
+in the same direction for different reasons — see the attribution note after the
+blocker table. Eligibility fell <strong>3,863 → 2,322</strong>.</p>
+</blockquote>
+<p><strong>Fleet results</strong> — the classifier has been run over the entire cached GRCh38 catalog,
+and these are live numbers from <code>mods_prs_score_manifest</code>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Class</th><th>Scores</th><th>Share</th><th>Production-eligible</th><th>Variant rows</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>1,077</td><td>20.0 %</td><td>1,077</td><td>594,511,227</td></tr><tr><td><strong>B</strong></td><td>3,870</td><td>72.0 %</td><td>1,245</td><td>2,837,293,016</td></tr><tr><td><strong>C</strong></td><td>426</td><td>7.9 %</td><td>0</td><td>20,736,700</td></tr><tr><td><strong>D</strong></td><td>4</td><td>0.1 %</td><td>0</td><td>17</td></tr><tr><td><strong>Total</strong></td><td><strong>5,377</strong></td><td></td><td><strong>2,322 (43.2 %)</strong></td><td>3,452,540,960</td></tr></tbody></table></div>
+<p>So <strong>just over four in ten</strong> published scores are computable under the current policy, and
+the eligible set carries <strong>894,528,461 variant rows</strong> (largest 7,082,943, mean 385,241) —
+the real size of the job facing the later gates. That is less than half the row count the
+<code>v2</code> manifest implied, which roughly halves Gate E.</p>
+<p>How common are the complications? <code>n_palindromic > 0</code> in <strong>3,124</strong> scores,
+<code>n_no_position > 0</code> in <strong>2,629</strong>, <code>n_indel > 0</code> in <strong>1,709</strong>, <code>n_chrx > 0</code> in <strong>1,225</strong>,
+<code>n_ambiguous_other > 0</code> in <strong>996</strong>, <code>n_inferred_other > 0</code> in <strong>618</strong>, <code>n_multiallelic > 0</code>
+in <strong>567</strong>, <code>n_missing_other > 0</code> in <strong>509</strong>. Palindromes are the norm, not the exception —
+which is exactly why promoting them was the first policy decision worth making. Note
+<code>n_indel</code> fell from 2,300 to 1,709: 591 scores had <em>no real indel at all</em>, only
+unresolvable alleles a length test mistook for one.</p>
+<p><strong>What blocks the other 2,625</strong>, and — more usefully — what would be unblocked if each
+category alone were promoted:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Deferred category</th><th>Appears in</th><th><strong>Sole blocker</strong></th></tr></thead><tbody><tr><td>Unplaceable rows</td><td>2,264</td><td><strong>1,437</strong></td></tr><tr><td>Unresolvable allele (<code>ambiguous_other</code>)</td><td>624</td><td>144</td></tr><tr><td>Multiallelic site</td><td>554</td><td>132</td></tr><tr><td>Missing other-allele</td><td>477</td><td>9</td></tr><tr><td>Inheritance model</td><td>3</td><td>1</td></tr></tbody></table></div>
+<p>Single-category promotions could unlock 1,723 of the 2,625 deferred scores (65.6 %).</p>
+<p><strong>⚠ This ranking inverted at <code>v3</code>, and the old advice is now wrong.</strong> The <code>v2</code> table had
+multiallelic sole-blocking 588 and unplaceable_rows sole-blocking 18, so the standing
+recommendation was “promote multiallelic”. It is now the reverse: <strong>unplaceable_rows is
+the highest-leverage open decision by an order of magnitude</strong> (1,437 vs 132).</p>
+<p><strong>Attribution — two independent fixes moved these numbers</strong>, and conflating them would
+mislead:</p>
+<ul>
+<li><strong><code>GH #250</code></strong> (merged 2026-07-26, <em>five days
+after</em> the original classify, so this is the first fleet run to include it) stopped the
+parser falling back from <code>hm_pos</code> to an original-build coordinate. Rows that used to be
+silently mis-placed are now honestly unplaceable. <strong>~1,437 scores</strong> are sole-blocked by
+this. It is the dominant effect.</li>
+<li><strong><code>GH #273</code></strong> (this change) split unresolvable
+alleles out of <code>indel</code>. <strong>~144 scores</strong> are sole-blocked by this alone.</li>
+</ul>
+<p>Note what “promote unplaceable_rows” would actually mean: computing a score while some of
+its loci cannot be placed — i.e. a <strong>partial-coverage policy</strong>, which belongs to the Gate F
+coverage decision, not to format handling. It is the biggest lever, but it is not the same
+<em>kind</em> of decision as the others in this table.</p>
+<p>Class C is more homogeneous than expected: of the 426 scores, <strong>378 are blocked by
+<code>is_haplotype</code> alone</strong>, 18 by <code>is_interaction</code>, 18 by the <code>dosage_N_weight</code> trio, and 12
+by combinations. Class D is four scores, all tiny (1, 1, 5, and 10 variants — iritis,
+iridocyclitis, psoriatic arthritis, and SLE), where nothing at all could be placed.</p>
+<h3 id="36-the-classification-engine">3.6 The classification engine<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#36-the-classification-engine" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Source:</strong> <code>backend/mods_prs_compat.py</code> · <strong>Tests:</strong> <code>backend/tests/test_mods_prs_compat.py</code>
+· <strong>Runner:</strong> worker task <code>mods_prs_manifest_build</code>, driven by
+<code>backend/scripts/prs/build_prs_manifest.py</code>.</p>
+<p>Five design properties are worth understanding, because each was paid for:</p>
+<p><strong>1. One parser, one accumulator.</strong> There is exactly one row parser
+(<code>pgs_catalog_connector._row_to_variant</code>) and exactly one feature implementation
+(<code>mods_prs_compat._FeatureAccumulator</code>). Both the in-memory path (<code>parse_scoring_file</code> →
+<code>score_features</code>) and the streaming path (<code>open_scoring_file</code> → <code>stream_score_features</code>)
+drive that same accumulator, and both classifications land in the same
+<code>classify_features</code>. This is not tidiness — these counts decide <code>production_eligible</code>, so
+if the two read paths could disagree about a score’s features, they could disagree about
+whether it is safe to compute. Do not “optimize” by forking a second parse loop.</p>
+<p><strong>2. Conservative by presence.</strong> For complex-format and inheritance columns, the
+classifier flags on the <strong>presence of the column</strong>, not on confirming that rows use it.
+This over-defers a score carrying an unused column — the safe direction. Row-level
+refinement is a planned hardening step, not a bug.</p>
+<p><strong>3. Precedence is load-bearing.</strong> The order is <code>D (unplaceable) > C (dedicated) > D (no usable rows) > B > A</code>, and the placement of the second D check <em>after</em> C is
+deliberate: a <code>dosage_N_weight</code> file parses to zero <code>effect_weight</code> rows, and “needs a
+dedicated calculator” is the true explanation where “no usable rows” would falsely imply
+a broken file. Fifteen catalog scores hit exactly this path. Equally, that check must
+come <em>before</em> B and A — under classifier v1 an empty file had every feature count at
+zero, fell through to Class A, and was marked production-eligible: a score cleared for
+production that computes to nothing.</p>
+<p><strong>4. Versioned decisions.</strong> Every manifest row carries <code>classifier_version</code> and the
+scoring file’s sha256. A change in classifier meaning — or in what it extracts — bumps the
+version so a re-run re-classifies rather than skipping rows decided under different rules.
+v3 was the 2026-09-22 structural re-classify, v4 the <code>unplaceable_rows</code> threshold
+promotion (recomputed in place, no re-read), and <strong>v5 (2026-09-26, GH #377)</strong> adds the
+allele-convention counters below and therefore needs a full re-read.</p>
+<p>A bump that is <em>meant</em> to change no decision should be made to prove it:
+<code>scripts/prs/verify_classifier_bump.py snapshot</code> before the re-run and <code>compare</code> after it
+diff every score’s class, categories and eligibility. v5 moves no counter and promotes no
+category, so its diff must be empty — and an empty diff is also how you know the re-run
+actually ran.</p>
+<p><strong>4b. The allele-convention profile</strong> (v5). <code>n_snv_pair_top</code> (<code>A/C</code> + <code>A/G</code>) and
+<code>n_snv_pair_bot</code> (<code>C/T</code> + <code>G/T</code>) split a file’s non-palindromic biallelic SNVs in two. On
+the forward strand those are the same variants seen from the two strands and occur about
+equally often, so <code>top_fraction = top/(top+bot)</code> sits at ~0.5 — measured 0.4991, 0.5017,
+0.5018 on three ordinary scores. <strong>~1.0 or ~0.0 means the alleles were written in an A/B
+convention</strong> (Illumina TOP or BOT), whose strand assignment is made per variant and
+recorded nowhere in the file, so about half its rows are reverse-complemented relative to
+GRCh38 with nothing saying which half.</p>
+<p>Counts, never the ratio — <code>mods_prs_compat.top_fraction</code> derives it on read, the same rule
+Gate C’s coverage payload follows. And <strong>the profile alone never condemns a file</strong>:
+PGS005087/5088/5089 are <code>top_fraction = 1.000</code> with a 0 % complement-only rate, their
+alleles being the forward-strand pair at 5,326 of 5,326 checkable loci. The guard needs the
+measured complement-only rate too (§5.4). Full reasoning:
+<a href="../prs/palindrome_orientation_spike" class="internal internal-link alias" data-slug="prs/palindrome_orientation_spike">`prs_validation/palindrome_orientation_spike.md`</a>.</p>
+<p><strong>5. Memory discipline at catalog scale.</strong> <code>parse_scoring_file</code> holds the decompressed
+text, the split-line list, and every <code>PGSVariant</code> at once — fine for one file, fatal
+across 59 GB. The streaming reader yields lazily. Two further optimizations, each
+verified behavior-identical against a verbatim reimplementation across 16 real files
+(72 → 1.1 M variants, classes A/B/C, <strong>zero mismatches</strong>):</p>
+<ul>
+<li><code>_ColumnIndex</code> resolves column positions once per file, so <code>_row_to_variant</code> indexes
+the split fields rather than building a dict per row — a ~1.3× speedup.</li>
+<li>Allele pairs are <strong>interned to small integers</strong> before per-site storage. A scoring file
+has a handful of distinct allele pairs but millions of sites; keeping the pair
+<em>strings</em> per site dominated peak memory at 1,040 MB on the 9.5 M-row file. Interning
+is exact — distinct pairs get distinct ids — so unlike hashing it cannot under-count
+multiallelic sites, which would silently promote a score to eligible.</li>
+</ul>
+<p><strong>Cross-validation is still open.</strong> The classifier is deliberately structural and
+dependency-free, which means it is <em>our</em> reading of the format rather than the reference
+implementation’s. <code>GH #237</code> tracks
+cross-validating it against the official <code>pgscatalog</code> libraries.</p>
+<hr/>
+<h2 id="4-aside-the-curated-13-and-why-defaults-are-dangerous">4. Aside: the curated 13, and why defaults are dangerous<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-aside-the-curated-13-and-why-defaults-are-dangerous" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><code>SMOKE_TEST_PGS_SET</code> in <code>pgs_catalog_connector.py</code> (named <code>UKB_TRAIT_TO_PGS_DEFAULTS</code>
+until 2026-09-28) maps 13 UK-Biobank trait codes to specific PGS IDs. It was assembled
+best-effort in 2026-05, before any genotype data existed, and its header comment claimed
+it was “not load-bearing.” It was in fact load-bearing in three places: it sized the
+KGIA/PDR2 disease axis, it supplied the PDR1/PDR2 export CUIs, and it was the fallback
+for <code>mods_prs_compute</code>.</p>
+<p>Checking those 13 IDs against the actual scoring-file headers turns up something worse
+than “unvalidated” — <strong>three of them are for the wrong disease entirely:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Code</th><th>Label in our code</th><th>Actual <code>trait_reported</code> in the file</th><th></th></tr></thead><tbody><tr><td>RA</td><td>Rheumatoid arthritis</td><td><strong>Coeliac disease</strong> (<code>GRS-DQ2.5-CeD</code>)</td><td>❌ wrong trait</td></tr><tr><td>MS</td><td>Multiple sclerosis</td><td><strong>Venous thromboembolism</strong> (<code>PRS_VTE</code>)</td><td>❌ wrong trait</td></tr><tr><td>PD</td><td>Parkinson’s disease</td><td><strong>LDL cholesterol</strong> (<code>GLGC_2021_SAS_LDL_PRS_weights_PRS-CS</code>)</td><td>❌ wrong trait</td></tr><tr><td>HT</td><td>Hypertension</td><td>Systolic blood pressure (<code>GRS970_SBP</code>)</td><td>⚠️ proxy, not the same construct</td></tr><tr><td>CRC, AD, T2D, CAD, AF, ISS, BC, PC, AST</td><td><em>(as labelled)</em></td><td>matches</td><td>✅</td></tr></tbody></table></div>
+<p>The PD entry is doubly wrong: besides being a lipid score rather than a neurological
+one, <code>GLGC_2021_SAS</code> is trained on a <strong>South Asian</strong> cohort, which is the worst-case
+portability choice for a European-ancestry patient (§1.3).</p>
+<p>Separately, 5 of the 13 are <strong>not production-eligible</strong> under the Gate B classifier
+(PGS000016, PGS000019, PGS000041, PGS000511, PGS000896), and 9 of the 13 carry
+<code>weight_type=NR</code> — so for most of the set we do not know what scale its weights are on.</p>
+<p>The decision of record (<code>GH #244</code>,
+<code>GH #95</code>) is <strong>not</strong> to delete the set — a
+small fixture is genuinely needed, because you cannot do a test or export run against a
+5,377-score manifest. The shape agreed is: keep it, <strong>rename it to say what it is</strong>
+(done: <code>SMOKE_TEST_PGS_SET</code>, 2026-09-28), and derive the production/training axis from
+the release instead: axis v2 is one position per released Gate F axis pick (#244).
+Never let a hand-picked literal be a silent default. Note also that
+these 13 are relevant-to-Maureen but <em>not</em> structurally representative of the manifest,
+so they make a fine clinical shortlist and a lopsided pipeline-stress fixture.</p>
+<p>The general lesson, and the reason this section exists in a primer: a default that is
+never validated becomes a specification. This one silently defined the disease axis of a
+machine-learning model for two months.</p>
+<hr/>
+<h2 id="5-the-processing-engine">5. The processing engine<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-the-processing-engine" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="51-the-bug-that-defines-the-design">5.1 The bug that defines the design<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-the-bug-that-defines-the-design" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Everything below is shaped by one defect, found by external audit on 2026-07-12, that
+invalidated all 5,368 previously computed scores.</p>
+<p>The old genotype store was <strong>variant-only</strong>: the VCF importer skipped reference blocks,
+so a position where the patient matches the reference has <em>no row</em>. The scorer then did
+the obvious thing — a scoring locus not found in the store was counted as missing and
+contributed nothing.</p>
+<p>That is correct <strong>only when the effect allele is the alternate allele.</strong> When the PGS
+effect allele <em>is the reference allele</em> — and a person who is homozygous-reference
+therefore carries <strong>two</strong> copies of the effect allele — the correct dosage is 2 and the
+correct contribution is <code>2 × weight</code>. The pipeline scored 0.</p>
+<p>Measured on PGS000019, <strong>~49 % of loci are REF-effect</strong> (25 REF vs 26 ALT). At those loci
+the dosage map became <code>{0, 1, 0}</code> instead of <code>{2, 1, 0}</code> — an “artificial heterozygote.”
+This is a <strong>bias</strong>, not a constant offset: it distorts different scores by different
+amounts depending on how many of their effect alleles happen to be reference.</p>
+<p>Three lessons were extracted, and they are worth more than the fix:</p>
+<ul>
+<li><strong>“Absent” is ambiguous in a variant-only store.</strong> It can mean <em><a href="../genomics_glossary#2-what-the-person-actually-carries-genotype" class="internal internal-link alias" data-slug="genomics_glossary">hom-ref</a></em> or <em>not
+sequenced</em>, and those must never collapse to the same number.</li>
+<li><strong><code>snps_used / snps_in_scoring_file</code> is not coverage.</strong> That ratio clustered at
+42–52 % across the legacy fleet, and the retired UI colour-coded it as a data-quality
+verdict about the <em>published score</em> — presenting a symptom of our own defect as
+somebody else’s problem.</li>
+<li><strong>A self-check that shares your assumptions cannot fail.</strong> The internal reconstruction
+that “confirmed” the ~50 % coverage was benign assumed absent = dosage 0, so it
+reproduced the bug instead of detecting it. The audit caught it by asking the one
+question the check could not.</li>
+</ul>
+<p>The response was to <strong>wipe rather than quarantine</strong>: 9,793 rows deleted on 2026-07-13
+(5,368 distinct scores plus superseded re-runs), backed up first to
+<code>backend/data/prs_backups/</code>. Scores are fully recomputable from the retained genotypes
+plus the scoring files, so keeping known-wrong numbers around bought nothing and risked
+a leak. The 8,088,434-row <code>mods_genotype</code> table was untouched.</p>
+<h3 id="52-dense-callsets">5.2 Dense callsets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-dense-callsets" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Source:</strong> <code>backend/connectors/wgs_dense_callset.py</code> · <strong>Locus union:</strong>
+<code>backend/connectors/pgs_locus_union.py</code> · <strong>Worker task:</strong> <code>genotype_dense_callset</code></p>
+<p>The fix is to stop treating “absent” as “0” by making absence impossible at the sites we
+care about. The mechanism is a <strong>dense callset</strong>: a genotype record for <em>every</em> locus
+some target score needs, whether or not the patient carries a variant there.</p>
+<p>“Dense” does not mean all 3.1 billion positions. It means <strong>dense over the union of PGS
+loci</strong> — a site-targeted reconstruction, typically a few million positions, built from
+the source gVCF rather than from the variant-only database. This is deliberate:
+<code>build_locus_union()</code> collects the <code>(chrom, pos, alleles)</code> sites the target scores
+actually reference, deduplicated, and the builder resolves exactly those.</p>
+<p><strong>Every target locus resolves to exactly one of four outcomes:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Outcome</th><th>Condition</th><th>Emitted</th></tr></thead><tbody><tr><td><code>CALLABLE_HOMREF</code></td><td>A confident reference block spans the coordinate.</td><td><code>GT 0/0</code> with a concrete REF (from the FASTA) and the scoring non-ref ALT — so a REF-effect locus becomes <strong>dosage-2 eligible</strong>.</td></tr><tr><td><code>CALLABLE_VARIANT</code></td><td>An explicit, quality-passing variant record.</td><td>Its genotype.</td></tr><tr><td><code>EXPLICIT_MISSING</code></td><td>A no-call, a FAILed record, below-threshold quality, or no record at all.</td><td><code>./.</code> — routed to the missingness policy, never silently dropped.</td></tr><tr><td><code>STRUCTURAL_FAIL</code></td><td>REF disagrees with the FASTA, contig absent, orientation unresolvable.</td><td>Nothing. Logged, excluded, never a partial score.</td></tr></tbody></table></div>
+<p>And the <strong>Gate A exit invariant</strong> is a hard assertion, not a log line:</p>
+<pre><code>callable_homref + callable_variant + explicit_missing + structural_fail == union_size
+</code></pre>
+<p>i.e. <strong>zero residual implicit-zero.</strong> Every locus is accounted for by name. If the
+arithmetic does not reconcile, the build raises rather than returning a plausible result.</p>
+<p><strong>The callability policy, and the discovery that nearly re-introduced the bug.</strong> The
+patient’s gVCF is Sequencing.com 30× WGS, reblocked by <code>GvcfReblocker</code> — GATK-style
+(<code>END</code>/<code>MIN_DP</code> reference blocks, not DRAGEN <code>RGQ</code>), Ensembl contig naming. The
+provisional plan said hom-ref calls should require <code>GQ ≥ 20</code>, which is standard advice.
+Measuring the real file showed <strong>every PASS <a href="../genomics_glossary#3-the-files-rawest--most-processed" class="internal internal-link alias" data-slug="genomics_glossary">reference block</a> carries <code>GQ = 0</code></strong> —
+0 of 159,540 in the first 300k records had <code>GQ > 0</code>, because the reblocker does not
+preserve per-site GQ across collapsed blocks. Gating hom-ref on GQ would have rejected
+<em>every</em> hom-ref call and silently re-created the exact defect being fixed.</p>
+<p>So the policy identifies the caller from the header <strong>first</strong>, then applies thresholds:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Rule</th></tr></thead><tbody><tr><td><strong>hom-ref callable</strong></td><td>ref block spans coord, <code>FILTER == PASS</code>, <code>GT == 0/0</code>, <code>MIN_DP ≥ 10</code>, <code>DP ≤ 3 ×</code> autosomal median, REF verified against the FASTA. <strong>No GQ gate.</strong></td></tr><tr><td><strong>variant callable</strong></td><td><code>FILTER == PASS</code>, <code>GQ ≥ 20</code>, <code>DP ≥ 10</code>, REF == FASTA. Indels stricter: <code>DP ≥ 15</code>, <code>GQ ≥ 30</code>.</td></tr><tr><td><strong>explicit missing</strong></td><td><code>FILTER == FAIL</code> or <code>GT == ./.</code></td></tr></tbody></table></div>
+<p>The depth ceiling rejects pile-up-inflated collapsed/repetitive regions. A <code>strict()</code>
+variant (<code>MIN_DP ≥ 15</code>, variant <code>GQ ≥ 30</code>) is emitted as a second callset for sensitivity
+analysis. The numeric floors remain provisional pending clinical sign-off.</p>
+<p><strong>The indel-orientation trap.</strong> For equal-length alleles you can ask the FASTA which
+allele is the reference — exactly one matches. For an indel you cannot. A deletion
+<code>ATTCT</code> → <code>A</code> has an ALT that <em>is</em> the anchor base of the REF, so a per-allele
+“does this equal the reference span of its own length?” test matches <strong>both</strong> alleles.
+From a FASTA plus an unordered allele pair, “deletion of TTCT” and “insertion of TTCT”
+are genuinely indistinguishable. The first implementation structural-failed all three
+real indel sentinels with a misleading reason, and would have quietly dropped <em>every</em>
+indel hom-ref locus in a catalog-scale run. The fix: <code>TargetLocus</code> carries <strong>explicit
+<code>ref</code>/<code>alt</code></strong> when the source knows it, and the FASTA only <em>verifies</em>
+(<code>ref == ref_bases(pos, len(ref))</code>) rather than deriving. FASTA-derivation is now gated
+on <code>len({len(a) for a in alleles}) == 1</code>. Orientation-unknown indels defer honestly.</p>
+<p><strong>Real-data validation</strong> (2026-07-13, against the actual gVCF, 6 sentinel loci,
+reconciles 6/6, zero structural failures):</p>
+<ul>
+<li>Autosomal median depth 32 → depth ceiling 96.</li>
+<li><strong>A known pathogenic variant, carried in the source report with no rsID at all</strong> —
+resolved correctly by coordinate, so the position-keyed builder catches exactly
+what the legacy rsID-keyed path dropped.</li>
+<li>Five somatic tumor loci (BRAF V600E, NRAS Q61K, three indels) → germline
+<strong>hom-ref <code>GT 0/0</code></strong>, hence REF-effect-eligible.</li>
+</ul>
+<p>Both results are biologically correct: a carrier call at the germline site
+variant, wild-type in the germline at every somatic locus. That is the check that would
+have failed loudly if the reconstruction were wrong.</p>
+<p><strong>One boundary worth guarding.</strong> The dense-callset path does <strong>not</strong> read
+<code>mods_genotype</code>. It streams the local gVCF directly against the pinned local FASTA. That
+is the whole point — reading the source file is precisely what bypasses the variant-only
+store that caused the bug. Do not “helpfully” wire the builder onto <code>mods_genotype</code>; it
+would reintroduce the defect. A pleasant side effect is zero Cloud SQL egress, since the
+only non-patient input is a public reference genome on local disk.</p>
+<h3 id="53-streaming-versus-loading-in-memory">5.3 Streaming versus loading in memory<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-streaming-versus-loading-in-memory" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This pipeline touches four things that do not fit in RAM, and each needed the same
+treatment. The pattern is uniform enough to state as a rule: <strong>hold one record, not one
+file.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Where</th><th>Naive approach</th><th>What it cost</th><th>The streaming form</th></tr></thead><tbody><tr><td><strong>gVCF ingest</strong></td><td><code>read_bytes</code> → <code>gzip.decompress</code> → <code>splitlines</code> → list</td><td>Multi-GB, OOM on a WGS gVCF</td><td><code>iter_vcf_records()</code> yields lazily — <strong>peak 0.9 MB</strong> to walk ~5 M variants</td></tr><tr><td><strong>Scoring-file classify</strong></td><td><code>parse_scoring_file</code> holds text + split lines + every <code>PGSVariant</code></td><td>1,040 MB peak on one 9.5 M-row file; impossible across 59 GB</td><td><code>open_scoring_file</code> yields <code>(meta, rows)</code> with <code>rows</code> a generator</td></tr><tr><td><strong>Dense callset</strong></td><td>Index the gVCF, random-access each target</td><td>Requires pysam/cyvcf2 (neither installs on the Windows dev box)</td><td><strong>Streaming merge-join</strong>: both sides sorted by (contig-rank, pos), one linear pass, bounded memory, pure-Python gzip</td></tr><tr><td><strong>Genotype cache</strong></td><td>Re-stream 4.4 M rows from Cloud SQL per task</td><td>Billed egress, thousands of times, for a file that never changes</td><td>Pull once → pickle to shared local disk → every later task reads locally, <strong>zero egress</strong></td></tr></tbody></table></div>
+<p>Two footguns that only show up at scale:</p>
+<p><strong>Chunk your commits.</strong> The first 4.4 M-row ingest accumulated everything into a single
+transaction and committed at the very end. A uvicorn <code>--reload</code> (triggered by staging a
+200 MB VCF under the watched mount) killed the long-lived transaction and rolled back
+<em>everything</em> — hours gone, zero rows durable. The rewrite commits ~100 K records at a
+time, each its own short transaction, with per-chunk progress and a printed resume
+point. The upsert is idempotent, so a re-run resumes cheaply.</p>
+<p><strong>Streaming the file does not mean streaming the working set.</strong> The genotype cache
+solved the egress problem and created a memory one: each task unpickles the cache into a
+<strong>~2 GB in-RAM dict</strong>. Five concurrent local workers on the 30 GB box hit <code>ENOMEM</code>,
+crashed, and churned their tasks; <strong>two</strong> workers ran clean and finished all 36 tasks.
+Fewer workers finished faster, because the only thing quicker than a fast worker is one
+that never has to restart. <em>(2026-09-29: history. The cache,
+<code>get_patient_genotype_dict_cached</code>, served only the retired <code>compute_prs_pure</code> scorer and
+was deleted (GH #481). Gates A, C and D read the dense callset, never <code>mods_genotype</code>
+(§5.2), so do not revive it.)</em></p>
+<p>One more, from skipping records: in the VCF importer, skip reference blocks by testing
+that <strong>ALT is a non-variant</strong> (<code>.</code>, <code>&lt;NON_REF></code>, <code>*</code>) — <strong>not</strong> by testing <code>GT == 0/0</code>.
+A genuine hom-ref call at a real variant site has a real ALT and must be kept. Keying the
+skip on the genotype silently drops real variants; there is a regression test
+(<code>test_parse_vcf_homozygous_ref_emitted</code>) holding that line.</p>
+<h3 id="54-the-scorer-gate-c">5.4 The scorer (Gate C)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-the-scorer-gate-c" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Source:</strong> <code>backend/mods_prs_scorer.py</code> · <strong>Tests:</strong> <code>backend/tests/test_mods_prs_scorer.py</code>
+· <strong>Persistence:</strong> <code>mods_prs_service.store_score_result</code> · <strong>Worker task:</strong> <code>mods_prs_compute</code></p>
+<p>Gate A fixed how the genome is read; this is the arithmetic that reads it. The scorer
+never asks “is there a variant row here?” — the question that conflated <em>homozygous
+reference</em> with <em>not sequenced</em>. It asks, of the dense callset, <strong>which allele is the
+reference at this locus, and how many copies of the effect allele does the genotype
+name?</strong> A <code>GT 0/0</code> at a REF-effect locus answers <em>two</em>, and that single line is the fix.</p>
+<p>Orientation is resolved from the <strong>reference allele alone</strong>, not from REF+ALT. That is
+deliberate: Gate A emits <code>ALT=.</code> for an explicitly-missing locus and the scoring ALT for a
+hom-ref one, so a rule that needed the ALT would behave differently on the two.</p>
+<p><strong>Every scoring row lands in exactly one of eight outcomes</strong>, and the scorer raises rather
+than returning a number if they do not sum to the rows it read — the same exit gate Gate A
+applies to its four:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Outcome</th><th>Meaning</th></tr></thead><tbody><tr><td><code>scored</code></td><td>Dosage resolved and added.</td></tr><tr><td><code>not_in_callset</code></td><td>No Gate A record at this coordinate — a gap in the <em>targets</em>.</td></tr><tr><td><code>explicit_missing</code></td><td>Record present, genotype is a no-call — a gap in the <em>sequencing</em>.</td></tr><tr><td><code>ambiguous_palindromic</code></td><td>A/T or C/G pair; strand unresolvable from alleles.</td></tr><tr><td><code>ref_allele_mismatch</code></td><td>The reference allele is neither scoring allele.</td></tr><tr><td><code>unsupported_ploidy</code></td><td>Genotype is not diploid (the chrX promotion assumes two X’s).</td></tr><tr><td><code>unplaceable_row</code></td><td>No harmonized position (§2.6).</td></tr><tr><td><code>missing_other_allele</code></td><td>Cannot orient a wild-type dosage with one allele.</td></tr></tbody></table></div>
+<p>The three “not scored for cause” outcomes are kept apart from the two “gap” outcomes
+because they mean different things to a reader; collapsing them into one “missing” bucket
+is how the retired coverage column came to mean nothing (§5.1).</p>
+<p><strong>Two conservative defaults, both recorded on the run rather than baked in.</strong></p>
+<p><em>Palindromic SNVs defer.</em> The complement of an A/T pair is an A/T pair, so both strand
+readings fit the data and they give opposite dosages — the one class where a strand error
+is silent <em>and</em> inverting. Resolving it needs an allele frequency to compare against, i.e.
+a reference panel: Gate D. Palindromes appear in <strong>1,197 of 2,322 scores (51.6 %)</strong> and
+account for <strong>13,929,705 of 894,528,461 rows — 1.56 %</strong> overall.</p>
+<p><strong>But the aggregate badly understates the per-score cost, and this document said so for a
+day.</strong> Measured on the Gate E1 run (<code>mods_polygenic_score</code>, 2026-09-24), among the 1,197
+<em>affected</em> scores the deferral takes a median of <strong>10.24 % of their rows</strong>, p95 <strong>21.49 %</strong>,
+mean 11.20 % — and <strong>1,088 of 2,321 scores lose more than 5 % of their rows</strong>. The
+aggregate 1.56 % was right; the per-score figures previously quoted here (median 2.47 %,
+p95 17.33 %) were computed on a different denominator and are <strong>4× too low</strong> on the median.</p>
+<p>The reason is visible the moment you split by score size, and it inverts the “concentrated
+in a tail” reading:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>score size</th><th>scores</th><th>mean % of rows palindromic</th><th>median</th></tr></thead><tbody><tr><td>&lt; 1k rows</td><td>1,193</td><td>9.21 %</td><td>8.86 %</td></tr><tr><td>1k–100k</td><td>452</td><td>4.60 %</td><td>0.00 %</td></tr><tr><td>100k–1M</td><td>293</td><td>0.00 %</td><td>0.00 %</td></tr><tr><td>> 1M</td><td>383</td><td>0.87 %</td><td>0.00 %</td></tr></tbody></table></div>
+<p>The burden sits almost entirely on the <strong>small, curated, pre-2015 hit-list scores</strong> — which
+are precisely the interpretable ones — while the genome-wide LD-posterior scores that
+dominate the row count carry almost none. So “1.56 % of rows” is a statement about the big
+scores, not about the fleet. Gate D’s palindrome recovery is worth substantially more than
+a row-weighted average suggests.</p>
+<blockquote>
+<p>Two earlier revisions got this wrong in opposite directions. One quoted <em>“12.5 % of rows,
+median 7.6 % per score”</em> from a 60-score sample; the correction to full-fleet aggregates
+then over-corrected the per-score claim. The durable lesson is that <strong>a row-weighted
+aggregate and a per-score median answer different questions</strong>, and for anything that is
+consumed per score — which a feature vector is — the per-score distribution is the one
+that matters.</p>
+</blockquote>
+<p><em>Strand flips are measured, not applied.</em> Both sides are GRCh38 and Gate A has already
+verified every record’s REF against the pinned FASTA, so a complement-only allele match is
+evidence of a problem — an author-strand submission, a harmonization error, a different
+variant — rather than a coordinate detail to repair in passing. Applying the flip would
+make the problem permanently undetectable: for a single-base pair, accepting complements
+resolves <strong>all four</strong> possible reference bases, so <code>ref_allele_mismatch</code> could never fire
+again and the scorer would lose its only structural check that the scoring file and the
+genome describe the same variant. So the rows a flip <em>would</em> have rescued are counted as
+<code>n_complement_only_match</code> and deferred. Near zero confirms the forward-strand premise; a
+large count refutes it. <code>allow_strand_flip=True</code> exists, and says so on the run.</p>
+<p><strong>Read that “near zero” per score, not fleet-wide</strong> (GH #371, 2026-09-26). E2’s aggregate
+is 0.0226 %, but <strong>37 scores sit above 5 % and six near 50 %</strong> — the signature of a file
+written in Illumina’s A/B allele convention, where the strand is assigned per variant and
+recorded nowhere. PGS005393 is the clean case: 53,705 rows, every one <code>A/C</code> or <code>A/G</code>, not a
+single <code>C/T</code>, and 49.9 % of them reverse-complemented. For those files the premise is
+false, half their ordinary rows are being dropped as <code>ref_allele_mismatch</code>, and their
+palindromes are the least safe in the fleet.</p>
+<p><em>Those rows are recoverable, per file and on evidence</em> (GH #376).
+<code>ScoringPolicy.strand_flip_recovery_scores</code> names the scores whose complement-only rows may
+be flipped — a set of ids rather than a second boolean, because the global
+<code>allow_strand_flip</code> is an assumption about the whole catalog and this is a finding about
+named files, and a run’s provenance must not let the two look alike. A file qualifies on
+<strong>both</strong> signals: an A/B allele convention (§3.6 4b) <em>and</em> a measured complement-only rate
+above 5 %. <code>scripts/prs/strand_recovery_candidates.py</code> computes the set and refuses to call
+it final while any manifest row is still at an older classifier. Measured over the full v5
+manifest (2026-09-26): <strong>5 scores, 26,885 recoverable rows</strong> — 4 further files show the
+allele convention but match the reference forward, and 32 exceed the rate without the
+convention, and <em>neither group is a candidate</em>. <strong>Empty by default</strong> — it
+recovers coverage, not correctness, it cannot touch a palindromic row, and switching it on
+means re-scoring the affected scores, so it is a Gate F decision that can ride E3.</p>
+<p><strong>Weight scales are bucketed, not guessed</strong> (§3.4). <code>beta</code>/<code>log(OR)</code>/<code>ln(OR)</code>/<code>log(HR)</code> are
+additive and computed. A <em>raw</em> odds or hazard ratio is <strong>refused</strong> — summing ratios is a
+category error that produces a plausible number <em>inside</em> the theoretical bounds, so neither
+the arithmetic nor the bounds check would catch it. Everything else — <code>NR</code> (1,390 scores)
+and the free-text tail — computes with a <code>weight_scale_unverified</code> flag, which Gate F can
+gate on. The allow-list is exact strings rather than a regex, because a pattern loose
+enough to catch <code>metaGRS</code> would be inventing a scale for a quarter of the catalog.</p>
+<p><strong>What it writes.</strong> A <code>coverage_v1</code> metadata payload carrying the three named quantities of
+§5.4’s read contract, plus a <code>gate_c</code> block with the outcome histogram, the dosage
+histogram, the retained and theoretical bounds, and <code>n_homref_effect_dosage_2</code> — the count
+of loci a hom-ref genotype scored as dosage 2, every one of which the old scorer scored as
+0. <strong>No ratio is ever stored</strong>: coverage fractions are computed on read from numerator and
+denominator, so storage and display cannot disagree. <strong>No <code>percentile_v1</code> key is written at
+all</strong>, because Gate D owns it and an absent key renders as “the scorer did not record a
+percentile”, which is the true statement.</p>
+<p>Rows are written at <code>validity='quarantined'</code>, one commit per score, superseding any earlier
+unreleased score for the same (patient, PGS). Measured throughput on the largest catalog
+file (PGS005197, 9,503,677 rows): <strong>220 s at a 2.2 MB peak heap</strong> — the streaming reader
+holds one record, where the in-memory parser peaked at 1,040 MB on that same file (§5.3).</p>
+<p><strong>Not yet run:</strong> the <code>pgsc_calc</code> cross-validation. <code>scripts/prs/reconcile_pgsc_calc.py</code>
+exports the bundle and diffs the two sums, but the middle step needs Nextflow and a
+container runtime.</p>
+<p><strong>It is not a one-time gate.</strong> The decision of record (Richard, 2026-09-22) is that both
+calculators run on <strong>every</strong> scoring pass and the delta is kept as a first-class output. A
+check that shares the scorer’s assumptions cannot fail (§5.1), so the structural answer is
+a standing second opinion rather than a snapshot — and the divergence is itself
+informative, because it decomposes into three named terms:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Term</th><th>Source</th><th>What it tells you</th></tr></thead><tbody><tr><td>imputation</td><td><code>pgsc_calc</code> adds <code>2p</code> for missing dosages; Gate C drops them</td><td>how much of the published score is <em>invented</em> rather than measured</td></tr><tr><td>palindrome</td><td><code>pgsc_calc</code> resolves strand by allele frequency; Gate C defers</td><td>what the deferral in this section actually costs, per score</td></tr><tr><td><strong>residual</strong></td><td>neither policy explains it</td><td><strong>should be zero — a non-zero residual is a real defect in one of the two</strong></td></tr></tbody></table></div>
+<p>To isolate the residual, run <code>pgsc_calc</code> with <code>--no_imputation --keep_ambiguous false</code>;
+the remaining comparison is over the intersection of loci both tools scored, which is the
+part that tests the arithmetic. Running it <em>without</em> those flags is the other useful mode,
+because the difference between the two runs is exactly the imputation + palindrome terms.</p>
+<p>MODS stays canonical for the released value — it is the only one that emits the
+<code>coverage_v1</code> payload the read layer renders, and it reproduces in-repo without a
+container. <code>pgsc_calc</code> is the witness, and agreement within tolerance becomes a Gate F
+release criterion.</p>
+<h3 id="55-current-status">5.5 Current status<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#55-current-status" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The rebuild is organized as lettered gates. <strong>A, B, C and the two E passes are done;
+D and F have run for the v0 set only</strong> (smoke run #1, 2026-09-28): the Gate F v0 release
+writer is <code>backend/mods_prs_release.py</code>, driven by <code>backend/scripts/prs/release_gate_f.py</code>
+(GH #296; <code>--demote</code> withdraws a release), and it released 590 rows tagged <code>smoke_v0</code>. The
+final, fleet-wide D and F have not started.** The single most important thing to understand is
+that <em>“we computed scores” does not mean scores exist to a reader</em> — every row is
+<code>quarantined</code> until Gate F promotes it, and the read layer filters on <code>validity</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Gate</th><th>What it does</th><th>Status</th></tr></thead><tbody><tr><td><strong>A — dense callset</strong></td><td>Rewrites how the <strong>genome</strong> is read, so a hom-ref site says <code>GT 0/0</code> instead of being absent. Fixes the <strong>input</strong>.</td><td>✅ <strong>Live</strong>, and the pinned GRCh38 FASTA is staged in the canonical checkout as of 2026-09-22 (§2.5). Migration 103; <code>mods_prs_run</code> holds one real run (<code>708c70ba…</code>, gate <code>gate_a_dense_callset</code>, reconciles 6/6, full provenance). Merged via <code>PR #235</code>.</td></tr><tr><td><strong>B — compatibility manifest</strong></td><td>Catalogs <strong>which published scores are computable</strong>, and why. Never touches the genome. Decides <strong>what is worth computing</strong>.</td><td>✅ <strong>Live.</strong> Migrations 104 + 107 + 108; all 5,377 scores classified, <strong>3,753 production-eligible</strong> at v4. Re-classifying on <code>gate_b_structural_v5</code> (2026-09-26, GH #377) to add the allele-convention counters — decisions unchanged by construction, asserted with <code>verify_classifier_bump.py</code>.</td></tr><tr><td><strong>B.5 — read layer + UI</strong></td><td>Projects the manifest and runs into an API and five dashboard tabs (Fleet, Manifest, Policy, Runs, Scores).</td><td>✅ <strong>Live.</strong> <code>mods_prs_pipeline_service.py</code> / <code>mods_prs_pipeline_api.py</code>, <code>frontend/src/components/prs/</code>.</td></tr><tr><td><strong>C — the scorer</strong></td><td>Replaces <code>compute_prs_pure</code> with a scorer over the dense callset. Fixes the <strong>arithmetic</strong>.</td><td>✅ <strong>Built.</strong> <code>backend/mods_prs_scorer.py</code>; <code>compute_prs_pure</code> is deleted, not deprecated. <code>test_hom_ref_effect_allele_contributes_two_copies</code> is green, and the exit gate is a reconciliation assertion (every scoring row lands in exactly one of eight outcomes) plus the theoretical-bounds check. Cross-validation against <code>pgsc_calc</code> is exported and diffed by <code>scripts/prs/reconcile_pgsc_calc.py</code> but <strong>has not been run</strong> — it needs Nextflow + a container runtime.</td></tr><tr><td><strong>D — ancestry &amp; percentile</strong></td><td>Normalize raw scores against a reference distribution, with continuous PCA adjustment that places exact coordinates rather than bucketing. Panel: <strong><code>pgsc_HGDP+1kGP_v1</code></strong> (user, 2026-09-24) — the same panel the <code>pgsc_calc</code> witness uses, so a MODS-vs-witness divergence stays attributable to arithmetic rather than to panel choice.</td><td>🚧 <strong>Built; first real pass 2026-09-28 on the v0 set</strong> (D1 <code>61aaccdf</code>, D2 <code>d63b3439</code> under the #499 fix, D3 against EUR). Not run fleet-wide; ancestry PCs not computed. Before that: built, not run. The archive is downloaded, md5-verified and extracted (§5.7): 15 GB of plink2 <code>.pgen</code>/<code>.psam</code>/<code>.pvar.zst</code>, <strong>3,942 samples</strong> over 84,325,213 variants. <strong>D3</strong> (PC fit, percentile, <code>run_gate_d.py</code>) was built in PR #386; <strong>D1</strong> (<code>mods_prs_panel_af</code>) and <strong>D2</strong> (<code>mods_prs_panel_score</code>) in GH #396, tested on synthetic plink2 fixtures (§5.7, “as built”). The real pass waits on the worker-image rebuild that pins <code>pgenlib</code> + <code>zstandard</code> (GH #339), and D2 on the E3 re-score (GH #422). <strong>Not optional, and not merely “after E”</strong> — it is what makes the feature vector usable at all (§1.4).</td></tr><tr><td><strong>E1 — the measurement run</strong></td><td>Compute numbers for the <strong>2,322</strong> v3-eligible scores, to settle policy.</td><td>✅ <strong>Done 2026-09-24</strong> (§5.6). Union 11,400,292 loci; <strong>2,321 scored, 1 refused by design</strong>; all reconcile, all within theoretical bounds. Quarantined. Superseded by E2.</td></tr><tr><td><strong>E2 — the v4 fleet run</strong></td><td>Recompute at v4 scope: <strong>3,753</strong> eligible scores, 2.166B rows.</td><td>✅ <strong>Done 2026-09-26</strong> (§5.8). Union 19,215,298 loci → 16,964,243-record callset; <strong>3,752 scored, 1 refused</strong> (the same <code>PGS000156</code>); all reconcile, none outside bounds, and the outcome counts sum to the manifest’s eligible rows exactly. All E1 rows now <code>superseded</code> — no mixed-callset blend remains. Quarantined.</td></tr><tr><td><strong>F — biological checks + release</strong></td><td>Weight-type sanity (§3.4), coverage gates, then the PDR feature manifest.</td><td>🚧 <strong>v0 writer built (#296) and run: 590 released as of 2026-09-28</strong> (590 scores over 109 anchors, <code>smoke_v0</code>, #296’s rules with recorded waivers; <code>backend/mods_prs_release.py</code>, <code>scripts/prs/release_gate_f.py</code>). The full release is not started. It now has its inputs: 927 scores carry an unverified weight scale, and the palindrome/<code>NR</code> calls are the remaining policy.</td></tr></tbody></table></div>
+<p><strong>The running order is E → D → E again, and the letters hide that.</strong> The gates are named in
+dependency order for <em>contents</em>, not for execution. Two things break the straight-line
+reading:</p>
+<ol>
+<li><strong>D is itself a fleet run.</strong> A percentile needs a scored reference distribution —
+thousands of panel genomes pushed through <em>the same Gate C policy</em>, or the deflation
+does not cancel between Maureen and the panel (§1.4). Gate E is the instrument Gate D
+uses, not its predecessor by alphabet. It is also a different data shape: the dense
+callset measured <strong>8.45 GB for one genome</strong> over the 19,215,298-locus v4 union
+(<strong>498 B/record</strong> — and note that scaling E1’s <em>measured</em> 407 B/record would still have
+been 22 % low, §5.3), so a panel does not fit the Gate E layout and the architecture has
+to be designed against a measured single-genome run.</li>
+<li><strong>E is the measurement that settles the open policy decisions below.</strong> The
+<code>unplaceable_rows</code> threshold, the palindrome cost, and the <code>NR</code> weight-type policy were
+all judgement calls. E1 turned the first into a number and E2 confirmed it at scale;
+the palindrome question is now the only one that still gates a re-score, and it is
+answerable only from the panel. Normalising first would calibrate against a policy not
+yet chosen.</li>
+</ol>
+<p>So the order of work is:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Pass</th><th>What</th><th>Released?</th></tr></thead><tbody><tr><td><strong>E1</strong></td><td>Maureen, one pass over the 2,322 v3-eligible scores. A <strong>measurement run</strong> — its numbers were disposable by design.</td><td>✅ done 2026-09-24 — <code>quarantined</code>, now superseded</td></tr><tr><td>—</td><td>Settled <code>unplaceable_rows</code> on E1’s actual histograms → classifier v4, 3,753 eligible. Needed nothing from the panel.</td><td>✅ done 2026-09-24</td></tr><tr><td>—</td><td>Rebuild the union + callset at v4 scope. <strong>Must precede D</strong>, because D1 extracts frequencies over the union.</td><td>✅ done 2026-09-25</td></tr><tr><td><strong>E2</strong></td><td>Re-score at v4 scope. <em>Ran before D rather than after it</em> — so it is a second measurement run, not the “final policy” run the row below originally meant.</td><td>✅ done 2026-09-26 — <code>quarantined</code></td></tr><tr><td><strong>D1</strong></td><td>Stage the panel; extract per-locus allele frequencies over the union. <em>Built (GH #396), not run.</em></td><td>No</td></tr><tr><td>—</td><td><strong>Decide palindromes</strong> on D1’s frequencies: leave deferred (E2 is the release candidate) or resolve them (Maureen needs an E3).</td><td>—</td></tr><tr><td><strong>D2</strong></td><td>Score the 3,330 unrelated panel samples under the <em>final</em> policy → the reference distribution. <em>Built (GH #396), not run.</em></td><td>No</td></tr><tr><td><strong>D3</strong></td><td>Fit ancestry PCs + the mean/variance regression → z-score and percentile. <em>Built (PR #386).</em></td><td>No</td></tr><tr><td><strong>E3</strong></td><td>Only if the palindrome decision changes the policy.</td><td>Candidate</td></tr><tr><td><strong>F</strong></td><td>Weight-scale sanity, coverage gates, then promote.</td><td>Yes</td></tr></tbody></table></div>
+<p>The trap is not doing E first. The trap is doing E <em>once</em> and treating its output as final.
+E1 → v4 → E2 is exactly that loop running as designed; whether it closes here or needs one
+more turn is the palindrome decision above.</p>
+<p><strong>The last hop to the model is now wired</strong> (GH #297, 2026-09-25).
+<code>build_pdr2_input_pickle.py</code> used to read
+<code>float(row.raw_score)</code> — not <code>z_score</code>, not <code>percentile</code> — so Gate D’s output would have had
+nowhere to go. <code>resolve_prs_vector</code> now reads the normalized field and records which one on
+the pickle, its <code>.meta.json</code> sidecar, the <code>/prs/export/pdr2</code> headers and the
+<code>/prs/preview/pdr-input</code> payload. Two properties of that switch matter more than the field
+change. <strong>One field backs the whole vector</strong>: a z-score at one position and a 0–100
+percentile at another are not one scale, and the loss reads the positions together, so a
+released score missing the chosen field drops out (its position takes the reference fill,
+<code>measured</code> says False) rather than contributing on a different axis. And <strong>the raw fallback
+is opt-in</strong> — with no normalized field anywhere the export raises <code>UnnormalizedPRSError</code>
+(409 from the API) unless <code>--allow-raw-prs-fallback</code> asks for raw sums, which are then
+flagged <code>prs.raw_score_fallback</code>.</p>
+<blockquote>
+<p><strong>Superseded 2026-09-28:</strong> 590 released rows (<code>smoke_v0</code>, release run <code>c3be9df0</code>). The paragraph below describes the state before the v0 release.</p>
+</blockquote>
+<p><strong>Therefore, right now:</strong> <code>mods_polygenic_score</code> has <strong>0 released rows</strong>, and will keep
+having 0 until Gate F promotes — Gate C writes <code>quarantined</code>. <code>mods_genotype</code> has
+<strong>8,088,434 rows</strong> and is no longer on the scoring path at all. The application correctly
+displays “no PRS computed,” and nothing downstream — API, MCP tool, or PDR export — can
+surface an unvalidated score, because the reader functions filter on
+<code>validity == 'released'</code>.</p>
+<p>A Gate C row is rendered as <code>withheld</code> (“computed, but the result is not released”), which
+is a different and more informative statement than the <code>awaiting_computation</code> the same
+screen showed before. That distinction is the whole reason the read layer discriminates
+five states instead of rendering a blank cell.</p>
+<p><strong>The release lifecycle</strong> that enforces that: migration 102 added a <code>validity</code> column
+plus provenance columns and a partial unique index (<code>uq_prs_released</code>), and
+<code>all_scores_for</code> / <code>latest_score_for</code> / <code>_build_prs_vector</code> / <code>_build_kgia_inputs_summary</code>
+all filter on it. A rebuilt-but-unvalidated score cannot leak into a model input.</p>
+<p><strong>How the UI states this honestly.</strong> <code>mods_prs_pipeline_service.py</code> discriminates five
+score states — <code>released</code>, <code>withheld</code>, <code>deferred</code>, <code>awaiting_computation</code>,
+<code>unclassified</code> — because “we deliberately will not compute this, here is why” and
+“Gate C has not run yet” are opposite claims that a blank cell would render identically.
+Numeric keys are <strong>physically absent, not null</strong>, whenever a number is not authorized, so
+a caller that forgets to check state gets <code>undefined</code> and renders nothing rather than a
+misleading zero. And coverage is three separate named quantities (structural overlap /
+genotype callability / effective variance-weighted information), never one scalar — the
+single “Cov.” column is what encoded the REF-effect bug as a verdict.</p>
+<p><strong>Open decisions, ranked by leverage:</strong></p>
+<ol>
+<li>
+<p><del>Decide the partial-coverage policy for <code>unplaceable_rows</code></del> — <strong>done 2026-09-24,
+classifier <code>v4</code></strong> (user, this session). It turned out to be barely a decision. The 1,437
+sole-blocked scores are blocked by a <strong>median of 0.005 % of their rows</strong> (p95 0.138 %,
+worst 5.0 %), while carrying <strong>1.27 billion variant rows — more than the entire v3
+eligible set</strong>. A threshold of 0.1 % would admit 1,338 of them, 1 % admits 1,431, 5 %
+admits all 1,437: the curve is flat, so the threshold buys no coverage and exists only
+to refuse a score with a genuinely meaningful hole. <code>MAX_UNPLACEABLE_FRACTION = 0.01</code>
+(a score must be ≥ 99 % placeable). <strong>Eligible: 2,322 → 3,753; eligible rows: 894.5M →
+2.166B.</strong> No score lost eligibility.</p>
+<p>Two things make this cheaper and safer than it looks. Unplaceability is a property of
+the scoring <strong>file</strong>, not of the patient’s genome, so it deflates the patient and the
+reference panel <em>identically</em> and Gate D’s normalization — a monotone transform — absorbs
+it exactly (§1.4); the cost is variance, not bias. And because v4 moved no feature
+extraction, eligibility is a pure function of counts the manifest already stores, so
+<code>backend/scripts/prs/reclassify_v4_eligibility.py</code> recomputes it without re-reading
+59 GB. That shortcut is <em>verified</em>, not assumed: <code>--verify N</code> re-parses N scoring files
+end to end and checks a real classification agrees (30/30, 0 mismatches).</p>
+<p>Promoting <code>multiallelic</code> is the next format decision and is worth only 132 scores.</p>
+</li>
+<li>
+<p><del>Close the <code>hm_pos → chr_position</code> fallback</del> — <strong>done</strong> (GH #250, §2.6).
+The live successor, and now <strong>the only open decision that can still force a re-score</strong>:
+<strong>resolve palindromic SNVs.</strong> Gate C defers them. Restated at E2’s v4 scope
+(2026-09-26, over the 3,752 computed scores): <strong>1,687 scores carry at least one
+palindromic row</strong>, and among those the deferral takes a <strong>median 10.41 %</strong> of the
+score’s rows (mean 11.05 %, p95 19.70 %), with <strong>1,575 scores losing more than 5 %</strong> —
+up from 1,088 of 2,321 at E1 scope, because v4 admitted exactly the small curated
+pre-2015 scores where palindromes concentrate. The fleet-wide row figure is
+64,810,321 / 2,166,261,879 = <strong>2.99 %</strong>, and as always that row-weighted aggregate
+describes the big genome-wide scores, not the per-score burden (§5.4). Their strand
+cannot be read off the alleles, and only <strong>8.3 % of scores carry an effect allele
+frequency</strong> of their own — so the scoring files cannot resolve this themselves and Gate
+D’s reference panel is the only route. <strong>Decide this on D1’s frequencies, before D2</strong>:
+resolving palindromes changes the scoring policy, and therefore obliges an E3.</p>
+<p><strong>Scoped 2026-09-26 by GH <code>#371</code></strong> (§5.7b): there is no second route — <code>hm_source</code>
+carries no strand information — and the frequency route yields <strong>8.48 %</strong> of the
+deferred rows, not 9.5 %, once frequencies within 0.08 of 0.5 are excluded as
+undecidable. So what is left to decide is where to set that margin; the residual
+~91 % becomes a Gate F coverage gate rather than a pending question.</p>
+</li>
+<li>
+<p><del>Re-classify the fleet under <code>gate_b_structural_v3</code></del> — <strong>done 2026-09-22</strong>
+(GH #273, 6 shards, ~103 min, 0 failures, all 9 manifest invariants pass).</p>
+</li>
+<li>
+<p><del>Retire or rename <code>UKB_TRAIT_TO_PGS_DEFAULTS</code></del> — <strong>renamed <code>SMOKE_TEST_PGS_SET</code>
+2026-09-28</strong> (<code>#244</code>); it no longer sizes
+the disease axis. Its three wrong-trait entries are documented on the constant, not
+fixed, since it is now a named fixture
+(<code>#95</code>) (§4).</p>
+</li>
+<li>
+<p><strong>Normalize <code>weight_type</code> case, and decide the <code>NR</code> policy</strong> for 1,390 catalog scores
+(§3.4). E2 gives this its operative number: <strong>927 of the 3,752 computed scores carry a
+<code>weight_scale_unverified</code> flag</strong> (E1: 607). Gate F’s call; it gates <em>release</em>, not
+re-scoring, so it does not block D.</p>
+</li>
+<li>
+<p><strong>Cross-validate the classifier</strong> against the official <code>pgscatalog</code> libraries
+(<code>#237</code>).</p>
+</li>
+<li>
+<p><strong>Clinical sign-off on the callability floors</strong> (§5.2), currently provisional.</p>
+</li>
+<li>
+<p><strong>Wishlist, not scheduled (2026-09-28): give the measurement-trait scores a place.</strong> The
+PDR2 loss is keyed by <em>disease</em>: each PRS value sits at a position that is a disease node in
+the graph. Only about 1,620 of the 3,753 eligible scores map to a MONDO disease. The other
+~2,033 predict measurements or attributes: LDL/HDL cholesterol, BMI, height, blood pressure,
+HbA1c, C-reactive protein, kidney function, protein levels, smoking. They have no position,
+so the model never sees them. That runs against §1.4’s “maximise usable data points”.
+Options, each a mapping judgement:</p>
+<ul>
+<li>the related disease (LDL → hypercholesterolaemia);</li>
+<li>a phenotype node (HP “increased LDL”);</li>
+<li>the gene or protein node, for protein-level scores, entering beside the expression channel;</li>
+<li>a per-feature-type route in the Phase 12 criterion (<code>docs/pdr2_phase12_per_relation_criterion_planning.md</code> §5).</li>
+</ul>
+<p>Not needed for smoke run #1 (#439), which uses the disease-mapped subset.</p>
+</li>
+</ol>
+<hr/>
+<h3 id="56-what-gate-e1-actually-measured-2026-09-24">5.6 What Gate E1 actually measured (2026-09-24)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#56-what-gate-e1-actually-measured-2026-09-24" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The first full pass. Ran as three worker tasks joined to one <code>mods_prs_run</code>
+(<code>6658f656…</code>), all rows written <code>quarantined</code>.</p>
+<p><strong>Gate A — the dense callset.</strong> 19.1 minutes over the 11,400,292-locus union:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>outcome</th><th>loci</th></tr></thead><tbody><tr><td><code>CALLABLE_HOMREF</code></td><td>7,509,057</td></tr><tr><td><code>CALLABLE_VARIANT</code></td><td>3,134,326</td></tr><tr><td><code>EXPLICIT_MISSING</code></td><td>517,661</td></tr><tr><td><code>STRUCTURAL_FAIL</code></td><td>239,248</td></tr><tr><td><strong>sum</strong></td><td><strong>11,400,292</strong> — exact</td></tr></tbody></table></div>
+<p>The exit invariant held, and the artifact’s sha256 matches its <code>mods_prs_run</code> row.</p>
+<p><strong>Gate C — the scores.</strong> 2,321 computed, <strong>all 2,321 reconciling</strong> across the eight
+outcomes and <strong>all 2,321 inside <code>[theoretical_lo, theoretical_hi]</code></strong> — zero violations of
+the free check that §3.4 calls a floor on correctness.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>outcome</th><th>rows</th></tr></thead><tbody><tr><td><code>scored</code></td><td>853,148,795</td></tr><tr><td><code>explicit_missing</code></td><td>24,747,219</td></tr><tr><td><code>ambiguous_palindromic</code></td><td>13,929,705</td></tr><tr><td><code>not_in_callset</code></td><td>1,877,982</td></tr><tr><td><code>ref_allele_mismatch</code></td><td>115,560</td></tr><tr><td><code>unplaceable_row</code></td><td>0</td></tr><tr><td><code>missing_other_allele</code></td><td>1</td></tr><tr><td><code>unsupported_ploidy</code></td><td>0</td></tr></tbody></table></div>
+<p>Four of these settle questions that were judgement calls the day before:</p>
+<ul>
+<li><strong>The palindrome estimate was right.</strong> 13,929,705 deferred rows against the 13,930,267
+the manifest predicted — the §5.4 figures stand, and the cost is confirmed as
+tail-concentrated rather than broad.</li>
+<li><strong><code>unplaceable_row</code> is 0</strong>, necessarily: it is an eligibility blocker, so E1 <em>cannot</em>
+measure what promoting it would cost. Open decision 1 is still open and this run does
+not touch it. Measuring it needs a deliberate run over the 1,437 sole-blocked scores.</li>
+<li><strong><code>not_in_callset</code> = 1,877,982</strong> is not a defect: the callset emits no row for a
+<code>STRUCTURAL_FAIL</code> locus, and each of those 239,248 loci is referenced by ~8 scores.</li>
+<li><strong>607 of 2,321 scores carry an unverified weight scale</strong> — the <code>NR</code> policy (§3.4) now
+has a number attached to it for Gate F.</li>
+</ul>
+<p><strong>The REF-effect fix, quantified.</strong> <strong>104,650,679</strong> scored rows sit at a locus where the
+effect allele <em>is</em> the reference allele, and <strong>29,033,853</strong> of them were resolved from a
+hom-ref genotype to dosage 2. Every one of those contributed <code>0</code> under the variant-only
+store. That is §5.1 closed in data rather than in code.</p>
+<p><strong><code>n_complement_only_match</code> = 113,313</strong> across 893.8M rows — 0.013 %. Near zero, which is
+what confirms the forward-strand premise behind deferring strand flips (§5.4) rather than
+refuting it.</p>
+<p><strong>One refusal, and it is the right one.</strong> PGS000156 declares
+<code>weight_type = &quot;Odds Ratio over expected risk&quot;</code>, and the scorer refused it: <em>“ratios
+multiply and must not be summed.”</em> A summed odds ratio would have landed comfortably
+inside the theoretical bounds and looked entirely plausible — exactly the failure the
+bounds check cannot catch.</p>
+<p><strong>Raw sums span −19,145,748 to +6,182,128.</strong> The twelve-order-of-magnitude spread §1.4
+predicted from the theoretical bounds, now confirmed on computed values. This is the
+empirical case that raw sums cannot feed the PDR2 loss, and therefore that Gate D is
+load-bearing rather than cosmetic.</p>
+<p><strong>Operational findings worth carrying into Gate D</strong>, all of which cost time here:</p>
+<ul>
+<li>The dense callset is <strong>4.55 GB resident, 407 B/locus</strong> — 2.5× the 163 B/locus assumed.
+The <code>--shards</code> guard demands a measured figure for exactly this reason; the old estimate
+would have authorised 9 concurrent shards on a 30 GB box.</li>
+<li>Slicing the work list by contiguous <code>pgs_id</code> put <strong>77.5 % of the variant rows on one
+shard</strong> (2.8 / 19.7 / 77.5 %), because accession correlates with era and era determines
+size. Wall times were 25.7 / 61.8 / 172.7 min against a possible ~87. Fixed with
+longest-processing-time-first on <code>n_variants</code> (GH #311), which balances to 1.00×.</li>
+<li>The union build (~3 h) and the merge-join must both be covered by
+<code>_start_pdr_heartbeat_thread</code>. Covering only the phase that looks slow let orphan
+recovery kill a healthy task three times over.</li>
+<li><code>worker/requirements.txt</code> is a hand-maintained mirror of <code>backend/requirements.txt</code>.
+<code>pyfaidx</code> had been missing from it since 2026-07-13 and only surfaced after a
+three-hour union build. <code>scripts/prs/check_worker_env.py</code> now checks the whole path.</li>
+</ul>
+<hr/>
+<h3 id="57-gate-d--the-reference-panel-staged-2026-09-24-d1d3-built-not-run">5.7 Gate D — the reference panel (staged 2026-09-24; D1–D3 built, not run)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#57-gate-d--the-reference-panel-staged-2026-09-24-d1d3-built-not-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote>
+<p><strong>The panel is 3,942 samples, not the 4,150 this section used to claim</strong> (verified
+2026-09-26 by opening the artifact: <code>.psam</code> has 3,943 lines including its header, and
+<code>PgenReader.get_raw_sample_ct()</code> agrees). The catalogued HGDP+1kGP release is 4,150; the
+PGS Catalog’s packaged plink2 build carries 3,942, and the 208 missing are <strong>not</strong> the
+relatedness exclusions. Those are a <em>separate</em> list — <code>GRCh38_HGDP+1kGP.king.cutoff.out.id</code>,
+<strong>612 IIDs</strong> — which is not pre-applied, so fitting PCs and the mean/variance regression
+on unrelated samples leaves <strong>3,330</strong>. Super-population split of those 3,330: EAS 735,
+AFR 684, CSA 678, <strong>EUR 667</strong>, AMR 409, MID 157. Maureen is essentially entirely
+European (§5.5), so 667 unrelated EUR samples is the stratum her normalisation leans on
+hardest even under a continuous-PC model.</p>
+<p>Same lesson as the <code>pgsc_all+hm3</code> retraction below: a documented headline figure is a
+hypothesis about an artifact, not the artifact. Read the file.</p>
+</blockquote>
+<p><strong>Gate D is not Gate E run four thousand times.</strong> This is the single most important
+design point, because the obvious reading of “a fleet run over thousands of panel
+genomes” is 3,942 × the E2 run — 8.45 GB of dense callset each and hours of scoring
+each, so roughly tens of terabytes and ten thousand CPU-hours. That reading is wrong,
+and it is wrong because a reference panel is not shaped like the patient’s data:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Maureen</th><th>the panel</th></tr></thead><tbody><tr><td>source</td><td>single-sample gVCF with reference blocks</td><td>multi-sample matrix, one row per site</td></tr><tr><td>the hard problem</td><td>telling hom-ref from not-sequenced — the whole point of Gate A</td><td>already explicit; every sample’s genotype is on the row</td></tr><tr><td>passes needed</td><td>one per genome</td><td><strong>one, for every sample at once</strong></td></tr><tr><td>accumulator</td><td>—</td><td><code>n_samples × n_scores</code> = 3,942 × 3,753 × 8 B ≈ <strong>118 MB</strong></td></tr></tbody></table></div>
+<p>So the panel pass is one stream over the union carrying a per-(sample, score)
+accumulator, which factors naturally as a <strong>sparse matrix product</strong> — dosages
+(samples × loci) against oriented weights (loci × scores), chunked by locus block so
+neither operand is ever resident. The per-row Python overhead that set E1’s pace
+(~28.8k rows/s) disappears into a C-level matmul.</p>
+<p><strong>MODS scores the panel, not <code>pgsc_calc</code>.</strong> This is the reason the panel is staged
+locally rather than the whole job delegated to the witness. A percentile means
+something only if the patient and the panel were deflated the same way, and Gate C
+deliberately drops missing dosages and defers palindromic SNVs where <code>pgsc_calc</code>
+mean-imputes to <code>2p</code> and resolves palindromes by frequency (§5.4). Scoring the panel
+under a different policy than the patient reintroduces exactly the bias Gate D exists
+to remove. The witness still runs — on the same panel — and the delta is still a
+first-class output.</p>
+<p><strong>The circular dependency, and how it dissolves.</strong> Palindrome resolution needs allele
+frequencies, which need the panel; but the final scoring pass needs palindromes already
+resolved. The way out is that the panel yields frequencies <em>before</em> it yields a score
+distribution, so Gate D splits: <strong>D1</strong> stage the panel and extract per-locus allele
+frequencies over the union → <strong>D2</strong> score the panel under the now-final policy → <strong>D3</strong>
+fit PCs and the mean/variance regression. E2 then re-scores Maureen under that same
+final policy, and only then do z-score and percentile exist.</p>
+<h4 id="panel-coverage-of-the-union-9893--at-v3--907--at-v4">Panel coverage of the union: 98.93 % at v3 — 90.7 % at v4<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#panel-coverage-of-the-union-9893--at-v3--907--at-v4" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<blockquote>
+<p><strong>Re-measured at v4 scope (2026-09-27), and it is lower.</strong> Building the D1 index against
+the v4 union (read-only, on the real <code>.pvar.zst</code>) found <strong>15,200,494 of 16,755,919</strong>
+union positions on panel contigs carried by the panel: <strong>90.7 %</strong>. The 98.93 % below is a
+v3 figure. The v4 promotion added ~5.4M positions, and only ~73 % of them are in the
+panel. This is a count of positions; the row-weighted, per-score figure is what D2
+records for every score (<code>outcomes.not_in_panel</code>). Either way, the patient-aligned
+column below matters more than the v3 number suggested.</p>
+</blockquote>
+<p>Measured against the panel’s <strong>own <code>.pvar</code></strong> (2026-09-24): <strong>11,238,703 of 11,359,699
+distinct union positions = 98.93 %</strong>, uniform at 98.3–99.2 % on every autosome and 99.17 %
+on chrX. Only 120,996 positions are missing, and only 8 contigs are absent from the panel
+altogether — alt and random scaffolds carrying <strong>77 positions</strong> between them.</p>
+<p>(The union has 11,400,292 <em>rows</em> over 11,359,699 <em>distinct positions</em>; the 40,593-row
+difference is extra allele-sets at a shared position, which the union deliberately keeps
+separate. Positions is the right denominator when asking what a position-keyed panel
+carries.)</p>
+<blockquote>
+<p><strong>Superseded, and worth reading as a cautionary note.</strong> An earlier revision of this
+section reported <strong>94.77 %</strong>, measured against
+<code>pgsc_all+hm3_variants_hg38_latest.txt.gz</code> — a 153 MB file sitting in the panel’s own FTP
+directory, chosen on the strength of its name and a size estimate that seemed to
+corroborate it. <strong>That file is not the panel’s variant list.</strong> It holds 33.8M variants;
+the panel’s <code>.pvar</code> holds <strong>84,325,213</strong>. Roughly three quarters of the “missing” loci in
+that measurement were an artifact of comparing against the wrong file, and so was the
+per-score analysis built on top of it.</p>
+<p>The generalisable part: a filename, a directory location and a plausible size estimate
+are <em>hypotheses about contents</em>, not contents — and two weak signals agreeing is not
+verification. What caught it was <code>inspect_reference_panel.py</code>, which reads the actual
+artifact, on its first run, in one line of output. Check the thing itself before building
+analysis on it.</p>
+</blockquote>
+<p>The idea behind the cheap pre-check was still right — the packaged panel is a variant
+subset of unknown extent, and learning that from a small file beats learning it from a
+14.9 GB one. The mistake was not verifying <em>which</em> small file answered the question.</p>
+<p><strong>Per-score coverage is uniform, and there is no outlier.</strong> Measured against the real
+<code>.pvar</code> (chr22, 2026-09-24):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>score</th><th>chr22 loci in panel</th><th>coverage</th></tr></thead><tbody><tr><td><code>PGS005353</code></td><td>34,762 / 34,883</td><td>99.65 %</td></tr><tr><td><code>PGS005354</code></td><td>24,079 / 24,138</td><td>99.76 %</td></tr><tr><td><code>PGS005359</code></td><td>19,758 / 19,801</td><td>99.78 %</td></tr><tr><td><code>PGS005373</code></td><td>20,530 / 20,586</td><td>99.73 %</td></tr><tr><td><code>PGS005374</code></td><td>21,025 / 21,076</td><td>99.76 %</td></tr><tr><td><code>PGS005369</code></td><td>20,590 / 20,639</td><td>99.76 %</td></tr></tbody></table></div>
+<p>Every score sits at ~99.7 %, matching the union-wide 98.93 %. Nothing needs special
+handling and no score’s reference distribution is meaningfully thinner than any other’s.</p>
+<blockquote>
+<p><strong>Retracted.</strong> An earlier revision of this section reported an elaborate finding: that
+nine scores in the accession band <code>PGS005353</code>–<code>PGS005377</code> accounted for 96 % of the
+“missing” loci, that <code>PGS005353</code> was only <strong>77 %</strong> covered, and that Gate D therefore
+<strong>needed a per-score panel-coverage flag</strong> because one score’s distribution would rest on
+three quarters of its loci while looking normal in the manifest.</p>
+<p>All of it was an artifact of measuring against the wrong file (see the note above).
+<code>PGS005353</code> is 99.65 % covered. The band is real only in the sense that those scores do
+share a variant list; it has no consequence.</p>
+<p>Three hypotheses were falsified along the way — positional clustering, concentration in
+large genome-wide scores, and <code>%.2f</code> rounding — and a fourth, the one I settled on, was
+also wrong. The hypothesis never tested was the cheapest one: <strong>that the reference I was
+measuring against was wrong.</strong> An unexplained gap is at least as likely to be an
+instrument error as a finding, and “check the denominator” should come before “explain
+the discrepancy.”</p>
+<p>One genuine lesson survives independent of the artifact, because the scan itself worked:
+<em>attribution is a search, not an estimate</em>. A 44-of-2,322 sample had ~98 % odds of missing
+a 9-score cluster, and enumerating the missing items and walking their sources found it in
+minutes. That technique is sound; it was simply pointed at a phantom.</p>
+</blockquote>
+<p><strong>Is a per-score panel-coverage record still worth keeping?</strong> Yes, but as hygiene rather
+than because the data demands it. Gate C already emits <code>coverage_v1</code> on the patient side,
+and a reader should be able to see what a normalized score rests on without re-deriving it.
+What is <em>not</em> justified is any claim that particular scores need flagging or exclusion —
+measured coverage is uniform.</p>
+<p><strong>Consequence for Gate D, which does not depend on closing that.</strong> The per-score number is
+the one that predicts how well a given score normalizes, and at 100 % for essentially
+every score sampled it is excellent. The union number governs a different question — which
+loci enter the reference distribution at all — and the discipline it implies is the same
+either way: <strong>Maureen and the panel must be scored over the same locus set</strong>, so the
+deflation cancels by construction rather than by hope.</p>
+<h4 id="d1-and-d2-as-built-gh-396-not-yet-run">D1 and D2, as built (GH #396; not yet run)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#d1-and-d2-as-built-gh-396-not-yet-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><code>backend/mods_prs_panel.py</code>, run as two worker tasks and driven by
+<code>scripts/prs/run_gate_d_panel.py</code> (<code>--step d1</code>, then <code>--step d2 --shards N</code>, then
+<code>--step merge</code>). Neither task has run against the real panel: that waits on the
+worker-image rebuild that pins <code>pgenlib</code> and <code>zstandard</code> (GH #339), and D2 additionally on
+E3 (below). The one real-data step exercised so far is D1’s index build, read-only on the
+host (2026-09-27). It streamed all 84,325,213 <code>.pvar</code> records in 221 s at a ~1.4 GB peak and
+kept <strong>16,055,496 records</strong>: 14,802,796 SNV sites, of which 255,021 are split multiallelic,
+plus 993,947 indel records. It found no multi-ALT records and no REF conflicts, and the
+position-adjacency guard passed.</p>
+<p><strong>D1</strong> (<code>mods_prs_panel_af</code>) md5-checks every panel file against the panel’s own
+<code>checksums.txt</code>, streams the <code>.pvar.zst</code> keeping the records at union positions (the index D2
+scores through), then reads those records from the <code>.pgen</code> in position blocks and counts
+alleles over the 3,330 unrelated samples, overall and per super-population. The product is
+<code>union_panel_af.tsv.gz</code>: one line per union target, with <code>af_effect</code>, <code>af_other</code> and <code>an</code> per
+group, read forward exactly as the union wrote the alleles. That is the panel half of the
+palindrome comparison. Both alleles are given because at a split multiallelic site one is
+not <code>1 −</code> the other. D1 also measures the autosomal missing-call rate over the union’s own
+sites (the #404 spike saw ~2.4 % on random panel variants), and it records its provenance,
+including the archive checksum, on a <code>gate_d1_panel_frequencies</code> run row.</p>
+<p><strong>D2</strong> (<code>mods_prs_panel_score</code>) resolves every scoring row once into an oriented weight on an
+allele slot, then streams the panel records it touches in sorted blocks, adding one sparse
+product per block into the <code>n_scores × n_samples</code> accumulator. Three properties are
+enforced, not assumed:</p>
+<ul>
+<li><strong>Same policy.</strong> The policy is her stored Gate C dict, rebuilt with
+<code>ScoringPolicy.from_dict</code>, which refuses a dict whose fingerprint it cannot reproduce. The
+E2 rows are such dicts (they predate two policy fields), so a real D2 waits for E3. A
+golden test also scores every fixture panel sample through <code>score_variants</code> and requires
+agreement, under the default policy and every per-file variant.</li>
+<li><strong>Same missingness rule.</strong> A missing panel hardcall is dropped, as her no-calls are, and
+never imputed. Every matrix row records the mean matched rows dropped per panel sample
+beside her own count, so “the two deflations match” is a per-score measurement. Smoke
+run #1 measured that they did not: over the 594 v0 scores her dropped share sat a median
+2.3 points above the panel’s (GH #499).</li>
+<li><strong>Same locus set.</strong> A locus the panel does not carry is dropped from the panel for
+everyone, because absence is never zero. Her Gate C sum still includes it, so she would be
+compared on loci the panel never saw. At a REF-effect row that is a systematic <code>+2w</code> on
+her side only, which is the REF-effect bug’s shape one level up. D2 therefore scores her in
+the same pass from her Gate A callset, as one more column under the same rules.
+<code>run_gate_d.py</code> places that <strong>panel-aligned</strong> score and names it in
+<code>percentile_v1.score_basis</code>, beside her unchanged <code>gate_c_raw_score</code>. Since
+<code>gate_d2_panel_scorer_v2</code> (GH #499) the rule also runs from her side: a locus she has no
+call at is dropped from every panel sample too. v1 dropped it from her column alone, which
+moves her z by roughly gap × panel mean / sd, a predicted −5.5 SD on PGS005253. The header
+says <code>patient_missing_masked</code>; <code>run_gate_d.py</code> refuses a patient column without it unless
+<code>--allow-unmasked-patient-missingness</code> is passed, which <code>percentile_v1</code> then records.</li>
+</ul>
+<p>The site rules are as follows. Split biallelic SNV records at one position form a site,
+whose REF count is <code>ploidy − Σ ALT</code>. An allele never observed at a called site counts 0,
+since it is <em>called absent</em>. An SNV row with no SNV record at its position is
+<code>not_in_panel</code>, and so is any indel without an exact record match, because indel
+representation is not canonical. Males outside the chrX PARs, and on chrY, are dropped in D2
+(Gate C refuses a non-diploid call) and counted once in D1.</p>
+<p>Scoring rows are parsed once. The panel is re-read once per batch of scores that fits
+<code>--max-batch-rows</code>, at ~12 B per matched row held and ~36 B per row peak while its CSR is
+built, so batch size trades memory for panel passes. A pass is bound by the Windows bind
+mount, which the #404 spike measured at ~16.6k records/s in order and ~1k/s scattered, so
+the real run should stage the <code>.pgen</code> on container-local storage first. Shards split the
+eligible list LPT on <code>n_variants</code>. <code>--step merge</code> refuses parts that disagree on panel,
+policy, samples or patient column.</p>
+<h4 id="operational-notes">Operational notes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#operational-notes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li><code>ftp.ebi.ac.uk</code> throttles <strong>per connection</strong> (~180 KB/s), the same as <code>ftp.ensembl.org</code>;
+a single stream would take ~30 h for 14.9 GB. Over 8 ranged connections it runs at
+~940 KB/s (~4.6 h). More connections is not obviously better and this is a free public
+mirror.</li>
+<li>The archive is <strong>md5-pinned</strong> against the catalog’s published <code>md5s.txt</code>
+(<code>2bd3586e…dcee49</code>), and the verified archive is copied to second storage before any
+cleanup can reclaim it — re-downloading from a throttled mirror is hours. <em>(2026-10-06:
+that copy is <code>G:\My Drive\maple_archive\reference\panel\pgsc_HGDP+1kGP_v1.tar.zst</code>, with
+its SHA-256 in the folder’s <code>MANIFEST.tsv</code>. The local archive was deleted to free disk;
+the extracted panel stays in <code>backend/data/reference/panel/</code>.)</em></li>
+<li>Staging peaks at ~2× the archive, because ranged chunks and the reassembled file
+coexist. <code>prepare_reference_panel.py</code> refuses to start without that headroom plus a
+5 GB floor, and a <code>DiskGuard</code> thread watches free space <em>during</em> the transfer — a
+pre-flight check is not enough when a locus-union rebuild is writing concurrently.</li>
+<li><strong><code>pgenlib</code> works — read the <code>.pgen</code> directly, no <code>plink2</code> conversion needed.</strong> The
+earlier note here said to plan on the standalone <code>plink2</code> binary because <code>pgenlib</code> has no
+Windows wheel. True on the <em>host</em>, irrelevant to the job: the workers are Linux
+containers, and <code>import pgenlib</code> succeeds there (also <code>scipy</code> 1.17.1 / <code>scikit-learn</code>
+1.9.1, which D3 needs — GH #339). Verified by opening the real artifact, not by importing
+the module: <code>PgenReader</code> reports 3,942 samples × 84,325,213 variants and
+<code>read(0, buf)</code> returns dosages. Keeping the read in-process avoids materialising an
+intermediate dosage dump of a 15 GB panel, and keeps all scoring policy in MODS.</li>
+</ul>
+<hr/>
+<h3 id="57b-the-road-from-here--what-each-remaining-stage-is-for">5.7b The road from here — what each remaining stage is for<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#57b-the-road-from-here--what-each-remaining-stage-is-for" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Approved by Richard 2026-09-26: <strong>no release candidate is declared until the palindrome
+question is settled</strong>, and an <strong>E3 follows D1</strong>. This section is the plain-language version
+of that plan, including a correction to what “settled” can mean.</p>
+<p><strong>The correction, measured 2026-09-26.</strong> Resolving a palindromic SNV means comparing the
+<em>scoring file’s declared</em> effect-allele frequency against the <em>panel’s</em> frequency at that
+locus: concordant (both ≈ 0.15) means same strand, complementary (0.15 vs 0.85) means
+flipped. The panel supplies one side of that comparison. <strong>The scoring file has to supply
+the other, and most do not.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>across the 1,687 eligible scores with ≥1 palindromic row</th><th>scores</th><th>palindromic rows</th><th>median % of that score’s rows</th></tr></thead><tbody><tr><td>carry <code>allelefrequency_effect</code> — orientable</td><td><strong>167 (9.9 %)</strong></td><td>6,186,687 (<strong>9.5 %</strong>)</td><td>11.71 %</td></tr><tr><td>do not carry it — no anchor exists</td><td>1,520</td><td>58,647,492 (90.5 %)</td><td>10.20 %</td></tr></tbody></table></div>
+<p>So D1 can orient <strong>at most 9.5 %</strong> of the deferred palindromic rows, and the 90.5 % that
+stay deferred are not a light tail — their per-score burden is the same size. “Resolve the
+palindromes” cannot mean all of them; nothing in a reference panel can orient a variant
+whose file never said what frequency it expected. Treat the residual as a <strong>measured
+coverage property</strong> to be gated in F, not as a decision still pending.</p>
+<p><strong>The stages, and what each is actually for:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Stage</th><th>What it does</th><th>Why it exists</th></tr></thead><tbody><tr><td><strong>D1</strong></td><td>One pass over the panel, emitting per-locus allele frequencies across the union. <em>Built (GH #396); not run.</em></td><td>Produces the <em>one</em> number that can orient a palindrome. Nothing here touches scores.</td></tr><tr><td><strong>—</strong></td><td><strong>Implement:</strong> orient palindromes in the 167 EAF-carrying scores; leave the rest deferred and record <em>why</em>. Some of the 167 will have EAF ≈ 0.5 and stay ambiguous — that is expected, not a failure.</td><td>This is the policy change. It must be made <strong>before</strong> D2, because D2 has to commit to a policy.</td></tr><tr><td><strong>E3</strong></td><td>Re-score the patient under the final policy.</td><td>Only the 167 change value, but re-running the fleet keeps <strong>one policy label across every row</strong> — the alternative leaves a fleet whose provenance has to be argued rather than read (§5.8, GH #360). ~4 h unattended.</td></tr><tr><td><strong>D2</strong></td><td>Score the 3,330 unrelated panel samples, and the patient beside them, under that <em>same</em> policy. <em>Built (GH #396); not run.</em></td><td>The reference distribution. Same policy or the coverage deflation stops cancelling between patient and panel, and that bias is unrecoverable downstream (§1.4).</td></tr><tr><td><strong>D3</strong></td><td>Fit ancestry PCs, then regress each score’s mean and variance on them. <em>The regression and percentile are built (PR #386); computing the PCs themselves is not.</em></td><td>D2 gives the cloud of numbers; D3 gives the function that places one person in it. Without it a percentile mostly measures ancestry rather than risk.</td></tr><tr><td><strong>F</strong></td><td>Weight-scale sanity, <strong>per-score coverage gates</strong>, then promote.</td><td>Where the residual palindrome deferral is finally adjudicated — per score, against a threshold, rather than fleet-wide.</td></tr></tbody></table></div>
+<p>E3 and D2 are independent once the policy is fixed, so they can run in either order or
+together; D3 needs D2; F needs everything.</p>
+<p><strong>Closed 2026-09-26 — <code>GH #371</code> answered “no”.</strong>
+The open question was whether the 1,520 EAF-less scores could be oriented by some <em>other</em>
+signal, and the lead was <code>hm_source</code>: if its <code>ENSEMBL</code> value meant “matched to a
+strand-defined variant record”, ~45 % of deferred rows would need no frequency at all.
+It does not. <code>hm_source</code> is the provenance of the <strong>coordinate</strong>, written by the
+harmonizer’s <code>HmPOS</code> pass, which never reads or writes an allele; strand lives in a
+separate <code>HmVCF</code> pass whose output the Catalog does not publish, and which labels
+palindromes ambiguous rather than resolving them. Four lines of evidence, the blunt one
+being that in PGS005393 <code>hm_source = ENSEMBL</code> labels <strong>26,901 forward-strand rows and
+26,801 reverse-complemented ones in the same file</strong>.</p>
+<p>Two consequences carry forward. The EAF route is the only route, and it delivers
+<strong>8.48 %</strong> of the fleet’s deferred palindromic rows once frequencies within 0.08 of 0.5
+are excluded as undecidable — not the 9.5 % headline. And scoring files coded in Illumina’s
+A/B convention are real and identifiable: their unambiguous SNVs are <em>all</em> <code>A/C</code> or <code>A/G</code>,
+their strand is per-variant and unrecorded, and a blanket forward-strand assumption is
+refuted by counterexample rather than merely unproven.</p>
+<p>Full answer, the fleet-wide <code>hm_source</code> distribution and the recommended policy:
+<a href="../prs/palindrome_orientation_spike" class="internal internal-link alias" data-slug="prs/palindrome_orientation_spike">`prs_validation/palindrome_orientation_spike.md`</a>.</p>
+<p><strong>But the EAF route is not the only one left, and the spike is what opened the other</strong>
+(<code>GH #404</code>, 2026-09-27). Since harmonization
+never touches alleles, a file’s non-palindromic rows are a direct readout of its author’s
+strand convention — and <strong>99.899 % of the 64.8M deferred palindromic rows sit in files that
+match the reference forward at ≥ 99.9 %</strong>, against 8.48 % reachable by declared frequency.
+Reading those palindromes forward is an inference about <em>that file</em> from thousands of
+measured rows, not the blanket assumption §5.4 refutes. Its one failure mode — a pipeline
+that orients unambiguous variants and leaves palindromes alone, which real sumstats
+harmonisers do — is what the 167 EAF-carrying scores exist to measure. Decide it with D1,
+before D2.</p>
+<p><strong>Measured the same day, without waiting for D1 — the licence holds per class of file, not
+for the 99.899 %.</strong> The spike read the panel directly and tested the 167 EAF-carrying scores.
+Flipped share: <strong>≤ 0.96 %</strong> in small curated files with zero complement-only rows (61 files,
+49 publications) and <strong>≤ 0.12 %</strong> in genome-wide files. But the failure mode is real:
+<strong>PGS000020</strong> (7,502 rows, 0.175 % complement-only) has ~40 % of its palindromes reversed, so
+the rate is necessary and not sufficient. The recommendation licenses the small class (527
+scores, median 11.3 % of each score’s rows). It puts the genome-wide class (98.8 % of the
+rows, 87 % of them in three publications with no EAF to test) to Richard as an extrapolation,
+and refuses 1k–100k. The mechanism, <code>ScoringPolicy.palindrome_forward_scores</code>, ships empty
+and rides E3:
+<a href="../prs/palindrome_forward_rule" class="internal internal-link alias" data-slug="prs/palindrome_forward_rule">`prs_validation/palindrome_forward_rule.md`</a>.</p>
+<hr/>
+<h3 id="58-what-gate-e2-measured-2026-09-26">5.8 What Gate E2 measured (2026-09-26)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#58-what-gate-e2-measured-2026-09-26" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The v4-scope fleet run. <code>mods_prs_run</code> <code>029be6e3</code>, scorer <code>gate_c_scorer_v1</code>, against the
+Gate A run <code>64a90788</code> callset (19,215,298-locus union → <strong>16,964,243 records</strong>, sha256
+<code>d76e1c65…</code>, verified against the run row <em>and</em> the bytes on disk before scoring). All rows
+written <code>quarantined</code>. Wall clock 3 h 51 m.</p>
+<p><strong>It reconciles at the fleet level, which E1 could not demonstrate.</strong> Per-score
+reconciliation is the eight-outcome assertion the scorer already makes. E2 adds the
+aggregate:</p>
+<pre><code>outcomes summed over the 3,752 computed scores   2,166,261,879
+PGS000156, refused, n_variants                               6
+                                                 -------------
+                                                 2,166,261,885  = manifest eligible rows
+</code></pre>
+<p>Exact. Every scoring row in the eligible set is accounted for by name. <code>reconciles=True</code>
+on all 3,752 and <strong>zero</strong> scores outside <code>[theoretical_lo, theoretical_hi]</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>outcome</th><th>rows</th><th>share</th></tr></thead><tbody><tr><td><code>scored</code></td><td>2,036,222,864</td><td>94.00 %</td></tr><tr><td><code>ambiguous_palindromic</code></td><td>64,810,321</td><td>2.99 %</td></tr><tr><td><code>explicit_missing</code></td><td>60,837,692</td><td>2.81 %</td></tr><tr><td><code>not_in_callset</code></td><td>2,738,356</td><td>0.126 %</td></tr><tr><td><code>ref_allele_mismatch</code></td><td>1,561,651</td><td>0.072 %</td></tr><tr><td><code>unplaceable_row</code></td><td>90,994</td><td>0.0042 %</td></tr><tr><td><code>missing_other_allele</code></td><td>1</td><td>—</td></tr><tr><td><code>unsupported_ploidy</code></td><td>0</td><td>—</td></tr></tbody></table></div>
+<p>Five things this settles:</p>
+<ul>
+<li><strong>The v4 <code>unplaceable_rows</code> promotion cost is now measured, and it was free.</strong> E1 could
+not measure it — the category was an eligibility blocker, so its outcome was necessarily
+0 (§5.6). E2 is the first run with those scores in scope: 90,994 rows, which equals the
+union manifest’s <code>skipped_no_position</code> <strong>exactly</strong>, and is 0.0042 % of the fleet. The
+flat-curve argument behind <code>MAX_UNPLACEABLE_FRACTION = 0.01</code> holds at full scale. It
+bought 1,431 scores and ~1.27 B rows for four thousandths of a percent.</li>
+<li><strong>The REF-effect fix at full scope.</strong> 433,652,126 scored rows sit where the effect allele
+<em>is</em> the reference allele, and <strong>184,331,602</strong> of them resolved from a hom-ref genotype to
+dosage 2. Every one contributed <code>0</code> under the variant-only store. E1’s figures were
+104,650,679 / 29,033,853, so this is 4.1× / 6.3× larger — §5.1 closed in data again, on a
+bigger sample.</li>
+<li><strong>The forward-strand premise still holds.</strong> <code>n_complement_only_match</code> = 490,602 =
+<strong>0.0226 %</strong> of rows (E1: 0.013 %). Near zero at 1.9× the scope is what licenses
+continuing to <em>measure</em> strand flips rather than apply them (§5.4).</li>
+<li><strong>The palindrome cost rose, for a known and predicted reason</strong> — 2.99 % of rows against
+E1’s 1.56 %, because v4 admitted the small curated pre-2015 scores where palindromes
+concentrate. Per-score restatement is in <strong>Open decision 2</strong> of §5.5.</li>
+<li><strong>Raw sums span −1.91457 × 10⁷ to +6.18213 × 10⁶.</strong> Twelve orders of magnitude, now on
+computed values across the full eligible set rather than on theoretical bounds. This is
+the empirical case that raw sums cannot feed the PDR2 loss (§1.4) and therefore that Gate
+D is load-bearing rather than cosmetic.</li>
+</ul>
+<p><strong>No blend remains.</strong> All 2,321 E1 rows are <code>superseded</code>; zero <code>quarantined</code> rows carry the
+old callset. The cheap invariant that proves it — and the one that would have caught the
+hazard earlier — is the <code>gate_a.n_records</code> fingerprint on <code>mods_polygenic_score.metadata</code>:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">select</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> run_id, validity, metadata</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'gate_a'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">->></span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">'n_records'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">count</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">from</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_polygenic_score </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">group by</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span></code></pre></figure>
+<p>Anything other than one <code>n_records</code> value across the live <code>quarantined</code> rows means a
+mixed-callset fleet. That is a real hazard, not a hypothetical: <strong>the Gate C resume
+predicate keys on <code>SCORER_VERSION</code> alone and is blind to the callset</strong>
+(<code>GH #360</code>). <code>SCORER_VERSION</code> was unchanged
+between E1 and E2 while the callset changed completely, so a default <code>resume=True</code> would
+have skipped every score that already had an E1 row and silently produced exactly that
+blend — both halves reconciling, both inside bounds, nothing downstream distinguishing
+them. E2 was run with <code>resume=False</code> over an explicitly computed work list for this reason.</p>
+<p><strong>Operational notes worth carrying into Gate D:</strong></p>
+<ul>
+<li>The callset measured <strong>8.45 GB resident, 498 B/record</strong> — <em>not</em> the 407 B/record E1
+measured. Scaling the previous <strong>measured</strong> figure would have been 22 % low, so
+B/record is a property of the particular union, not of <code>DenseCallset</code> (§5.3).</li>
+<li>Budget concurrency against the <strong>Docker VM (30.7 GB)</strong>, not the Windows host (62.8 GB
+total / 35.5 GB free at the time). The host figure nearly authorised 4 shards where 2
+was right.</li>
+<li>Shard <em>count</em> and <em>concurrency</em> are separate knobs, and <code>run_gate_e.py --shards</code> conflates
+them by design (it assumes N shards = N workers). E2 wanted 20 shards for restart
+resilience — a killed shard restarts from zero, so small slices bound the loss — and 2-way
+concurrency for memory. The lever that expresses both is a <code>pipeline_config</code> row
+(<code>stage_name='mods_prs_compute'</code>, <code>enabled=1</code>, <code>max_concurrent=2</code>), which the claim path
+enforces race-free under <code>pg_advisory_xact_lock</code>. <strong>Delete the row afterwards</strong> or the
+task type stays throttled forever. LPT balance over <code>n_variants</code> came out at 1.00×, and
+all 20 shards completed first try with zero retries.</li>
+</ul>
+<hr/>
+<h2 id="6-where-the-code-lives">6. Where the code lives<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-where-the-code-lives" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Concern</th><th>Path</th></tr></thead><tbody><tr><td>Reference FASTA pin + base lookups</td><td><code>backend/connectors/reference_fasta.py</code></td></tr><tr><td>PGS Catalog REST/FTP + the one row parser</td><td><code>backend/connectors/pgs_catalog_connector.py</code></td></tr><tr><td>Compatibility taxonomy, features, classifier</td><td><code>backend/mods_prs_compat.py</code></td></tr><tr><td>Score-aware locus union</td><td><code>backend/connectors/pgs_locus_union.py</code></td></tr><tr><td>Dense-callset builder (merge-join)</td><td><code>backend/connectors/wgs_dense_callset.py</code></td></tr><tr><td>Scorer (Gate C) — dosage, outcomes, coverage payload</td><td><code>backend/mods_prs_scorer.py</code></td></tr><tr><td>Panel (Gate D1/D2) — index, frequencies, panel scoring, patient column, matrix</td><td><code>backend/mods_prs_panel.py</code></td></tr><tr><td>Normalization (Gate D3) — PC fit, rank, percentile, <code>percentile_v1</code></td><td><code>backend/mods_prs_normalization.py</code></td></tr><tr><td>Score persistence + released-only readers</td><td><code>backend/mods_prs_service.py</code></td></tr><tr><td>Read/projection layer + score states</td><td><code>backend/mods_prs_pipeline_service.py</code></td></tr><tr><td>REST API</td><td><code>backend/mods_prs_api.py</code> (legacy), <code>backend/mods_prs_pipeline_api.py</code> (rebuild)</td></tr><tr><td>Dashboard tabs</td><td><code>frontend/src/components/prs/</code></td></tr><tr><td>Worker tasks</td><td><code>worker/task_handlers.py</code> — <code>genotype_ingest_wgs</code>, <code>genotype_dense_callset</code> (A), <code>mods_prs_manifest_build</code> (B), <code>mods_prs_compute</code> (C), <code>mods_prs_panel_af</code> (D1), <code>mods_prs_panel_score</code> (D2)</td></tr><tr><td>Gate D drivers</td><td><code>backend/scripts/prs/run_gate_d_panel.py</code> (D1, D2 shards, merge), <code>run_gate_d.py</code> (D3)</td></tr><tr><td>Offline dry run / pgsc_calc reconciliation</td><td><code>backend/scripts/prs/gate_c_dry_run.py</code>, <code>reconcile_pgsc_calc.py</code></td></tr><tr><td>Scripts (mixed live/deprecated — read the README)</td><td><code>backend/scripts/prs/</code></td></tr><tr><td>Tables</td><td><code>mods_genotype</code>, <code>mods_polygenic_score</code>, <code>mods_prs_run</code> (mig. 103), <code>mods_prs_score_manifest</code> (mig. 104)</td></tr></tbody></table></div>
+<p><strong>Further reading in this repo:</strong> <a href="../genomics_glossary" class="internal internal-link alias" data-slug="genomics_glossary">`genomics_glossary.md`</a> ·
+<a href="../prs/compatibility_classification" class="internal internal-link alias" data-slug="prs/compatibility_classification">`prs_validation/compatibility_classification.md`</a>
+· <a href="../prs/audit_handoff_2026-07-12" class="internal internal-link alias" data-slug="prs/audit_handoff_2026-07-12">`prs_validation/audit_handoff_2026-07-12.md`</a>
+· <a href="../prs/frontend_requirements" class="internal internal-link alias" data-slug="prs/frontend_requirements">`prs_validation/frontend_requirements.md`</a>
+· <a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">`pdr_personalization_writeup.md`</a> ·
+<a href="../essays/whole_catalog_prs" class="internal internal-link alias" data-slug="essays/whole_catalog_prs">`essays/whole_catalog_prs.md`</a> (the
+narrative version of §5.3).</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-71" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#polygenic-risk-scores--a-primer-and-how-maple-computes-them" data-for="polygenic-risk-scores--a-primer-and-how-maple-computes-them">Polygenic Risk Scores — a primer, and how Maple computes them</a></li><li class="depth-1"><a href="#1-what-a-polygenic-score-is" data-for="1-what-a-polygenic-score-is">1. What a polygenic score is</a></li><li class="depth-2"><a href="#11-the-arithmetic" data-for="11-the-arithmetic">1.1 The arithmetic</a></li><li class="depth-2"><a href="#12-a-short-history" data-for="12-a-short-history">1.2 A short history</a></li><li class="depth-2"><a href="#13-what-a-polygenic-score-is-not" data-for="13-what-a-polygenic-score-is-not">1.3 What a polygenic score is not</a></li><li class="depth-2"><a href="#14-why-maple-computes-them" data-for="14-why-maple-computes-them">1.4 Why Maple computes them</a></li><li class="depth-1"><a href="#2-reference-genomes" data-for="2-reference-genomes">2. Reference genomes</a></li><li class="depth-2"><a href="#21-what-the-reference-actually-is" data-for="21-what-the-reference-actually-is">2.1 What the reference actually is</a></li><li class="depth-2"><a href="#22-the-builds" data-for="22-the-builds">2.2 The builds</a></li><li class="depth-2"><a href="#23-naming-and-assembly-flavors" data-for="23-naming-and-assembly-flavors">2.3 Naming and assembly flavors</a></li><li class="depth-2"><a href="#24-liftover-and-why-we-do-not-do-it-at-score-time" data-for="24-liftover-and-why-we-do-not-do-it-at-score-time">2.4 Liftover, and why we do not do it at score time</a></li><li class="depth-2"><a href="#25-our-pinned-reference" data-for="25-our-pinned-reference">2.5 Our pinned reference</a></li><li class="depth-2"><a href="#26-the-two-build-fields-inside-a-scoring-file--a-live-gotcha" data-for="26-the-two-build-fields-inside-a-scoring-file--a-live-gotcha">2.6 The two build fields inside a scoring file — a live gotcha</a></li><li class="depth-1"><a href="#3-scoring-files" data-for="3-scoring-files">3. Scoring files</a></li><li class="depth-2"><a href="#31-where-they-come-from" data-for="31-where-they-come-from">3.1 Where they come from</a></li><li class="depth-2"><a href="#32-file-structure" data-for="32-file-structure">3.2 File structure</a></li><li class="depth-2"><a href="#33-scale-and-complexity" data-for="33-scale-and-complexity">3.3 Scale and complexity</a></li><li class="depth-2"><a href="#34-weights-and-weight-types" data-for="34-weights-and-weight-types">3.4 Weights and weight types</a></li><li class="depth-2"><a href="#35-our-internal-classification" data-for="35-our-internal-classification">3.5 Our internal classification</a></li><li class="depth-2"><a href="#36-the-classification-engine" data-for="36-the-classification-engine">3.6 The classification engine</a></li><li class="depth-1"><a href="#4-aside-the-curated-13-and-why-defaults-are-dangerous" data-for="4-aside-the-curated-13-and-why-defaults-are-dangerous">4. Aside: the curated 13, and why defaults are dangerous</a></li><li class="depth-1"><a href="#5-the-processing-engine" data-for="5-the-processing-engine">5. The processing engine</a></li><li class="depth-2"><a href="#51-the-bug-that-defines-the-design" data-for="51-the-bug-that-defines-the-design">5.1 The bug that defines the design</a></li><li class="depth-2"><a href="#52-dense-callsets" data-for="52-dense-callsets">5.2 Dense callsets</a></li><li class="depth-2"><a href="#53-streaming-versus-loading-in-memory" data-for="53-streaming-versus-loading-in-memory">5.3 Streaming versus loading in memory</a></li><li class="depth-2"><a href="#54-the-scorer-gate-c" data-for="54-the-scorer-gate-c">5.4 The scorer (Gate C)</a></li><li class="depth-2"><a href="#55-current-status" data-for="55-current-status">5.5 Current status</a></li><li class="depth-2"><a href="#56-what-gate-e1-actually-measured-2026-09-24" data-for="56-what-gate-e1-actually-measured-2026-09-24">5.6 What Gate E1 actually measured (2026-09-24)</a></li><li class="depth-2"><a href="#57-gate-d--the-reference-panel-staged-2026-09-24-d1d3-built-not-run" data-for="57-gate-d--the-reference-panel-staged-2026-09-24-d1d3-built-not-run">5.7 Gate D — the reference panel (staged 2026-09-24; D1–D3 built, not run)</a></li><li class="depth-2"><a href="#57b-the-road-from-here--what-each-remaining-stage-is-for" data-for="57b-the-road-from-here--what-each-remaining-stage-is-for">5.7b The road from here — what each remaining stage is for</a></li><li class="depth-2"><a href="#58-what-gate-e2-measured-2026-09-26" data-for="58-what-gate-e2-measured-2026-09-26">5.8 What Gate E2 measured (2026-09-26)</a></li><li class="depth-1"><a href="#6-where-the-code-lives" data-for="6-where-the-code-lives">6. Where the code lives</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../genomics_glossary" class="internal">Genomics Glossary</a></li><li><a href="../" class="internal">MODS Notebook</a></li><li><a href="../maplelog/2026-07-11-can-you-validate-a-risk-score-for-one-person" class="internal">2026-07-11 · Can You Validate a Risk Score Built for One Person?</a></li><li><a href="../maplelog/2026-07-21-the-shortcut-that-had-to-prove-itself" class="internal">2026-07-21 · The shortcut that had to prove itself</a></li><li><a href="../maplelog/2026-09-22-the-difference-between-absent-and-zero" class="internal">2026-09-22 · The Difference Between Absent and Zero</a></li><li><a href="../maplelog/2026-09-22-the-manifest-was-lying" class="internal">2026-09-22 · The manifest was lying, and so was I</a></li><li><a href="../maplelog/2026-09-24-nine-hours-of-work-three-different-deaths" class="internal">2026-09-24 · Nine hours of work, three different deaths</a></li><li><a href="../model/kgia_workflow" class="internal">KGIA end-to-end workflow</a></li><li><a href="../model/pdr_personalization_writeup" class="internal">PDR Personalization — Technical Writeup</a></li><li><a href="../prs/palindrome_forward_rule" class="internal">Can a file's own unambiguous SNVs orient its palindromes?</a></li><li><a href="../prs/palindrome_orientation_spike" class="internal">Can hm_source orient a palindromic SNV?</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

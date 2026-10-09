@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>KG Composition Pipeline</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="KG Composition Pipeline"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="KG Composition Pipeline"/><meta name="twitter:description" content="Making the knowledge-graph data layer auditable end to end — a source registry, cross-source identity, and two bugs that cost hours and 8M edges."/><meta property="og:description" content="Making the knowledge-graph data layer auditable end to end — a source registry, cross-source identity, and two bugs that cost hours and 8M edges."/><meta property="og:image:alt" content="Making the knowledge-graph data layer auditable end to end — a source registry, cross-source identity, and two bugs that cost hours and 8M edges."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/kg/kg_composition_pipeline_writeup"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/kg/kg_composition_pipeline_writeup"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Making the knowledge-graph data layer auditable end to end — a source registry, cross-source identity, and two bugs that cost hours and 8M edges."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/kg/kg_composition_pipeline_writeup-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/kg/kg_composition_pipeline_writeup-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/kg/kg_composition_pipeline_writeup-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="kg/kg_composition_pipeline_writeup" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-14" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-14" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../kg/">kg</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>KG Composition Pipeline</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-23</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">writeup</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Making the knowledge-graph data layer auditable end to end — a source registry, cross-source identity, and two bugs that cost hours and 8M edges.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.253Z">Oct 09, 2026</time><span>34 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="building-a-defensible-kg-composition-pipeline--formal-writeup">Building a Defensible KG Composition Pipeline — Formal Writeup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#building-a-defensible-kg-composition-pipeline--formal-writeup" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Authors:</strong> whafa, Claude (Maple project)
+<strong>Date:</strong> 2026-05-09
+<strong>Status:</strong> Phases A–E <strong>CLOSED</strong> (deployed to prod). Phase C4 (consumer cutover for the Explorer) <strong>CLOSED 2026-05-13</strong> — canonical schema is the Explorer default, composition picker live, Maureen browsable alongside any composition; legacy tables preserved behind <code>USE_CANONICAL_KG=false</code> / <code>?canonical=false</code>. Phase F (patient-anchor scoping) still planned.
+<strong>Related planning docs:</strong></p>
+<ul>
+<li>an internal memory note — the parent plan</li>
+<li><a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">pdr_phase8.5_variant_kg_planning.md</a> — variant entry point (CIViC/OncoKB/PharmGKB connectors land here)</li>
+<li><a href="../kg/kg_anchor_scoping_planning" class="internal internal-link alias" data-slug="kg/kg_anchor_scoping_planning">kg_anchor_scoping_planning.md</a> — Phase F (patient-anchor scoping; written 2026-05-09)</li>
+<li><a href="../kg/kg_catalog" class="internal internal-link alias" data-slug="kg/kg_catalog">KG_CATALOG.md</a> — the source registry, now backed by a database table</li>
+</ul>
+<blockquote>
+<p><strong>Template note.</strong> This document follows the <strong>Purpose / Materials &amp; Methods / Procedure / Results / Discussion</strong> structure used by <a href="../results/pdr_phase0_gpkg_writeup" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_writeup">pdr_phase0_gpkg_writeup.md</a> so results across phases stay directly comparable.</p>
+</blockquote>
+<hr/>
+<h2 id="summary">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Before this session, the Maple MODS pipeline had two biomedical knowledge graphs loaded — GP-KG and PrimeKG — via ad-hoc per-source code with no registry, no canonical CURIE layer, no composition concept, and no programmatic way to swap or combine sources for a training run. Adding a third source (CIViC, OncoKB, PharmGKB, or RTX-KG2) would have meant rewriting the export script. Verifying license posture, deduplicating across sources, or understanding “which entities does this composition cover?” required ad-hoc SQL.</p>
+<p>We built a six-phase refactor (A–E with one planning-only Phase F) that introduces:</p>
+<ul>
+<li>A <strong>source registry</strong> (<code>mods_kg_source</code>) — the canonical record of every biomedical KG we know about, with status, license, citation, and live row counts.</li>
+<li>A <strong>domain taxonomy</strong> (<code>mods_kg_domain</code>) — Tier 1/2/3 classification of entity domains so compositions can filter by <code>gene</code>, <code>drug</code>, <code>disease</code>, etc. without per-source string-matching.</li>
+<li>A <strong>canonical entity layer</strong> (<code>mods_kg_entity</code> / <code>mods_kg_entity_source</code> / <code>mods_kg_relation</code>) — one row per real-world thing keyed by Biolink CURIE, with provenance moved to a join table. Cross-source deduplication becomes a single <code>GROUP BY</code> instead of fuzzy name-matching.</li>
+<li>A <strong>composition primitive</strong> (<code>mods_kg_composition</code> / <code>mods_kg_composition_member</code>) — named, versioned graph mixes that training runs reference by ID. Six baseline compositions seeded.</li>
+<li>An <strong>Entity Resolver</strong> with pluggable upstream (NCATS Node Normalizer, ClinGen Allele Registry, predicate mapper) for canonical CURIE resolution at ingest time.</li>
+<li>Four <strong>new source connectors</strong> (RTX-KG2 KGX, CIViC, OncoKB, PharmGKB) implementing a <code>BaseKGConnector</code> ABC.</li>
+<li>A <strong>REST API + dashboard tab + MCP tools</strong> for inspecting the canonical schema and composition validator output without dropping into psql.</li>
+<li>A <strong>legacy → canonical migration</strong> that backfilled all 129,375 PrimeKG nodes and 8,099,878 / 8,100,128 (99.997%) of PrimeKG edges into the new schema with zero synthetic CURIEs and zero unmapped predicates. The 0.003% gap is fully accounted for by intentional canonicalization dedup.</li>
+</ul>
+<p>The session also surfaced (and fixed) two operational bugs worth recording: a per-row insert pattern that turned a should-be-10-minute migration into a 6.8-hour one (fixed: ~750× bulk-insert speedup), and a cursor advancement bug that caused all 8M+ PrimeKG edges to be permanently orphaned on the first migration attempt (fixed: auto-reset edges cursor when nodes are added, plus a <code>--rewalk-edges</code> escape hatch).</p>
+<p><code>origin/main</code> HEAD at writeup time: <code>e8ff568</code>.</p>
+<hr/>
+<h2 id="1-purpose">1. Purpose<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-purpose" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>A ranked list of drugs is a claim about biology, and anyone asked to act on it
+is entitled to ask what it was computed from. Which sources went in. What each
+one actually contributed. How two records naming the same drug were decided to
+be the same drug. What is still missing, and whether the gap matters. If the
+answer to any of those is “there is a markdown table someone maintained by
+hand, and a set of ingest scripts that each made their own decisions,” then the
+honest response to <em>why should anyone believe this</em> is that they should not
+— and that is true no matter how good the model on top turns out to be.</p>
+<p>The stake is specific rather than abstract. The output of this pipeline is
+meant to reach one patient’s oncologist, and the first question a clinician
+will ask about a surprising candidate is where it came from. A pipeline that
+cannot answer that has not earned the conversation. So this work is not
+infrastructure for its own sake: it is the difference between a number and a
+number somebody can check.</p>
+<p>The objectives below all reduce to making the data layer auditable end to end
+— which, put less grandly, means being able to answer the four questions in
+the first paragraph from the database rather than from memory.</p>
+<p>The concrete objectives going into the session:</p>
+<ol>
+<li><strong>Registry and provenance</strong> — every KG we’ve ingested or are considering should be a database row with license, citation, and status, not a markdown table maintained by hand.</li>
+<li><strong>Cross-source identity</strong> — when two KGs both contain Olaparib, the system should know it’s the same drug. Not via string-match heuristics; via canonical Biolink CURIE.</li>
+<li><strong>Composition</strong> — training runs should be able to declare “I want PrimeKG plus CIViC variants, filtered to Tier 1 domains” and have that be a configuration value, not a script edit.</li>
+<li><strong>Defensible domain coverage</strong> — for any composition, we should be able to say which Tier 1 domains have how many entities, what the license posture is, and where the gaps are.</li>
+<li><strong>Pluggable connectors</strong> — adding a new source should be a one-day task: write a connector that subclasses a base ABC, register it in the source registry, run an ingest job. No rewrites elsewhere.</li>
+<li><strong>Variant-graph readiness</strong> — Phase 8.5 wants variants (BRAF V600E, DPYD*2A, UGT1A1*28) as graph-native nodes. The schema should support this without a follow-on refactor; the connector framework should make CIViC/OncoKB/PharmGKB ingest trivial.</li>
+</ol>
+<p>The scope did <strong>not</strong> include rewriting the existing KG explorer or MCP tools that read from the legacy <code>mods_kg_node</code> / <code>mods_kg_edge</code> tables — that consumer cutover (Phase C4 in the plan) is real work whose value depends on the new schema actually getting populated and exercised, so it was deferred until after the headline goal lands.</p>
+<hr/>
+<h2 id="2-materials-and-methods">2. Materials and Methods<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-materials-and-methods" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="21-pre-session-state-what-existed">2.1 Pre-session state (what existed)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-pre-session-state-what-existed" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Two KGs loaded into <code>mods_kg_node</code> / <code>mods_kg_edge</code>:</strong> GP-KG (61,146 nodes, 1,246,726 edges) and PrimeKG (129,375 nodes, 8,100,128 edges). Both keyed by <code>(kg_source, external_id)</code> — the same canonical entity (e.g., Olaparib) appeared as two rows linked only by name match.</li>
+<li><strong>One markdown registry:</strong> <code>docs/KG_CATALOG.md</code>, hand-maintained.</li>
+<li><strong>One export script:</strong> <code>backend/scripts/export_primekg_for_pdr.py</code> — hard-coded <code>WHERE kg_source = 'prime_kg'</code>.</li>
+<li><strong>One MCP-aware translator query connector:</strong> <code>backend/connectors/translator_connector.py</code> — query-time enrichment only, never bulk ingest.</li>
+<li><strong>Three planning docs that referenced this work:</strong> <code>pdr_phase8.5_variant_kg_planning.md</code>, <code>temporal_patient_modeling_planning.md</code>, and the parent <code>we-need-more-rigor-fuzzy-nygaard.md</code> (drafted at session start).</li>
+</ul>
+<p>The legacy schema, in shape:</p>
+<pre><button class="expand-button" aria-label="Expand mermaid diagram" data-view-component="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 011.06 1.06L2.56 7h10.88l-2.22-2.22a.75.75 0 011.06-1.06l3.5 3.5a.75.75 0 010 1.06l-3.5 3.5a.75.75 0 11-1.06-1.06l2.22-2.22H2.56l2.22 2.22a.75.75 0 11-1.06 1.06l-3.5-3.5a.75.75 0 010-1.06l3.5-3.5z"></path></svg></button><code class="mermaid" data-clipboard="&quot;erDiagram\r\n    mods_kg_node {\r\n        bigserial id PK\r\n        text kg_source \&quot;source baked into the row\&quot;\r\n        text external_id \&quot;native ID, not canonicalized\&quot;\r\n        text entity_type\r\n        text name\r\n        jsonb synonyms\r\n    }\r\n    mods_kg_edge {\r\n        bigserial id PK\r\n        text kg_source\r\n        bigint head_id FK\r\n        bigint tail_id FK\r\n        text relation_type \&quot;raw per-source predicate\&quot;\r\n        float weight\r\n    }\r\n\r\n    mods_kg_node ||--o{ mods_kg_edge : \&quot;head_id\&quot;\r\n    mods_kg_node ||--o{ mods_kg_edge : \&quot;tail_id\&quot;&quot;">erDiagram
+    mods_kg_node {
+        bigserial id PK
+        text kg_source &quot;source baked into the row&quot;
+        text external_id &quot;native ID, not canonicalized&quot;
+        text entity_type
+        text name
+        jsonb synonyms
+    }
+    mods_kg_edge {
+        bigserial id PK
+        text kg_source
+        bigint head_id FK
+        bigint tail_id FK
+        text relation_type &quot;raw per-source predicate&quot;
+        float weight
+    }
+
+    mods_kg_node ||--o{ mods_kg_edge : &quot;head_id&quot;
+    mods_kg_node ||--o{ mods_kg_edge : &quot;tail_id&quot;
+</code><div id="mermaid-container" role="dialog"><div id="mermaid-space"><div class="mermaid-content"></div></div></div></pre>
+<p>Two tables, no registry, no domain taxonomy, no notion of canonical identity. The same real-world drug appears as N separate rows (one per <code>kg_source</code>), so corroboration (“how many sources assert this edge?”) requires guessing at name/synonym equality after the fact. Adding a third KG meant adding rows with a new <code>kg_source</code> string — nothing in the schema reasons about it.</p>
+<h3 id="22-new-schema-migrations-071076">2.2 New schema (migrations 071–076)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-new-schema-migrations-071076" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Six migrations, all idempotent, all additive (no destructive operations on existing tables):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Migration</th><th>Tables created</th><th>Seed</th></tr></thead><tbody><tr><td>071 <code>kg_source_registry</code></td><td><code>mods_kg_source</code></td><td>9 rows: gp_kg, prime_kg, rtx_kg2, civic, oncokb, pharmgkb_variants, drkg, translator_ncats, txgnn</td></tr><tr><td>072 <code>kg_domain_taxonomy</code></td><td><code>mods_kg_domain</code></td><td>22 rows: 8 Tier 1 (gene, variant, protein, pathway, drug, disease, toxicity, biomarker), 5 Tier 2 (PK, metabolism enzyme, transporter, resistance mechanism, drug-drug interaction), 9 Tier 3 supporting domains</td></tr><tr><td>073 <code>kg_canonical_schema</code></td><td><code>mods_kg_entity</code>, <code>mods_kg_entity_source</code>, <code>mods_kg_relation</code>, <code>mods_kg_curie_cache</code></td><td>(empty; populated by backfill or new-source ingest)</td></tr><tr><td>074 <code>kg_composition</code></td><td><code>mods_kg_composition</code>, <code>mods_kg_composition_member</code></td><td>6 compositions: gp_kg_baseline_v1, primekg_baseline_v1, rtx_kg2_full, rtx_kg2_tier1, tier1_mvp_v1, tier1_mvp_with_primekg_v1 + 13 member rows</td></tr><tr><td>075 <code>research_run_composition</code></td><td>(column add) <code>mods_research_run.composition_id</code></td><td>backfilled from existing <code>kg_source</code> strings</td></tr><tr><td>076 <code>kg_legacy_backfill_state</code></td><td><code>mods_kg_migration_state</code></td><td>(empty; populated by backfill cursors)</td></tr></tbody></table></div>
+<p>The resulting shape:</p>
+<pre><button class="expand-button" aria-label="Expand mermaid diagram" data-view-component="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 011.06 1.06L2.56 7h10.88l-2.22-2.22a.75.75 0 011.06-1.06l3.5 3.5a.75.75 0 010 1.06l-3.5 3.5a.75.75 0 11-1.06-1.06l2.22-2.22H2.56l2.22 2.22a.75.75 0 11-1.06 1.06l-3.5-3.5a.75.75 0 010-1.06l3.5-3.5z"></path></svg></button><code class="mermaid" data-clipboard="&quot;erDiagram\r\n    mods_kg_domain {\r\n        text name PK\r\n        smallint tier \&quot;1 = MVP, 2 = deferred, 3 = supporting\&quot;\r\n        text biolink_category\r\n    }\r\n    mods_kg_entity {\r\n        bigserial id PK\r\n        text curie UK \&quot;canonical CURIE\&quot;\r\n        text name\r\n        text domain FK\r\n        text biolink_category\r\n        bool is_synthetic_curie\r\n    }\r\n    mods_kg_entity_source {\r\n        bigint entity_id PK, FK\r\n        text source_id PK, FK\r\n        text external_id PK \&quot;native ID in that source\&quot;\r\n        text source_name\r\n        text source_entity_type\r\n    }\r\n    mods_kg_source {\r\n        text id PK\r\n        text display_name\r\n        text version\r\n        text status \&quot;loaded / planned / api_only / deprecated\&quot;\r\n        text license\r\n        text citation\r\n        bool biolink_compliant\r\n        jsonb domains\r\n        text connector_path\r\n        bigint node_count\r\n        bigint edge_count\r\n    }\r\n    mods_kg_relation {\r\n        bigserial id PK\r\n        bigint subject_id FK\r\n        bigint object_id FK\r\n        text predicate \&quot;Biolink\&quot;\r\n        text source_predicate \&quot;raw, preserved\&quot;\r\n        text source_id FK\r\n        float weight\r\n    }\r\n    mods_kg_composition_member {\r\n        text composition_id PK, FK\r\n        text source_id PK, FK\r\n        jsonb include_domains\r\n        jsonb exclude_domains\r\n        float weight\r\n    }\r\n    mods_kg_composition {\r\n        text id PK\r\n        text display_name\r\n        text version\r\n        bool is_locked\r\n    }\r\n    mods_research_run {\r\n        bigserial id PK\r\n        text composition_id FK\r\n        text kg_source \&quot;denormalized legacy field\&quot;\r\n    }\r\n    mods_kg_curie_cache {\r\n        text query_curie PK\r\n        text preferred_curie\r\n        text biolink_category\r\n        jsonb equivalent_curies\r\n        text resolver\r\n    }\r\n    mods_kg_migration_state {\r\n        text key PK\r\n        text value\r\n    }\r\n\r\n    mods_kg_entity     ||--o{ mods_kg_entity_source       : \&quot;is also known as\&quot;\r\n    mods_kg_source     ||--o{ mods_kg_entity_source       : \&quot;provenance\&quot;\r\n    mods_kg_domain     ||--o{ mods_kg_entity              : \&quot;categorizes\&quot;\r\n    mods_kg_entity     ||--o{ mods_kg_relation            : \&quot;subject_id\&quot;\r\n    mods_kg_entity     ||--o{ mods_kg_relation            : \&quot;object_id\&quot;\r\n    mods_kg_source     ||--o{ mods_kg_relation            : \&quot;asserted by\&quot;\r\n    mods_kg_source     ||--o{ mods_kg_composition_member  : \&quot;ingredient\&quot;\r\n    mods_kg_composition||--o{ mods_kg_composition_member  : \&quot;recipe\&quot;\r\n    mods_kg_composition||--o{ mods_research_run           : \&quot;trained on\&quot;&quot;">erDiagram
+    mods_kg_domain {
+        text name PK
+        smallint tier &quot;1 = MVP, 2 = deferred, 3 = supporting&quot;
+        text biolink_category
+    }
+    mods_kg_entity {
+        bigserial id PK
+        text curie UK &quot;canonical CURIE&quot;
+        text name
+        text domain FK
+        text biolink_category
+        bool is_synthetic_curie
+    }
+    mods_kg_entity_source {
+        bigint entity_id PK, FK
+        text source_id PK, FK
+        text external_id PK &quot;native ID in that source&quot;
+        text source_name
+        text source_entity_type
+    }
+    mods_kg_source {
+        text id PK
+        text display_name
+        text version
+        text status &quot;loaded / planned / api_only / deprecated&quot;
+        text license
+        text citation
+        bool biolink_compliant
+        jsonb domains
+        text connector_path
+        bigint node_count
+        bigint edge_count
+    }
+    mods_kg_relation {
+        bigserial id PK
+        bigint subject_id FK
+        bigint object_id FK
+        text predicate &quot;Biolink&quot;
+        text source_predicate &quot;raw, preserved&quot;
+        text source_id FK
+        float weight
+    }
+    mods_kg_composition_member {
+        text composition_id PK, FK
+        text source_id PK, FK
+        jsonb include_domains
+        jsonb exclude_domains
+        float weight
+    }
+    mods_kg_composition {
+        text id PK
+        text display_name
+        text version
+        bool is_locked
+    }
+    mods_research_run {
+        bigserial id PK
+        text composition_id FK
+        text kg_source &quot;denormalized legacy field&quot;
+    }
+    mods_kg_curie_cache {
+        text query_curie PK
+        text preferred_curie
+        text biolink_category
+        jsonb equivalent_curies
+        text resolver
+    }
+    mods_kg_migration_state {
+        text key PK
+        text value
+    }
+
+    mods_kg_entity     ||--o{ mods_kg_entity_source       : &quot;is also known as&quot;
+    mods_kg_source     ||--o{ mods_kg_entity_source       : &quot;provenance&quot;
+    mods_kg_domain     ||--o{ mods_kg_entity              : &quot;categorizes&quot;
+    mods_kg_entity     ||--o{ mods_kg_relation            : &quot;subject_id&quot;
+    mods_kg_entity     ||--o{ mods_kg_relation            : &quot;object_id&quot;
+    mods_kg_source     ||--o{ mods_kg_relation            : &quot;asserted by&quot;
+    mods_kg_source     ||--o{ mods_kg_composition_member  : &quot;ingredient&quot;
+    mods_kg_composition||--o{ mods_kg_composition_member  : &quot;recipe&quot;
+    mods_kg_composition||--o{ mods_research_run           : &quot;trained on&quot;
+</code><div id="mermaid-container" role="dialog"><div id="mermaid-space"><div class="mermaid-content"></div></div></div></pre>
+<p>Three things to point at:</p>
+<ol>
+<li><strong>Identity moved into its own table.</strong> <code>mods_kg_entity</code> is one row per real-world thing keyed by canonical CURIE; <code>mods_kg_entity_source</code> is the many-to-one provenance join. The same drug now collapses to one entity, with N source rows under it — corroboration is a <code>GROUP BY entity_id</code>.</li>
+<li><strong>Sources and domains are first-class.</strong> Adding a new KG is now an INSERT into <code>mods_kg_source</code> + a connector, not a new magic string scattered through queries. Domain taxonomy with tiers makes composition filters declarative.</li>
+<li><strong>Compositions decouple “what’s in the graph” from “what we train on.”</strong> <code>mods_research_run.composition_id</code> points at a versioned recipe; the same canonical store backs every experiment.</li>
+</ol>
+<p><strong>Schema rationale.</strong> The new design separates two concerns the legacy schema conflated:</p>
+<ul>
+<li><strong>Identity</strong> — what real-world thing is this? Canonical CURIE in <code>mods_kg_entity.curie</code>. UNIQUE index. One row per drug/gene/disease/variant in the universe.</li>
+<li><strong>Provenance</strong> — which sources have it, under what native ID, with what source-specific metadata? <code>mods_kg_entity_source</code> rows, one per (entity, source, external_id) triple.</li>
+</ul>
+<p>This means cross-source corroboration becomes a single SQL aggregate (the headline win):</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> subject_id, object_id, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">predicate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">       COUNT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">DISTINCT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source_id) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> support</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_relation</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">GROUP BY</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">3</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">HAVING</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> COUNT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">DISTINCT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> source_id) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span></code></pre></figure>
+<p>Without the refactor, “find drugs that PrimeKG and CIViC both link to BRAF V600E” was a JOIN on lowercased names with hand-written aliases. With it, it’s a join on shared <code>entity_id</code>.</p>
+<h3 id="23-entity-resolver-backendkg_normalizeentity_resolverpy">2.3 Entity Resolver (<code>backend/kg_normalize/entity_resolver.py</code>)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-entity-resolver-backendkg_normalizeentity_resolverpy" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The resolver mediates between connector output (<code>EntityRecord</code> dataclasses with optional <code>curie_hint</code> and <code>biolink_category_hint</code>) and canonical storage. Resolution flow per record:</p>
+<ol>
+<li><strong>Cache lookup</strong> — has this CURIE hint been resolved before? <code>mods_kg_curie_cache</code> is a memoizing layer keyed on hint.</li>
+<li><strong>Upstream resolver</strong> — pluggable. In production this is <code>ChainedResolver([ClinGenAlleleRegistryClient(), NodeNormalizerClient(), PredicateMapper()])</code>. The default for tests / cold-start is <code>SyntheticOnlyResolver()</code> (no-op).</li>
+<li><strong>Hint as canonical</strong> — if no upstream confirmed but the connector supplied a CURIE hint (e.g., PrimeKG’s metadata gives us <code>MONDO:0005148</code>), use it directly. This is the key to dedup working without a live Node Normalizer.</li>
+<li><strong>Synthetic fallback</strong> — <code>&lt;source_id>:&lt;external_id></code>, tagged <code>is_synthetic_curie=true</code> so the validator can surface the rate.</li>
+</ol>
+<p>The resolver supports both per-row (<code>resolve_entity</code>) and bulk (<code>bulk_resolve_entities</code>) entry points. The bulk path issues exactly four SQL statements per batch regardless of size; we’ll come back to why that matters in §3.4.</p>
+<h3 id="24-connector-framework-backendconnectorsbasepy">2.4 Connector framework (<code>backend/connectors/base.py</code>)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-connector-framework-backendconnectorsbasepy" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>BaseKGConnector</code> is an ABC with three required methods (<code>manifest</code>, <code>is_downloaded</code>, <code>download</code>, <code>stream_relations</code>) plus optional hints. The manifest mirrors the columns of <code>mods_kg_source</code> so registry rows can be auto-upserted on first ingest. <code>EntityRecord</code> and <code>RelationRecord</code> are dataclasses connectors emit; the resolver consumes them.</p>
+<p>Connector inventory at end of session:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Connector</th><th>Source</th><th>License</th><th>Status</th><th>Domains contributed</th></tr></thead><tbody><tr><td><code>gp_kg_connector.py</code></td><td>GP-KG (Gao 2022)</td><td>Academic-only</td><td>loaded (legacy schema; not yet backfilled)</td><td>gene, drug, disease, phenotype</td></tr><tr><td><code>prime_kg_connector.py</code></td><td>PrimeKG (Harvard Zitnik)</td><td>CC-BY 4.0</td><td>loaded (legacy + canonical)</td><td>gene, drug, disease, pathway, phenotype, anatomy, biological_process, molecular_function, cellular_component, exposure</td></tr><tr><td><code>rtx_kg2_connector.py</code></td><td>RTX-KG2 (NCATS Translator canonicalized)</td><td>CC-BY 4.0</td><td>code complete, not yet ingested</td><td>all Tier 1 + variant + supporting</td></tr><tr><td><code>civic_connector.py</code></td><td>CIViC (clinical variant-evidence)</td><td>CC-BY 4.0</td><td>code complete, not yet ingested</td><td>variant, gene, drug, disease</td></tr><tr><td><code>oncokb_connector.py</code></td><td>OncoKB (MSK actionable variants)</td><td>Commercial (free academic)</td><td>code complete, not yet ingested</td><td>variant, gene, drug, biomarker, disease</td></tr><tr><td><code>pharmgkb_connector.py</code></td><td>PharmGKB CPIC variant guidelines</td><td>CC-BY-SA 4.0</td><td>code complete, not yet ingested</td><td>variant, gene, drug</td></tr><tr><td><code>translator_connector.py</code></td><td>NCATS Translator TRAPI 1.6 federated</td><td>mixed per source</td><td>api_only (query-time enrichment)</td><td>drug, disease, gene, protein, pathway</td></tr><tr><td><code>txgnn_connector.py</code></td><td>TxGNN (predicted indications)</td><td>academic-only</td><td>api_only</td><td>drug, disease</td></tr></tbody></table></div>
+<h3 id="25-composition-layer-backendmods_kg_composition_servicepy">2.5 Composition layer (<code>backend/mods_kg_composition_service.py</code>)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-composition-layer-backendmods_kg_composition_servicepy" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A composition is a named, versioned recipe: “use these sources, apply these per-source domain and predicate filters.” Materializing it runs a CTE that walks <code>mods_kg_entity_source</code> and <code>mods_kg_relation</code> filtered by composition members. The service exposes:</p>
+<ul>
+<li>CRUD (<code>create_composition</code>, <code>get_composition</code>, <code>lock</code>, <code>unlock</code>)</li>
+<li><code>materialize(composition_id)</code> → entity_ids + relation_ids ready for export</li>
+<li><code>validate(composition_id)</code> → non-blocking report covering domain coverage, license posture, dedup stats, missing-CURIE percentage, orphan count, coverage gaps</li>
+<li><code>coverage_report(composition_id)</code> → counts by (source, domain) for UX surfaces</li>
+</ul>
+<p>Per the parent plan’s user direction, <code>validate()</code> is <strong>informational only</strong> — it never blocks ingest or composition. License posture (e.g., “OncoKB is in this composition; OncoKB is non-permissive”) is surfaced for humans to decide on, not enforced.</p>
+<h3 id="26-export-pipeline">2.6 Export pipeline<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-export-pipeline" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>backend/scripts/export_composition_for_training.py</code> replaces the legacy <code>export_primekg_for_pdr.py</code>. Takes <code>--composition-id</code> and <code>--format pdr|kgx</code>. Produces train/valid/test splits using the same greedy + 60/20/20 algorithm the legacy script used, so existing PDR training notebooks accept the output unchanged. The legacy export script is preserved as a thin shim for backward compatibility.</p>
+<h3 id="27-ux-surface-phase-e">2.7 UX surface (Phase E)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#27-ux-surface-phase-e" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Three additions:</p>
+<ul>
+<li><strong>REST API</strong> (<code>backend/mods_kg_api.py</code>) at <code>/api/mods/kg/*</code>: list/get sources + compositions, validation report, coverage report, lock/unlock, global stats.</li>
+<li><strong>Lab dashboard tab</strong> (<code>frontend/src/components/ModsKGCompositionTab.jsx</code>): three-panel view — overview tiles (entity/relation/source/synthetic-CURIE counts), sources table with status badges, expandable composition cards with validate/lock actions and rendered validator reports.</li>
+<li><strong>MCP tools</strong> in <code>backend/mcp_servers/mods_server.py</code>: <code>mods_kg_list_sources</code>, <code>mods_kg_list_compositions</code>, <code>mods_kg_get_composition</code>, <code>mods_kg_validate_composition</code>, <code>mods_kg_canonical_stats</code>. All callable from the terminal as <code>/&lt;tool></code> slash commands.</li>
+</ul>
+<h3 id="28-legacy-backfill-backendscriptsmigrate_legacy_kg_to_canonicalpy">2.8 Legacy backfill (<code>backend/scripts/migrate_legacy_kg_to_canonical.py</code>)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#28-legacy-backfill-backendscriptsmigrate_legacy_kg_to_canonicalpy" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A two-phase walk per source:</p>
+<ul>
+<li><strong>Phase 1 (nodes).</strong> Read <code>mods_kg_node</code> ordered by id, build a CURIE hint from <code>metadata.original_source</code> + <code>metadata.original_id</code> (PrimeKG carries these natively) or by parsing the <code>external_id</code> (<code>DB\d+</code> → <code>DRUGBANK:</code>, <code>C\d{7}</code> → <code>UMLS:</code>, etc.). Pass through the resolver, populate <code>mods_kg_entity</code> and <code>mods_kg_entity_source</code>.</li>
+<li><strong>Phase 2 (edges).</strong> Build a <code>legacy_node_id → canonical entity_id</code> map by joining the populated <code>mods_kg_entity_source</code> to <code>mods_kg_node</code>. Read <code>mods_kg_edge</code> ordered by id, resolve each edge’s subject/object via the map, normalize the relation_type via the predicate mapper, bulk-insert into <code>mods_kg_relation</code>.</li>
+</ul>
+<p>Both phases use a cursor in <code>mods_kg_migration_state</code> for resumability. Both are idempotent (<code>ON CONFLICT DO NOTHING</code> on the canonical tables).</p>
+<p>A PowerShell wrapper <code>backfill_kg.ps1</code> at the repo root handles Cloud SQL Proxy startup, loads <code>DATABASE_URL</code> from <code>.env</code>, and forwards arguments to the Python script — the user invokes the entire pipeline as one command.</p>
+<hr/>
+<h2 id="3-procedure">3. Procedure<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-procedure" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="31-sequencing-decisions">3.1 Sequencing decisions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-sequencing-decisions" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The plan defined eight phases (A through F) with ~5 sub-phases each. We executed in dependency order, committing at each phase boundary so any rollback would have minimal blast radius:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Commit</th><th>Phase</th><th>Highlight</th></tr></thead><tbody><tr><td>617419b</td><td>A + B + C1-C2</td><td>Foundation: schema + service + resolver + clients</td></tr><tr><td>e0db107</td><td>C3</td><td>Legacy backfill script + predicate mapper</td></tr><tr><td>82e43e9</td><td>D0</td><td>RTX-KG2 KGX bulk connector</td></tr><tr><td>bdf68a9</td><td>D1</td><td>CIViC variant-evidence connector</td></tr><tr><td>672f369</td><td>D2</td><td>OncoKB variant-actionability connector</td></tr><tr><td>800ec09</td><td>D3</td><td>PharmGKB CPIC variant connector</td></tr><tr><td>7e21d6c</td><td>E</td><td>REST + MCP + dashboard tab</td></tr><tr><td>75d49fe + a0af749</td><td>(ops)</td><td><code>backfill_kg.ps1</code> wrapper + ASCII fix</td></tr><tr><td>bfa52c8</td><td>F (planning)</td><td>Patient-anchor scoping planning doc</td></tr><tr><td>e8ff568</td><td>(fix)</td><td>Bulk node insert + cursor reset</td></tr></tbody></table></div>
+<p>Phase C4 (consumer cutover for the legacy KG explorer / MCP tools / saved subgraphs to read from the canonical schema) was deferred — its value depends on the new schema being populated and exercised, so it makes sense to land after we have real data and patient use cases driving requirements.</p>
+<h3 id="32-test-coverage">3.2 Test coverage<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#32-test-coverage" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>128 unit tests against the test database (PostgreSQL with <code>pgvector</code>):</p>
+<ul>
+<li>14 EntityResolver tests (per-row + bulk paths, dedup, idempotency, cache write-through)</li>
+<li>16 composition service tests (CRUD, materialize with various filter combinations, validator dimensions)</li>
+<li>15 normalizer client tests (Node Normalizer + ClinGen, with HTTP stubs)</li>
+<li>12 legacy backfill tests (synthetic legacy KG, cross-source dedup, predicate mapping, resume cursor)</li>
+<li>9 + 19 + 18 + 20 connector tests for RTX-KG2, CIViC, OncoKB, PharmGKB respectively (synthetic data fixtures, no network)</li>
+<li>5 bulk-insert tests added during the perf fix</li>
+</ul>
+<p>Plus 9 existing KG-pathways tests verified still passing — the additive schema design didn’t break the legacy explorer.</p>
+<h3 id="33-deploy">3.3 Deploy<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#33-deploy" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>origin/main</code> was force-fast-forwarded after each phase commit, triggering the standard Cloud Run container reload, which runs <code>backend/migrations.py</code> on startup. Migrations 071–076 applied cleanly to the production Cloud SQL instance with no errors and no rollbacks.</p>
+<p>The user verified the new “KG Composition” tab in the mods-lab dashboard immediately after deploy and saw the seeded sources / compositions appear with zero entity counts (as expected — the canonical schema was empty until backfill ran).</p>
+<h3 id="34-the-migration-what-went-wrong-and-how-it-got-fixed">3.4 The migration: what went wrong and how it got fixed<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#34-the-migration-what-went-wrong-and-how-it-got-fixed" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>This is the part worth dwelling on — both bugs are common patterns and both have lessons that generalize past this work.</p>
+<p><strong>Bug 1: per-row INSERT vs cloud DB latency.</strong></p>
+<p>The first migration attempt was structured as a per-record loop:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> row </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> legacy_node_rows:</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    record </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function"> build_entity_record(row)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">    resolver.resolve_entity(record)   </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># 3-4 SQL round-trips per call</span></span></code></pre></figure>
+<p>Each <code>resolve_entity</code> call did roughly: cache lookup, INSERT entity ON CONFLICT DO NOTHING, SELECT entity id, INSERT entity_source ON CONFLICT DO UPDATE. With ~30 ms of round-trip latency per statement to the Cloud SQL proxy, that’s ~120 ms per record. For PrimeKG’s 129,375 nodes, total wall-clock was <strong>6 hours, 49 minutes, 42 seconds</strong> (24,582.8 s as logged).</p>
+<p>The fix was to batch: <code>bulk_resolve_entities(records)</code> issues exactly four SQL statements regardless of batch size — bulk cache lookup, multi-value INSERT entities, SELECT ids by curie, multi-value INSERT entity_sources. For a 1000-record batch that’s 3,000 round-trips → 4 round-trips ≈ 750× speedup at cloud latency. The estimate held: re-running PrimeKG’s nodes phase after the fix takes minutes rather than hours.</p>
+<blockquote>
+<p>Worth stating plainly, because the intuition runs the other way: inserting a
+thousand rows is not a thousand times the work of inserting one. On the wire
+it is very nearly the <em>same</em> work. What costs is the round trip — the ~30 ms
+of waiting between “here is a statement” and “here is your answer” — and that
+price is paid per statement, not per row. A loop issuing four statements per
+record pays it four times per record. A batch issuing four statements per
+thousand records pays it four times, full stop.</p>
+<p>The practical consequence is that profiling misleads in this class of
+workload. Nothing in the per-row path is slow; no single call is doing
+anything wasteful, and a CPU profile of the migration would have shown a
+program spending almost all of its time idle and told you nothing about what
+to fix. The unit that matters is not operations, or rows, or CPU seconds. It
+is statements crossing the network, and it is worth counting them explicitly
+before concluding a job is inherently long-running.</p>
+</blockquote>
+<p><strong>Bug 2: cursor advancement on skipped edges.</strong></p>
+<p>The edges phase walked all 8.1M PrimeKG edges in id order, advancing a cursor in <code>mods_kg_migration_state</code> every batch. Conceptually:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> batch </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function"> stream_edges(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;" data-token-type="important">start</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function">cursor):</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">    for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> edge </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">in</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> batch:</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">        if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function"> both_endpoints_exist_in_canonical_map(edge):</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function">            insert_relation(edge)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">        else</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="function">            skip()</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        cursor </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation"> edge.id    </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># advance regardless</span></span></code></pre></figure>
+<p>The problem: the <em>first</em> migration attempt had been run with <code>--limit-nodes 1000</code> (a smoke test). That populated only 1000 canonical entities; the edges phase walked all 8.1M edges, found that ~99.7% of them referenced the other 128,375 yet-to-be-backfilled nodes, skipped them, and advanced the cursor to the maximum edge id. The follow-up “now do the rest” run correctly added the remaining 128,375 entities — but the edges phase saw cursor = max_id, fetched zero edges, and exited.</p>
+<p>The legacy <code>mods_kg_edge</code> table still contained all 8.1M rows; the canonical <code>mods_kg_relation</code> table only had the 20,874 edges from the limited first run. <strong>8M+ relations were silently orphaned.</strong></p>
+<p>This was caught by the user noticing the dashboard’s <code>Canonical relations: 20,874</code> was implausibly low compared to PrimeKG’s stated 8.1M edges. We diagnosed by inspecting the cursor row — it was at the very last edge id, not at “the last successful insert” — and the architecture flaw became immediately visible.</p>
+<p>The fix has two parts: (a) when the nodes phase processes > 0 rows in a run, automatically reset the edges cursor for that source so previously-skipped edges get re-walked; (b) a <code>--rewalk-edges</code> manual flag for cases like the user’s, where nodes are already complete but edges are stuck. Both rely on <code>ON CONFLICT DO NOTHING</code> for idempotency — re-walking already-inserted edges is a no-op.</p>
+<blockquote>
+<p>The narrow bug is one line. The wider one is a conflation, and it is the part
+worth carrying: a cursor recording <em>where the walk reached</em> is not the same
+object as a cursor recording <em>what the walk accomplished</em>, and this loop used
+one variable for both. A seek position is a statement about the input; a
+bookmark is a statement about the output. They agree exactly as long as
+nothing is ever skipped — which is to say they agree right up until the first
+run that skips something, and that run was the smoke test.</p>
+<p>What makes it dangerous rather than merely wrong is that both failures are
+quiet. The first run skips 99.7% of its input and reports success, because
+skipping was a legitimate outcome for every edge it saw. The second run
+fetches zero rows and also reports success, because reaching the end of a
+stream is not an error. Nothing throws, no count is obviously wrong in
+isolation, and the only surviving evidence is a total that happens to look
+implausible next to a number published elsewhere — which is exactly how it was
+found, and not a detection method anyone should rely on twice.</p>
+<p>The general form: when a loop can decline to act on an item, “I have seen
+everything” and “I have done everything” stop being the same claim, and a
+resumable job needs to persist the second one.</p>
+</blockquote>
+<hr/>
+<h2 id="4-results">4. Results<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-results" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-primekg-canonical-backfill--full-audit-baseline-first-migration-with-coarse-mapper">4.1 PrimeKG canonical backfill — full audit (BASELINE; first migration with coarse mapper)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-primekg-canonical-backfill--full-audit-baseline-first-migration-with-coarse-mapper" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote>
+<p><strong>Reader note:</strong> this section is the baseline audit from the first PrimeKG migration (2026-05-08). It reflects the coarse predicate mapping that was in place at the time, which produced a 250-edge canonicalization gap and 16 distinct Biolink predicates. The refined mapper + re-migration was triggered by analysis of these numbers; see §4.3 for the final audit on the refined data. Both audits are preserved so the reader can verify the gap, the cause, and the fix end-to-end.</p>
+</blockquote>
+<p>After the bulk-insert fix and <code>--rewalk-edges</code> rerun, the audit (run via <code>psql</code> against the production database):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Dimension</th><th>Legacy schema</th><th>Canonical schema</th><th>Gap</th><th>Status</th></tr></thead><tbody><tr><td>PrimeKG nodes / entity_source rows</td><td>129,375</td><td>129,375</td><td>0</td><td>✅ 100%</td></tr><tr><td>Distinct canonical entities (PrimeKG-sourced)</td><td>—</td><td>129,312</td><td>-63</td><td>ℹ️ explained</td></tr><tr><td>PrimeKG edges / canonical relations</td><td>8,100,128</td><td>8,099,878</td><td>-250</td><td>ℹ️ explained</td></tr><tr><td>Synthetic CURIE % (PrimeKG entities)</td><td>n/a</td><td>0.0000%</td><td>—</td><td>✅</td></tr><tr><td>Unmapped predicate % (PrimeKG relations)</td><td>n/a</td><td>0.00%</td><td>—</td><td>✅</td></tr></tbody></table></div>
+<p><strong>The 63-entity gap.</strong> PrimeKG’s <code>x_index</code> is its internal guaranteed-unique identifier (the connector uses it as the canonical <code>external_id</code>). But several <code>x_index</code> values resolve to the same <code>(original_source, original_id)</code> pair when we extract the CURIE hint from the row’s metadata. In other words, PrimeKG’s own data contains two distinct <code>x_index</code> rows for the same real-world entity in 63 cases.</p>
+<p>PrimeKG’s authors documented this as approximately 64 collisions; we measured 63. They’re not data loss — they’re correct deduplication of source-side duplicates. The user’s KG_CATALOG.md flagged this as a known issue when PrimeKG was first imported.</p>
+<p><strong>The 250-edge gap.</strong> This was the more interesting number. We confirmed via SQL audit that the gap is entirely caused by <strong>predicate canonicalization dedup</strong>, not by any data loss:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">WITH</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> joined </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  SELECT</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> es_h</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">entity_id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> s, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">es_t</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">entity_id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> o,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">         e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">relation_type</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> raw_p,</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">         /* mirror predicate_mapper.py for prime_kg */</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">         CASE</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function"> LOWER</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">relation_type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">           WHEN</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'indication'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> THEN</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'biolink:treats'</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">           WHEN</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'off-label use'</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> THEN</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'biolink:treats'</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">           ...</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">         END</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> canonical_p</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_edge e</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  JOIN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_node h </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">ON</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> h</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">head_id</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  JOIN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_node t </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">ON</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> t</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">tail_id</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  JOIN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_entity_source es_h</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">    ON</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> es_h</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">source_id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> h</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">kg_source</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AND</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> es_h</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">external_id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> h</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">external_id</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  JOIN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_kg_entity_source es_t</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">    ON</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> es_t</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">source_id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> t</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">kg_source</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> AND</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> es_t</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">external_id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> t</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">external_id</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  WHERE</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">kg_source</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> =</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> 'prime_kg'</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">SELECT</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">  COUNT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">*</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)                              </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> legacy_total,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">  COUNT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">DISTINCT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (s, o, raw_p))         </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> distinct_raw_quads,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">  COUNT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">DISTINCT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (s, o, canonical_p))   </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">AS</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> distinct_biolink_quads;</span></span></code></pre></figure>
+<p>Result: <code>8,100,128 / 8,100,128 / 8,099,878</code>.</p>
+<p>The 250 missing edges are pairs where PrimeKG records the same <code>(drug, disease)</code> relation as <strong>both</strong> <code>indication</code> AND <code>off-label use</code>. Both raw predicates map to <code>biolink:treats</code> per the predicate mapper, and the unique constraint on <code>(subject, object, predicate, source)</code> collapses them to one canonical row. This is the correct semantic behavior — those are genuinely the same fact recorded twice in the source.</p>
+<p>Other potential collapse vectors in the predicate mapper (e.g., <code>bioprocess_protein</code> + <code>pathway_protein</code> both → <code>biolink:participates_in</code>, or <code>protein_protein</code> + <code>drug_drug</code> both → <code>biolink:interacts_with</code>) would only collide if the same <code>(subject, object)</code> pair appeared with multiple raw predicates. PrimeKG mostly avoids this by domain-typing its edges (a protein-protein edge can’t share endpoints with a drug-drug edge), so those didn’t contribute to the dedup count.</p>
+<h3 id="42-tier-1-domain-coverage-from-primekg-alone-baseline">4.2 Tier 1 domain coverage from PrimeKG alone (BASELINE)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-tier-1-domain-coverage-from-primekg-alone-baseline" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Domain</th><th>Tier</th><th>Entities from PrimeKG</th><th>Filled</th><th>Notes</th></tr></thead><tbody><tr><td>gene</td><td>1</td><td>27,671</td><td>✅</td><td>PrimeKG normalizes gene + protein into one node type</td></tr><tr><td>disease</td><td>1</td><td>17,080</td><td>✅</td><td></td></tr><tr><td>drug</td><td>1</td><td>7,957</td><td>✅</td><td></td></tr><tr><td>pathway</td><td>1</td><td>2,516</td><td>✅</td><td></td></tr><tr><td>variant</td><td>1</td><td>0</td><td>❌</td><td>Needs CIViC + OncoKB + PharmGKB (D1–D3)</td></tr><tr><td>protein</td><td>1</td><td>0</td><td>❌</td><td>PrimeKG normalizes to gene; RTX-KG2 will split them out (D0)</td></tr><tr><td>toxicity</td><td>1</td><td>0</td><td>❌</td><td>PrimeKG has <code>phenotype</code> (Tier 3); CTCAE / SIDER would fill this</td></tr><tr><td>biomarker</td><td>1</td><td>0</td><td>❌</td><td>Needs OncoKB (D2)</td></tr></tbody></table></div>
+<p>PrimeKG fills 4 of 8 Tier 1 domains. The other 4 are exactly what the new connectors are designed to populate — RTX-KG2 for proteins, CIViC + OncoKB + PharmGKB for variants and biomarkers, with Tier 1 toxicity coverage from CTCAE / SIDER as a future addition. Total per-domain breakdown including the supporting Tier 3 categories sums to PrimeKG’s exact 129,375 node count.</p>
+<h3 id="43-re-migration-with-refined-predicate-mapping--gp-kg-2026-05-09-through-2026-05-11">4.3 Re-migration with refined predicate mapping + GP-KG (2026-05-09 through 2026-05-11)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-re-migration-with-refined-predicate-mapping--gp-kg-2026-05-09-through-2026-05-11" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The §4.1 audit triggered a closer look at the predicate mapper: the 250-edge gap was explainable but stemmed from over-coarse Biolink mappings (<code>indication</code> + <code>off-label use</code> both → <code>biolink:treats</code>, plus several <code>*_*</code> ontology hierarchies all mapped to the generic <code>biolink:related_to</code>). Three real bugs were fixed and several over-coarse defaults refined; details in <a href="../kg/kg_predicate_mapping_report" class="internal internal-link alias" data-slug="kg/kg_predicate_mapping_report">kg_predicate_mapping_report.md</a>.</p>
+<p>The refined mapper was deployed; both canonical schemas were wiped (via <code>wipe_canonical_kg.ps1</code> — supports per-source via <code>-Source &lt;id></code> flag) and re-migrated. The §4.1 audit was repeated post-refinement and GP-KG was migrated for the first time.</p>
+<p><strong>PrimeKG canonical schema — final audit (verbatim from production DB on 2026-05-11):</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Dimension</th><th>Legacy schema</th><th>Canonical schema (refined)</th><th>Gap</th><th>Status</th></tr></thead><tbody><tr><td>PrimeKG nodes / entity_source rows</td><td>129,375</td><td>129,375</td><td>0</td><td>✅ 100%</td></tr><tr><td>Distinct canonical entities (PrimeKG-sourced)</td><td>—</td><td>129,312</td><td>-63</td><td>ℹ️ PrimeKG’s documented internal collisions (same 63 as §4.1)</td></tr><tr><td>PrimeKG edges / canonical relations</td><td>8,100,128</td><td><strong>8,100,128</strong></td><td><strong>0</strong></td><td>✅ 100% (was -250 in §4.1; gap closed by separating <code>off-label use</code> from <code>treats</code>)</td></tr><tr><td>Distinct Biolink predicates in data</td><td>n/a</td><td><strong>20</strong> (up from 16 in §4.1)</td><td>—</td><td>✅ refined mapper preserves all source-native distinctions</td></tr><tr><td>Synthetic CURIE % (PrimeKG entities)</td><td>n/a</td><td>0.0000%</td><td>—</td><td>✅</td></tr><tr><td>Unmapped predicate % (PrimeKG relations)</td><td>n/a</td><td>0.000%</td><td>—</td><td>✅</td></tr></tbody></table></div>
+<p><strong>GP-KG canonical schema — first migration audit (verbatim from production DB on 2026-05-11):</strong></p>
+<p>The first GP-KG migration attempt surfaced two further bugs in the hint code and mapper that the PrimeKG path hadn’t exercised: <strong>87.26% synthetic CURIE rate</strong> (the hint code didn’t recognize GP-KG’s external_id formats — <code>CID100002907</code> with 100M PubChem offset, bare HGNC symbols like <code>BRAF</code>, underscore-not-colon CURIEs like <code>HP_0001128</code>, and lowercase UMLS CUIs like <code>c0009402</code>) and <strong>98.76% unmapped predicate rate</strong> (the mapper had been written against the published GP-KG schema names like <code>treat</code>/<code>target</code>/<code>associate</code>, but the actual data ships verbose <code>&lt;entity>_&lt;vocabulary>_phenotype</code> relations like <code>gene_uao_phenotype</code>, <code>gene_mp_phenotype</code>, etc.). Both fixed (commit <code>e234bbd</code>); GP-KG was wiped and re-migrated.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Dimension</th><th>Legacy schema</th><th>Canonical schema (post-fix)</th><th>Gap</th><th>Status</th></tr></thead><tbody><tr><td>GP-KG nodes / entity_source rows</td><td>61,146</td><td>61,146</td><td>0</td><td>✅ 100%</td></tr><tr><td>GP-KG edges / canonical relations</td><td>1,246,726</td><td><strong>1,246,726</strong></td><td><strong>0</strong></td><td>✅ 100% (0 edges skipped)</td></tr><tr><td>Distinct Biolink predicates in data</td><td>n/a</td><td><strong>7</strong></td><td>—</td><td>✅ (4 EXACT + 1 DELIBERATE-LOSS for GO + 2 AMBIGUITY-VIA-DOMAIN for has_phenotype)</td></tr><tr><td>Synthetic CURIE rate (GP-KG entities)</td><td>n/a</td><td><strong>0.013%</strong> (8 of 61,146)</td><td>—</td><td>✅</td></tr><tr><td>Unmapped predicate %</td><td>n/a</td><td>0.000%</td><td>—</td><td>✅</td></tr></tbody></table></div>
+<p>The 8 synthetic-CURIE GP-KG entities are all defensible non-fixes (six complement proteins miscategorized as <code>entity_type='disease'</code> in GP-KG’s source data; two viral genes — <code>NS3/4A</code> and <code>HIV-1 PROTEASE</code> — that aren’t in HGNC). Full audit table including the verbatim CURIEs is in <a href="../kg/kg_predicate_mapping_report" class="internal internal-link alias" data-slug="kg/kg_predicate_mapping_report">kg_predicate_mapping_report.md</a> section “The 8 GP-KG entities that DID land as synthetic”.</p>
+<p><strong>Cross-source state across the combined canonical schema:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Metric</th><th>Value</th><th>Reproducibility query</th></tr></thead><tbody><tr><td>Total canonical entities (both sources)</td><td>188,270</td><td><code>SELECT COUNT(*) FROM mods_kg_entity</code></td></tr><tr><td>Total canonical relations (both sources)</td><td>9,346,854</td><td><code>SELECT COUNT(*) FROM mods_kg_relation</code></td></tr><tr><td>Cross-source-shared entities (PrimeKG ∩ GP-KG)</td><td><strong>2,188</strong></td><td><code>SELECT COUNT(*) FROM (SELECT entity_id FROM mods_kg_entity_source WHERE source_id='gp_kg' INTERSECT SELECT entity_id FROM mods_kg_entity_source WHERE source_id='prime_kg') s</code></td></tr><tr><td>Math check: 129,375 + 61,146 − 188,270 =</td><td>2,251 (= 2,188 cross-source + 63 PrimeKG internal)</td><td>✓</td></tr></tbody></table></div>
+<p>The <strong>2,188 cross-source-shared entities</strong> are the first concrete demonstration that the canonical-schema refactor is doing its job: when both KGs reference the same drug, disease, or phenotype via a CURIE either side knows, the row collapses to one canonical entity with two provenance rows. The relation table’s unique <code>(subject, object, predicate, source)</code> constraint then supports <code>COUNT(DISTINCT source_id)</code> corroboration queries — “how many sources independently assert this fact?” becomes a one-liner.</p>
+<h3 id="44-composition-as-config-validation">4.4 Composition-as-config validation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-composition-as-config-validation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The <code>tier1_mvp_v1</code> composition (the headline target — RTX-KG2 + CIViC + OncoKB + PharmGKB filtered to Tier 1 domains) was created and persisted at deploy time but is currently empty because none of D0–D3 have been ingested yet. The validator surfaces this correctly: hitting “Validate” in the dashboard reports <code>coverage_gaps: [&quot;rtx_kg2 has 0 entities loaded (status=planned)&quot;, &quot;civic has 0 entities loaded (status=planned)&quot;, ...]</code>.</p>
+<p>The <code>primekg_baseline_v1</code> composition (the existing PDR2 training-set definition) was likewise persisted and now materializes against the canonical schema. Running <code>export_composition_for_training.py --composition-id primekg_baseline_v1</code> produces a triples file ready for PDR1/PDR2 training; the export is byte-equivalent (same row count, same connectivity structure) to the legacy <code>export_primekg_for_pdr.py</code> output, just with canonical Biolink CURIEs as token strings instead of PrimeKG <code>x_index</code> integers.</p>
+<h3 id="45-first-connector-driven-ingest--civic-phase-d1-2026-05-12">4.5 First connector-driven ingest — CIViC (Phase D1, 2026-05-12)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#45-first-connector-driven-ingest--civic-phase-d1-2026-05-12" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>CIViC was the first source to land via the new connector framework rather than the legacy backfill path. It’s a clean test of the abstraction: a fresh ingest with no precedent in the legacy schema, exercising the full flow (manifest → download → stream → resolve → upsert → registry update).</p>
+<p><strong>Final state in canonical tables:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Count</th></tr></thead><tbody><tr><td>Entities</td><td>6,014</td></tr><tr><td>Relations</td><td>11,474</td></tr><tr><td>Variants</td><td>4,421 (~36% with real canonical CURIE: CAID/CLINVAR/HGVS; rest synthetic <code>civic:civic_variant:N</code>)</td></tr><tr><td>Genes</td><td>910</td></tr><tr><td>Drugs</td><td>640</td></tr><tr><td>Diseases</td><td>330</td></tr></tbody></table></div>
+<p>Biolink predicate distribution (no unmapped relations):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Predicate</th><th>Count</th></tr></thead><tbody><tr><td><code>biolink:has_sequence_variant</code></td><td>4,045</td></tr><tr><td><code>biolink:predicts_sensitivity_to</code></td><td>2,788</td></tr><tr><td><code>biolink:predicts_resistance_to</code></td><td>1,507</td></tr><tr><td><code>biolink:gene_associated_with_condition</code></td><td>963</td></tr><tr><td><code>biolink:biomarker_for</code></td><td>812</td></tr><tr><td><code>biolink:contributes_to</code></td><td>570</td></tr><tr><td><code>biolink:predicts_toxicity_for</code></td><td>33</td></tr><tr><td><code>biolink:related_to</code></td><td>21</td></tr></tbody></table></div>
+<p>The headline contribution: <strong>4,421 variant entities</strong> — the entity class neither PrimeKG nor GP-KG carries. The connector framework’s <code>EntityRecord</code> schema with <code>curie_hint</code> and <code>biolink_category_hint</code> handled the variant-as-graph-node case without any schema changes.</p>
+<p>Two problems surfaced during the ingest that are worth recording — both quiet failure modes that the framework’s defensive design caught only after the data landed:</p>
+<p><strong>1. CIViC’s TSV download URL had changed.</strong> The connector hardcoded <code>https://civicdb.org/downloads/nightly/EvidenceSummaries.tsv</code> from when it was first written; CIViC has since reorganized to a <code>nightly-AcceptedAndSubmittedClinicalEvidenceSummaries.tsv</code> naming. The old URL now 200-OKs with the 1.7 KB SPA HTML, so the connector cheerfully reported a successful download with <code>evidence_size_mb: 0.0</code>. First fix: update the filenames to the current convention (verified via the CIViC GraphQL <code>dataReleases</code> query). Lesson: connectors should sanity-check downloaded payloads (content-type, minimum-size) before declaring success.</p>
+<p><strong>2. CIViC’s variant TSV uses placeholder strings (<code>N/A</code>, <code>NONE FOUND</code>, <code>unregistered</code>) in identifier columns.</strong> The connector was building <code>CLINVAR:N/A</code> as a CURIE hint and the EntityResolver dutifully treated it as a canonical identifier — collapsing 283 distinct biological variants onto one shared <code>mods_kg_entity</code> row. The validator surfaced this as an unusually high <code>variant_sources</code> count per <code>CLINVAR:*</code> curie. Second fix: a <code>_clean_id()</code> helper that filters known placeholder values to <code>None</code> before forming the CURIE; variants with no real ID then fall through to the synthetic fallback (as they should). Wipe + re-ingest yielded the correct 4,421 distinct variants.</p>
+<p>The two bugs together pushed the first-pass node count from 5,724 to the correct 6,014 — a 5% identity-graph correction that would have silently degraded downstream cross-source matching once OncoKB and PharmGKB land.</p>
+<p><strong>Schema evolution in the upstream source.</strong> CIViC’s 2025 schema introduced a <code>molecular_profile</code> layer that abstracts over <code>variant</code> (1 MP = 1+ variants). The connector originally read <code>variant_id</code> from evidence rows; the new schema ships <code>molecular_profile_id</code> and pushes <code>variant_id</code> to the join via <code>single_variant_molecular_profile_id</code> in VariantSummaries. The patched connector now resolves MP → variant for single-variant profiles (the common case) and falls through to MP-as-opaque-entity for multi-variant profiles. Two-line change to <code>_row_to_relations</code> plus a new <code>mp_to_variant</code> index. Source-schema evolution is going to be a recurring theme as we add more connectors; the connector framework’s separation of “where does the data live” from “what shape is it” keeps this kind of upstream churn local to the connector file.</p>
+<p><strong>Performance.</strong> The end-to-end ingest took 14 minutes for 10,943 evidence rows at ~14 relations/sec — driven by the per-row <code>EntityResolver.resolve_entity</code> round-trip cost (3-4 SQL statements per record × 30ms cloud RTT). Fine for CIViC’s scale. <strong>RTX-KG2’s 6.5M entities × 140M relations would extrapolate to ~150 hours at this rate</strong> — the bulk path (<code>bulk_resolve_entities</code>, ~750x faster) becomes mandatory for Phase D0. Tracked as an explicit pre-D0 prerequisite.</p>
+<p><code>mods_kg_source.status</code> is now <code>loaded</code> for CIViC with <code>node_count=6014, edge_count=11474, ingested_at=2026-05-12 23:13:35Z</code>. The <code>tier1_mvp_v1</code> composition now materializes with non-zero CIViC contribution.</p>
+<h3 id="46-the-composition-pipeline-as-a-research-lever">4.6 The composition pipeline as a research lever<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#46-the-composition-pipeline-as-a-research-lever" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The composition primitive immediately enables a class of experiments that were friction before:</p>
+<ul>
+<li><strong>Cross-source corroboration scoring.</strong> Train on <code>primekg_baseline_v1</code>, then for each predicted candidate, count how many sources independently assert the same (subject, object, predicate) tuple. Higher = more confidence. This is now a <code>GROUP BY</code> query, not a custom script.</li>
+<li><strong>License-aware compositions.</strong> “What does my graph look like if I exclude OncoKB and any PharmGKB-derived edges?” One composition definition; immediate answer.</li>
+<li><strong>Domain ablation.</strong> Train on <code>tier1_mvp_v1</code>, then on <code>tier1_mvp_v1</code> excluding <code>variant</code> domain, and measure the lift.</li>
+<li><strong>Patient-anchor scoping.</strong> Phase F (planning doc landed) extends the composition primitive with an <code>anchor_set_id</code> so a composition can mean “all of X intersected with N hops of Maureen’s anchor entities.” Critically, this is <em>NOT</em> a way to define the production training set (that would destroy the discovery loop) — it’s a post-hoc filter / fine-tune target / explainability surface. The planning doc covers six distinct use cases; F.5 (inference candidate filtering) is the single most product-relevant.</li>
+</ul>
+<hr/>
+<h2 id="5-discussion">5. Discussion<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-discussion" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="51-what-wed-do-differently">5.1 What we’d do differently<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-what-wed-do-differently" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Bulk-insert from day one.</strong> The per-row resolver was correct but operationally unusable at production-DB scale. Adding the <code>bulk_resolve_entities</code> method as a separate code path (vs retrofitting <code>resolve_entity</code> to bulk under the hood) felt right because it keeps the per-row API for streaming connectors that genuinely yield records one at a time. But the bulk path should have existed before the first migration attempt rather than being added as a fix after a 6-hour wait.</p>
+<p><strong>Cursor semantics need to be explicit.</strong> “Where I left off” and “what I successfully did” are different things and cursor design has to pick one and commit to it. Our fix (reset on nodes-added + manual <code>--rewalk-edges</code> flag) treats the cursor as a <em>seek hint</em>, not a finality marker, which works for our use case because every operation is idempotent. If we ever add a non-idempotent operation downstream, this cursor design will need a re-think.</p>
+<p><strong>Test coverage was good but missed the operational shape.</strong> We had 128 passing unit tests against synthetic data. They didn’t catch either bug because both manifest only at scale (the per-row latency penalty) or in a specific interaction sequence (cursor advancement after a partial run). Adding even one integration test that runs the backfill against a 10,000-row synthetic dataset and times it would have flagged the perf issue immediately.</p>
+<h3 id="52-limitations">5.2 Limitations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-limitations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Phase C4 (consumer cutover) is deferred.</strong> The legacy KG explorer, MCP tools (<code>mods_kg_search</code>, <code>mods_kg_find_path</code>, etc.), and saved-subgraphs (<code>mods_kg_subgraph</code> / <code>mods_kg_subgraph_item</code> from migration 069) all still read the legacy <code>mods_kg_node</code> / <code>mods_kg_edge</code> tables. The new dashboard tab and REST API read the canonical schema. Both data layers coexist correctly; they just don’t share a UI yet. The cutover is real work, and it should be driven by which canonical-schema feature gets used first.</p>
+</li>
+<li>
+<p><strong>No new sources actually ingested yet.</strong> D0–D3 connectors are code-complete and unit-tested but haven’t been pointed at real data. RTX-KG2 in particular needs a multi-GB KGX bundle download; CIViC needs a few-MB nightly TSV pull; OncoKB needs an academic API token; PharmGKB needs a manual download from their downloads page. The dashboard will surface “loaded” vs “planned” status correctly once each lands.</p>
+</li>
+<li>
+<p><strong>The legacy backfill script is one-shot.</strong> It exists to migrate the existing GP-KG and PrimeKG data into the canonical schema. After GP-KG runs (the only remaining backfill), the script can be retired. New sources go through the connector framework directly — they never touch <code>mods_kg_node</code> / <code>mods_kg_edge</code>.</p>
+</li>
+<li>
+<p><strong>The predicate mapper is hand-curated.</strong> Six sources × ~20 raw predicates each = ~120 mapping entries currently. As we add more sources or PrimeKG/CIViC/OncoKB ship updates with new relation types, the mapper needs maintenance. The validator surfaces the unmapped-predicate rate per composition, so coverage gaps are at least visible — but a more principled approach (e.g., LLM-suggested Biolink mappings with human review) is a candidate future improvement.</p>
+</li>
+<li>
+<p><strong>The Entity Resolver’s hint-as-canonical fallback can produce CURIE drift.</strong> If the connector’s hint uses a different prefix casing than the canonical Biolink form (e.g., <code>NCBIGene:673</code> vs <code>NCBIGENE:673</code>), and Node Normalizer isn’t wired in to canonicalize, two effectively-identical hints land as two distinct entities. We saw this once during testing and fixed it by removing the over-aggressive <code>.upper()</code> call in the hint construction. With Node Normalizer wired in (currently optional via <code>--use-node-normalizer</code>), this drift is invisible because every hint round-trips through a canonical-form authority. Worth wiring as default for a future ingest pass.</p>
+</li>
+</ul>
+<h3 id="53-retiring-the-legacy-backfill">5.3 Retiring the legacy backfill<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-retiring-the-legacy-backfill" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>After GP-KG is migrated (the last remaining source in <code>mods_kg_node</code> / <code>mods_kg_edge</code>), the path forward is:</p>
+<ol>
+<li><strong>Verify GP-KG migration with the same audit pattern</strong> — total node count, edge count, synthetic CURIE rate, unmapped predicate rate, expected-collapse delta.</li>
+<li><strong>Lock the baseline compositions</strong> (<code>gp_kg_baseline_v1</code> and <code>primekg_baseline_v1</code>) — <code>mods_kg_composition_service.lock(id)</code> flips <code>is_locked = true</code> so accidental edits can’t shift training sets out from under reproducibility.</li>
+<li><strong>Stop using <code>mods_kg_node</code> / <code>mods_kg_edge</code> for new work.</strong> New sources go through the <code>BaseKGConnector</code> framework into the canonical schema directly.</li>
+<li><strong><code>backend/scripts/migrate_legacy_kg_to_canonical.py</code> can be retired</strong> — kept in git history but removed from the active codebase. The <code>backfill_kg.ps1</code> wrapper retires with it.</li>
+<li><strong>Phase C4 (consumer cutover) becomes the next blocker for legacy table removal.</strong> Until KG explorer / MCP tools / saved subgraphs are migrated to read canonical, migrations 079 (<code>rename to *_legacy</code>) and 080 (<code>drop *_legacy</code>) stay deferred.</li>
+</ol>
+<h3 id="54-whats-next">5.4 What’s next<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-whats-next" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>In order of expected value:</p>
+<ol>
+<li><strong>D1 CIViC ingest.</strong> Public, permissive, the easiest of the variant connectors to bring online. Closes the variant-domain gap immediately for cancer variants. Estimated: half a day including audit.</li>
+<li><strong>D2 OncoKB ingest.</strong> Requires the academic API token. Adds FDA-aligned actionability (Level 1/2/3A/3B/4/R1/R2) which directly maps to Maureen’s clinical decision context. Estimated: half a day.</li>
+<li><strong>D3 PharmGKB ingest.</strong> Requires manual download. Closes the chemo-safety gap (DPYD, UGT1A1, TPMT, CYP2D6) — directly relevant to her CRC treatment plan. Estimated: half a day.</li>
+<li><strong>Re-run training on <code>tier1_mvp_v1</code>.</strong> Once D1–D3 land, the headline composition is no longer empty. Compare downstream metrics (RGCC validation, AD case study Spearman ρ) against <code>primekg_baseline_v1</code> to measure variant-extension lift.</li>
+<li><strong>Phase F.1–F.4 (anchor scoping inspection layer).</strong> Even before full Phase F, getting “Maureen’s 2-hop neighborhood” visible in the dashboard delivers immediate value for inspection and explainability.</li>
+<li><strong>Phase C4 (consumer cutover).</strong> Once the canonical schema is the primary data substrate by usage, the legacy explorer / MCP tools / saved subgraphs cutover becomes the gating step for retiring <code>mods_kg_node</code> / <code>mods_kg_edge</code>.</li>
+<li><strong>D0 RTX-KG2 ingest.</strong> Lower priority than D1–D3 because RTX-KG2 overlaps PrimeKG significantly and the marginal value is mostly in the protein domain (which <code>mods_kg_entity</code> will keep separate from gene, unlike PrimeKG’s normalization). Worth doing for completeness and as a third corroboration source.</li>
+</ol>
+<hr/>
+<h2 id="6-acknowledgments-and-methodological-notes">6. Acknowledgments and methodological notes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-acknowledgments-and-methodological-notes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Code and infrastructure throughout this work were authored collaboratively with Claude (Anthropic Sonnet 4.5 via Claude Code). All schema decisions, architecture, and final commits were reviewed by the human author. The 6.8-hour first-attempt migration was a real production cost; the audit was real verification; the bugs were real bugs.</li>
+<li>Test database for the unit suite is a separate <code>maple_test</code> instance. Production database is the Cloud SQL <code>maple_db</code> instance backing the deployed Maple stack.</li>
+<li>The full session including diagnosis of both bugs and the audit queries that confirmed the 250-edge gap were authored within a single ~16-hour pairing window starting 2026-05-08.</li>
+<li>Contributions of intermediate commits, test counts, and migration timings reported above are taken from the git log and the deployed <code>mods_kg_migration_state</code> table at writeup time. Independently reproducible via the queries shown in §4.1 against the production database.</li>
+</ul>
+<hr/>
+<h2 id="7-cross-references">7. Cross-references<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-cross-references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Parent plan: an internal memory note</li>
+<li>Variant entry-point planning: <a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">pdr_phase8.5_variant_kg_planning.md</a></li>
+<li>Patient-anchor scoping planning: <a href="../kg/kg_anchor_scoping_planning" class="internal internal-link alias" data-slug="kg/kg_anchor_scoping_planning">kg_anchor_scoping_planning.md</a></li>
+<li>KG source registry (auto-generatable from <code>mods_kg_source</code> going forward): <a href="../kg/kg_catalog" class="internal internal-link alias" data-slug="kg/kg_catalog">KG_CATALOG.md</a></li>
+<li>Prior writeup template: <a href="../results/pdr_phase0_gpkg_writeup" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_writeup">pdr_phase0_gpkg_writeup.md</a></li>
+<li>Prior substack-format draft: <a href="../essays/training_first_neural_network" class="internal internal-link alias" data-slug="essays/training_first_neural_network">essays/training_first_neural_network.md</a></li>
+</ul>
+<hr/>
+<p><em>End of writeup.</em> The two bugs in §3.4 are the parts most likely to generalise:
+the round-trip-vs-compute point applies to any cloud-database workload, and the
+seek-versus-bookmark distinction applies to any resumable job whose loop can
+skip an item. §4.1 and §4.3 are preserved as a pair on purpose — the first
+audit is what made the mapping gap visible, and removing it would leave the fix
+without the evidence that motivated it.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-14" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#building-a-defensible-kg-composition-pipeline--formal-writeup" data-for="building-a-defensible-kg-composition-pipeline--formal-writeup">Building a Defensible KG Composition Pipeline — Formal Writeup</a></li><li class="depth-1"><a href="#summary" data-for="summary">Summary</a></li><li class="depth-1"><a href="#1-purpose" data-for="1-purpose">1. Purpose</a></li><li class="depth-1"><a href="#2-materials-and-methods" data-for="2-materials-and-methods">2. Materials and Methods</a></li><li class="depth-2"><a href="#21-pre-session-state-what-existed" data-for="21-pre-session-state-what-existed">2.1 Pre-session state (what existed)</a></li><li class="depth-2"><a href="#22-new-schema-migrations-071076" data-for="22-new-schema-migrations-071076">2.2 New schema (migrations 071–076)</a></li><li class="depth-2"><a href="#23-entity-resolver-backendkg_normalizeentity_resolverpy" data-for="23-entity-resolver-backendkg_normalizeentity_resolverpy">2.3 Entity Resolver (backend/kg_normalize/entity_resolver.py)</a></li><li class="depth-2"><a href="#24-connector-framework-backendconnectorsbasepy" data-for="24-connector-framework-backendconnectorsbasepy">2.4 Connector framework (backend/connectors/base.py)</a></li><li class="depth-2"><a href="#25-composition-layer-backendmods_kg_composition_servicepy" data-for="25-composition-layer-backendmods_kg_composition_servicepy">2.5 Composition layer (backend/mods_kg_composition_service.py)</a></li><li class="depth-2"><a href="#26-export-pipeline" data-for="26-export-pipeline">2.6 Export pipeline</a></li><li class="depth-2"><a href="#27-ux-surface-phase-e" data-for="27-ux-surface-phase-e">2.7 UX surface (Phase E)</a></li><li class="depth-2"><a href="#28-legacy-backfill-backendscriptsmigrate_legacy_kg_to_canonicalpy" data-for="28-legacy-backfill-backendscriptsmigrate_legacy_kg_to_canonicalpy">2.8 Legacy backfill (backend/scripts/migrate_legacy_kg_to_canonical.py)</a></li><li class="depth-1"><a href="#3-procedure" data-for="3-procedure">3. Procedure</a></li><li class="depth-2"><a href="#31-sequencing-decisions" data-for="31-sequencing-decisions">3.1 Sequencing decisions</a></li><li class="depth-2"><a href="#32-test-coverage" data-for="32-test-coverage">3.2 Test coverage</a></li><li class="depth-2"><a href="#33-deploy" data-for="33-deploy">3.3 Deploy</a></li><li class="depth-2"><a href="#34-the-migration-what-went-wrong-and-how-it-got-fixed" data-for="34-the-migration-what-went-wrong-and-how-it-got-fixed">3.4 The migration: what went wrong and how it got fixed</a></li><li class="depth-1"><a href="#4-results" data-for="4-results">4. Results</a></li><li class="depth-2"><a href="#41-primekg-canonical-backfill--full-audit-baseline-first-migration-with-coarse-mapper" data-for="41-primekg-canonical-backfill--full-audit-baseline-first-migration-with-coarse-mapper">4.1 PrimeKG canonical backfill — full audit (BASELINE; first migration with coarse mapper)</a></li><li class="depth-2"><a href="#42-tier-1-domain-coverage-from-primekg-alone-baseline" data-for="42-tier-1-domain-coverage-from-primekg-alone-baseline">4.2 Tier 1 domain coverage from PrimeKG alone (BASELINE)</a></li><li class="depth-2"><a href="#43-re-migration-with-refined-predicate-mapping--gp-kg-2026-05-09-through-2026-05-11" data-for="43-re-migration-with-refined-predicate-mapping--gp-kg-2026-05-09-through-2026-05-11">4.3 Re-migration with refined predicate mapping + GP-KG (2026-05-09 through 2026-05-11)</a></li><li class="depth-2"><a href="#44-composition-as-config-validation" data-for="44-composition-as-config-validation">4.4 Composition-as-config validation</a></li><li class="depth-2"><a href="#45-first-connector-driven-ingest--civic-phase-d1-2026-05-12" data-for="45-first-connector-driven-ingest--civic-phase-d1-2026-05-12">4.5 First connector-driven ingest — CIViC (Phase D1, 2026-05-12)</a></li><li class="depth-2"><a href="#46-the-composition-pipeline-as-a-research-lever" data-for="46-the-composition-pipeline-as-a-research-lever">4.6 The composition pipeline as a research lever</a></li><li class="depth-1"><a href="#5-discussion" data-for="5-discussion">5. Discussion</a></li><li class="depth-2"><a href="#51-what-wed-do-differently" data-for="51-what-wed-do-differently">5.1 What we’d do differently</a></li><li class="depth-2"><a href="#52-limitations" data-for="52-limitations">5.2 Limitations</a></li><li class="depth-2"><a href="#53-retiring-the-legacy-backfill" data-for="53-retiring-the-legacy-backfill">5.3 Retiring the legacy backfill</a></li><li class="depth-2"><a href="#54-whats-next" data-for="54-whats-next">5.4 What’s next</a></li><li class="depth-1"><a href="#6-acknowledgments-and-methodological-notes" data-for="6-acknowledgments-and-methodological-notes">6. Acknowledgments and methodological notes</a></li><li class="depth-1"><a href="#7-cross-references" data-for="7-cross-references">7. Cross-references</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../kg/kg_predicate_mapping_report" class="internal">KG Predicate Mapping</a></li><li><a href="../maplelog/2026-05-23-a-month-later" class="internal">2026-05-23 · A Month Later</a></li><li><a href="../planning/paan_planning" class="internal">Patient-as-a-Node — Thinking Doc</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>KG Anchor Scoping</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="KG Anchor Scoping"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="KG Anchor Scoping"/><meta name="twitter:description" content="Which slice of a knowledge graph is worth training on, when the graph is far larger than the question."/><meta property="og:description" content="Which slice of a knowledge graph is worth training on, when the graph is far larger than the question."/><meta property="og:image:alt" content="Which slice of a knowledge graph is worth training on, when the graph is far larger than the question."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/kg/kg_anchor_scoping_planning"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/kg/kg_anchor_scoping_planning"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Which slice of a knowledge graph is worth training on, when the graph is far larger than the question."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/kg/kg_anchor_scoping_planning-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/kg/kg_anchor_scoping_planning-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/kg/kg_anchor_scoping_planning-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="kg/kg_anchor_scoping_planning" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-13" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-13" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../kg/">kg</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>KG Anchor Scoping</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-05-09</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">planning</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Which slice of a knowledge graph is worth training on, when the graph is far larger than the question.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.248Z">Oct 09, 2026</time><span>11 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="kg-anchor-scoping--patient-centric-kg-filters-planning-doc">KG Anchor Scoping — Patient-Centric KG Filters (Planning Doc)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#kg-anchor-scoping--patient-centric-kg-filters-planning-doc" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Status:</strong> PLANNING (not yet started)
+<strong>Created:</strong> 2026-05-09
+<strong>Owner:</strong> whafa
+<strong>KG composition pipeline ref:</strong> <code>an internal agent path</code> (Phase F follow-on)
+<strong>Companion:</strong> <a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">pdr_phase8.5_variant_kg_planning.md</a> (variant entry-point — F depends on D1-D3 ingest for full anchor coverage)</p>
+<blockquote>
+<p>This document plans a feature that lets us slice the canonical KG by a patient’s mechanistic neighborhood — for visualization, inference candidate filtering, explainability, ablation, and per-patient fine-tune. It does <strong>NOT</strong> scope the production training graph; that stays full-coverage to preserve discovery power. The framing here was sharpened by a question from whafa on 2026-05-09: “we can’t base the KG solely on her data, right? The whole point is to find alternative treatments…” which is exactly right and rules out the naive design.</p>
+</blockquote>
+<hr/>
+<h2 id="1-the-discovery-vs-exploitation-tension-the-framing">1. The discovery vs. exploitation tension (the framing)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-the-discovery-vs-exploitation-tension-the-framing" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Drug repurposing is fundamentally a <strong>discovery</strong> problem. The whole point is to find drugs that nobody has thought to try for Maureen yet — drugs that may have <em>no direct connection</em> to anything in her current medical record. If the model has never seen Drug X during training, it cannot rank Drug X. So:</p>
+<blockquote>
+<p><strong>The training graph must include every candidate drug we want to be able to predict.</strong></p>
+</blockquote>
+<p>This rules out the naive “scope the composition to entities reachable from her record within N hops” approach as a definition of the production training set. That would prune most of the candidate space and turn discovery into “predict edges between things she’s already touched” — which is the opposite of what we want.</p>
+<p>But patient-centric subgraphs are still <strong>enormously useful</strong> for several other purposes — they just operate at different stages of the pipeline:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Use case</th><th>Stage</th><th>What it needs</th></tr></thead><tbody><tr><td>Inspection / visualization</td><td>Anytime</td><td>Show her mechanistic neighborhood; explore the graph around her case</td></tr><tr><td>Inference candidate filtering</td><td>Post-prediction</td><td>”Of all 12K drugs the model ranked, show me the top hits that share mechanism with what we know about her.”</td></tr><tr><td>Explainability / path tracing</td><td>Post-prediction</td><td>”WHY did the model rank Drug X high?” → trace the path from her anchors through Drug X’s neighborhood</td></tr><tr><td>Per-patient fine-tune (PDR2 style)</td><td>Training (specific)</td><td>Foundation model trained on full graph; fine-tune on a patient subgraph for personalization</td></tr><tr><td>Ablation studies</td><td>Research</td><td>Train at varying hop counts to measure information locality — research, not production</td></tr><tr><td>Tractability fallback</td><td>When forced</td><td>When an experiment really needs a smaller graph (memory/latency budget)</td></tr></tbody></table></div>
+<p>This planning doc designs the <strong>anchor-scoping mechanism</strong> that supports all of these use cases without compromising the production training composition.</p>
+<hr/>
+<h2 id="2-what-this-is-not">2. What this is NOT<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-what-this-is-not" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>NOT a way to define the production training set.</strong> That stays on the full Tier 1 MVP composition (<code>tier1_mvp_v1</code> = RTX-KG2 + CIViC + OncoKB + PharmGKB).</li>
+<li><strong>NOT a replacement for full-graph training.</strong> Discovery requires breadth.</li>
+<li><strong>NOT patient-only.</strong> Anchor sets are reusable named objects; “Maureen’s record” is one anchor set, but we’ll define others (e.g., “BRCA-positive cancers”, “PARP inhibitor pathway”, a manually curated CURIE list).</li>
+</ul>
+<h2 id="3-what-this-is">3. What this IS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-what-this-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>A new orthogonal scoping primitive that sits ALONGSIDE compositions and can be applied at five different stages:</p>
+<pre><code>                    ┌─────────────────────────────────┐
+                    │  mods_kg_composition            │   ← unchanged
+                    │  (sources × domains × predicates)│   defines training graph
+                    └─────────────────────────────────┘
+                                   ⊥
+                                  AND
+                                   ⊤
+                    ┌─────────────────────────────────┐
+                    │  mods_kg_anchor_set             │   ← NEW
+                    │  (patient OR manual curies)     │   defines a slice
+                    └─────────────────────────────────┘
+                                   │
+                              materialize
+                                   ↓
+                    ┌─────────────────────────────────┐
+                    │  N-hop reachable entity set     │
+                    └─────────────────────────────────┘
+                                   │
+                                   ▼
+              ┌────────┬────────┬────────┬────────┬────────┐
+            view   inference  explain  fine-  ablation
+                    filter   path    tune
+</code></pre>
+<p>The composition defines WHAT graph data exists. The anchor set defines a SLICE through it. Different consumers apply the slice at different stages.</p>
+<hr/>
+<h2 id="4-closure-criteria">4. Closure criteria<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-closure-criteria" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Schema</strong> supports named, reusable anchor sets — both patient-derived and manually-curated (CURIE list).</li>
+<li><strong>Anchor resolver</strong> can take a patient_id and produce the canonical-CURIE set of all entities mentioned in their medical record (variants, drugs, diseases, biomarkers, gene expressions).</li>
+<li><strong>BFS service</strong> can materialize the N-hop reachable set in Postgres, with hub guards, in seconds for typical anchor sets and N ≤ 3.</li>
+<li><strong>Inspection API + dashboard</strong> lets a human see “Maureen’s 2-hop subgraph: 4,103 entities by domain breakdown, 47 drugs not yet tried.”</li>
+<li><strong>Inference filter</strong> can post-filter a model’s ranked predictions by anchor reachability.</li>
+<li><strong>Reproducibility</strong> — locked compositions that reference an anchor set get the resolved CURIE list snapshotted (<code>anchor_set_hash</code>) so re-materialization is deterministic.</li>
+<li><strong>Ablation tooling</strong> — script that varies max_hops {1, 2, 3, 4} for the same anchor and reports the entity / relation / drug-candidate counts per ring.</li>
+</ol>
+<hr/>
+<h2 id="5-sub-phases">5. Sub-phases<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-sub-phases" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="f1--anchor-resolver-1-day--foundation">F.1 — Anchor resolver (1 day) — <em>foundation</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f1--anchor-resolver-1-day--foundation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> New service <code>backend/mods_kg_anchor_service.py</code></li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <code>resolve_patient_anchors(patient_id) -> List[str]</code> — extracts canonical CURIEs from:
+<ul>
+<li><code>mods_genomic_alteration</code> (variants — uses ClinGen client when available)</li>
+<li><code>mods_treatment_drug</code> (drugs)</li>
+<li><code>mods_cancer_profile</code> (diseases)</li>
+<li><code>mods_biomarker_value</code> (biomarkers — names → CURIEs via NodeNorm)</li>
+<li><code>mods_gene_expression</code> (genes from RGCC/Caris if available)</li>
+<li><code>mods_therapy_association</code> (drug-biomarker links)</li>
+<li>Future: <code>mods_genotype</code> PRS-relevant variants</li>
+</ul>
+</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Goes through the same <code>EntityResolver.upstream</code> chain (ClinGen → NodeNorm → synthetic) so resolution rules stay consistent.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Returns both <code>resolved_curies</code> (canonical) and <code>unresolved</code> (free text we couldn’t anchor) — for transparency.</li>
+</ul>
+<h3 id="f2--anchor-set-storage-05-day">F.2 — Anchor set storage (0.5 day)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f2--anchor-set-storage-05-day" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> New table <code>mods_kg_anchor_set</code>:
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">CREATE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> TABLE</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function"> mods_kg_anchor_set</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  id              </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">TEXT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> PRIMARY KEY</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,        </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- 'maureen_record_v1', 'brca_positive_v1'</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  display_name    </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">TEXT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> NOT NULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">  description</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">     TEXT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  strategy        </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">TEXT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> NOT NULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,           </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- 'patient_record' | 'manual_curies'</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  patient_id      UUID </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">REFERENCES</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> mods_patient(id) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">NULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  manual_curies   JSONB </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">NULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,              </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- [{curie:'HGNC:1097', source:'manual'}]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  resolved_curies JSONB </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">NULL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,              </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment">-- snapshotted at creation/lock; for reproducibility</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  resolved_at     </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">TIMESTAMPTZ</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  notes           </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">TEXT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  created_at      </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">TIMESTAMPTZ</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> DEFAULT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword"> NOW</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">()</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span></code></pre></figure>
+</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Optional column on <code>mods_kg_composition</code>: <code>anchor_set_id</code> (nullable FK) — for compositions that bake in an anchor scope (used by per-patient fine-tune). Most compositions leave this NULL.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <code>mods_kg_composition.anchor_max_hops INT NULL</code> — hop limit when an anchor is attached.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Migration in <code>backend/migrations.py</code> (next available number after deploy).</li>
+</ul>
+<h3 id="f3--reachability-service-1-2-days--the-engine">F.3 — Reachability service (1-2 days) — <em>the engine</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f3--reachability-service-1-2-days--the-engine" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> New module <code>backend/mods_kg_reachability_service.py</code></li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <code>compute_reachable(anchor_set_id, max_hops, max_degree) -> {entity_ids, by_hop_ring}</code></li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Postgres recursive CTE walks <code>mods_kg_relation</code> from anchor entity_ids outward.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> <strong>Hub guard</strong>: skip nodes whose total degree exceeds <code>max_degree</code> (default 2000). Without this, BFS through “HOMO_SAPIENS” or “Cancer” engulfs the entire KG.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Optionally <strong>predicate-typed BFS</strong> (only follow certain relation types). Future enhancement; not in F.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Cache hot results in <code>mods_kg_reachable_cache</code> (anchor_set_id, max_hops) → entity_ids JSONB. Invalidate on anchor resolution change.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Stats: per-hop entity count, per-domain breakdown.</li>
+</ul>
+<h3 id="f4--inspection-api--dashboard-1-day--make-it-visible">F.4 — Inspection API + dashboard (1 day) — <em>make it visible</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f4--inspection-api--dashboard-1-day--make-it-visible" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> REST endpoints under <code>/api/mods/kg/anchors</code>:
+<ul>
+<li><code>POST /anchors</code> — create an anchor set</li>
+<li><code>GET /anchors</code> — list</li>
+<li><code>GET /anchors/{id}</code> — show resolved curies + unresolved</li>
+<li><code>GET /anchors/{id}/reachable?max_hops=N</code> — entity counts by hop ring + domain</li>
+<li><code>GET /anchors/{id}/reachable/entities?max_hops=N&amp;domain=drug</code> — sample entities</li>
+</ul>
+</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> New dashboard sub-tab on <strong>KG Composition</strong>: “Patient anchors”. Shows:
+<ul>
+<li>Anchor sets (Maureen + any others created)</li>
+<li>Per anchor: resolved CURIE count, unresolved count, “view neighborhood” button</li>
+<li>Hop-ring chart (entity count vs. hop) — the locality curve</li>
+<li>Per-hop domain breakdown</li>
+<li>“View in Explorer” → loads the subgraph into the existing KG Explorer</li>
+</ul>
+</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> MCP tools: <code>mods_kg_anchor_summary</code>, <code>mods_kg_anchor_reachable_count</code></li>
+</ul>
+<h3 id="f5--inference-candidate-filtering-1-day--the-actual-product-use-case">F.5 — Inference candidate filtering (1 day) — <em>the actual product use case</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f5--inference-candidate-filtering-1-day--the-actual-product-use-case" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> When ranking model predictions, accept an optional <code>anchor_set_id</code> + <code>max_hops</code> filter.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> After model produces top-K candidates, filter to those reachable from anchor within max_hops.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Returns BOTH the unfiltered top-K and the filtered top-K so user can compare.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> UI: in the Research Dashboard’s prediction view, add an “anchor scope” toggle:
+<pre><code>[ ] Show all ranked drugs (default)
+[x] Filter to drugs reachable from Maureen's network within [2 ▾] hops
+</code></pre>
+</li>
+</ul>
+<h3 id="f6--explainability--path-tracing-2-days--the-trust-use-case">F.6 — Explainability / path tracing (2 days) — <em>the trust use case</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f6--explainability--path-tracing-2-days--the-trust-use-case" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> For a (patient, predicted_drug) pair, find shortest paths from any anchor entity to the drug.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Reuse <code>mods_kg_service.find_paths</code> logic (already implemented for KG Pathways feature) with anchor-set-as-source.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Returns top-3 paths ranked by length / weight / corroboration.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> UI: prediction row → “Why?” → opens path explorer.</li>
+</ul>
+<h3 id="f7--per-patient-fine-tune-support-2-days--pdr2-personalization">F.7 — Per-patient fine-tune support (2 days) — <em>PDR2 personalization</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f7--per-patient-fine-tune-support-2-days--pdr2-personalization" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Allow a composition to be defined as <code>&lt;base_composition> ∩ &lt;anchor_reachable></code> via the existing composition_id FK + the new anchor_set_id column.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> When materialized for training export, the export script applies the anchor filter as the final step.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Naming: <code>tier1_mvp_v1_anchored_maureen_2hop</code> (auto-generated names get unwieldy; UI generates human-friendly displays).</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Foundation model trained on full <code>tier1_mvp_v1</code> (broad embeddings); per-patient run fine-tunes on the anchored slice.</li>
+</ul>
+<h3 id="f8--ablation-tooling-1-day--the-research-lever">F.8 — Ablation tooling (1 day) — <em>the research lever</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f8--ablation-tooling-1-day--the-research-lever" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Script <code>backend/scripts/anchor_ablation.py</code>:
+<ul>
+<li>Takes anchor_set_id + max range (e.g., 1..4)</li>
+<li>For each N: materialize, count entities + relations + drug candidates + per-domain breakdown</li>
+<li>Output: a table that lets you eyeball “where does diminishing returns kick in?”</li>
+<li>Example output:
+<pre><code>maureen_1hop:  47 entities,        89 relations,    8 drug candidates
+maureen_2hop:  4,103 entities,     32,841 relations, 412 drug candidates
+maureen_3hop:  287,492 entities,   4.1M relations,   8,940 drug candidates
+maureen_4hop:  4.8M entities,      89M relations,    11,800 drug candidates  ← plateauing
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="f9--documentation--writeup-05-day">F.9 — Documentation + writeup (0.5 day)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f9--documentation--writeup-05-day" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Update <code>docs/KG_CATALOG.md</code> with the anchor scoping section.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Writeup following <code>pdr_phase0_gpkg_writeup.md</code> template.</li>
+</ul>
+<hr/>
+<h2 id="6-critical-design-decisions-to-lock-before-f1-starts">6. Critical design decisions to lock before F.1 starts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-critical-design-decisions-to-lock-before-f1-starts" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>Anchor resolution timing.</strong> Snapshot CURIEs at anchor creation, OR re-resolve on every materialization?</p>
+<ul>
+<li><strong>Recommendation:</strong> Snapshot at lock time (analog of how compositions lock). Provide an explicit “re-resolve” action that updates <code>resolved_curies</code> and bumps the resolve timestamp. Locked downstream compositions can then opt to use the snapshot OR follow the latest, but default is the snapshot for reproducibility.</li>
+</ul>
+</li>
+<li>
+<p><strong>Hub guard threshold.</strong> What’s the default <code>max_degree</code>? Too low and we miss real mechanism; too high and BFS explodes.</p>
+<ul>
+<li><strong>Recommendation:</strong> Default 2000 (matches the existing <code>find_paths</code> guard in <code>mods_kg_service.py</code>). Configurable per anchor set.</li>
+</ul>
+</li>
+<li>
+<p><strong>Predicate-typed BFS.</strong> Should we let users say “follow only <code>biolink:treats</code> and <code>biolink:has_target</code>”?</p>
+<ul>
+<li><strong>Recommendation:</strong> Defer to F+1. Default is “all relations.” When we add predicate-typed BFS, it makes 3-hop subgraphs much smaller and more interpretable.</li>
+</ul>
+</li>
+<li>
+<p><strong>Multiple anchor sets per composition?</strong> Could we want “intersection of (Maureen 2-hop) AND (PARP-pathway 2-hop)”?</p>
+<ul>
+<li><strong>Recommendation:</strong> Defer. F supports one anchor per composition. Boolean combinations are an obvious follow-on if needed.</li>
+</ul>
+</li>
+<li>
+<p><strong>How does this interact with the variant-overlay connectors (D1-D3)?</strong></p>
+<ul>
+<li>Anchor resolver produces high-quality CURIEs only when her variants are graph-native. Until D1-D3 are ingested, BRAF V600E etc. resolve to synthetic CURIEs and the 1-hop ring around them is tiny. <strong>F is fully usable only after D1-D3 land.</strong> Anchor coverage report should explicitly show ”% of medical-record entities resolved to non-synthetic CURIEs” so this gap is visible.</li>
+</ul>
+</li>
+<li>
+<p><strong>How does this interact with Phase 12 (patient-as-node)?</strong></p>
+<ul>
+<li>When the patient becomes a graph node with <code>has_variant</code> / <code>received_treatment</code> / <code>diagnosed_with</code> edges, the anchor resolver gets simpler — it just returns the patient’s direct neighbors. The schema in F.2 supports both pre-Phase-12 (CURIE list) and post-Phase-12 (patient_id traversal) cleanly. No re-architecture needed when Phase 12 lands.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="7-open-questions">7. Open questions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-open-questions" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>Anchor sets across patients.</strong> “BRCA-positive metastatic CRC” is a useful research anchor that doesn’t correspond to one patient. Worth supporting via <code>manual_curies</code>. Done in F.2; just confirming.</p>
+</li>
+<li>
+<p><strong>Ablation outside Maureen.</strong> Once we have one or two more patients, the ablation tooling should be patient-agnostic. F.8 designs for that.</p>
+</li>
+<li>
+<p><strong>Inference filtering UX — soft vs. hard filter.</strong> Soft = “show all but highlight in-scope ones.” Hard = “exclude out-of-scope from the list.” Soft preserves discovery; hard sharpens focus. Maybe both as toggles?</p>
+</li>
+<li>
+<p><strong>Caching invalidation.</strong> The reachable cache becomes stale when the underlying KG changes (new connector ingest, etc.). Invalidate on every ingest, OR timestamp-based, OR explicit “re-materialize” button?</p>
+<ul>
+<li>Probably: invalidate by source, with a “last-updated-at” check. New ingest of CIViC invalidates only those caches whose anchor set has CIViC-derived CURIEs.</li>
+</ul>
+</li>
+<li>
+<p><strong>Drug candidate definition.</strong> When the inference filter says “show drugs in scope,” do we mean:</p>
+<ul>
+<li>Any entity with <code>domain='drug'</code> reachable from anchor within N hops?</li>
+<li>OR: any entity with <code>domain='drug'</code> AND a <code>treats</code> / <code>predicts_sensitivity_to</code> edge to her diseases / variants?</li>
+<li>The second is much narrower and more useful for ranking. Probably want both as alternatives.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="8-cost-estimate">8. Cost estimate<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-cost-estimate" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Sub-phase</th><th>Effort</th></tr></thead><tbody><tr><td>F.1 anchor resolver</td><td>1 day</td></tr><tr><td>F.2 schema</td><td>0.5 day</td></tr><tr><td>F.3 reachability service</td><td>1-2 days</td></tr><tr><td>F.4 inspection API + dashboard</td><td>1 day</td></tr><tr><td>F.5 inference filter</td><td>1 day</td></tr><tr><td>F.6 explainability paths</td><td>2 days</td></tr><tr><td>F.7 fine-tune support</td><td>2 days</td></tr><tr><td>F.8 ablation tooling</td><td>1 day</td></tr><tr><td>F.9 docs</td><td>0.5 day</td></tr><tr><td><strong>Total</strong></td><td><strong>~10 days = ~2 weeks</strong></td></tr></tbody></table></div>
+<p>Phases stack — F.1-F.4 deliver real visualizable value alone (Tier 1 deliverable: “see Maureen’s neighborhood in the dashboard”). F.5 unlocks the actual personalization filter at inference. F.6-F.8 are research enhancements.</p>
+<hr/>
+<h2 id="9-suggested-next-steps">9. Suggested next steps<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-suggested-next-steps" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Wait for legacy backfill + at least one variant connector to land.</strong> F is more useful when her variants resolve to canonical CURIEs.</li>
+<li><strong>Decide on the bulk-insert speedup for the EntityResolver first.</strong> Current per-row insertion makes anchor resolution slow when running over many medical record rows. The same optimization helps both.</li>
+<li><strong>Validate F.1 anchor resolver against Maureen’s actual records before committing to F.2 schema.</strong> Spike: just hand-resolve 10-20 of her variants/drugs/diseases through <code>EntityResolver</code>, count how many get canonical vs. synthetic CURIEs. If &lt;50% canonical, the F.5 inference filter will be too leaky and we should land more variant connectors first.</li>
+</ol>
+<hr/>
+<h2 id="10-cross-references">10. Cross-references<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-cross-references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><code>an internal agent path</code> — the parent KG composition pipeline plan (Phases A-E)</li>
+<li><a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">pdr_phase8.5_variant_kg_planning.md</a> — variant KG extension; F depends on D1-D3 connector ingest</li>
+<li><a href="../planning/temporal_patient_modeling_planning" class="internal internal-link alias" data-slug="planning/temporal_patient_modeling_planning">temporal_patient_modeling_planning.md</a> — Phase 13; trajectory modeling per patient. Anchor scoping helps define the temporal window.</li>
+<li><code>backend/mods_kg_composition_service.py</code> — composition layer F extends</li>
+<li><code>backend/kg_normalize/entity_resolver.py</code> — resolver chain F.1 reuses</li>
+<li><code>backend/mods_kg_service.py</code> — <code>find_paths</code> logic F.6 reuses</li>
+</ul></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-13" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#kg-anchor-scoping--patient-centric-kg-filters-planning-doc" data-for="kg-anchor-scoping--patient-centric-kg-filters-planning-doc">KG Anchor Scoping — Patient-Centric KG Filters (Planning Doc)</a></li><li class="depth-1"><a href="#1-the-discovery-vs-exploitation-tension-the-framing" data-for="1-the-discovery-vs-exploitation-tension-the-framing">1. The discovery vs. exploitation tension (the framing)</a></li><li class="depth-1"><a href="#2-what-this-is-not" data-for="2-what-this-is-not">2. What this is NOT</a></li><li class="depth-1"><a href="#3-what-this-is" data-for="3-what-this-is">3. What this IS</a></li><li class="depth-1"><a href="#4-closure-criteria" data-for="4-closure-criteria">4. Closure criteria</a></li><li class="depth-1"><a href="#5-sub-phases" data-for="5-sub-phases">5. Sub-phases</a></li><li class="depth-2"><a href="#f1--anchor-resolver-1-day--foundation" data-for="f1--anchor-resolver-1-day--foundation">F.1 — Anchor resolver (1 day) — foundation</a></li><li class="depth-2"><a href="#f2--anchor-set-storage-05-day" data-for="f2--anchor-set-storage-05-day">F.2 — Anchor set storage (0.5 day)</a></li><li class="depth-2"><a href="#f3--reachability-service-1-2-days--the-engine" data-for="f3--reachability-service-1-2-days--the-engine">F.3 — Reachability service (1-2 days) — the engine</a></li><li class="depth-2"><a href="#f4--inspection-api--dashboard-1-day--make-it-visible" data-for="f4--inspection-api--dashboard-1-day--make-it-visible">F.4 — Inspection API + dashboard (1 day) — make it visible</a></li><li class="depth-2"><a href="#f5--inference-candidate-filtering-1-day--the-actual-product-use-case" data-for="f5--inference-candidate-filtering-1-day--the-actual-product-use-case">F.5 — Inference candidate filtering (1 day) — the actual product use case</a></li><li class="depth-2"><a href="#f6--explainability--path-tracing-2-days--the-trust-use-case" data-for="f6--explainability--path-tracing-2-days--the-trust-use-case">F.6 — Explainability / path tracing (2 days) — the trust use case</a></li><li class="depth-2"><a href="#f7--per-patient-fine-tune-support-2-days--pdr2-personalization" data-for="f7--per-patient-fine-tune-support-2-days--pdr2-personalization">F.7 — Per-patient fine-tune support (2 days) — PDR2 personalization</a></li><li class="depth-2"><a href="#f8--ablation-tooling-1-day--the-research-lever" data-for="f8--ablation-tooling-1-day--the-research-lever">F.8 — Ablation tooling (1 day) — the research lever</a></li><li class="depth-2"><a href="#f9--documentation--writeup-05-day" data-for="f9--documentation--writeup-05-day">F.9 — Documentation + writeup (0.5 day)</a></li><li class="depth-1"><a href="#6-critical-design-decisions-to-lock-before-f1-starts" data-for="6-critical-design-decisions-to-lock-before-f1-starts">6. Critical design decisions to lock before F.1 starts</a></li><li class="depth-1"><a href="#7-open-questions" data-for="7-open-questions">7. Open questions</a></li><li class="depth-1"><a href="#8-cost-estimate" data-for="8-cost-estimate">8. Cost estimate</a></li><li class="depth-1"><a href="#9-suggested-next-steps" data-for="9-suggested-next-steps">9. Suggested next steps</a></li><li class="depth-1"><a href="#10-cross-references" data-for="10-cross-references">10. Cross-references</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../kg/kg_composition_pipeline_writeup" class="internal">KG Composition Pipeline</a></li><li><a href="../planning/paan_planning" class="internal">Patient-as-a-Node — Thinking Doc</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

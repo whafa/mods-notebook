@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>cBioPortal for MODS, October 2026</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="cBioPortal for MODS, October 2026"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="cBioPortal for MODS, October 2026"/><meta name="twitter:description" content="A survey of the public cBioPortal for MODS: what it holds, the tools and services around it, what its terms allow, and where each piece serves the MODS goals. Every count was measured against the live API on 2026-10-02."/><meta property="og:description" content="A survey of the public cBioPortal for MODS: what it holds, the tools and services around it, what its terms allow, and where each piece serves the MODS goals. Every count was measured against the live API on 2026-10-02."/><meta property="og:image:alt" content="A survey of the public cBioPortal for MODS: what it holds, the tools and services around it, what its terms allow, and where each piece serves the MODS goals. Every count was measured against the live API on 2026-10-02."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/cohorts/cbioportal_spike_2026-10"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/cohorts/cbioportal_spike_2026-10"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="A survey of the public cBioPortal for MODS: what it holds, the tools and services around it, what its terms allow, and where each piece serves the MODS goals. Every count was measured against the live API on 2026-10-02."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/cohorts/cbioportal_spike_2026-10-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/cohorts/cbioportal_spike_2026-10-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/cohorts/cbioportal_spike_2026-10-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="cohorts/cbioportal_spike_2026-10" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-4" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-4" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../cohorts/">cohorts</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>cBioPortal for MODS, October 2026</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">5</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">model</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">claude-opus-5-5</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-10-02</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">research</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">A survey of the public cBioPortal for MODS: what it holds, the tools and services around it, what its terms allow, and where each piece serves the MODS goals. Every count was measured against the live API on 2026-10-02.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.234Z">Oct 09, 2026</time><span>27 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="cbioportal-for-mods-october-2026">cBioPortal for MODS, October 2026<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cbioportal-for-mods-october-2026" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Issue:</strong> <code>#658</code> · <strong>Builds on:</strong> <code>#590</code> (cohort funnel), <code>#327</code> (external cohort track)
+<strong>Script:</strong> <code>backend/scripts/cohorts/cbioportal_inventory.py</code>
+<strong>Data:</strong> the public API, portal v7.1.2, database 3.0.0, gene table <code>hgnc_v7_2025.10.7</code>. The script fetched
+everything between 08:10 and 08:18 PDT on 2026-10-02 (613 requests). An exploratory pass from 07:49 gave the
+same counts. Web sources were read the same day.</p>
+<blockquote>
+<p><strong>What this is for.</strong> The cohort funnel (#590) used one slice of cBioPortal to answer one question: how many
+public patients have tumours like hers. This is the whole-site look. It covers what the portal holds, the
+tools and services around it, what the terms allow, and which pieces serve MODS. It builds nothing except
+the read-only script behind the numbers.</p>
+</blockquote>
+<h2 id="summary">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>
+<p><strong>What cBioPortal is, for us.</strong> The largest free, uniform window onto clinical cancer genomics. It offers:</p>
+<ul>
+<li>548 public studies behind one REST API with no login;</li>
+<li>a weekly dump of the whole database;</li>
+<li>open services around it: Genome Nexus for variant annotation, OncoTree for cancer types, Cancer Hotspots.</li>
+</ul>
+<p>It is a source of <strong>evidence about patients and models like her</strong>. It is not a drug-response source: its one
+drug-response dataset is a 2019 copy of GDSC. It is not a knowledge-graph source. Beyond overall survival, only
+MSK-CHORD’s treatment timelines carry outcomes.</p>
+</li>
+<li>
+<p><strong>For her disease</strong> it holds 62 studies with colorectal samples, nearly twice the funnel’s 34. They include
+MSK-IMPACT 50K, MSK-MET, NCI’s patient-derived models, and several organoid and cell-line collections (§1.2).</p>
+</li>
+<li>
+<p><strong>What the API already showed about her</strong> (§5):</p>
+<ul>
+<li><strong>Variants.</strong> Her APC frameshift is a recurrent hotspot, in 1.9–2.9% of colorectal patients in four cohorts. Her
+TGFBR2, MGA and NTRK2 variants appear at their residues in none of about 9,000 patients. Getting that right
+needed genomic coordinates, because protein strings mislead across sources.</li>
+<li><strong>Liver groups.</strong> Joining MSK-MET to MSK-CHORD gives an independent check on the Neighbors liver groups:
+90% agreement, with “no liver” confirmed for 38 of 40. It also shows that disease like hers, nodal without
+liver, is three public patients.</li>
+<li><strong>Models.</strong> Six BRAF V600E, MSS colorectal patient-derived models are orderable from NCI, with exome and
+RNA-seq on the portal.</li>
+</ul>
+</li>
+<li>
+<p><strong>Recommendations, in order</strong> (§6):</p>
+<ol>
+<li>a shared client with read-only MCP tools;</li>
+<li>the MSK-MET cross-check for #614 (2026-10-05: #614 was decided as D-Q4-13, and the approved plan leaves the MSK-MET line out);</li>
+<li>per-variant cohort context in the Genomic Browser and the Options Ledger;</li>
+<li>Genome Nexus: Pfam domains on the lollipop now, the variant resolver later;</li>
+<li>a proxy-model shortlist on #327.</li>
+</ol>
+<p>GENIE is Richard’s call.</p>
+</li>
+<li>
+<p><strong>Not now:</strong></p>
+<ul>
+<li>a self-hosted portal holding her data;</li>
+<li>cohort-derived KG edges;</li>
+<li>TCGA as her expression reference. It failed in June, for reasons that still apply.</li>
+</ul>
+</li>
+<li>
+<p><strong>Found in passing:</strong></p>
+<ul>
+<li><strong>OncoKB’s terms.</strong> They forbid AI/ML training. How MODS uses OncoKB is a licence decision recorded on the project’s tracker (<code>#660</code>).
+<ul>
+<li>OncoKB approved the project’s account on 2026-05-18
+(<code>#680</code>).</li>
+</ul>
+</li>
+<li><strong>A false answer without a token.</strong> OncoKB’s no-token API says there are no approved treatments for BRAF
+V600E colon cancer. MODS’s connectors use the tokened API, and any new path must too.</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-what-the-public-portal-holds">1. What the public portal holds<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-what-the-public-portal-holds" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Every count in this section comes from the script, run on 2026-10-02.</p>
+<h3 id="11-the-whole-portal">1.1 The whole portal<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-the-whole-portal" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>What</th><th>Count</th></tr></thead><tbody><tr><td>Public studies</td><td>548</td></tr><tr><td>Samples, summed over studies</td><td>414,487</td></tr><tr><td>Studies on hg19 / hg38</td><td>476 / 72</td></tr><tr><td>Cancer types (OncoTree nodes)</td><td>897</td></tr><tr><td>Molecular profiles</td><td>2,559</td></tr><tr><td>Gene panels</td><td>69</td></tr><tr><td>Distinct clinical attributes</td><td>4,811</td></tr></tbody></table></div>
+<p>The sample total double-counts. The MSK studies re-use the same MSK-IMPACT patients, and the TCGA builds
+overlap each other.</p>
+<p>What the studies carry:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Data</th><th>Studies</th></tr></thead><tbody><tr><td>Mutations</td><td>542</td></tr><tr><td>Copy number</td><td>351</td></tr><tr><td>RNA (sequencing or microarray)</td><td>156</td></tr><tr><td>Protein (RPPA or mass spectrometry)</td><td>83</td></tr><tr><td>Structural variants</td><td>223</td></tr><tr><td>Overall survival</td><td>316</td></tr><tr><td>Progression-free survival</td><td>77</td></tr><tr><td>An MSI call (<code>MSI_TYPE</code> or <code>MSI_STATUS</code>)</td><td>92</td></tr><tr><td>Metastatic site</td><td>101</td></tr><tr><td>Treatment records</td><td>97</td></tr></tbody></table></div>
+<ul>
+<li><strong>Treatment data is concentrated in one study.</strong> The 97 studies hold 43,263 treatment rows, and MSK-CHORD
+alone holds 24,028 of them (56%). Most of the rest, 11,157 rows, are spread over 64 TCGA builds.</li>
+<li><strong>Drug response is in one dataset.</strong> Of 201 “generic assay” profiles across 29 assay types, three are drug
+response, and all three are the same CCLE 2019 screen (IC50, AUC and a z-score). §1.3 says what it is.</li>
+<li><strong><code>importDate</code> is a reload date.</strong> All 548 studies show an import date in 2026 (441 of them in January), so
+it says when the portal last loaded a study, not how old its data is. Reproducibility has to rest on the
+portal version, the fetch time and the source publication.</li>
+</ul>
+<h3 id="12-colorectal-cancer-across-the-whole-portal">1.2 Colorectal cancer across the whole portal<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-colorectal-cancer-across-the-whole-portal" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The funnel searched the bowel subtree of OncoTree plus the mixed studies that carry treatment data, 34 studies
+in all. Counting colorectal samples in every study finds <strong>62 studies and 44,986 colorectal samples</strong>. A
+sample counts when its OncoTree code is one of the seven the funnel uses (COAD, READ, COADREAD, MACR, SRCCR,
+CMC, CAIS). Three studies have no OncoTree field; for those, the cancer-type text or the study’s own cancer type
+decides. No other colorectal
+code is in use: the remaining bowel codes are appendiceal, anal, small-bowel, neuroendocrine or adenoma.</p>
+<p>Some of the hits are <strong>not tumour data</strong>:</p>
+<ul>
+<li><strong>Blood.</strong> The three clonal-haematopoiesis studies hold 6,451 of the colorectal samples, almost all in
+<code>msk_ch_2023</code> and <code>msk_ch_2020</code>. Their mutations were called in blood, and the cancer type is the patient’s.
+Never count them as tumour samples. Without them the total is 38,535.</li>
+<li><strong>Polyps.</strong> <code>crc_hta11_htan_2021</code> holds 61 precancerous polyps.</li>
+</ul>
+<p>The largest pan-cancer and model studies. All but HCMI are outside the funnel’s 34:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Study</th><th>Colorectal samples</th><th>What it adds</th></tr></thead><tbody><tr><td><code>msk_impact_50k_2026</code></td><td>5,277</td><td>MSK-IMPACT 50K (<em>Cancer Cell</em> 2026): allele-specific copy number, cancer cell fractions, mutational signatures, HLA types. No treatment data.</td></tr><tr><td><code>msk_met_2021</code></td><td>3,548</td><td>MSK-MET (<em>Cell</em> 2022): per-organ distant-metastasis flags, including distant lymph nodes. §5.2 uses it.</td></tr><tr><td><code>pancan_mimsi_msk_2024</code></td><td>2,447</td><td>MSI calls with orthogonal MMR immunohistochemistry</td></tr><tr><td><code>pan_origimed_2020</code></td><td>1,290</td><td>Chinese pan-cancer panel cohort</td></tr><tr><td><code>pancan_pdmr_2025</code></td><td>1,218 (175 models)</td><td>NCI Patient-Derived Models Repository: PDX, PDX-derived organoids and cultures, with exome and RNA-seq</td></tr><tr><td><code>msk_impact_2017</code></td><td>1,007</td><td>The original MSK-IMPACT cohort</td></tr><tr><td><code>pancan_hcmi_2025</code></td><td>318 (169 models)</td><td>Human Cancer Models Initiative organoids, with RNA-seq and methylation. Also in the funnel.</td></tr><tr><td><code>msk_ctdna_vte_2024</code></td><td>173</td><td>ctDNA panel sequencing (MSK-ACCESS)</td></tr><tr><td><code>ccle_broad_2025</code>, <code>ccle_broad_2019</code>, <code>cellline_ccle_broad</code>, <code>ccle_genentech_2014</code>, <code>cellline_nci60</code></td><td>96, 84, 56, 55, 7</td><td>Cell lines; only CCLE 2019 carries drug response</td></tr><tr><td><code>pan_pdo_wcm_2026</code></td><td>69 (29 models)</td><td>Weill Cornell patient-derived organoids</td></tr><tr><td><code>pancan_pcawg_2020</code></td><td>52</td><td>Whole genomes (PCAWG)</td></tr></tbody></table></div>
+<p>The full per-study table is in the script output.</p>
+<h3 id="13-what-the-one-drug-response-dataset-is">1.3 What the one drug-response dataset is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-what-the-one-drug-response-dataset-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>CCLE 2019’s three drug-response profiles cover <strong>266 compounds</strong>, not the two dozen of the original CCLE drug
+panel. Every compound links to <code>cancerrxgene.org</code>, and the curve fits cite Vis et al. 2016, the GDSC fitting
+method. So it is a pre-2019 snapshot of the <strong>Sanger GDSC screens, mapped onto CCLE lines</strong>. It includes
+dabrafenib, PLX-4720, trametinib, cetuximab, 5-FU and SN-38. 55 of the portal’s 84 colorectal lines have IC50
+rows, and so do 9 of its 10 BRAF V600E colorectal lines (all but COLO201).</p>
+<p>For the Q4 proxy work (D16: PRISM first, GDSC2 as replication) it is a convenience copy, not a source. The
+primary releases are newer, and its licence is ambiguous (§4).</p>
+<h2 id="2-tools-on-the-site">2. Tools on the site<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-tools-on-the-site" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Everything except the chat works without logging in. Sources are the cbioportal-frontend code and
+<a href="https://docs.cbioportal.org/" class="external external-link">docs.cbioportal.org<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>, read 2026-10-02.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Tool</th><th>The question it answers</th><th>Use for MODS</th></tr></thead><tbody><tr><td><strong>Query page with OQL</strong></td><td>Which samples carry these alterations? For example <code>BRAF: MUT = V600E</code> or <code>APC: MUT = TRUNC</code>.</td><td>Defining a cohort in one line, as a shareable URL</td></tr><tr><td><strong>Results View</strong></td><td>OncoPrint, frequency by cancer type, mutual exclusivity, any-against-any plots, the lollipop, co-expression, altered-against-unaltered comparison with survival, pathways, download</td><td>Hand exploration of her genes across cohorts</td></tr><tr><td><strong>Study View</strong></td><td>A cohort dashboard with click-to-filter charts: clinical attributes, mutated genes, survival, <strong>treatment charts</strong>, clinical-event counts. A patient “Similarity Map” (embeddings) is behind a feature flag since July 2026.</td><td>Exploring MSK-CHORD by hand before writing a funnel stage</td></tr><tr><td><strong>Patient View</strong></td><td>One patient: timeline, genomic evolution, mutational signatures and, since June 2026, an <strong>mRNA tab</strong> that plots the patient’s expression against the study cohort</td><td>What a self-hosted instance would show for her (§6)</td></tr><tr><td><strong>Group Comparison</strong></td><td>How groups A and B differ: survival, clinical attributes, alterations, mRNA, protein, methylation and generic assays, drug response included</td><td>Quick checks of a hypothesis</td></tr><tr><td><strong>Virtual studies and sessions</strong></td><td>Custom cohorts with permanent links. Login only stores them.</td><td>Citable query links for Ledger facts</td></tr><tr><td><strong>MutationMapper, OncoPrinter</strong></td><td>Lollipops and OncoPrints from pasted data. MutationMapper sends the pasted variants to Genome Nexus for annotation, so they leave the browser.</td><td>Not for her data</td></tr><tr><td><strong>cBioPortalChat</strong> (<code>chat.cbioportal.org</code>, August 2026)</td><td>Natural-language questions, answered by Claude Sonnet over the database, after a Google sign-in. It stores whole conversations indefinitely, staff may read them, and it asks users not to paste health information.</td><td>Public-cohort questions only, never anything about her</td></tr></tbody></table></div>
+<p>The site is a good place for Richard to look around. The Study View of
+<a href="https://www.cbioportal.org/study/summary?id=msk_chord_2024" class="external external-link">MSK-CHORD<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> shows the treatment and timeline data
+the funnel used. <a href="https://www.cbioportal.org/study/summary?id=msk_met_2021" class="external external-link">MSK-MET<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> shows the per-organ
+metastasis flags.</p>
+<h2 id="3-getting-data-out">3. Getting data out<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-getting-data-out" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Path</th><th>What it is</th><th>Best for</th><th>Watch for</th></tr></thead><tbody><tr><td><strong>REST API</strong> (<code>/api</code>)</td><td>152 operations, OpenAPI 3.1. No login, and the “internal” endpoints that serve treatments, clinical events and survival answer without auth too.</td><td>Targeted queries: the funnel, this spike, an MCP tool</td><td>It calls itself “[Alpha]” and “beta”, and it broke real clients in 2026 (<code>entrezGeneId</code> became required on the mutations GET). Today <code>projection=ID</code> on <code>/studies</code> returns <code>[]</code>. There is no published rate limit, and maintainers declined application-level limits on 2026-09-21, so pacing is on us.</td></tr><tr><td><strong>Weekly database dump</strong> (<a href="https://public-db-dump.assets.cbioportal.org/dumps.json" class="external external-link">index<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>)</td><td>Parquet, one file per table, about 87 GB in all. The latest is dated 2026-09-27. The useful tables are small: mutations 176 MB, timeline events 11 MB, patient and sample clinical data 8 and 12.5 MB.</td><td>Bulk population work in one pull, e.g. variant recurrence across all 548 studies with no paging</td><td>Only recent dumps are kept, so archive what we use, with its date. A Hugging Face mirror is tagged AGPL, which conflicts with the data licences.</td></tr><tr><td><strong>Per-study tarballs and the datahub</strong> (<code>datahub.assets.cbioportal.org/{studyId}.tar.gz</code>; GitHub <code>cBioPortal/datahub</code>)</td><td>Each study in cBioPortal’s staging format</td><td>File-level copies of one study</td><td>Overwritten in place, with no version in the name. 38 studies, including <code>crc_msk_2026</code>, have neither, so the dump or the API is the only route to them.</td></tr><tr><td><strong>Client libraries</strong></td><td>No official Python client. R <code>cBioPortalData</code> is maintained; CRAN <code>cbioportalR</code> likely breaks on whole-study pulls (its fix is unmerged). The documented Python <code>bravado</code> example points a Swagger-2.0 client at the OpenAPI 3.1 spec.</td><td>—</td><td>The funnel’s plain-HTTP client is the right call for us.</td></tr><tr><td><strong>Self-hosting</strong> (<a href="https://github.com/cBioPortal/cbioportal-docker-compose" class="external external-link">docker-compose<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>)</td><td>The web app (Java, 2–4 GB heap), ClickHouse, a session service and MongoDB. Studies load through <code>validateData.py</code> and <code>metaImport.py</code>.</td><td>A private instance holding her data (§6)</td><td>On Windows it must run from WSL2. A one-patient study looks loadable from the docs but is untested. The timeline format draws numeric labs such as CA 19-9 as line charts.</td></tr><tr><td><strong>MCP servers</strong></td><td>An official hosted server (<code>mcp.cbioportal.org</code>, August 2026) that runs SQL over a ClickHouse clone; a “navigator” that turns questions into portal URLs; and BioMCP (MIT, about 645 stars), which includes cBioPortal variant frequencies</td><td>Ad-hoc public-cohort questions in Claude sessions</td><td>The official server needs Google sign-in and logs your account email and every query. “Still under construction”; the team’s own benchmark scores it 72% overall and 46% on navigation questions.</td></tr></tbody></table></div>
+<p>Three things follow for MODS:</p>
+<ul>
+<li><strong>Pin and record.</strong> Every pull should store the portal version, the fetch window and the source study, as the
+funnel does. Nothing in the data says when it changed.</li>
+<li><strong>The dump beats paging for anything broad.</strong> One 176 MB mutation file answers “how often is this variant seen,
+anywhere” for the whole portal, and it reaches <code>crc_msk_2026</code>, which has no tarball.</li>
+<li><strong>Nothing of hers goes to the hosted AI services.</strong> Their terms log identity and content.</li>
+</ul>
+<h3 id="31-maples-own-client-and-tools-built-2026-10-02-667">3.1 Maple’s own client and tools (built 2026-10-02, #667)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-maples-own-client-and-tools-built-2026-10-02-667" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Recommendation 1 (§6) is built.</p>
+<ul>
+<li><strong>One client.</strong> <code>backend/connectors/cbioportal_client.py</code>
+is shared by the funnel, the inventory and the tools. It has a process-wide 0.6 s limiter, retries that honour
+<code>Retry-After</code>, typed errors and an atomic disk cache. Its cache key is #590’s, so old caches replay unchanged.</li>
+<li><strong>Three read-only MCP tools</strong> in <code>mods_server.py</code>, built on
+<code>connectors/cbioportal_queries.py</code>:
+<ul>
+<li><code>mods_cbioportal_studies</code>: find studies, with data types and stated licence;</li>
+<li><code>mods_cbioportal_variant_frequency</code>: per-study patient counts for a variant or residue. It matches the exact
+string and the GRCh37 coordinate, reports panel coverage, and refuses blood studies;</li>
+<li><code>mods_cbioportal_cohort_counts</code>: attribute values and treatment-agent patients under an OncoTree filter.
+Every answer carries the portal version and the fetch window. Tool answers are cached for 7 days, in a cache
+separate from the scripts’.</li>
+</ul>
+</li>
+<li><strong>Proof the switch changed nothing.</strong> With the hash seed pinned, both scripts replay their caches offline to
+byte-identical JSON under the old and new clients. Their JSON is now written with sorted keys, so a replay is
+byte-identical whatever the seed.</li>
+</ul>
+<h2 id="4-services-around-the-portal-and-the-terms">4. Services around the portal, and the terms<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-services-around-the-portal-and-the-terms" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-genome-nexus-variant-annotation">4.1 Genome Nexus: variant annotation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-genome-nexus-variant-annotation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>MSK’s annotation service, and the one cBioPortal itself uses. One call returns, per variant:</p>
+<ul>
+<li>VEP consequences and a canonical transcript;</li>
+<li>SIFT, PolyPhen and AlphaMissense;</li>
+<li>Cancer Hotspots and Mutation Assessor;</li>
+<li>ClinVar, SignalDB (MSK germline frequencies) and myvariant.info;</li>
+<li>OncoKB, only when a token is passed.</li>
+</ul>
+<p>The software is MIT; the data carry their sources’ licences.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Instance</th><th>Build</th><th>Server</th><th>Hotspots</th><th>ClinVar</th></tr></thead><tbody><tr><td><code>www.genomenexus.org</code> (and <code>v1</code>, which the portal uses)</td><td>GRCh37</td><td>2.2.3, VEP 116</td><td>v3</td><td>2026-02-08</td></tr><tr><td><code>grch38.genomenexus.org</code></td><td>GRCh38</td><td>1.4.1, lagging on purpose</td><td>v2</td><td>2025-01-06</td></tr></tbody></table></div>
+<p>Live probes with the textbook BRAF V600E:</p>
+<ul>
+<li><strong>GRCh37 works.</strong> The canonical transcript is ENST00000288602.6, c.1799T>A, p.V600E. The response carries the
+V600 hotspot (897 tumours), Mutation Assessor “high”, and AlphaMissense 0.99.</li>
+<li><strong>GRCh38 misnames it by default.</strong> It picks ENST00000288602.11 and returns <strong>p.V640E</strong>, with no hotspots. The
+MSK isoform override restores V600E, but hotspots stay empty. Her Caris VCFs are GRCh38, so her calls should be
+annotated on GRCh37: lifted over, or queried by transcript HGVS-c.</li>
+<li><strong>It accepts more than coordinates.</strong> <code>BRAF:p.V600E</code> (with a colon) and <code>ENST00000288602:c.1799T>A</code> both
+resolve. <code>BRAF p.V600E</code> (with a space) fails silently.</li>
+<li><strong>Failures return HTTP 200.</strong> A record can come back <code>successfully_annotated: false</code> with no error text.
+OncoKB is dropped without notice when no token is passed. The rsID endpoint annotates every ALT allele at the
+site. A client has to check each record.</li>
+<li><strong>Some of the payload is not licence-clean.</strong> SignalDB carries OncoKB-style terms, academic only with no
+“patient services”, and myvariant.info passes COSMIC through. Request <code>fields</code> deliberately.</li>
+</ul>
+<p>Two uses for MODS fall out of this:</p>
+<ul>
+<li><strong>The lollipop can get Pfam domains with two unauthenticated calls.</strong> These are
+<code>GET /ensembl/canonical-transcript/hgnc/{gene}</code> and <code>POST /pfam/domain</code>, the calls cBioPortal’s own mutation
+mapper makes. This is #173 item 7, with no need to adopt the AGPL component.</li>
+<li><strong>It can canonicalize her variants for cohort joins</strong> (§5.1). It can also settle the Phase 8.5 resolver’s
+misses: an HGVS-p-only missense resolves through <code>GENE:p.X</code>. A novel indel annotates from its coordinates,
+but it still has no ClinGen CAID.</li>
+</ul>
+<h3 id="42-oncotree-the-cancer-type-vocabulary">4.2 OncoTree: the cancer-type vocabulary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-oncotree-the-cancer-type-vocabulary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Versions and licence.</strong> CC BY 4.0. The latest stable release is <code>oncotree_2025_10_03</code>, with 897 nodes; the
+portal’s 897 cancer types are this tree. Each node carries NCIt and UMLS cross-references.</p>
+</li>
+<li>
+<p><strong>The crosswalk to MONDO lives on Mondo’s side</strong>, as xrefs:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>OncoTree</th><th>Mondo</th></tr></thead><tbody><tr><td>COADREAD</td><td>MONDO:0005008, colorectal adenocarcinoma</td></tr><tr><td>COAD</td><td>MONDO:0002271, colon adenocarcinoma</td></tr><tr><td>READ</td><td>MONDO:0002169, rectum adenocarcinoma</td></tr></tbody></table></div>
+</li>
+<li>
+<p><strong>None of them is MODS’s colorectal anchor.</strong> The KG anchors colorectal cancer at MONDO:0005575, which carries
+no OncoTree xref. Which Mondo node a cohort lands on is a vocabulary decision, so it is flagged here, not made
+(CLAUDE.md hard rule).</p>
+</li>
+<li>
+<p><strong>OncoTree’s own mapping file has no MONDO column</strong> and lags the latest release by 52 codes.</p>
+</li>
+</ul>
+<h3 id="43-cancer-hotspots">4.3 Cancer Hotspots<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-cancer-hotspots" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>v3 adds 164 hotspots (Bandlamudi et al., <em>Cancer Cell</em> 2026), mined from the MSK-IMPACT 50K cohort above. Data
+are ODbL and the software AGPL; there is a public API. Hotspots are single residues and in-frame indels, so a
+frameshift like her APC variant is out of scope by design; §5.1 is the question for those.</p>
+<h3 id="44-oncokb-inside-and-outside-the-portal">4.4 OncoKB, inside and outside the portal<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-oncokb-inside-and-outside-the-portal" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>On the public portal</strong>, OncoKB cards come through the portal’s own token. Its proxy demands a header in
+which the caller attests that it is not fetching OncoKB data programmatically, so code must never use it.</li>
+<li><strong>The no-token public API gives a false answer for her.</strong> For BRAF V600E in colon adenocarcinoma it returns
+“There are no FDA-approved or NCCN-compendium listed treatments specifically for patients with BRAF V600E
+mutant colon adenocarcinoma.” It says the same for melanoma, so this comes from the stripped data, not from
+curation. Anything that calls that API directly would pass the sentence on. (The Genome Nexus pipeline just
+omits OncoKB without a token.)
+<ul>
+<li>MODS’s connectors call the tokened API and refuse to run without a token
+(<code>oncokb_annotate_connector.py</code>: <code>DEFAULT_API_BASE</code>, <code>download()</code>). Any new path must keep that property.</li>
+</ul>
+</li>
+<li><strong>The terms forbid training on it.</strong> The licensing FAQ says OncoKB “cannot be used to train AI/ML models
+whether for academic or commercial purposes”; benchmarking needs explicit permission. “Use for patient
+services” needs a licence agreement.
+<ul>
+<li><code>maureen_focus_v1</code> includes OncoKB; how MODS uses it is a licence decision recorded on the project’s tracker (<code>#660</code>).</li>
+<li>OncoKB approved the project’s account in May 2026 (<code>#680</code>).</li>
+<li><strong>The stakes are small.</strong> OncoKB is 483 of about 8.0 million relations in that composition. 22 of them
+concern her variants, and CIViC duplicates 9 of BRAF V600E’s 16. <em>(2026-10-05: #744’s re-annotation has since grown the OncoKB source to 7,217 relations.)</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="45-terms-at-a-glance">4.5 Terms at a glance<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#45-terms-at-a-glance" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>What</th><th>Terms</th><th>For MODS</th></tr></thead><tbody><tr><td>Portal data, by default</td><td>ODbL, “with no restrictions on the use of the data, as long as you properly give attribution to the original studies”</td><td>Free for our use; share-alike if a derived database is redistributed</td></tr><tr><td>MSK-CHORD, MSK-MET, MSK-50K and 6 other MSK studies</td><td>CC BY-NC-ND 4.0, stated in the study</td><td>Private, non-commercial use is fine. Adapted material may not be shared. Public aggregate counts were Richard’s call, as in #590; he cleared them for publication on 2026-10-06.</td></tr><tr><td><code>crc_msk_2026</code></td><td>None stated, so ODbL by default</td><td>Ambiguous for the newest MSK cohort; treat it like the other MSK studies until MSK says otherwise</td></tr><tr><td>TCGA</td><td>Broad GDAC licence (datahub README)</td><td>Open</td></tr><tr><td>CCLE 2019 drug response</td><td>Study marked ODbL, but the data are GDSC’s</td><td>GDSC’s own terms are stricter (internal research only, an internal memory note). Use the primary source.</td></tr><tr><td>AACR GENIE (<code>genie.cbioportal.org</code>)</td><td>Google login and registration; no re-identification, no redistribution</td><td>Richard’s call</td></tr><tr><td>Software</td><td>cBioPortal backend, frontend and React components AGPL-3.0; Genome Nexus MIT; OncoTree CC BY 4.0; Cancer Hotspots data ODbL, software AGPL</td><td>Running it privately is fine. Embedding AGPL code in Maple is a licence decision.</td></tr><tr><td>OncoKB</td><td>Academic viewing; no training; patient services need a licence</td><td>A licence decision recorded on the project’s tracker (<code>#660</code>); the account was approved in May (<code>#680</code>)</td></tr><tr><td>Hosted chat and MCP</td><td>Log account identity and content; staff may read chats</td><td>Public questions only</td></tr></tbody></table></div>
+<p>Citation: the FAQ asks for Cerami et al. 2012, Gao et al. 2013 and de Bruijn et al. 2023, plus the data source.</p>
+<h2 id="5-three-things-the-api-can-already-do-for-her">5. Three things the API can already do for her<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-three-things-the-api-can-already-do-for-her" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These are demonstrations, not analyses. Each one is a pattern that a MODS integration would make routine.</p>
+<h3 id="51-her-somatic-variants-in-public-colorectal-cohorts">5.1 Her somatic variants in public colorectal cohorts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-her-somatic-variants-in-public-colorectal-cohorts" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Five of her somatic variants, counted per patient in four large colorectal cohorts:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Variant</th><th><code>crc_msk_2026</code> (6,789)</th><th>TCGA PanCancer (594)</th><th>DFCI (619)</th><th>SYSUCC, China (1,015)</th></tr></thead><tbody><tr><td>APC T1556Nfs*3 (c.4666dupA)</td><td>195 (2.9%)</td><td>11 (1.9%)</td><td>18 (2.9%)</td><td>23 (2.3%)</td></tr><tr><td>BRAF V600E</td><td>537 (7.9%)</td><td>48 (8.1%)</td><td>111 (17.9%)</td><td>23 (2.3%)</td></tr><tr><td>TGFBR2 at D522</td><td>1 (D522N)</td><td>0</td><td>0</td><td>0</td></tr><tr><td>MGA at I945</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>NTRK2 at V717</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></tbody></table></div>
+<ul>
+<li><strong>Her APC frameshift is a recurrent hotspot</strong>, the most common change at its residue in every cohort. Her
+BRAF V600E is common, though cohorts differ several-fold. DFCI’s cohort is BRAF- and MSI-rich: by the funnel’s
+rule only 37 of its 111 V600E patients are MSS.</li>
+<li><strong>Her TGFBR2, MGA and NTRK2 variants appear at their residues in none of about 9,000 patients.</strong> The genes
+themselves are often mutated (403, 415 and 148 patients in <code>crc_msk_2026</code>). The panels cover them, except
+MGA on IMPACT341 (202 samples). For the NTRK2 V717M VUS, no recurrence is weak evidence against a hotspot
+role, not a verdict.</li>
+<li><strong>Protein strings are not a safe join key.</strong> The first pass counted her APC variant as absent, because
+cBioPortal gives T1556Nfs*3 (a duplication in a run of As) a <code>proteinPosStart</code> of 1554, not 1556. And TGFBR2
+is numbered on different isoforms in different studies: residue 522 reads D in the MSK data and R in TCGA’s.
+The script matches on the exact protein-change string and checks it against the GRCh37 genomic coordinate.
+For APC and BRAF the two agree exactly in all four cohorts. Any variant-level join in MODS should go through
+genomic coordinates and one canonical annotation (§4, Genome Nexus).</li>
+</ul>
+<h3 id="52-joining-studies-on-msk-impact-ids-liver-and-distant-nodes">5.2 Joining studies on MSK-IMPACT IDs: liver and distant nodes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-joining-studies-on-msk-impact-ids-liver-and-distant-nodes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>MSK studies share patient IDs, so one study can annotate another. MSK-MET (about 25,000 patients) records, per
+organ, whether a distant metastasis was diagnosed, taken from pathology reports and billing codes
+(<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9147702/" class="external external-link">Nguyen et al. 2022<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>). That includes distant lymph nodes.
+The funnel had no such field: MSK-CHORD’s lymph-node flag mixes regional and distant nodes, so the funnel could
+not pick out nodal disease like hers. Group sizes only, because #614 pre-registers the Neighbors question:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>BRAF V600E + MSS, MSK-MET</th><th>MSK-MET</th><th>Also in MSK-CHORD</th><th>…with encorafenib or anti-EGFR there</th><th>…with encorafenib</th></tr></thead><tbody><tr><td>all</td><td>141</td><td>126</td><td>57</td><td>32</td></tr><tr><td>metastatic</td><td>137</td><td>123</td><td>55</td><td>31</td></tr><tr><td>no liver metastasis recorded</td><td>49</td><td>46</td><td>12</td><td>9</td></tr><tr><td>distant nodes, no liver</td><td>8</td><td>8</td><td>3</td><td>1</td></tr><tr><td>nodes, neck or mediastinum only</td><td>3</td><td>3</td><td>0</td><td>0</td></tr></tbody></table></div>
+<ul>
+<li><strong>Disease like hers is about three public patients.</strong> That counts the patients whose specific distant sites
+are nodes, neck or mediastinum. It is enough for an anecdote and too few for a Neighbors group.</li>
+<li><strong>“Unspecified” is common.</strong> 17 of the 49 patients with no liver flag carry only the unspecified-site flag,
+so absence of a named site is weak evidence.</li>
+<li><strong>The join gives #614 a check that could have failed.</strong> MSK-CHORD reads liver involvement from radiology
+reports by NLP; MSK-MET records it separately. On the 3,079 colorectal patients in both, the two agree for
+<strong>2,770 (90.0%)</strong>. When they disagree it is mostly MSK-CHORD saying liver where MSK-MET does not (217 against
+80), probably because MSK-CHORD’s follow-up runs later. Among BRAF V600E + MSS patients, MSK-MET confirms
+MSK-CHORD’s “no liver” for 38 of 40. So the funnel’s liver groups hold up against an independent reading.</li>
+</ul>
+<h3 id="53-models-with-her-driver-profile">5.3 Models with her driver profile<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-models-with-her-driver-profile" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Collection</th><th>Colorectal models</th><th>BRAF V600E</th><th>V600E and MSS</th><th>Notes</th></tr></thead><tbody><tr><td>NCI PDMR (<code>pancan_pdmr_2025</code>)</td><td>175</td><td>20</td><td><strong>6, all orderable from NCI</strong></td><td>PDX, organoids and cultures; exome and RNA-seq on the portal</td></tr><tr><td>HCMI organoids (<code>pancan_hcmi_2025</code>)</td><td>169</td><td>11</td><td>not recorded</td><td>No MSI field; TMB suggests about half are hypermutated</td></tr><tr><td>WCM organoids (<code>pan_pdo_wcm_2026</code>)</td><td>29</td><td>3</td><td>not recorded</td><td>MSI score only</td></tr><tr><td>CCLE 2019 cell lines</td><td>84</td><td>10</td><td>6 by the literature</td><td>CL34, COLO201, COLO205, HT-29, LS411N, MDST8, OUMS23, RKO, SNUC5, SW1417</td></tr></tbody></table></div>
+<p>The portal has no drug response for the PDX or organoid models. Their value is that they can be found,
+ordered, and matched to her expression profile, which is the Q1 2027 PDX and organoid lane in #327. The MSS
+cell lines match an internal memory note: HT-29, COLO 205/201 (one donor), SW1417, MDST8 and OUMS-23. RKO and LS411N
+are MSI-high.</p>
+<h2 id="6-where-it-fits-in-mods">6. Where it fits in MODS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-where-it-fits-in-mods" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The yardstick is the Q4 plan: Spine B ships the Options Ledger and Neighbors, and Spine A earns a model signal on
+proxies. Two standing guardrails apply. Other patients never become KG nodes, and cohorts are validation and
+decision support, never a repurposing signal.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Option</th><th>Goal and surface</th><th>Value</th><th>Cost</th><th>Verdict</th></tr></thead><tbody><tr><td>1</td><td><strong>One cBioPortal client, and read-only MCP tools on it.</strong> Lift the funnel’s <code>Client</code> into <code>backend/connectors/</code>, on the pattern of <code>ctgov_client.py</code> (rate limiter, versioned disk cache, typed errors, fixture tests). Expose two or three tools: find studies; a variant or gene across colorectal cohorts, joined on coordinates with panel coverage reported; and clinical and treatment counts under a filter.</td><td>Enables everything below; research sessions</td><td>High: every later use shares one tested client, and a session can answer “how often is X in BRAF V600E MSS CRC” in one call</td><td>1–2 days</td><td><strong>Do first</strong></td></tr><tr><td>2</td><td><strong>Give Neighbors v0 the MSK-MET cross-check (#614).</strong> Report the liver agreement (90%; “no liver” confirmed 38 of 40) as a check on the funnel’s groups, and record that her nodal phenotype is about three public patients.</td><td>G1 decision support; the Neighbors spike</td><td>High and immediate: it answers part of #614’s “liver status” question</td><td>Hours; a funnel stage</td><td><strong>Do</strong>, as group sizes until #614 is decided. <em>2026-10-05: decided as D-Q4-13, without the MSK-MET line.</em></td></tr><tr><td>3</td><td><strong>Variant context in the clinic and the Ledger.</strong> From the weekly dump, compute each of her somatic variants’ frequency across all colorectal studies, joined on GRCh37 coordinates. Store it with the dump date. Show it in the Genomic Browser’s Table tab with a link to the matching portal query, and let a Ledger fact cite it.</td><td>G4 traceability; G1 facts; Genomic Browser (#173)</td><td>Medium. Today nothing shows population context for her variants.</td><td>2–3 days</td><td><strong>Do</strong> after 1</td></tr><tr><td>4</td><td><strong>Genome Nexus in the variant path.</strong> (a) Pfam domains on the lollipop (#173 item 7). (b) Canonical HGVS for the Phase 8.5 resolver’s misses, on the GRCh37 instance, with <code>fields</code> chosen to skip SignalDB, COSMIC and OncoKB, and <code>successfully_annotated</code> checked per record.</td><td>G4; G3, if variant-level edges ever help</td><td>Medium: (a) is cheap and visible; (b) closes a known gap</td><td>About 1 day each</td><td><strong>Do (a)</strong>; (b) when Phase 8.5 resumes</td></tr><tr><td>5</td><td><strong>Proxy-model discovery.</strong> Use the portal to shortlist models: NCI PDMR’s 6 orderable BRAF V600E MSS colorectal PDX models (exome and RNA-seq), the HCMI and WCM organoids, and the CCLE lines.</td><td>G2 and G3 proxies; #327’s Q1 2027 lane</td><td>Medium later; drug response has to come from elsewhere (PDMR’s own data, PRISM, GDSC)</td><td>A list now</td><td><strong>Record on <code>#327</code></strong>; no build</td></tr><tr><td>6</td><td><strong>AACR GENIE.</strong> GENIE 20.0 (more than 289,000 samples) for the recurrence of rare variants such as her NTRK2 V717M; BPC CRC (1,485 patients with curated regimens and progression) for a Neighbors v1.</td><td>G1; Neighbors</td><td>Medium</td><td>Registration, and redistribution is forbidden</td><td><strong>Richard’s call</strong>, as in the Q4 plan</td></tr><tr><td>7</td><td><strong>A self-hosted cBioPortal holding her data.</strong> Her three Caris specimens, treatment timeline and CA 19-9 series as a private study, beside public cohorts, in the patient view oncologists know.</td><td>G1, a clinician-familiar view</td><td>Real, but the Genomic Browser covers most of it</td><td>High: ClickHouse, MongoDB and WSL2 to run; a GRCh38 VCF→MAF step Maple doesn’t have, against mostly hg19 public studies; AGPL</td><td><strong>Not now.</strong> Revisit if a clinician or collaborator asks for a cBioPortal view.</td></tr><tr><td>8</td><td><strong>Cohort-derived edges in the KG</strong> (alteration frequencies, co-occurrence).</td><td>KG</td><td>Low now</td><td>Medium, plus mapping approvals</td><td><strong>No.</strong> “Fidelity before breadth” (#592, #438). Frequency edges would feed the popularity shortcut the model already loses to (#523), and MSK’s ND licences complicate derived data.</td></tr><tr><td>9</td><td><strong>TCGA expression as a reference for her WTS.</strong></td><td>G3 features</td><td>—</td><td>—</td><td><strong>No.</strong> The June 2026 attempt failed: ρ = −0.17 against Caris’s own percentiles, from a cross-pipeline batch effect (<code>protein_biomarker_expression_writeup.md</code> §9). cBioPortal serves the same TCGA RSEM matrices, so the same failure applies.</td></tr><tr><td>10</td><td><strong>OncoKB through the portal’s proxy, or the no-token API.</strong></td><td>—</td><td>—</td><td>—</td><td><strong>Never.</strong> One is attested against, and the other gives a false answer for her (§4.4).</td></tr></tbody></table></div>
+<p>The ranking follows two lessons from this repo. A tested shared client comes before features, because the funnel
+and this spike both had to rebuild the same plumbing. And population data serves decisions and checks, not the
+model, until the model beats its baselines (Q4 roadmap §3.2).</p>
+<p>Why build tools rather than adopt the official MCP server or BioMCP:</p>
+<ul>
+<li>The official server needs a Google sign-in and logs every query against the account.</li>
+<li>Both serve Claude sessions only. Maple’s own backend and agents can’t call them.</li>
+<li>Neither shares the funnel’s cache, pacing or fetch-window records.</li>
+</ul>
+<p>BioMCP is still a reasonable stopgap for ad-hoc public questions in a session.</p>
+<h2 id="7-follow-ups">7. Follow-ups<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-follow-ups" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Filed on 2026-10-02 with Richard’s go-ahead: three as new issues and three as comments on the existing issues
+they belong to.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Follow-up</th><th>Where</th><th>Surfaces</th></tr></thead><tbody><tr><td>F1. cBioPortal client and MCP tools (option 1), built (§3.1)</td><td><code>#667</code></td><td><code>backend/connectors/</code>, <code>backend/mcp_servers/mods_server.py</code>, tests</td></tr><tr><td>F2. MSK-MET cross-check for the Neighbors groups (option 2)</td><td><code>Comment on #614</code></td><td>Funnel script, doc</td></tr><tr><td>F3. Variant context table, Genomic Browser column, Ledger source (option 3)</td><td><code>#668</code></td><td>A backend service and endpoint, <code>GenomicBrowser.jsx</code></td></tr><tr><td>F4. Pfam domains on the lollipop (option 4a)</td><td><code>Comment on #173</code></td><td><code>GenomicBrowser.jsx</code>, a small backend proxy or cache</td></tr><tr><td>F5. Genome Nexus in the Phase 8.5 resolver (option 4b)</td><td><code>#669</code>, for when Phase 8.5 resumes</td><td><code>mods_patient_kg_service.py</code>, <code>kg_normalize/</code></td></tr><tr><td>F6. Model shortlist (option 5)</td><td><code>Comment on #327</code></td><td>None</td></tr><tr><td>Also filed: OncoKB licence terms</td><td><code>#660</code>, the licence decision; the account approval: <code>#680</code></td><td>None</td></tr></tbody></table></div>
+<h3 id="f3-as-built-2026-10-04">F3 as built (2026-10-04)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#f3-as-built-2026-10-04" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The Genomic Browser’s Table tab now has a <strong>CRC cohorts</strong> column: patients carrying the variant, out of patients
+sequenced over the gene, across every public colorectal study on the portal.</p>
+<ul>
+<li><strong>How it is built.</strong> <code>scripts/cohorts/build_variant_context.py</code>
+writes <code>backend/data/cohorts/cbioportal/variant_context.json</code> (gitignored). <code>GET /api/mods/vcf/cohort-frequency</code>
+serves it. The rules are in <code>mods_variant_context_service.py</code>,
+and the pooled count is <code>pooled_variant_frequency</code> in <code>connectors/cbioportal_queries.py</code>. A full build takes
+about four minutes at the 0.6 s pace.</li>
+<li><strong>Which calls.</strong> Somatic calls from the two colorectal specimens: tiered Pathogenic to VUS, VAF ≥ 0.05, and
+absent from the separate melanoma specimen. A call that two independent cancers share is inherited, so it is
+left out. Without that second specimen the build refuses.</li>
+<li><strong>The join.</strong> Her GRCh38 calls are lifted to GRCh37 locally (pyliftover, UCSC chain), so no coordinate of
+hers is sent anywhere. The portal is asked for gene-level calls only. The exact-match string is the one the
+portal records at her coordinate (<code>T1556Nfs*3</code>, where Caris writes <code>T1556fs</code>).</li>
+<li><strong>Which studies.</strong> 28 studies are typed colorectal, typed bowel, or sit under colorectal. A bowel-typed study
+without OncoTree codes is skipped, and so are the <code>msk_ch_*</code> studies. MSK-IMPACT, TCGA and CPTAC IDs count once
+across studies; any other ID is local to its study.</li>
+<li><strong>Check against §5.1.</strong> Restricted to the four cohorts, the build reproduces §5.1 exactly: APC 195 / 11 / 18 / 23
+and BRAF 537 / 48 / 111 / 23. String and coordinate agree in all four (<code>test_live_survey_counts_reproduce</code>, opt-in).</li>
+<li><strong>A disagreement the column shows rather than hides.</strong> Over all 28 studies, <code>crc_msk_2017</code> and <code>coadread_mskcc</code>
+anchor the same A-run insertion one base later (<code>5:112175952:-:A</code>). There the string finds 30 patients and the
+coordinate finds 5. The cell carries a ⚠, and the tooltip gives the per-study counts.</li>
+<li><strong>Not done: the Options Ledger.</strong> A Ledger fact cannot cite this until the Ledger schema lands (#565, #613).</li>
+</ul>
+<h3 id="parallelization-analysis-for-f1f6">Parallelization analysis (for F1–F6)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#parallelization-analysis-for-f1f6" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Surfaces touched:</strong>
+<ul>
+<li>backend API: yes (F3);</li>
+<li>frontend: yes (F3, F4);</li>
+<li>worker handler: no;</li>
+<li>migration: probably not. F3’s table can be a cached file first, and becomes one if it moves into Postgres;</li>
+<li>MCP tool: yes (F1);</li>
+<li>DB-stored config: no;</li>
+<li>docs: yes;</li>
+<li>tests: yes (F1 fixtures, F3).</li>
+</ul>
+</li>
+<li><strong>Parallel split.</strong> F1 goes first, because F3 and F5 call its client. F2, F4 and F6 are independent of it and
+of each other, and can run now. F3’s frontend waits on its API contract.</li>
+<li><strong>Collision hotspots.</strong>
+<ul>
+<li><code>backend/mcp_servers/mods_server.py</code> (F1) is shared with every MCP change.</li>
+<li><code>frontend/src/components/GenomicBrowser.jsx</code> (F3, F4) is also touched by the open PR #643. Serialize F3 and
+F4 behind it.</li>
+<li>No <code>migrations.py</code>, <code>component_registry.py</code>, <code>main.py</code>, <code>Terminal.jsx</code> or <code>ComponentLoader.jsx</code> changes are
+expected.</li>
+</ul>
+</li>
+<li><strong>Verify-how:</strong>
+<ul>
+<li>F1: fixture tests, plus one live call per tool against <code>/api/info</code> recorded in the output.</li>
+<li>F2: the funnel prints the agreement table on every run.</li>
+<li>F3: the APC and BRAF counts reproduce §5.1, and string and coordinate matches agree.</li>
+<li>F4: BRAF shows RBD, C1 and kinase domains at 156–227, 235–280 and 458–712.</li>
+<li>F5: the resolver’s miss count drops on her 14 eligible variants.</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-limits">8. Limits<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-limits" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>Counts are as of 2026-10-02</strong>, from portal v7.1.2. Studies are reloaded in place, and the API is beta.</li>
+<li><strong>MSK-MET’s site flags come from billing codes and pathology reports</strong> (Nguyen et al. 2022), which the authors
+say miss some events. “Unspecified” is common.</li>
+<li><strong>The MSS rule is the funnel’s.</strong> Group sizes inherit its definitions, including its judgement calls.</li>
+<li><strong>Untested:</strong> loading a one-patient study into a self-hosted instance; embedding <code>react-mutation-mapper</code> in
+Maple; whether the API is throttled at the infrastructure level.</li>
+<li><strong>Unverified:</strong> the MSS status of CL34 and SNUC5; the current DepMap and HCMI terms; whether GENIE BPC CRC is
+browsable on the GENIE portal as well as on Synapse (de Bruijn et al. 2023 describes BPC data in cBioPortal).</li>
+<li><strong>The transcript problem is general.</strong> Any protein-level comparison across sources can mislead. §5.1 found two
+cases in five variants.</li>
+</ul>
+<h2 id="reproduce">Reproduce<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#reproduce" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The numbers above measure the portal on 2026-10-02, and it reloads weekly. To replay this measurement, point
+the script at its snapshot in the main checkout:</p>
+<pre><code>python backend/scripts/cohorts/cbioportal_inventory.py --offline --cache-dir C:/Maple/backend/data/cohorts/cbioportal/snapshots/2026-10-02_658/http_cache
+python backend/scripts/cohorts/cbioportal_inventory.py --json backend/data/cohorts/cbioportal/inventory.json
+</code></pre>
+<ul>
+<li><strong>The snapshot</strong> holds the run’s 613 cached responses and its output, <code>inventory_2026-10-02.json</code>. It is
+host-only and gitignored, because MSK-CHORD and MSK-MET are CC BY-NC-ND. An offline replay on 2026-10-04
+sent no request and reproduced that output exactly.</li>
+<li><strong>A fresh measurement</strong> (the second command) sends about 650 requests, one at a time with a 0.6 s pause,
+and caches them under <code>backend/data/cohorts/cbioportal/http_cache/</code> in the checkout it runs in. Copy that
+cache into a new dated snapshot before the session ends.</li>
+<li><strong>Each step prints its own fetch window</strong> in PDT.</li>
+</ul>
+<p>Web sources were read on 2026-10-02 by two research passes. Every claim above carries its source, either inline
+or in the issue.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-4" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#cbioportal-for-mods-october-2026" data-for="cbioportal-for-mods-october-2026">cBioPortal for MODS, October 2026</a></li><li class="depth-1"><a href="#summary" data-for="summary">Summary</a></li><li class="depth-1"><a href="#1-what-the-public-portal-holds" data-for="1-what-the-public-portal-holds">1. What the public portal holds</a></li><li class="depth-2"><a href="#11-the-whole-portal" data-for="11-the-whole-portal">1.1 The whole portal</a></li><li class="depth-2"><a href="#12-colorectal-cancer-across-the-whole-portal" data-for="12-colorectal-cancer-across-the-whole-portal">1.2 Colorectal cancer across the whole portal</a></li><li class="depth-2"><a href="#13-what-the-one-drug-response-dataset-is" data-for="13-what-the-one-drug-response-dataset-is">1.3 What the one drug-response dataset is</a></li><li class="depth-1"><a href="#2-tools-on-the-site" data-for="2-tools-on-the-site">2. Tools on the site</a></li><li class="depth-1"><a href="#3-getting-data-out" data-for="3-getting-data-out">3. Getting data out</a></li><li class="depth-2"><a href="#31-maples-own-client-and-tools-built-2026-10-02-667" data-for="31-maples-own-client-and-tools-built-2026-10-02-667">3.1 Maple’s own client and tools (built 2026-10-02, #667)</a></li><li class="depth-1"><a href="#4-services-around-the-portal-and-the-terms" data-for="4-services-around-the-portal-and-the-terms">4. Services around the portal, and the terms</a></li><li class="depth-2"><a href="#41-genome-nexus-variant-annotation" data-for="41-genome-nexus-variant-annotation">4.1 Genome Nexus: variant annotation</a></li><li class="depth-2"><a href="#42-oncotree-the-cancer-type-vocabulary" data-for="42-oncotree-the-cancer-type-vocabulary">4.2 OncoTree: the cancer-type vocabulary</a></li><li class="depth-2"><a href="#43-cancer-hotspots" data-for="43-cancer-hotspots">4.3 Cancer Hotspots</a></li><li class="depth-2"><a href="#44-oncokb-inside-and-outside-the-portal" data-for="44-oncokb-inside-and-outside-the-portal">4.4 OncoKB, inside and outside the portal</a></li><li class="depth-2"><a href="#45-terms-at-a-glance" data-for="45-terms-at-a-glance">4.5 Terms at a glance</a></li><li class="depth-1"><a href="#5-three-things-the-api-can-already-do-for-her" data-for="5-three-things-the-api-can-already-do-for-her">5. Three things the API can already do for her</a></li><li class="depth-2"><a href="#51-her-somatic-variants-in-public-colorectal-cohorts" data-for="51-her-somatic-variants-in-public-colorectal-cohorts">5.1 Her somatic variants in public colorectal cohorts</a></li><li class="depth-2"><a href="#52-joining-studies-on-msk-impact-ids-liver-and-distant-nodes" data-for="52-joining-studies-on-msk-impact-ids-liver-and-distant-nodes">5.2 Joining studies on MSK-IMPACT IDs: liver and distant nodes</a></li><li class="depth-2"><a href="#53-models-with-her-driver-profile" data-for="53-models-with-her-driver-profile">5.3 Models with her driver profile</a></li><li class="depth-1"><a href="#6-where-it-fits-in-mods" data-for="6-where-it-fits-in-mods">6. Where it fits in MODS</a></li><li class="depth-1"><a href="#7-follow-ups" data-for="7-follow-ups">7. Follow-ups</a></li><li class="depth-2"><a href="#f3-as-built-2026-10-04" data-for="f3-as-built-2026-10-04">F3 as built (2026-10-04)</a></li><li class="depth-2"><a href="#parallelization-analysis-for-f1f6" data-for="parallelization-analysis-for-f1f6">Parallelization analysis (for F1–F6)</a></li><li class="depth-1"><a href="#8-limits" data-for="8-limits">8. Limits</a></li><li class="depth-1"><a href="#reproduce" data-for="reproduce">Reproduce</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../" class="internal">MODS Notebook</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

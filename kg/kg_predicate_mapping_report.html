@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>KG Predicate Mapping</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="KG Predicate Mapping"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="KG Predicate Mapping"/><meta name="twitter:description" content="How source vocabularies are mapped onto Biolink predicates, and the distinctions that must not collapse."/><meta property="og:description" content="How source vocabularies are mapped onto Biolink predicates, and the distinctions that must not collapse."/><meta property="og:image:alt" content="How source vocabularies are mapped onto Biolink predicates, and the distinctions that must not collapse."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/kg/kg_predicate_mapping_report"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/kg/kg_predicate_mapping_report"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="How source vocabularies are mapped onto Biolink predicates, and the distinctions that must not collapse."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/kg/kg_predicate_mapping_report-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/kg/kg_predicate_mapping_report-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/kg/kg_predicate_mapping_report-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="kg/kg_predicate_mapping_report" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-16" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-16" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../kg/">kg</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>KG Predicate Mapping</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-23</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">growing</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">How source vocabularies are mapped onto Biolink predicates, and the distinctions that must not collapse.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.255Z">Oct 09, 2026</time><span>14 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="primekg--biolink-predicate-mapping--final-report">PrimeKG → Biolink Predicate Mapping — Final Report<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#primekg--biolink-predicate-mapping--final-report" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Authors:</strong> whafa, Claude (Maple project)
+<strong>Date:</strong> 2026-05-09; <strong>last updated 2026-05-11</strong> with actual post-rerun audit numbers
+<strong>Companion writeup:</strong> <a href="../kg/kg_composition_pipeline_writeup" class="internal internal-link alias" data-slug="kg/kg_composition_pipeline_writeup">kg_composition_pipeline_writeup.md</a> §4.1 + §4.2
+<strong>Code:</strong> <code>backend/kg_normalize/predicate_mapper.py</code>
+<strong>Trigger:</strong> during the post-migration audit (writeup §4.1) we observed 250 PrimeKG edges had collapsed to fewer canonical relations than legacy. That was acceptable per se (predicate canonicalization is supposed to dedup synonymous edges), but a closer look showed the mapping table had three real bugs and several unnecessarily coarse choices. This document is the post-fix audit of every PrimeKG → Biolink mapping with a defensibility tag for each.</p>
+<blockquote>
+<p><strong>Status update 2026-05-11.</strong> The refined mapping was deployed, both PrimeKG and GP-KG canonical schemas were wiped and re-migrated, and the actual post-rerun numbers are now embedded throughout this report (sections marked “Actual …” below). Predictions and actuals are both retained so the reader can see how well the prediction held up.</p>
+</blockquote>
+<hr/>
+<h2 id="summary">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>PrimeKG ships <strong>30 distinct relation types</strong>. After mapping they collapse to <strong>23 distinct Biolink predicates</strong> (up from 16 in the original mapping). All 7 remaining collapses fall into one of three defensible categories:</p>
+<ul>
+<li><strong><code>AMBIGUITY-VIA-DOMAIN</code></strong> — multiple raw predicates map to the same Biolink predicate, but the subject/object entity domains (drug vs gene vs phenotype, etc.) carry the disambiguating signal. A model that consumes entity types — which both PDR1 (CompGCN) and PDR2 (ULTRA) do — can recover the distinction. Loss is theoretical, not practical.</li>
+<li><strong><code>DELIBERATE-LOSS</code></strong> — two raw predicates encode the same biological fact (or one is a strict subset of the other). Collapsing is correct, not lossy.</li>
+<li><strong><code>EXACT</code></strong> — Biolink has a directly equivalent predicate; the mapping is canonical.</li>
+</ul>
+<p>Every PrimeKG raw predicate is preserved verbatim in the <code>mods_kg_relation.source_predicate</code> column. The <code>predicate</code> column carries the canonical Biolink form. Downstream consumers can use either or both.</p>
+<hr/>
+<h2 id="mapping-table-all-30-primekg-relation-types">Mapping table (all 30 PrimeKG relation types)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mapping-table-all-30-primekg-relation-types" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="drug-disease--drug-target--drug-effect-11-mappings">Drug-disease / drug-target / drug-effect (11 mappings)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#drug-disease--drug-target--drug-effect-11-mappings" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>PrimeKG predicate</th><th>Biolink predicate</th><th>Tag</th><th>Notes</th></tr></thead><tbody><tr><td><code>indication</code></td><td><code>biolink:treats</code></td><td>EXACT</td><td>FDA-approved drug-disease</td></tr><tr><td><code>off-label use</code></td><td><code>biolink:has_off_label_use</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was incorrectly <code>biolink:treats</code>. Off-label use IS distinct from FDA indication; collapsing them lost ~200+ rows of clinical-evidence-flavor distinction in the first migration. Now preserved.</td></tr><tr><td><code>off_label_use</code></td><td><code>biolink:has_off_label_use</code></td><td>EXACT</td><td>Underscore variant, same mapping</td></tr><tr><td><code>contraindication</code></td><td><code>biolink:contraindicated_for</code></td><td>EXACT</td><td></td></tr><tr><td><code>drug_protein</code></td><td><code>biolink:has_target</code></td><td>EXACT</td><td>Drug → target gene/protein</td></tr><tr><td><code>target</code></td><td><code>biolink:has_target</code></td><td>DELIBERATE-LOSS with <code>drug_protein</code></td><td>Same semantic; legacy alias preserved in source_predicate</td></tr><tr><td><code>enzyme</code></td><td><code>biolink:has_enzyme</code></td><td>EXACT</td><td>Drug-metabolizing enzyme</td></tr><tr><td><code>carrier</code></td><td><code>biolink:has_carrier</code></td><td>EXACT</td><td></td></tr><tr><td><code>transporter</code></td><td><code>biolink:has_transporter</code></td><td>EXACT</td><td></td></tr><tr><td><code>side_effect</code></td><td><code>biolink:causes</code></td><td>EXACT</td><td>Drug → adverse effect</td></tr><tr><td><code>drug_effect</code></td><td><code>biolink:causes</code></td><td>DELIBERATE-LOSS with <code>side_effect</code></td><td>Same semantic in PrimeKG’s data — both come from SIDER</td></tr><tr><td><code>drug_drug</code></td><td><code>biolink:interacts_with</code></td><td>AMBIGUITY-VIA-DOMAIN with <code>protein_protein</code></td><td>Drug-drug interaction; subject/object are both <code>drug</code> so a domain-aware model knows this isn’t a PPI</td></tr></tbody></table></div>
+<h3 id="disease-gene--disease-phenotype--disease-disease-5">Disease-gene / disease-phenotype / disease-disease (5)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#disease-gene--disease-phenotype--disease-disease-5" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>PrimeKG predicate</th><th>Biolink predicate</th><th>Tag</th><th>Notes</th></tr></thead><tbody><tr><td><code>disease_protein</code></td><td><code>biolink:gene_associated_with_condition</code></td><td>EXACT</td><td></td></tr><tr><td><code>disease_disease</code></td><td><code>biolink:subclass_of</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was <code>biolink:related_to</code>. MONDO is a subclass hierarchy.</td></tr><tr><td><code>disease_phenotype_positive</code></td><td><code>biolink:has_phenotype</code></td><td>EXACT</td><td></td></tr><tr><td><code>disease_phenotype_negative</code></td><td><code>biolink:has_not_phenotype</code></td><td>EXACT</td><td></td></tr><tr><td><code>phenotype_protein</code></td><td><code>biolink:gene_associated_with_phenotypic_feature</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was incorrectly <code>biolink:has_phenotype</code>. The phenotype-protein edge expresses gene-phenotype association, not “this protein has a phenotype.”</td></tr></tbody></table></div>
+<h3 id="phenotype-phenotype--ontology-internal-hierarchies-5">Phenotype-phenotype + ontology-internal hierarchies (5)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#phenotype-phenotype--ontology-internal-hierarchies-5" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>PrimeKG predicate</th><th>Biolink predicate</th><th>Tag</th><th>Notes</th></tr></thead><tbody><tr><td><code>phenotype_phenotype</code></td><td><code>biolink:subclass_of</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was <code>biolink:related_to</code>. HPO is_a hierarchy.</td></tr><tr><td><code>pathway_pathway</code></td><td><code>biolink:subclass_of</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was <code>biolink:related_to</code>. Reactome subset hierarchy.</td></tr><tr><td><code>bioprocess_bioprocess</code></td><td><code>biolink:subclass_of</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was <code>biolink:related_to</code>. GO BP is_a.</td></tr><tr><td><code>molfunc_molfunc</code></td><td><code>biolink:subclass_of</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was <code>biolink:related_to</code>. GO MF is_a.</td></tr><tr><td><code>cellcomp_cellcomp</code></td><td><code>biolink:part_of</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was <code>biolink:related_to</code>. GO CC predominantly uses part_of (not subclass) for the cell-component subgraph.</td></tr></tbody></table></div>
+<h3 id="protein-process--protein-pathway--protein-function--protein-localization-8">Protein-process / protein-pathway / protein-function / protein-localization (8)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#protein-process--protein-pathway--protein-function--protein-localization-8" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>PrimeKG predicate</th><th>Biolink predicate</th><th>Tag</th><th>Notes</th></tr></thead><tbody><tr><td><code>protein_protein</code></td><td><code>biolink:interacts_with</code></td><td>AMBIGUITY-VIA-DOMAIN with <code>drug_drug</code></td><td>PrimeKG’s PPIs come from BioGRID/STRING/IntAct, mixing physical and functional interactions. Picking <code>directly_physically_interacts_with</code> would over-claim.</td></tr><tr><td><code>protein_pathway</code></td><td><code>biolink:participates_in</code></td><td>EXACT</td><td></td></tr><tr><td><code>pathway_protein</code></td><td><code>biolink:participates_in</code></td><td>DELIBERATE-LOSS with <code>protein_pathway</code></td><td>PrimeKG stores symmetric pair; subject/object disambiguates direction</td></tr><tr><td><code>bioprocess_protein</code></td><td><code>biolink:participates_in</code></td><td>AMBIGUITY-VIA-DOMAIN with <code>protein_pathway</code></td><td>Subject is protein in PrimeKG’s emit; object is bioprocess. Domain types disambiguate from pathway-protein.</td></tr><tr><td><code>protein_bioprocess</code></td><td><code>biolink:participates_in</code></td><td>DELIBERATE-LOSS with <code>bioprocess_protein</code></td><td>Symmetric pair</td></tr><tr><td><code>molfunc_protein</code></td><td><code>biolink:enables</code></td><td>EXACT</td><td>Protein enables molecular function</td></tr><tr><td><code>protein_molfunc</code></td><td><code>biolink:enables</code></td><td>DELIBERATE-LOSS with <code>molfunc_protein</code></td><td>Symmetric pair</td></tr><tr><td><code>cellcomp_protein</code></td><td><code>biolink:located_in</code></td><td>EXACT</td><td>Protein located in cellular component</td></tr><tr><td><code>protein_cellcomp</code></td><td><code>biolink:located_in</code></td><td>DELIBERATE-LOSS with <code>cellcomp_protein</code></td><td>Symmetric pair</td></tr></tbody></table></div>
+<h3 id="anatomy--expression-3">Anatomy / expression (3)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#anatomy--expression-3" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>PrimeKG predicate</th><th>Biolink predicate</th><th>Tag</th><th>Notes</th></tr></thead><tbody><tr><td><code>anatomy_protein_present</code></td><td><code>biolink:expressed_in</code></td><td>EXACT</td><td>Gene/protein expressed in this anatomy</td></tr><tr><td><code>anatomy_protein_absent</code></td><td><code>biolink:not_expressed_in</code></td><td>EXACT</td><td>Gene/protein not expressed in this anatomy</td></tr><tr><td><code>anatomy_anatomy</code></td><td><code>biolink:part_of</code></td><td>EXACT</td><td><strong>Fixed 2026-05-09</strong> — was <code>biolink:related_to</code>. UBERON predominantly uses part_of for anatomical containment.</td></tr></tbody></table></div>
+<h3 id="exposure-6">Exposure (6)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#exposure-6" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>PrimeKG predicate</th><th>Biolink predicate</th><th>Tag</th><th>Notes</th></tr></thead><tbody><tr><td><code>exposure_disease</code></td><td><code>biolink:correlated_with</code></td><td>EXACT</td><td></td></tr><tr><td><code>exposure_protein</code></td><td><code>biolink:affects</code></td><td>AMBIGUITY-VIA-DOMAIN with other exposure_X</td><td>Subject is always exposure; object varies by domain. Models that consume entity types can disambiguate.</td></tr><tr><td><code>exposure_bioprocess</code></td><td><code>biolink:affects</code></td><td>AMBIGUITY-VIA-DOMAIN</td><td></td></tr><tr><td><code>exposure_molfunc</code></td><td><code>biolink:affects</code></td><td>AMBIGUITY-VIA-DOMAIN</td><td></td></tr><tr><td><code>exposure_cellcomp</code></td><td><code>biolink:affects</code></td><td>AMBIGUITY-VIA-DOMAIN</td><td></td></tr><tr><td><code>exposure_exposure</code></td><td><code>biolink:related_to</code></td><td>DELIBERATE-LOSS</td><td>ExO ontology mixes several relation flavors that PrimeKG flattens into this single edge type. <code>related_to</code> is honest about that ambiguity rather than over-committing to subclass_of or part_of.</td></tr></tbody></table></div>
+<hr/>
+<h2 id="distinct-biolink-predicate-count">Distinct Biolink predicate count<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#distinct-biolink-predicate-count" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Mapping version</th><th>Distinct Biolink predicates (mapper)</th><th>Distinct Biolink predicates (in data)</th><th>Distinct PrimeKG raw predicates</th></tr></thead><tbody><tr><td>Original (2026-05-08, first migration)</td><td>16</td><td>~13 (data-presence)</td><td>30</td></tr><tr><td>Refined (2026-05-09, this report)</td><td><strong>23</strong></td><td><strong>20</strong> (data-presence)</td><td>30 (mapper) / 27 (in data)</td></tr><tr><td>Theoretical maximum (1:1)</td><td>30</td><td>30</td><td>30</td></tr></tbody></table></div>
+<p>The refined mapping is much closer to 1:1. The remaining 7 collapses are all either:</p>
+<ul>
+<li>Symmetric direction pairs (PrimeKG’s bidirectional storage) where the canonical edge is undirected — 5 pairs</li>
+<li>Cases where the entity-type domain disambiguates — 2 pairs</li>
+</ul>
+<p>No mapping intentionally throws information away. Every raw predicate is preserved verbatim in <code>mods_kg_relation.source_predicate</code> so any downstream consumer that needs the original distinction can recover it via that column.</p>
+<h3 id="mapper-coverage-vs-data-presence">Mapper coverage vs data presence<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mapper-coverage-vs-data-presence" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>These are different things and worth distinguishing:</p>
+<ul>
+<li>The mapper has <strong>23 distinct Biolink predicates</strong> defined for PrimeKG.</li>
+<li>The actual data only contains <strong>20 distinct Biolink predicates</strong> because three of the mappings (<code>biolink:has_carrier</code>, <code>biolink:has_enzyme</code>, <code>biolink:has_transporter</code>) target raw PrimeKG predicates (<code>carrier</code>, <code>enzyme</code>, <code>transporter</code>) that PrimeKG documents in its schema spec but never actually emits in the version of the data we ingested.</li>
+<li>The 3 missing predicates correspond to PK-style drug-protein relationships (carrier proteins, metabolizing enzymes, transporters) that probably require a downstream DrugBank tier PrimeKG didn’t include.</li>
+</ul>
+<p>This is benign — the mapper is <strong>future-proofed</strong>: if PrimeKG ships an update that includes those rows, our pipeline handles them automatically with the right Biolink predicate, no code change needed. The 20→23 gap is “schema-anticipated mappings vs data-realized mappings,” not data loss.</p>
+<hr/>
+<h2 id="actual-impact-after-the-re-migration-2026-05-11">Actual impact after the re-migration (2026-05-11)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#actual-impact-after-the-re-migration-2026-05-11" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The refined mapping was deployed, PrimeKG canonical was wiped, and the re-migration ran against the same legacy <code>mods_kg_node</code> / <code>mods_kg_edge</code> data. Result table — predictions vs actuals:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Metric</th><th>Original (initial migration, coarse mapping)</th><th>Predicted (refined)</th><th><strong>Actual (refined)</strong></th></tr></thead><tbody><tr><td>Distinct PrimeKG canonical predicates</td><td>16</td><td>23 (mapper definition) / 20 (in data)</td><td><strong>20 (in data)</strong> ✓ matches prediction</td></tr><tr><td>PrimeKG canonical relations</td><td>8,099,878</td><td><del>8,099,978 (</del>+100 rows)</td><td><strong>8,100,128</strong> ✓ exactly the legacy count</td></tr><tr><td>Predicate-collapse-from-canonicalization (vs legacy 8,100,128)</td><td>250</td><td>~150</td><td><strong>0</strong> ✓</td></tr><tr><td>Synthetic CURIE %</td><td>0.000%</td><td>0%</td><td><strong>0.000%</strong> ✓</td></tr><tr><td>Unmapped predicate %</td><td>0.000%</td><td>0%</td><td><strong>0.000%</strong> ✓</td></tr></tbody></table></div>
+<p><strong>Predictions were conservative.</strong> The actual canonical relation count exactly matches the legacy count (8,100,128 = 8,100,128) because the only collapse vector was <code>indication</code> + <code>off-label use</code> → both <code>biolink:treats</code>, and the refined mapper now sends <code>off-label use</code> to <code>biolink:has_off_label_use</code> instead. With the two predicates separate, zero distinct (subject, object, predicate, source) quads collapse — every legacy edge is preserved.</p>
+<h3 id="final-distinct-predicate-distribution-in-primekg-canonical-verbatim-from-the-production-db-on-2026-05-11">Final distinct predicate distribution in PrimeKG canonical (verbatim from the production DB on 2026-05-11)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#final-distinct-predicate-distribution-in-primekg-canonical-verbatim-from-the-production-db-on-2026-05-11" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Biolink predicate</th><th>Distinct raw predicates collapsed into it</th><th>Row count</th></tr></thead><tbody><tr><td>biolink:interacts_with</td><td>2 (<code>drug_drug</code>, <code>protein_protein</code>)</td><td>3,314,778</td></tr><tr><td>biolink:expressed_in</td><td>1 (<code>anatomy_protein_present</code>)</td><td>3,036,406</td></tr><tr><td>biolink:participates_in</td><td>2 (<code>bioprocess_protein</code>, <code>pathway_protein</code> + symmetric pairs)</td><td>374,902</td></tr><tr><td>biolink:has_phenotype</td><td>1 (<code>disease_phenotype_positive</code>)</td><td>300,634</td></tr><tr><td>biolink:subclass_of</td><td>5 (<code>bioprocess_bioprocess</code>, <code>disease_disease</code>, <code>phenotype_phenotype</code>, <code>molfunc_molfunc</code>, <code>pathway_pathway</code>)</td><td>239,850</td></tr><tr><td>biolink:located_in</td><td>1 (<code>cellcomp_protein</code> + symmetric)</td><td>166,804</td></tr><tr><td>biolink:gene_associated_with_condition</td><td>1 (<code>disease_protein</code>)</td><td>160,822</td></tr><tr><td>biolink:enables</td><td>1 (<code>molfunc_protein</code> + symmetric)</td><td>139,060</td></tr><tr><td>biolink:causes</td><td>1 (<code>drug_effect</code> — <code>side_effect</code> not in data)</td><td>129,568</td></tr><tr><td>biolink:contraindicated_for</td><td>1 (<code>contraindication</code>)</td><td>61,350</td></tr><tr><td>biolink:has_target</td><td>1 (<code>drug_protein</code> — <code>target</code> alias not in data)</td><td>50,936</td></tr><tr><td>biolink:not_expressed_in</td><td>1 (<code>anatomy_protein_absent</code>)</td><td>39,774</td></tr><tr><td>biolink:part_of</td><td>2 (<code>anatomy_anatomy</code>, <code>cellcomp_cellcomp</code>)</td><td>37,754</td></tr><tr><td>biolink:treats</td><td>1 (<code>indication</code>)</td><td>18,776</td></tr><tr><td>biolink:gene_associated_with_phenotypic_feature</td><td>1 (<code>phenotype_protein</code>)</td><td>6,660</td></tr><tr><td>biolink:affects</td><td>4 (<code>exposure_bioprocess</code>, <code>exposure_protein</code>, <code>exposure_molfunc</code>, <code>exposure_cellcomp</code>)</td><td>5,784</td></tr><tr><td><strong>biolink:has_off_label_use</strong> <em>(new since refinement)</em></td><td>1 (<code>off-label use</code>)</td><td><strong>5,136</strong></td></tr><tr><td>biolink:correlated_with</td><td>1 (<code>exposure_disease</code>)</td><td>4,608</td></tr><tr><td>biolink:related_to</td><td>1 (<code>exposure_exposure</code>)</td><td>4,140</td></tr><tr><td>biolink:has_not_phenotype</td><td>1 (<code>disease_phenotype_negative</code>)</td><td>2,386</td></tr><tr><td><strong>TOTAL</strong></td><td><strong>30 raw → 20 Biolink</strong></td><td><strong>8,100,128 ✓</strong></td></tr></tbody></table></div>
+<p>To reproduce: <code>SELECT predicate, COUNT(DISTINCT source_predicate) AS raw_count, COUNT(*) AS rows FROM mods_kg_relation WHERE source_id='prime_kg' GROUP BY predicate ORDER BY rows DESC;</code> against the production DB.</p>
+<hr/>
+<h2 id="how-to-apply">How to apply<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#how-to-apply" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Code is already updated</strong> — <code>backend/kg_normalize/predicate_mapper.py</code> reflects this report.</li>
+<li><strong>Wipe canonical tables</strong> — <code>.\wipe_canonical_kg.ps1</code> (interactive confirmation; preserves legacy + registry + compositions).</li>
+<li><strong>Re-run backfill</strong> — <code>.\backfill_kg.ps1 --source all</code> (will re-walk both PrimeKG and any sources already loaded, ~35 min for PrimeKG, ~5 min for GP-KG once the latter completes).</li>
+<li><strong>Re-run the audit queries</strong> from <code>kg_composition_pipeline_writeup.md</code> §4.1 to confirm the new numbers match this report’s predictions.</li>
+<li><strong>Optional</strong>: append a brief §4.2 to the writeup citing this report as the resolution of the predicate-coarseness issue.</li>
+</ol>
+<hr/>
+<h2 id="on-general-principle">On general principle<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#on-general-principle" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The lesson here is generalizable: predicate canonicalization is a <strong>lossy transformation</strong> by definition (you’re projecting a high-dimensional relation type space onto a lower-dimensional one). The right framing isn’t “is information lost?” — yes, always — but “is the loss recoverable, defensible, and intentional?” Three knobs to tune:</p>
+<ol>
+<li><strong>Use Biolink’s specific predicates when they exist.</strong> <code>biolink:has_off_label_use</code> is a thing; <code>biolink:subclass_of</code> is a thing. The first pass of this mapper used <code>biolink:treats</code> and <code>biolink:related_to</code> as defaults, which silently lost recoverable distinction.</li>
+<li><strong>Preserve the source value verbatim</strong> in a separate column so the loss is recoverable for any consumer that needs it.</li>
+<li><strong>Tag the loss tier</strong> in the mapping comments — EXACT vs AMBIGUITY-VIA-DOMAIN vs DELIBERATE-LOSS. Whoever inherits this code (including future-you) gets to evaluate each choice on its own terms rather than re-deriving them from scratch.</li>
+</ol>
+<p>This applies to any other source we add (CIViC, OncoKB, PharmGKB, RTX-KG2). The connector tests should include an “all source predicates have a defensible mapping with a tag” check as part of D-phase acceptance.</p>
+<hr/>
+<hr/>
+<h2 id="gp-kg-mapping-added-2026-05-11">GP-KG mapping (added 2026-05-11)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gp-kg-mapping-added-2026-05-11" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The first GP-KG migration audit surfaced two real bugs that we fixed in the same session as the PrimeKG predicate refinement: an <strong>87% synthetic CURIE rate</strong> (the hint code didn’t recognize GP-KG’s external_id formats) and a <strong>98.76% unmapped predicate rate</strong> (the mapper had been written against the published GP-KG schema names, not the names PrimeKG’s actual data uses). Both fixed; mappings here.</p>
+<h3 id="gp-kg-external_id-patterns-now-handled-by-_hint_from_legacy_node">GP-KG external_id patterns (now handled by <code>_hint_from_legacy_node</code>)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gp-kg-external_id-patterns-now-handled-by-_hint_from_legacy_node" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>GP-KG dialect</th><th>Example</th><th>Canonical CURIE</th></tr></thead><tbody><tr><td>HGNC symbol (gene)</td><td><code>BRAF</code>, <code>TNFSF13B</code></td><td><code>HGNC.SYMBOL:BRAF</code></td></tr><tr><td>PubChem CID with 100M offset</td><td><code>CID100002907</code></td><td><code>PUBCHEM.COMPOUND:2907</code> (offset stripped)</td></tr><tr><td>UMLS CUI (any case)</td><td><code>C3150896</code>, <code>c0009402</code></td><td><code>UMLS:C3150896</code> (uppercased)</td></tr><tr><td>HPO with underscore</td><td><code>HP_0001128</code></td><td><code>HP:0001128</code></td></tr><tr><td>MGI MP with underscore</td><td><code>MP_0004829</code></td><td><code>MP:0004829</code></td></tr><tr><td>GO with underscore</td><td><code>GO_0004366</code></td><td><code>GO:0004366</code></td></tr><tr><td>UBERON with underscore</td><td><code>UBERON_0006618</code></td><td><code>UBERON:0006618</code></td></tr><tr><td>Already-CURIE forms</td><td><code>MONDO:0005148</code></td><td>unchanged</td></tr></tbody></table></div>
+<h3 id="gp-kg-predicate-mappings-9-raw-types-in-data">GP-KG predicate mappings (9 raw types in data)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gp-kg-predicate-mappings-9-raw-types-in-data" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>GP-KG predicate</th><th>Biolink predicate</th><th>Tag</th><th>Rationale</th></tr></thead><tbody><tr><td><code>gene_uao_phenotype</code></td><td><code>biolink:expressed_in</code></td><td>EXACT</td><td>Gene → UBERON tissue (uao = “Uberon Anatomy Of”). 539,845 rows.</td></tr><tr><td><code>gene_go_phenotype</code></td><td><code>biolink:related_to</code></td><td>DELIBERATE-LOSS</td><td>Gene → GO term, but GO mixes BP/MF/CC subgraphs and PrimeKG’s data doesn’t include the GO subgraph metadata. Without that we can’t choose between <code>participates_in</code> (BP), <code>enables</code> (MF), and <code>located_in</code> (CC). 204,862 rows.</td></tr><tr><td><code>gene_mp_phenotype</code></td><td><code>biolink:gene_associated_with_phenotypic_feature</code></td><td>EXACT</td><td>Gene → MGI mammalian phenotype. 187,304 rows.</td></tr><tr><td><code>drug_hp_phenotype</code></td><td><code>biolink:has_phenotype</code></td><td>AMBIGUITY-VIA-DOMAIN</td><td>Drug → HPO phenotype. Could be efficacy or adverse event; subject-domain (drug) signals “drug induces phenotype.” 175,713 rows.</td></tr><tr><td><code>drug_mp_phenotype</code></td><td><code>biolink:has_phenotype</code></td><td>AMBIGUITY-VIA-DOMAIN</td><td>Drug → MP phenotype. 36,422 rows.</td></tr><tr><td><code>disease_hp_phenotype</code></td><td><code>biolink:has_phenotype</code></td><td>EXACT</td><td>Disease → HPO phenotype. The canonical disease-phenotype relation. 87,154 rows.</td></tr><tr><td><code>treat</code></td><td><code>biolink:treats</code></td><td>EXACT</td><td>Drug → disease. 2,764 rows.</td></tr><tr><td><code>target</code></td><td><code>biolink:has_target</code></td><td>EXACT</td><td>Drug → gene. 5,280 rows.</td></tr><tr><td><code>associate</code></td><td><code>biolink:gene_associated_with_condition</code></td><td>EXACT</td><td>Disease → gene. 7,382 rows.</td></tr></tbody></table></div>
+<p><strong>Naming note:</strong> GP-KG (and the KG-Predict paper) describe the schema as <code>treat / target / associate / relate / bind / express / downregulate / upregulate / interact</code> (9 short names). The actual data ships with <code>gene_uao_phenotype</code> etc. (verbose <code>&lt;subject>_&lt;vocabulary>_phenotype</code> patterns) for 6 of those 9. We keep both forms in the mapper as future-proof aliases — if a GP-KG-derivative source ships the short names, they map identically.</p>
+<h3 id="actual-gp-kg-audit-numbers-2026-05-11">Actual GP-KG audit numbers (2026-05-11)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#actual-gp-kg-audit-numbers-2026-05-11" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Metric</th><th>Before fix</th><th>Predicted (after fix)</th><th><strong>Actual (after fix)</strong></th></tr></thead><tbody><tr><td>Synthetic CURIE rate</td><td>87.26%</td><td>~10-25%</td><td><strong>0.013%</strong> (8 of 61,146)</td></tr><tr><td>Unmapped predicate rate</td><td>98.76%</td><td><strong>0%</strong></td><td><strong>0.000%</strong> ✓</td></tr><tr><td>Distinct Biolink predicates</td><td>3</td><td><strong>7</strong></td><td><strong>7</strong> ✓</td></tr><tr><td>Canonical entities (vs 61,146 legacy)</td><td>61,146</td><td>61,146</td><td><strong>61,146</strong> ✓ (no dedup; GP-KG is internally unique)</td></tr><tr><td>Canonical relations (vs 1,246,726 legacy)</td><td>1,246,726</td><td>1,246,726</td><td><strong>1,246,726</strong> ✓ (0 edges skipped)</td></tr><tr><td>Cross-source-shared entities with PrimeKG</td><td>n/a</td><td>unknown</td><td><strong>2,188</strong> entities canonical-merged across sources</td></tr></tbody></table></div>
+<p><strong>Predictions were way too conservative on synthetic CURIE rate.</strong> Actual is 0.013% vs predicted 10-25%. The hint code fixes (CID-with-100M-offset stripping, HGNC.SYMBOL: namespace, underscore-CURIE normalization, lowercase-UMLS uppercasing) resolved nearly every external_id pattern in the data.</p>
+<h3 id="the-8-gp-kg-entities-that-did-land-as-synthetic-full-audit">The 8 GP-KG entities that DID land as synthetic (full audit)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-8-gp-kg-entities-that-did-land-as-synthetic-full-audit" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<pre><code>gp_kg:C2           disease  &quot;C2&quot;
+gp_kg:C3           disease  &quot;C3&quot;
+gp_kg:C5           disease  &quot;C5&quot;
+gp_kg:C6           disease  &quot;C6&quot;
+gp_kg:C7           disease  &quot;C7&quot;
+gp_kg:C9           disease  &quot;C9&quot;
+gp_kg:NS3/4A       gene     &quot;NS3/4A&quot;
+gp_kg:HIV-1 PROTEASE  gene  &quot;HIV-1 PROTEASE&quot;
+</code></pre>
+<p>To reproduce: <code>SELECT e.curie, e.domain, e.name FROM mods_kg_entity e JOIN mods_kg_entity_source es ON es.entity_id=e.id WHERE es.source_id='gp_kg' AND e.is_synthetic_curie;</code> against the production DB.</p>
+<p><strong>All 8 are defensible non-fixes:</strong></p>
+<ul>
+<li>C2 / C3 / C5 / C6 / C7 / C9 are 2-character strings that look like UMLS CUIs but are way too short (real CUIs are C + 7 digits). They’re almost certainly <strong>complement proteins</strong> (complement C2/C3/C5 etc.) miscategorized as <code>entity_type='disease'</code> in GP-KG’s source data. The synthetic CURIE is correct because there is no canonical “C3-the-disease” in any controlled vocabulary; it’s a gene symbol stored in the wrong row.</li>
+<li><code>NS3/4A</code> is HCV non-structural protein 3/4A. Contains <code>/</code>, fails the HGNC.SYMBOL alphanumeric check. Viral genes aren’t in HGNC anyway.</li>
+<li><code>HIV-1 PROTEASE</code> is HIV protease. Space-containing, not in HGNC.</li>
+</ul>
+<p>These are GP-KG data-quality artifacts (viral and complement entries mis-typed), not gaps in our hint code.</p>
+<h3 id="final-gp-kg-predicate-distribution-verbatim-from-the-production-db-on-2026-05-11">Final GP-KG predicate distribution (verbatim from the production DB on 2026-05-11)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#final-gp-kg-predicate-distribution-verbatim-from-the-production-db-on-2026-05-11" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Biolink predicate</th><th>Raw GP-KG predicate(s)</th><th>Row count</th></tr></thead><tbody><tr><td>biolink:expressed_in</td><td><code>gene_uao_phenotype</code> (gene → UBERON anatomy)</td><td>539,845</td></tr><tr><td>biolink:related_to</td><td><code>gene_go_phenotype</code> (gene → GO; subgraph-ambiguous)</td><td>204,862</td></tr><tr><td>biolink:gene_associated_with_phenotypic_feature</td><td><code>gene_mp_phenotype</code> (gene → MGI phenotype)</td><td>187,304</td></tr><tr><td>biolink:has_phenotype</td><td><code>drug_hp_phenotype</code> + <code>drug_mp_phenotype</code> + <code>disease_hp_phenotype</code> (3 raw → 1 Biolink, subject-domain disambiguates)</td><td>175,713 + 36,422 + 87,154 = 299,289</td></tr><tr><td>biolink:gene_associated_with_condition</td><td><code>associate</code> (disease → gene)</td><td>7,382</td></tr><tr><td>biolink:has_target</td><td><code>target</code> (drug → gene)</td><td>5,280</td></tr><tr><td>biolink:treats</td><td><code>treat</code> (drug → disease)</td><td>2,764</td></tr><tr><td><strong>TOTAL</strong></td><td><strong>9 raw → 7 Biolink</strong></td><td><strong>1,246,726 ✓</strong></td></tr></tbody></table></div>
+<p>To reproduce: <code>SELECT predicate, source_predicate, COUNT(*) FROM mods_kg_relation WHERE source_id='gp_kg' GROUP BY 1,2 ORDER BY 1, 3 DESC;</code></p>
+<hr/>
+<h2 id="why-biolink-seems-too-small--the-qualifier-vs-predicate-model">Why Biolink seems “too small” — the qualifier-vs-predicate model<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#why-biolink-seems-too-small--the-qualifier-vs-predicate-model" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>(Adding this section to address a recurring question: if Biolink has hundreds of predicates, why do we keep collapsing source-native predicates into smaller numbers of canonical Biolink predicates?)</p>
+<p>Biolink IS big at the predicate level — it ships hundreds of slot definitions. But the appearance of “Biolink being too small to cover what we have” comes from three real architectural choices Biolink makes that differ from how individual KGs structure their data:</p>
+<h3 id="1-biolink-models-qualifiers-separately-from-predicates">1. Biolink models qualifiers separately from predicates<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-biolink-models-qualifiers-separately-from-predicates" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>When a source like CIViC says <strong>“PREDICTS_SENSITIVITY_TO drug X for cancer type Y at evidence level 3A”</strong>, the source compresses everything into one relation type per (predicate, qualifier-combination). Biolink instead models this as ONE predicate (<code>biolink:predicts_sensitivity_to</code>) PLUS separate <code>qualified_predicate</code>, <code>subject_aspect_qualifier</code>, <code>evidence_level</code> slots that carry the extra structure.</p>
+<p>Our current schema (<code>mods_kg_relation</code>) has columns for <code>subject_id, object_id, predicate, source_predicate, source_id, weight, evidence, metadata</code>. There’s no qualifier column. So when a source represents an evidence-level distinction as a separate relation type (e.g., PrimeKG’s <code>indication</code> vs <code>off-label use</code>), and Biolink would naturally model both as <code>biolink:treats</code> with different qualifier values, our schema makes us choose:</p>
+<ul>
+<li>Map both to <code>biolink:treats</code> → loss (this was the original PrimeKG bug we just fixed)</li>
+<li>Use different Biolink predicates if available (<code>biolink:treats</code> vs <code>biolink:has_off_label_use</code>) → preserves the distinction at the predicate level (current refined approach)</li>
+<li>Add qualifier columns to our schema → cleanest, but bigger refactor; deferred</li>
+</ul>
+<p>So Biolink IS big enough to express everything, but our schema doesn’t yet model the qualifier dimension where Biolink puts ~30% of the information.</p>
+<h3 id="2-biolink-uses-entity-type-domain-to-disambiguate-on-purpose">2. Biolink uses entity-type-domain to disambiguate, on purpose<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-biolink-uses-entity-type-domain-to-disambiguate-on-purpose" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Take <code>drug_drug</code> (drug-drug interaction) and <code>protein_protein</code> (protein-protein interaction) — semantically very different! Biolink maps both to <code>biolink:interacts_with</code> (the same predicate) because the subject and object entity types already convey the distinction. A <code>(drug, biolink:interacts_with, drug)</code> row means DDI; a <code>(protein, biolink:interacts_with, protein)</code> row means PPI.</p>
+<p>This is a <em>design choice</em>: Biolink avoids predicate redundancy when entity types convey the information. A downstream model (CompGCN, ULTRA, etc.) typically embeds entity types alongside predicates, so the distinction is recoverable.</p>
+<p>You can see this in our refined PrimeKG mapping: <code>protein_protein</code> and <code>drug_drug</code> both → <code>biolink:interacts_with</code> (3,314,778 rows total in PrimeKG canonical, of which 2,672,628 are drug-drug and 642,150 are protein-protein — recoverable via entity-type filter).</p>
+<h3 id="3-some-source-predicates-are-inherently-multi-semantic">3. Some source predicates are inherently multi-semantic<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-some-source-predicates-are-inherently-multi-semantic" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>PrimeKG’s <code>gene_go_phenotype</code> covers gene→GO-term relationships, but GO has three subgraphs (Biological Process, Molecular Function, Cellular Component) with semantically distinct relationships:</p>
+<ul>
+<li>Gene → BP term should be <code>biolink:participates_in</code></li>
+<li>Gene → MF term should be <code>biolink:enables</code></li>
+<li>Gene → CC term should be <code>biolink:located_in</code></li>
+</ul>
+<p>PrimeKG flattens all three into one relation type without exposing the GO subgraph metadata. We have no honest way to pick the right Biolink predicate per row, so we map to <code>biolink:related_to</code> (the parent predicate). This is one of two <code>DELIBERATE-LOSS</code> entries in our PrimeKG mapping table. <strong>204,862 rows in GP-KG and similar in PrimeKG sit at this <code>related_to</code> placeholder</strong> until/unless we re-process those edges with the GO subgraph membership lookup.</p>
+<h3 id="summary-1">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Apparent “Biolink too small” case</th><th>Actual reason</th><th>Recoverable?</th></tr></thead><tbody><tr><td><code>indication</code> + <code>off-label use</code> both → <code>biolink:treats</code> (the original bug)</td><td>Biolink has both <code>biolink:treats</code> AND <code>biolink:has_off_label_use</code>; we just hadn’t used the latter</td><td>✅ Fixed in the refined mapper</td></tr><tr><td><code>protein_protein</code> + <code>drug_drug</code> → <code>biolink:interacts_with</code></td><td>Biolink design: entity types carry the distinction</td><td>✅ Via subject/object domain filter</td></tr><tr><td>250 PrimeKG edges previously deduped</td><td>Was caused by the first issue, not Biolink limitations</td><td>✅ Resolved (post-refinement: 0 dedups)</td></tr><tr><td><code>gene_go_phenotype</code> → <code>biolink:related_to</code></td><td>Source flattens BP/MF/CC subgraphs; no honest way to disambiguate without subgraph metadata</td><td>⏳ Recoverable via GO ontology lookup (future enhancement)</td></tr><tr><td>Evidence-level qualifiers (CIViC Level A/B/C, OncoKB Level 1/2/3A)</td><td>Biolink models these as qualifiers, not as predicate variants</td><td>⏳ Our schema needs qualifier columns to use Biolink’s idiomatic representation</td></tr></tbody></table></div>
+<p>So: Biolink is comprehensive at the predicate-AND-qualifier level. Our schema currently captures only the predicate dimension. Apparent collapses are typically Biolink working as designed (entity-type disambiguation) or our schema lagging (missing qualifier columns). In every case, the raw <code>source_predicate</code> column preserves the source’s distinction verbatim — no information is irretrievably lost.</p>
+<hr/>
+<h2 id="cross-references">Cross-references<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cross-references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><a href="../kg/kg_composition_pipeline_writeup" class="internal internal-link alias" data-slug="kg/kg_composition_pipeline_writeup">kg_composition_pipeline_writeup.md</a> — §4.1 PrimeKG audit, §5.4 next steps</li>
+<li><a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">pdr_phase8.5_variant_kg_planning.md</a> — the variant connectors will follow this same predicate-mapping discipline</li>
+<li><code>backend/kg_normalize/predicate_mapper.py</code> — the source of truth</li>
+<li><a href="https://biolink.github.io/biolink-model/" class="external external-link">Biolink Model<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> — predicate slot reference</li>
+</ul></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-16" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#primekg--biolink-predicate-mapping--final-report" data-for="primekg--biolink-predicate-mapping--final-report">PrimeKG → Biolink Predicate Mapping — Final Report</a></li><li class="depth-1"><a href="#summary" data-for="summary">Summary</a></li><li class="depth-1"><a href="#mapping-table-all-30-primekg-relation-types" data-for="mapping-table-all-30-primekg-relation-types">Mapping table (all 30 PrimeKG relation types)</a></li><li class="depth-2"><a href="#drug-disease--drug-target--drug-effect-11-mappings" data-for="drug-disease--drug-target--drug-effect-11-mappings">Drug-disease / drug-target / drug-effect (11 mappings)</a></li><li class="depth-2"><a href="#disease-gene--disease-phenotype--disease-disease-5" data-for="disease-gene--disease-phenotype--disease-disease-5">Disease-gene / disease-phenotype / disease-disease (5)</a></li><li class="depth-2"><a href="#phenotype-phenotype--ontology-internal-hierarchies-5" data-for="phenotype-phenotype--ontology-internal-hierarchies-5">Phenotype-phenotype + ontology-internal hierarchies (5)</a></li><li class="depth-2"><a href="#protein-process--protein-pathway--protein-function--protein-localization-8" data-for="protein-process--protein-pathway--protein-function--protein-localization-8">Protein-process / protein-pathway / protein-function / protein-localization (8)</a></li><li class="depth-2"><a href="#anatomy--expression-3" data-for="anatomy--expression-3">Anatomy / expression (3)</a></li><li class="depth-2"><a href="#exposure-6" data-for="exposure-6">Exposure (6)</a></li><li class="depth-1"><a href="#distinct-biolink-predicate-count" data-for="distinct-biolink-predicate-count">Distinct Biolink predicate count</a></li><li class="depth-2"><a href="#mapper-coverage-vs-data-presence" data-for="mapper-coverage-vs-data-presence">Mapper coverage vs data presence</a></li><li class="depth-1"><a href="#actual-impact-after-the-re-migration-2026-05-11" data-for="actual-impact-after-the-re-migration-2026-05-11">Actual impact after the re-migration (2026-05-11)</a></li><li class="depth-2"><a href="#final-distinct-predicate-distribution-in-primekg-canonical-verbatim-from-the-production-db-on-2026-05-11" data-for="final-distinct-predicate-distribution-in-primekg-canonical-verbatim-from-the-production-db-on-2026-05-11">Final distinct predicate distribution in PrimeKG canonical (verbatim from the production DB on 2026-05-11)</a></li><li class="depth-1"><a href="#how-to-apply" data-for="how-to-apply">How to apply</a></li><li class="depth-1"><a href="#on-general-principle" data-for="on-general-principle">On general principle</a></li><li class="depth-1"><a href="#gp-kg-mapping-added-2026-05-11" data-for="gp-kg-mapping-added-2026-05-11">GP-KG mapping (added 2026-05-11)</a></li><li class="depth-2"><a href="#gp-kg-external_id-patterns-now-handled-by-_hint_from_legacy_node" data-for="gp-kg-external_id-patterns-now-handled-by-_hint_from_legacy_node">GP-KG external_id patterns (now handled by _hint_from_legacy_node)</a></li><li class="depth-2"><a href="#gp-kg-predicate-mappings-9-raw-types-in-data" data-for="gp-kg-predicate-mappings-9-raw-types-in-data">GP-KG predicate mappings (9 raw types in data)</a></li><li class="depth-2"><a href="#actual-gp-kg-audit-numbers-2026-05-11" data-for="actual-gp-kg-audit-numbers-2026-05-11">Actual GP-KG audit numbers (2026-05-11)</a></li><li class="depth-2"><a href="#the-8-gp-kg-entities-that-did-land-as-synthetic-full-audit" data-for="the-8-gp-kg-entities-that-did-land-as-synthetic-full-audit">The 8 GP-KG entities that DID land as synthetic (full audit)</a></li><li class="depth-2"><a href="#final-gp-kg-predicate-distribution-verbatim-from-the-production-db-on-2026-05-11" data-for="final-gp-kg-predicate-distribution-verbatim-from-the-production-db-on-2026-05-11">Final GP-KG predicate distribution (verbatim from the production DB on 2026-05-11)</a></li><li class="depth-1"><a href="#why-biolink-seems-too-small--the-qualifier-vs-predicate-model" data-for="why-biolink-seems-too-small--the-qualifier-vs-predicate-model">Why Biolink seems “too small” — the qualifier-vs-predicate model</a></li><li class="depth-2"><a href="#1-biolink-models-qualifiers-separately-from-predicates" data-for="1-biolink-models-qualifiers-separately-from-predicates">1. Biolink models qualifiers separately from predicates</a></li><li class="depth-2"><a href="#2-biolink-uses-entity-type-domain-to-disambiguate-on-purpose" data-for="2-biolink-uses-entity-type-domain-to-disambiguate-on-purpose">2. Biolink uses entity-type-domain to disambiguate, on purpose</a></li><li class="depth-2"><a href="#3-some-source-predicates-are-inherently-multi-semantic" data-for="3-some-source-predicates-are-inherently-multi-semantic">3. Some source predicates are inherently multi-semantic</a></li><li class="depth-2"><a href="#summary-1" data-for="summary-1">Summary</a></li><li class="depth-1"><a href="#cross-references" data-for="cross-references">Cross-references</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../" class="internal">MODS Notebook</a></li><li><a href="../kg/kg_composition_pipeline_writeup" class="internal">KG Composition Pipeline</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

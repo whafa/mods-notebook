@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>NBFNet</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="NBFNet"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="NBFNet"/><meta name="twitter:description" content="What NBFNet is, what our ULTRA fork actually runs, and how to size it for a graph as dense as PrimeKG."/><meta property="og:description" content="What NBFNet is, what our ULTRA fork actually runs, and how to size it for a graph as dense as PrimeKG."/><meta property="og:image:alt" content="What NBFNet is, what our ULTRA fork actually runs, and how to size it for a graph as dense as PrimeKG."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/model/nbfnet_understanding"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/model/nbfnet_understanding"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="What NBFNet is, what our ULTRA fork actually runs, and how to size it for a graph as dense as PrimeKG."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/model/nbfnet_understanding-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/model/nbfnet_understanding-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/model/nbfnet_understanding-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="model/nbfnet_understanding" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-78" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-78" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../model/">model</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>NBFNet</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-10-06</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">growing</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">What NBFNet is, what our ULTRA fork actually runs, and how to size it for a graph as dense as PrimeKG.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.315Z">Oct 09, 2026</time><span>10 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="nbfnet--what-it-is-what-we-run-and-how-to-size-it-for-primekg">NBFNet — what it is, what we run, and how to size it for PrimeKG<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#nbfnet--what-it-is-what-we-run-and-how-to-size-it-for-primekg" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Reading order:</strong> [paper PDF](NBF Networks Paper.pdf) → this doc → <code>PDR2 fork README</code>. Source: Zhu, Zhang, Xhonneux, Tang. <em>Neural Bellman-Ford Networks: A General Graph Neural Network Framework for Link Prediction.</em> NeurIPS 2021. <a href="https://arxiv.org/abs/2106.06935" class="external external-link">arXiv:2106.06935<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>. Code: <a href="https://github.com/DeepGraphLearning/NBFNet" class="external external-link">DeepGraphLearning/NBFNet<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>.</p>
+<h2 id="1-the-one-paragraph-version">1. The one-paragraph version<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-the-one-paragraph-version" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>NBFNet learns a <strong>pair representation</strong> <code>h_q(u, v)</code> for every candidate <code>(head, query, tail)</code> triple by parameterizing the <strong>generalized Bellman-Ford algorithm</strong>. The idea: any path-based link prediction method (Katz index, personalized PageRank, graph distance, widest path, most reliable path) can be written as <code>h_q(u,v) = ⊕_{P ∈ P_uv} ⊗_{e ∈ P} w_q(e)</code> for some semiring ⟨⊕, ⊗⟩. NBFNet replaces these handcrafted operators with three learned neural functions: <strong>INDICATOR</strong> (boundary condition — sets <code>h_u^(0) = q</code>), <strong>MESSAGE</strong> (the <code>⊗</code> — DistMult / TransE / RotatE), <strong>AGGREGATE</strong> (the <code>⊕</code> — sum / mean / max / PNA). T layers of Bellman-Ford iteration give a representation of <code>v</code> <em>conditioned on <code>u</code> and <code>q</code></em>; an MLP on that vector produces the link score. The crucial structural difference vs. RGCN/CompGCN is that NBFNet computes a <strong>separate, source-conditioned</strong> node representation for each query — every other GNN computes one shared embedding per node and decodes pairs from it.</p>
+<h2 id="2-architecture-in-numbers-paper-default-fb15k-237--wn18rr">2. Architecture in numbers (paper-default, FB15k-237 / WN18RR)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-architecture-in-numbers-paper-default-fb15k-237--wn18rr" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Component</th><th>Value</th><th>Notes</th></tr></thead><tbody><tr><td>Layers <code>T</code></td><td>6</td><td>T=4 already gets 0.409 MRR vs 0.415 at T=6 (Table 6b) — diminishing returns past 6</td></tr><tr><td>Hidden dim <code>d</code></td><td>32</td><td>All hidden layers same dim</td></tr><tr><td>MLP head</td><td>2 layers × 64 hidden</td><td>Final score <code>f(h_q(u,v)) → ℝ</code></td></tr><tr><td>Message function</td><td>DistMult (best)</td><td>Hadamard product <code>h ⊙ r</code>. Also tried TransE (<code>h + r</code>) and RotatE (complex rotation). DistMult+PNA is best on FB15k-237 (Table 15).</td></tr><tr><td>Aggregate function</td><td>PNA (best)</td><td>Principal Neighborhood Aggregation: concatenates {mean, max, min, std} × {1, log(deg), 1/log(deg)} = 12 channels, projected to <code>d</code>. Output dim is <code>13d</code> before linear (12 + boundary self-loop).</td></tr><tr><td>Optimizer</td><td>Adam, lr 5e-3</td><td>Self-adversarial neg sampling, temperature 0.5 (FB15k-237) / 1.0 (WN18RR)</td></tr><tr><td>Batch</td><td>256 / 128 positive</td><td>32 negatives per positive</td></tr><tr><td>Epochs</td><td>20</td><td></td></tr><tr><td>Augmentation</td><td>Reverse triples <code>(v, q⁻¹, u)</code></td><td>Doubles `</td></tr><tr><td>Edge dropout</td><td>Yes — drop direct query edges</td><td>Forces the model to learn non-trivial paths</td></tr><tr><td>Layer norm</td><td>Yes</td><td>After AGGREGATE</td></tr><tr><td>Residual</td><td><code>short_cut: yes</code></td><td>Per layer if shapes match</td></tr></tbody></table></div>
+<p>Wall-clock on 4× V100: training 9.7 hr (FB15k-237), 4.4 hr (WN18RR); inference 4 min / 2.4 min.</p>
+<h2 id="3-parameter-count--the-punchline">3. Parameter count — the punchline<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-parameter-count--the-punchline" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Table 8 in the paper:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Component</th><th>Formula</th><th>FB15k-237 (|R|=474, T=6, d=32, MLP m=64)</th></tr></thead><tbody><tr><td>INDICATOR</td><td><code>|R| × d</code></td><td>15,168</td></tr><tr><td>MESSAGE</td><td><code>T × |R| × d × (d+1)</code></td><td>3,003,264</td></tr><tr><td>AGGREGATE</td><td><code>T × d × (13d+3)</code></td><td>80,448 (PNA)</td></tr><tr><td>MLP <code>f(·)</code></td><td><code>m(2d+1) + m + 1</code></td><td>4,225</td></tr><tr><td><strong>Total</strong></td><td></td><td><strong>3,103,105</strong></td></tr></tbody></table></div>
+<p>Three properties to internalize:</p>
+<ol>
+<li><strong>No |V| term.</strong> NBFNet has no entity embedding table at all. Initial node states are zero except for the query source, which gets the query embedding. Every other node’s representation is <em>derived</em> by message passing.</li>
+<li><strong>No |E| term.</strong> Edge representations are reused per relation type, not per edge. (<code>w_q(x, r, v) = W_r q + b_r</code>.)</li>
+<li><strong>Linear in |R|.</strong> The MESSAGE block dominates and grows like <code>T × |R| × d²</code>. So scaling pain is in the relations, not the graph.</li>
+</ol>
+<p>This is why TransE needs 30M params on FB15k-237 (one d-dim vector per node) but NBFNet needs 3M (none).</p>
+<h2 id="4-time-and-memory-complexity">4. Time and memory complexity<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-time-and-memory-complexity" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Per Bellman-Ford run:</p>
+<ul>
+<li><strong>Time:</strong> O(T · (|E|d + |V|d²))</li>
+<li><strong>Memory (naive):</strong> O(|E|d) — every edge holds a message vector</li>
+<li><strong>Memory (fused rspmm):</strong> O(|V|d) — custom CUDA kernel computes message + scatter-add in one pass without materializing messages</li>
+</ul>
+<p>Amortized per triple (one BF run scores <code>|V|</code> candidates simultaneously): O(|E|d/|V| + d²). Compared to RGCN’s O(|E|d²) and GraIL’s O(|E|d²), NBFNet is the only inductive method that’s not quadratic in <code>d</code> along the dominant <code>|E|</code> term.</p>
+<h2 id="5-ultra--what-our-fork-actually-is">5. ULTRA — what our fork actually is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-ultra--what-our-fork-actually-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Our <code>lib/pdr2/code/ultra/</code> is <strong>not</strong> plain NBFNet. It’s <a href="https://github.com/DeepGraphLearning/ULTRA" class="external external-link">ULTRA<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> (Galkin et al. 2024), a strict superset that addresses NBFNet’s one remaining transfer limitation: per-relation parameters. ULTRA stacks two NBFNets:</p>
+<pre><code>                ┌─────────────────────┐
+query relation ──►│   RelNBFNet (6L)    │── query-conditioned
+                │ on graph of relations│   relation embeddings
+                │  (4 fundamental rels:│   (one per |R|, per query)
+                │  h2h, h2t, t2h, t2t) │
+                └──────────┬──────────┘
+                           │
+                ┌──────────▼──────────┐
+(h, ?, ?, KG) ─►│  EntityNBFNet (6L)  │── pair scores h_q(h, v)
+                │   on the actual KG   │   for all v ∈ V
+                └─────────────────────┘
+</code></pre>
+<p>The relation graph is universal: 4 fundamental interactions (head-to-head, head-to-tail, tail-to-head, tail-to-tail) regardless of how many real relations the KG has. So the <strong>only</strong> thing that changes when you swap in a new KG is the data — no new parameters. Pretrained <code>ultra_3g.pth</code>, <code>ultra_4g.pth</code>, <code>ultra_50g.pth</code> are ~2 MB each (≈168K parameters total) and transfer zero-shot to any KG. Local copies of these checkpoints live in <code>~/git/ULTRA/ckpts/</code> once the notebook downloads them.</p>
+<p>Our <code>lib/pdr2/code/ultra/models.py</code> defines:</p>
+<ul>
+<li><code>Ultra</code> — the wrapper that runs both NBFNets in sequence</li>
+<li><code>RelNBFNet</code> — boundary uses <code>torch.ones(d)</code> instead of a query embedding (it operates on the relation graph; the query <em>is</em> a node there)</li>
+<li><code>EntityNBFNet</code> — boundary uses the relation embeddings produced by RelNBFNet, fed in via <code>self.query</code> and <code>layer.relation</code> before forward</li>
+</ul>
+<p>Both inherit from <code>base_nbfnet.py:BaseNBFNet</code>, which contains the bellmanford loop (lines 118–158) and the canonical NBFNet ops: <code>remove_easy_edges</code>, <code>negative_sample_to_tail</code>, beam-search visualization. The actual message-passing convolution is <code>layers.py:GeneralizedRelationalConv</code> and is essentially identical to upstream NBFNet — same DistMult/TransE/RotatE message functions, same PNA, same fused rspmm kernel.</p>
+<h2 id="6-our-config-side-by-side-with-the-paper">6. Our config, side-by-side with the paper<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-our-config-side-by-side-with-the-paper" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><code>lib/pdr2/code/config/transductive/inference.yaml</code> and the PrimeKG-specific config inlined in <code>lib/pdr2/notebooks/pdr2_run_primekg.ipynb</code>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Knob</th><th>Paper (FB15k-237)</th><th>Our PDR2 (PrimeKG)</th><th>Why we differ</th></tr></thead><tbody><tr><td><code>T</code> (layers)</td><td>6</td><td>6</td><td>Same</td></tr><tr><td><code>d</code> (hidden)</td><td>32</td><td><strong>64</strong></td><td>ULTRA default — relation graph reps benefit from extra capacity</td></tr><tr><td>Message func</td><td>DistMult</td><td>DistMult</td><td>Same</td></tr><tr><td>Aggregate func</td><td><strong>PNA</strong></td><td><strong>sum</strong></td><td>ULTRA default — PNA’s <code>[1, log_deg, 1/log_deg]</code> scaling can blow up on PrimeKG super-hubs (avg deg 125, max deg ~10⁴ on protein-protein nodes); sum is safer until we measure</td></tr><tr><td>Optimizer</td><td>Adam</td><td><strong>AdamW</strong> in the configs. The Vertex trainer runs <strong>Adam</strong>, hard-coded (<code>training.py:1100</code>), and ignores the YAML block (<code>#861</code>)</td><td>Weight-decay is helpful for the larger ULTRA</td></tr><tr><td>LR</td><td>5e-3</td><td><strong>5e-4</strong> in the configs. The Vertex trainer runs a <strong>flat 1e-4</strong>: its plateau scheduler is never stepped (<code>#861</code>)</td><td>10× lower — empirically necessary when training-set size grows past ~1M edges</td></tr><tr><td>Negative weighting</td><td>Self-adversarial, temperature 0.5 / 1.0</td><td><strong>None</strong> on Vertex: plain mean BCE over the positive and its 10 strict negatives. <code>adversarial_temperature</code> is read only by <code>pretrain.py</code> and <code>run_kgia.py</code> (<code>#861</code>)</td><td>Inherited from the PDR2 release</td></tr><tr><td>Batch</td><td>256 pos × 32 neg = 8,192</td><td>512 × 10 = 5,120 (inference) / 64 (pretraining)</td><td>Memory-bound by `</td></tr><tr><td>Epochs</td><td>20</td><td><strong>5</strong> for PrimeKG (10 for GP-KG joint pretrain)</td><td>Compute budget — 1 Colab Pro+ session ≈ 6 hr</td></tr><tr><td>BPE</td><td>(full epoch)</td><td>500 batches/epoch</td><td>Subsampled — full epoch on PrimeKG would be ~16K batches</td></tr><tr><td>Edge dropout</td><td>Drop query edges</td><td>Same (<code>remove_one_hop=False</code> default, drops only the exact query triple)</td><td>Same</td></tr><tr><td>Reverse aug</td><td>Yes</td><td>Yes</td><td>Same — required by the bellmanford loop’s symmetry</td></tr></tbody></table></div>
+<h2 id="7-resizing-for-primekg--concrete-options">7. Resizing for PrimeKG — concrete options<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-resizing-for-primekg--concrete-options" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>PrimeKG numbers (per <a href="../kg/kg_catalog" class="internal internal-link alias" data-slug="kg/kg_catalog">`docs/KG_CATALOG.md`</a>):</p>
+<ul>
+<li>|V| = 129,375 entities</li>
+<li>|E| = 8,100,498 edges (already bidirectional)</li>
+<li>|R| = 30 relation types (60 with reverse)</li>
+<li>avg degree ≈ 125 (≈6× FB15k-237’s avg deg 21, ≈2× Hetionet’s 96)</li>
+</ul>
+<h3 id="what-is-not-a-problem">What is <em>not</em> a problem<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-is-not-a-problem" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Parameter count.</strong> With |R|=60 and ULTRA’s relation-graph trick, our model is ~168K parameters total — smaller than NBFNet on FB15k-237 (3M). PrimeKG won’t grow the model.</li>
+<li><strong>Inductivity.</strong> ULTRA + NBFNet are entity-agnostic. Adding/removing PrimeKG nodes between train and eval is fine.</li>
+</ul>
+<h3 id="what-is-a-problem">What <em>is</em> a problem<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-is-a-problem" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Per-batch wall-clock.</strong> Bellman-Ford is <code>O(T × |E| × d)</code> per query. PrimeKG has 6.5× the edges of GP-KG → expect ~6× slower per batch. Notebook predicts ~9 sec/batch (we measured 3.3s on GP-KG).</li>
+<li><strong>Memory (without rspmm).</strong> Naive memory is <code>O(|E|·d·batch_size)</code>. At d=64, batch=512: 8.1M × 64 × 512 × 4B = 1 TB. Fused rspmm drops this to <code>O(|V|·d·batch_size)</code> = 17 GB → tractable but tight on a single A100/H100.</li>
+<li><strong>Validation cost.</strong> PrimeKG’s standard split is ~1.6M valid triples. Per-triple eval at batch 512 needs ~3,200 batches → ~8 hr. The notebook subsamples <code>val_n_sample=5000</code> for fast iteration; full eval is run once at the end overnight (~7-8 hr).</li>
+</ul>
+<h3 id="knobs-worth-tuning-ranked-by-leverage">Knobs worth tuning, ranked by leverage<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#knobs-worth-tuning-ranked-by-leverage" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p><strong>Drop <code>T</code> from 6 → 4.</strong> Paper Table 6b: T=4 → 0.409 MRR, T=6 → 0.415 (1.5% delta) on FB15k-237. Per-batch time scales linearly with T. <strong>33% wall-clock savings</strong> for ~1.5% metric loss is the best Pareto move if we’re compute-bound. <em>(Try first.)</em></p>
+</li>
+<li>
+<p><strong>Aggregate: sum → PNA.</strong> Paper Table 6a: PNA gives +7% MRR on FB15k-237 vs sum (DistMult+PNA 0.415 vs DistMult+sum 0.388). Adds ~6.5× the linear-projection params per layer (output is 13d not 2d) but is essentially free at runtime — the rspmm kernel computes all four PNA stats in one pass. <strong>Try this on PrimeKG with the <code>scale.clamp(min=1e-2)</code> numerical guard already in our <code>layers.py:171</code>.</strong> PrimeKG’s high max-degree might still trip it; if loss goes NaN, fall back to sum.</p>
+</li>
+<li>
+<p><strong>Hidden dim 64 → 96 or 128.</strong> ULTRA’s d=64 is a guess inherited from upstream — the original NBFNet found d=32 was enough for FB15k-237. PrimeKG has more entity types (10 vs 1) and more semantic structure, so capacity should help. Cost: AGGREGATE linear is <code>O(d²)</code>, MESSAGE is <code>O(d)</code> per edge, so doubling d quadruples the AGGREGATE cost but only doubles the dominant <code>|E|d</code> term. <strong>Test d=96 first; only go to 128 if metrics warrant.</strong></p>
+</li>
+<li>
+<p><strong>Learning rate schedule.</strong> Every foundation trained on Vertex so far ran a flat Adam lr=1e-4, not the configs’ AdamW 5e-4 (<code>#861</code>). The paper used a flat Adam lr=5e-3, 50× higher, on a 10× smaller graph. Adding cosine decay or warmup is cheap. Whether Run 3 changes it is open (<code>#861</code>): it would break comparability with Run 2.</p>
+</li>
+<li>
+<p><strong>Bidirectional BFS subsampling (paper Appendix G).</strong> For WikiKG90M (87M nodes), the authors restricted each query to a 2-hop bidirectional BFS subgraph with degree clamp <code>m=100</code>. This gives a guarantee: any path of length ≤ 2k between head and any tail candidate is preserved. PrimeKG is small enough that we don’t need this (our 8M edges fit fine), but <strong>this is the playbook if we ever pre-train on a PrimeKG + DRKG + Hetionet union (which would push past 50M edges)</strong>. The k=2, m=100 settings are a sane starting point.</p>
+</li>
+</ol>
+<h3 id="knobs-not-worth-tuning">Knobs <em>not</em> worth tuning<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#knobs-not-worth-tuning" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Layers within RelNBFNet vs EntityNBFNet asymmetrically.</strong> Our config sets both to 6 — keep them in sync. RelNBFNet’s graph is tiny (4 fundamental relations × |R| nodes), so its T contributes negligibly to wall time.</li>
+<li><strong>Negative count.</strong> 32 negatives is paper-validated on three datasets. Going lower trades MRR for speed; going higher hits memory.</li>
+<li><strong>Removing layer norm or short-cut.</strong> Paper showed layer norm was needed for stability on FB15k-237. Don’t strip it unless we have a specific reason.</li>
+</ul>
+<h2 id="8-open-questions--things-this-audit-can-not-answer">8. Open questions — things this audit can <em>not</em> answer<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-open-questions--things-this-audit-can-not-answer" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>These need empirical runs, not paper-reading:</p>
+<ul>
+<li><strong>Does PNA work on PrimeKG without numerical NaNs?</strong> Theoretically yes (the clamp protects it); practically need to A/B against sum on a 1-epoch run.</li>
+<li><strong>What’s the right <code>val_n_sample</code>?</strong> Currently 5000; PDR1 used full eval. The 5000-sample MRR could be a biased estimator of full-eval MRR — needs a one-shot calibration check.</li>
+<li><strong>Does increasing <code>d</code> from 64 to 96 actually help on PrimeKG, or does it just cost compute?</strong> No literature signal — needs an A/B.</li>
+<li><strong>Are PrimeKG’s super-hubs (very high-degree proteins) hurting message passing?</strong> Paper doesn’t address this; we should compute the degree distribution and consider degree-aware sampling.</li>
+<li><strong>Is sum-aggregate creating loss-of-information that propagates through 6 layers?</strong> The paper only ran sum vs PNA on FB15k-237 (avg deg 21). PrimeKG (avg deg 125) is well outside that calibration regime.</li>
+</ul>
+<h2 id="9-citations-to-keep-in-scope">9. Citations to keep in scope<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-citations-to-keep-in-scope" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For our own PDR/MODS docs, when referring to NBFNet:</p>
+<blockquote>
+<p>Zhu, Z., Zhang, Z., Xhonneux, L.-P., &amp; Tang, J. (2021). Neural Bellman-Ford Networks: A General Graph Neural Network Framework for Link Prediction. <em>Advances in Neural Information Processing Systems 34</em> (NeurIPS 2021). arXiv:2106.06935.</p>
+</blockquote>
+<p>For ULTRA (which is what we <em>actually</em> run):</p>
+<blockquote>
+<p>Galkin, M., Yuan, X., Mostafa, H., Tang, J., &amp; Zhu, Z. (2024). Towards Foundation Models for Knowledge Graph Reasoning. <em>International Conference on Learning Representations</em> (ICLR 2024). <a href="https://github.com/DeepGraphLearning/ULTRA" class="external external-link">github.com/DeepGraphLearning/ULTRA<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>.</p>
+</blockquote></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-58" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#nbfnet--what-it-is-what-we-run-and-how-to-size-it-for-primekg" data-for="nbfnet--what-it-is-what-we-run-and-how-to-size-it-for-primekg">NBFNet — what it is, what we run, and how to size it for PrimeKG</a></li><li class="depth-1"><a href="#1-the-one-paragraph-version" data-for="1-the-one-paragraph-version">1. The one-paragraph version</a></li><li class="depth-1"><a href="#2-architecture-in-numbers-paper-default-fb15k-237--wn18rr" data-for="2-architecture-in-numbers-paper-default-fb15k-237--wn18rr">2. Architecture in numbers (paper-default, FB15k-237 / WN18RR)</a></li><li class="depth-1"><a href="#3-parameter-count--the-punchline" data-for="3-parameter-count--the-punchline">3. Parameter count — the punchline</a></li><li class="depth-1"><a href="#4-time-and-memory-complexity" data-for="4-time-and-memory-complexity">4. Time and memory complexity</a></li><li class="depth-1"><a href="#5-ultra--what-our-fork-actually-is" data-for="5-ultra--what-our-fork-actually-is">5. ULTRA — what our fork actually is</a></li><li class="depth-1"><a href="#6-our-config-side-by-side-with-the-paper" data-for="6-our-config-side-by-side-with-the-paper">6. Our config, side-by-side with the paper</a></li><li class="depth-1"><a href="#7-resizing-for-primekg--concrete-options" data-for="7-resizing-for-primekg--concrete-options">7. Resizing for PrimeKG — concrete options</a></li><li class="depth-2"><a href="#what-is-not-a-problem" data-for="what-is-not-a-problem">What is not a problem</a></li><li class="depth-2"><a href="#what-is-a-problem" data-for="what-is-a-problem">What is a problem</a></li><li class="depth-2"><a href="#knobs-worth-tuning-ranked-by-leverage" data-for="knobs-worth-tuning-ranked-by-leverage">Knobs worth tuning, ranked by leverage</a></li><li class="depth-2"><a href="#knobs-not-worth-tuning" data-for="knobs-not-worth-tuning">Knobs not worth tuning</a></li><li class="depth-1"><a href="#8-open-questions--things-this-audit-can-not-answer" data-for="8-open-questions--things-this-audit-can-not-answer">8. Open questions — things this audit can not answer</a></li><li class="depth-1"><a href="#9-citations-to-keep-in-scope" data-for="9-citations-to-keep-in-scope">9. Citations to keep in scope</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../" class="internal">MODS Notebook</a></li><li><a href="../model/pdr_personalization_writeup" class="internal">PDR Personalization — Technical Writeup</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

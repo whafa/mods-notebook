@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>KGIA end-to-end workflow</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="KGIA end-to-end workflow"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="KGIA end-to-end workflow"/><meta name="twitter:description" content="The operator's walkthrough for applying KGIA to a patient: patient pickle, criterion fine-tune against a frozen foundation, raw and personalized scoring, and how to read the ranked list."/><meta property="og:description" content="The operator's walkthrough for applying KGIA to a patient: patient pickle, criterion fine-tune against a frozen foundation, raw and personalized scoring, and how to read the ranked list."/><meta property="og:image:alt" content="The operator's walkthrough for applying KGIA to a patient: patient pickle, criterion fine-tune against a frozen foundation, raw and personalized scoring, and how to read the ranked list."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/model/kgia_workflow"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/model/kgia_workflow"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="The operator's walkthrough for applying KGIA to a patient: patient pickle, criterion fine-tune against a frozen foundation, raw and personalized scoring, and how to read the ranked list."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/model/kgia_workflow-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/model/kgia_workflow-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/model/kgia_workflow-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="model/kgia_workflow" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-77" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-77" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../model/">model</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>KGIA end-to-end workflow</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">5</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">model</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">claude-opus-5-5</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-30</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">reference</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">The operator's walkthrough for applying KGIA to a patient: patient pickle, criterion fine-tune against a frozen foundation, raw and personalized scoring, and how to read the ranked list.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.258Z">Oct 09, 2026</time><span>14 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="kgia-end-to-end-workflow--patient-pickle--fine-tune--ranking">KGIA end-to-end workflow — patient pickle → fine-tune → ranking<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#kgia-end-to-end-workflow--patient-pickle--fine-tune--ranking" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Tracking:</strong> <code>#124</code>. <strong>Written after</strong> the first
+real end-to-end run: smoke run #1 (2026-09-28/29, <code>#439</code>,
+<code>#114</code>). Every command below is one that run
+actually used, or the documented successor of one. The run’s results are in
+<a href="../results/mods_smoke_run_1_writeup" class="internal internal-link alias" data-slug="results/mods_smoke_run_1_writeup">`mods_smoke_run_1_writeup.md`</a>; its step-by-step runbook,
+with every trap it hit, is <a href="../results/mods_smoke_run_1_playbook" class="internal internal-link alias" data-slug="results/mods_smoke_run_1_playbook">`mods_smoke_run_1_playbook.md`</a> §5.
+This document is the reusable skeleton of that runbook for a new patient or a new run.</p>
+<blockquote>
+<p><strong>Read this first.</strong> The released KGIA criterion works mechanically but does not help as
+released. On smoke run #1 its weights stalled in the first epoch, λ had no effect on what it
+learned, the adjustment could only demote a drug, and 73 % of it flowed through
+<code>contraindicated_for</code> edges (writeup §4.3). Running this workflow produces a <em>traceable</em>
+ranking, not a <em>personalized-and-better</em> one. The fix under way is the signed per-relation
+criterion (<code>#420</code>). When it lands, step 5 changes
+and this document must be updated with it. <em>(2026-10-05: #420 is planned, not under way. The
+Q4 2026 plan schedules it for late November at the earliest, and only if a conditioned baseline
+first beats drug-mean on a cell-line proxy benchmark. Before that, the foundation has to beat the
+popularity count it currently loses to, 0.031 to 0.021 MRR (#523).)</em></p>
+</blockquote>
+<hr/>
+<h2 id="1-what-kgia-is">1. What KGIA is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-what-kgia-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>KGIA is the PDR2 personalization mechanism (Oğuztüzün et al., <em>JBI</em> 2026; doi:10.1016/j.jbi.2026.105039). A foundation model
+(ULTRA/NBFNet) is trained on the knowledge graph as usual. Then the foundation is <strong>frozen</strong>
+and a small criterion, <code>PersonalizedRepurposingLoss</code>
+(<code>losses.py</code>),
+is fine-tuned. Its only trainable parameters are one weight per disease on the patient’s PRS
+axis (<code>disease_weights</code>, <em>w</em>) and one per gene on her expression axis (<code>protein_weights</code>, <em>v</em>).
+At scoring time those weights, multiplied by her own PRS and expression values, add a bias to
+each candidate’s foundation score.</p>
+<p>The architectural shift from PDR1 is <strong>where the patient enters</strong>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>PDR1 (KG-Predict lineage)</th><th>PDR2 / KGIA</th></tr></thead><tbody><tr><td>Patient enters via</td><td>the graph and embedding table: a patient node whose embedding is learned</td><td>the <strong>loss</strong>: learnable weights times her feature vectors</td></tr><tr><td>What training changes</td><td>entity embeddings (the model itself)</td><td>only <em>w</em> and <em>v</em>; the foundation is frozen</td></tr><tr><td>Cost per patient</td><td>a retrain</td><td>a fine-tune of ~200 scalars</td></tr><tr><td>Consequence</td><td>personalization is baked into every score</td><td>raw score = the foundation’s; personalized = raw + adj</td></tr></tbody></table></div>
+<p>Two facts about the released loss matter for everything downstream, and both are established
+on our data rather than inferred from the paper:</p>
+<ul>
+<li><strong>The code, not the paper text, is the specification.</strong> The released loss L2-normalizes the
+weights and <code>tanh</code>-squashes the term, and has the opposite sign to the paper’s formula.
+Implementing the paper text literally is destructive (−92 % MRR). See
+<a href="../model/pdr2_loss_text_vs_code_note" class="internal internal-link alias" data-slug="model/pdr2_loss_text_vs_code_note">`pdr2_loss_text_vs_code_note.md`</a> and
+<a href="../model/pdr2_alt_loss_ab_writeup" class="internal internal-link alias" data-slug="model/pdr2_alt_loss_ab_writeup">`pdr2_alt_loss_ab_writeup.md`</a>. <code>--loss_variant</code> selects
+<code>paper_code</code> (default, the release), <code>paper_text</code> or <code>minimal_patch</code>.</li>
+<li><strong>The criterion is closed-form.</strong> Its terms depend only on (weights, fixed patient values),
+not on the batch, so the optimum is ŵ ≈ −PRS/‖PRS‖ and v̂ ≈ −expr/‖expr‖. Fine-tuning finds
+that direction; it learns nothing from the graph. Background:
+<a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">`pdr_personalization_writeup.md`</a>.</li>
+</ul>
+<p>The patient <em>also</em> exists as a graph node (<code>MAPLE_PATIENT:…</code>, “Mechanism A”, mission spec
+§5.4). That node is trained into the foundation with her biology edges; it is separate from
+KGIA and is not what this workflow fine-tunes.</p>
+<hr/>
+<h2 id="2-the-patient-pickle">2. The patient pickle<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-the-patient-pickle" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The fine-tune reads one pickle, validated on load by <code>utils.load_patient_data</code>:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="python" data-theme="github-light github-dark"><code data-language="python" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">{</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">    &quot;prs_values&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:    [</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property">float</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">...</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">],   </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># one per disease on the axis, same order as disease_names</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">    &quot;expr_values&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:   [</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property">float</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">...</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">],   </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># one per gene on the axis, same order as protein_names</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">    &quot;disease_names&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: [</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property">str</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">...</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">],     </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># axis v2: MONDO anchor CURIEs, e.g. &quot;MONDO:0005575&quot;</span></span>
+<span data-line><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">    &quot;protein_names&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: [</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="property">str</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">...</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">],     </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># HGNC symbols</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">}</span></span></code></pre></figure>
+<p><strong>The loss is positional.</strong> Position <em>i</em> of <code>prs_values</code> is multiplied by <code>disease_weights[i]</code>,
+so every pickle that trains or is scored against one criterion must be projected onto the
+<strong>same registered axis</strong> (#108). The axis is a <code>pdr2_feature_schema</code> row plus a git-tracked
+descriptor, <code>backend/pdr2_schemas/kgia_schema_&lt;version>.json</code>; its <code>schema_hash</code> is recorded
+on each pickle. An axis change is a new schema version, never an in-place edit.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Axis</th><th>Diseases</th><th>Genes</th><th>Status</th></tr></thead><tbody><tr><td><code>v1</code></td><td>6, keyed by UMLS CUI, from the 13-entry smoke-test PGS set; <strong>no colorectal cancer</strong></td><td>84</td><td>legacy; cannot hold a released PRS value</td></tr><tr><td><code>v2</code></td><td>109, one per released Gate F axis pick, keyed by MONDO anchor; CRC <code>MONDO:0005575</code> at position 8</td><td>84 (copied from v1)</td><td>used by smoke run #1; registered <strong>inactive</strong></td></tr></tbody></table></div>
+<p>Build and register an axis (only after a Gate F release exists):</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">cd backend</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">python scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">build_kgia_feature_schema.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">version v3 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">dry</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run   </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># print, write nothing</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">python scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">build_kgia_feature_schema.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">version v3             </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># write + register (inactive)</span></span></code></pre></figure>
+<p><code>--version</code> is required; an existing version is refused without <code>--overwrite &lt;version></code>. The
+build refuses unless the required index disease (<code>MONDO:0005575</code>) is on the axis.</p>
+<p>Build the pickle with
+<code>build_pdr2_input_pickle.py</code>:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">cd backend</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># Track B: real PRS + real expression</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">python scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">build_pdr2_input_pickle.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient uuid</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">source maureen </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">`</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">    --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">schema</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">version v2 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">out ..</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">runs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">date</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">_</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">_trackB_v2.pkl</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># Track A control: same expression, PRS all zero</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">python scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">build_pdr2_input_pickle.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient uuid</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">source synthetic_zeros </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">`</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">    --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">schema</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">version v2 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">out ..</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">runs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">date</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">_</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">patient</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">_trackA_v2.pkl</span></span></code></pre></figure>
+<ul>
+<li><strong>Always pass <code>--patient-id</code>.</strong> With two patients in <code>mods_patient</code> the default lookup
+resolves nothing useful.</li>
+<li><strong>Never pass <code>--allow-raw-prs-fallback</code></strong> for a real run. Raw PRS sums span twelve orders of
+magnitude and saturate the <code>tanh</code> (PRS primer §1.4).</li>
+<li>Each build writes three files: the <code>.pkl</code>, a <code>.meta.json</code> (schema version and hash,
+<code>value_field</code>, expression transform, reference-filled count) and a <code>.resolution.json</code> (each
+axis name → its KG CURIEs, §3). <strong>Keep all three together</strong>; scoring needs the sidecar.</li>
+<li>Arrays are written as Python lists so a NumPy 2 host pickle loads in the container’s NumPy 1.</li>
+<li>Exit codes: 2 no patient / unregistered schema / index disease missing, 3 PRS rows refused,
+4 index cancer unresolved, 5 expression not a percentile, 6 <code>--source maureen</code> with no
+measured PRS position.</li>
+</ul>
+<p><strong>Check before using it (smoke check M3):</strong> Track B has measured PRS positions > 0, every
+value is finite, <code>.meta.json</code> says <code>value_field: z_score</code>, and <code>.resolution.json</code> exists.
+Record each file’s sha256. Then upload all three to
+<code>gs://BUCKET/patient_data/&lt;date>_&lt;run>/</code>.</p>
+<p>Inspect a patient’s vectors in the UI: <strong>Research dashboard → PDR Input</strong> tab, or
+<code>GET /api/mods/research/patient-profile/kgia-tensors</code>.</p>
+<hr/>
+<h2 id="3-from-clinical-reports-to-kg-entities">3. From clinical reports to KG entities<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-from-clinical-reports-to-kg-entities" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Two separate paths put clinical data where the model can use it.</p>
+<p><strong>(a) Her node in the graph (Mechanism A).</strong> Parsed reports (Caris, Guardant, Invitae, RGCC,
+EHR) land in the MODS tables (<code>mods_list_alterations</code>, <code>mods_gene_expression</code>, …), then
+<code>mods_patient_kg_service.materialize_patient_kg</code> writes them as <code>maple_patient</code> edges from
+<code>MAPLE_PATIENT:&lt;slug></code> to canonical KG entities: alterations to genes, expression, phenotypes,
+medications and RGCC sensitivities. A foundation trained with <code>include_source: [&quot;maple_patient&quot;]</code> learns that node. See #110 for the MODS pipeline.</p>
+<ul>
+<li><strong>Exclude her drug-response and medication predicates from any foundation you intend to
+validate against RGCC</strong> (#214, #432). Smoke run #1 excluded six: <code>MAPLE:sensitive_to_drug</code>,
+<code>MAPLE:partially_sensitive_to_drug</code>, <code>MAPLE:resistant_to_drug</code>, <code>MAPLE:tried_drug</code>,
+<code>MAPLE:current_medication</code>, <code>MAPLE:past_medication</code>. Her biology edges stay in.</li>
+<li>Her variant edges are still <strong>gene-level</strong> (Phase 8.5): BRAF V600E is indistinguishable
+from wild-type BRAF in the graph.</li>
+</ul>
+<p><strong>(b) Her feature vectors (KGIA).</strong> The pickle builder projects her data onto the axis
+(<code>mods_kgia_schema_service.project_patient_vectors</code>):</p>
+<ul>
+<li><strong>Expression:</strong> the Caris WTS TPM percentile for each axis gene from her most recent
+matching specimen, as a probit z-score, z = Φ⁻¹(p/100) clipped to ±4 (#435). Raw 0–100
+percentiles saturated the <code>tanh</code> at step 0 and the gene weights never trained.</li>
+<li><strong>PRS:</strong> each disease position reads the one released score that Gate F marked as that
+anchor’s axis pick (<code>metadata.gate_f.axis_pick</code>), using its normalized <code>z_score</code> (§4).</li>
+<li>An axis position with no value takes the reference fill 0.0 (average risk on the z scale);
+the count is recorded as <code>prs_reference_filled_count</code>.</li>
+</ul>
+<p>The <strong>resolution sidecar</strong> then maps each axis name to KG entity CURIEs
+(<code>resolve_disease_kg_curies</code>, <code>resolve_gene_kg_curies</code>). Scoring uses it to find which KG
+entities are anchors (§6). Read its <code>summary.*_unresolved</code> lists: an unresolved axis name
+contributes nothing at scoring, silently.</p>
+<p>Mapping a new report type or a new disease anchor is an ontology decision. Per CLAUDE.md,
+propose it as a table with the judgement calls flagged and get approval before committing it
+(the v2 disease anchors were approved as decision D7 in #439).</p>
+<hr/>
+<h2 id="4-building-prs-values">4. Building PRS values<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-building-prs-values" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The PRS feeding KGIA is the released output of the gated PRS pipeline; the arc and every gate
+are in <a href="../prs/prs_primer" class="internal internal-link alias" data-slug="prs/prs_primer">`prs_primer.md`</a> (status: #100). In outline:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Gate</th><th>Produces</th><th>Driver</th></tr></thead><tbody><tr><td>A</td><td>dense callset from her gVCF (hom-ref explicit)</td><td>worker <code>genotype_dense_callset</code></td></tr><tr><td>B</td><td>which catalog scores are computable</td><td>worker <code>mods_prs_manifest_build</code></td></tr><tr><td>C / E</td><td>raw scores, written <code>quarantined</code></td><td><code>scripts/prs/run_gate_e.py</code></td></tr><tr><td>D1–D3</td><td>panel frequencies, panel scores, z-score and percentile</td><td><code>scripts/prs/run_gate_d_panel.py</code>, <code>run_gate_d.py</code></td></tr><tr><td>F</td><td>release: <code>validity='released'</code>, disease anchor, axis pick</td><td><code>scripts/prs/release_gate_f.py</code></td></tr></tbody></table></div>
+<p>Run the Gate D/E drivers inside a worker container (<code>docker exec maple-worker-1 python /app/backend/scripts/prs/&lt;driver>.py …</code>); the exact smoke-run invocations are in playbook §5.1.</p>
+<p>Rules that carry to a new patient:</p>
+<ul>
+<li><strong>Only released rows feed a pickle.</strong> Every reader filters on <code>validity = 'released'</code>;
+quarantined rows never reach the model.</li>
+<li><strong>Only normalized values.</strong> <code>z_score</code>, else <code>percentile</code>, and one field for the whole
+vector; a raw sum is refused.</li>
+<li><strong>The panel reference must match the patient’s ancestry.</strong> Smoke run #1 used the 667
+unrelated EUR samples of <code>pgsc_HGDP+1kGP_v1</code>. A non-European patient needs a different
+reference subset and different portability caveats.</li>
+<li><strong>No genotype data → Track A.</strong> Build with <code>--source synthetic_zeros</code>. The PRS half of the
+criterion then gets no gradient (its weights move only by weight decay) and only
+expression personalizes. There is no sanctioned PRS proxy: the 13-entry
+<code>SMOKE_TEST_PGS_SET</code> is a test fixture, three of its entries are the wrong disease, and it
+must never size an axis or stand in for a patient’s scores (#244).</li>
+</ul>
+<hr/>
+<h2 id="5-fine-tune">5. Fine-tune<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-fine-tune" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The upstream <code>run.py --use_ploss -l1 -l2</code> entry point is <strong>not</strong> what we run: it has
+author-local paths. Our entry point is
+<code>fine_tune_maple.py</code>,
+which calls <code>training.fine_tune_patient_specific</code>
+(<code>training.py</code>),
+reached in the container as <code>MODE=fine_tune</code>. Its flags keep the upstream names:
+<code>--patient_pickle</code>, <code>-l1/--lambda1_prs</code>, <code>-l2/--lambda2_biomarker</code>, <code>--loss_variant</code>.</p>
+<p><strong>Submit through the API, never raw <code>gcloud</code></strong> (mission spec §7.3):</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="http" data-theme="github-light github-dark"><code data-language="http" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">POST</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /api/mods/research/runs/{foundation_run_id}/submit_finetune</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">{</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;finetune_run_id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:    </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;&lt;date>_&lt;run>_ft_trackB_l0.01&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;ckpt_uri&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:           </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;gs://BUCKET/runs/&lt;foundation>/train/&lt;checkpoint>.pt&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;patient_pickle_uri&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;gs://BUCKET/patient_data/&lt;date>_&lt;run>/&lt;patient>_trackB_v2.pkl&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;patient_id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:         </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;&lt;filename label, e.g. maureen>&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;patient_uuid&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:       </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;&lt;patient uuid>&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;lambda1_prs&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">0.01</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;lambda2_biomarker&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">0.01</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;loss_variant&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:       </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;paper_code&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;epochs&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">20</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;bpe&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">100</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;gpu_type&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:           </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;A100_80GB&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;fine_tune_max_batch&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">128</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">}</span></span></code></pre></figure>
+<ul>
+<li><strong><code>gpu_type: &quot;A100_80GB&quot;</code> and <code>fine_tune_max_batch: 128</code></strong> at PrimeKG scale. The handler
+defaults to 40 GB, and the batch pre-flight probe runs under <code>no_grad</code> and undersizes memory
+~6× (#501).</li>
+<li><strong><code>patient_id</code> is a filename label; <code>patient_uuid</code> is the id.</strong> The rank endpoint reads the
+UUID (#518).</li>
+<li>The child reuses the foundation’s recorded split and overlay (#433); nothing is re-exported.</li>
+<li>Output: the fine-tune bundle (<code>p&lt;patient_id>_pc_full_state_dict.pth</code>, foundation + criterion)
+and <code>metrics.json</code> with <code>disease_weights_final</code>, <code>protein_weights_final</code>, the input vectors,
+the foundation checkpoint’s sha256 and <code>criterion_epoch</code>.</li>
+</ul>
+<p><strong>Verify (smoke check M6):</strong></p>
+<ul>
+<li>cos(normalize(<em>w</em>), −PRS) > 0.5 with sign agreement ≥ 0.90, and the same for <em>v</em> against
+expression. This proves the values reached the right positions. (Smoke run #1: disease cos
++0.649 with sign agreement 0.881, accepted; protein +0.652 / 0.952.)</li>
+<li>A Track A control’s disease weights move only by weight decay.</li>
+<li>The run log shows <code>Successfully loaded checkpoint</code> for the foundation.</li>
+</ul>
+<p><strong>What not to do, learned on smoke run #1:</strong></p>
+<ul>
+<li><strong>Don’t sweep λ at fine-tune time.</strong> Adam cancels the gradient’s λ scale, so λ 0.01, 0.1 and
+1.0 learned identical weights (cos 1.000000). λ matters only as a scale at scoring (§6).
+One fine-tune per axis and track is enough; sweep λ in the scoring step.</li>
+<li><strong>Don’t read much into <code>criterion_epoch</code>.</strong> Early stopping keys on the epoch’s training loss,
+which the frozen foundation dominates; every smoke fine-tune stopped at 12 and restored 6.</li>
+</ul>
+<hr/>
+<h2 id="6-inference-ranking-candidates-for-a-disease">6. Inference: ranking candidates for a disease<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-inference-ranking-candidates-for-a-disease" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Scoring runs the container’s <code>MODE=score_edges</code>
+(<code>score_edges.py</code>,
+logic in <code>edge_scoring.py</code>). The KGIA path is one call:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="http" data-theme="github-light github-dark"><code data-language="http" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">POST</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /api/mods/research/kgia/finetune/{finetune_run_id}/rank</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">{</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;disease_curie&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:            </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;MONDO:0005575&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;patient_pickle_uri&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:       </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;gs://…/&lt;patient>_trackB_v2.pkl&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;resolution_sidecar_uri&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">:   </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;gs://…/&lt;patient>_trackB_v2.resolution.json&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;adjustment_target_domain&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;drug&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;lambda1_prs&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">0.1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">&quot;lambda2_biomarker&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">0.1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="punctuation">  &quot;gpu_type&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string">&quot;A100_40GB&quot;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;" data-token-type="punctuation">}</span></span></code></pre></figure>
+<p>It stages every candidate drug as <code>(drug, biolink:treats, &lt;disease>)</code> (decision D1), scores
+them in one forward pass per query, stores the ranked list on the run, and exposes it at
+<code>GET /api/mods/research/kgia/finetune/{run}/ranking</code> (<code>ranking: null</code> means not computed yet,
+which is different from an empty list). For an arbitrary edge list, use
+<code>POST /runs/{run}/submit_score_edges</code> with the same personalization fields.</p>
+<ul>
+<li><strong>Use the disease query, not the patient query,</strong> on a foundation trained without her
+<code>MAPLE:*_to_drug</code> edges: it has no such relation, and patient-query rows come back labelled
+<code>missing_predicate</code>.</li>
+<li><strong>Personalization is all or nothing and never defaulted.</strong> Pickle, sidecar and
+<code>adjustment_target_domain</code> must be given together; λ defaults to the fine-tune’s recorded
+value. Leave them out and you get raw scores only.</li>
+</ul>
+<p>For each candidate <em>e</em> the output carries <code>raw_score</code>, <code>adj</code>, <code>pers_score = raw_score + adj</code>,
+<code>raw_rank</code> and <code>pers_rank</code> (plus filtered ranks):</p>
+<pre><code>adj[e] =   Σ over disease anchors a adjacent to e:  λ1 · ŵ[c(a)] · prs[c(a)]
+         + Σ over gene anchors a adjacent to e:     λ2 · v̂[c(a)] · expr[c(a)]
+</code></pre>
+<p>where the anchors are <em>e</em>’s neighbours in the training graph that the sidecar resolves to an
+axis position, <strong>ignoring edge direction and relation type</strong>, each adjacency counted once, and
+ŵ, v̂ are the weights exactly as the loss variant applies them (normalized for <code>paper_code</code>)
+(<code>personalization_adjustment.py</code>).
+The adjustment is added after message passing, so the foundation’s graph paths explain
+<code>raw_score</code> and nothing explains <code>adj</code> except its anchors.</p>
+<p><strong>Verify (smoke check M7):</strong> at λ 0, <code>pers_score == raw_score</code> on every row; the scores’
+<code>.summary.json</code> reports the anchor counts, the target-domain count (if it is 0, a drug CURIE
+prefix is unknown to <code>classify_entity</code>) and which relation types carried the adjustment.</p>
+<p><strong>Validate against RGCC</strong> (Maureen only; smoke check M8) with the per-draw grid. Never pool the
+two draws.</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="powershell" data-theme="github-light github-dark"><code data-language="powershell" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">cd backend</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">python scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">score_pdr2_edges.py </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="function">build-edges</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">disease</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">curie MONDO:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">0005575</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> `</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">    --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">out ..</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">runs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">date</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">_</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">rgcc_disease_edges.csv</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">python scripts</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">compute_metrics_rgcc_pdr2.py </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">query disease </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">disease</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">curie MONDO:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">0005575</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> `</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">    --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scores </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">scores_csv_uri </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="keyword">from</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> the ranking row</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> `</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">    --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">edges ..</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">runs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">date</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">_</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">rgcc_disease_edges.csv </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">`</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">    --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">fine</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">tune run id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator"> --</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">out ..</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">runs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">date</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">></span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value">_</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">run</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>/&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">fine</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">-</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">tune</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">>/</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">rgcc_metrics.json </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;" data-token-type="operator">--</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">store</span></span></code></pre></figure>
+<p><code>--store</code> writes <code>mods_research_validation_result</code> rows (<code>validation_type='rgcc_per_draw'</code>).</p>
+<hr/>
+<h2 id="7-reading-the-output">7. Reading the output<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-reading-the-output" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>What the ranked list is.</strong> <code>raw_rank</code> orders drugs by how strongly the foundation’s learned
+graph geometry supports <code>(drug, treats, disease)</code>. <code>pers_rank</code> is that order after her
+PRS-and-expression bias. Neither is evidence that a drug works for her, is safe with her
+current regimen, or is tolerable given her labs (mission spec §1.4). Every list is a set of
+hypotheses for literature review and, only after that, for her clinicians.</p>
+<p>Questions to ask of any list before anyone reads it clinically:</p>
+<ol>
+<li><strong>Is the top recall or repurposing?</strong> On smoke run #1, ranks 1–2 were the only two drugs
+whose treats-CRC edge sat in the training split. A drug with a known indication in the
+training graph ranking first is the model remembering. Mark each candidate’s indication
+status and whether its edge was in training.</li>
+<li><strong>What moved, and why?</strong> For each drug whose <code>pers_rank</code> differs from <code>raw_rank</code>, name the
+anchors (diseases and genes) that carried its <code>adj</code>. Under the released criterion a move is
+almost always a demotion, and often through <code>contraindicated_for</code>; that is the known defect,
+not a finding.</li>
+<li><strong>Is it in the target domain?</strong> Therapy and regimen entities from CIViC and OncoKB can rank
+high (her own regimen did) but sit outside the <code>drug</code> domain, so personalization cannot
+touch them. Report them, and say they are unadjusted.</li>
+<li><strong>Which foundation, which λ, which axis?</strong> A number without its run id, λ, schema hash and
+pickle sha256 cannot be traced (goal G4). Record them where the list is shown.</li>
+</ol>
+<p><strong>Graph paths.</strong> Explaining <em>why</em> a drug scored high (direct, mechanistic, analogy, personal
+or hub paths) uses <code>BaseNBFNet.visualize()</code>; the method and its positive control are in the
+playbook §5.4 step 4. There is no container mode for it yet.</p>
+<p><strong>Where it surfaces in the MODS UI.</strong> <strong>Research dashboard → KGIA Ranking</strong> tab
+(<code>KgiaRankingPanel</code>) lists fine-tune runs with their λ and shows a run’s stored ranking: rank,
+held-out rank, drug, score and whether the drug was seen in training, with a held-out-only
+filter. As of 2026-09-30 it has two limits worth knowing
+(<code>#560</code>):</p>
+<ul>
+<li>Its <strong>Rank</strong> button posts an empty body, so it runs the default <em>patient query</em> with <strong>no
+personalization</strong>. On a foundation trained without her drug edges that query has nothing to
+score. Submit the disease query with the personalization fields through the API (§6); the
+panel then displays the stored result.</li>
+<li>It renders the <strong>raw</strong> score and rank only. The stored ranking rows also carry <code>adj</code>,
+<code>pers_score</code>, <code>pers_candidate_rank</code> and <code>in_target_domain</code>
+(<code>mods_kgia_finetune_service</code>), and the full per-edge output is the run’s <code>scores.csv</code>
+(<code>scores_csv_uri</code> on the ranking row); read the personalized order from either.</li>
+</ul>
+<p>The <strong>PDR Input</strong> tab shows the vectors that went in. Label any page that shows a smoke or test
+ranking “machinery validation, not a recommendation”.</p>
+<hr/>
+<h2 id="checklist-for-a-new-run">Checklist for a new run<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#checklist-for-a-new-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol class="contains-task-list">
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Released PRS exists for the patient (or you have chosen Track A deliberately).</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Axis registered; its <code>schema_hash</code> noted.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Track B and Track A pickles built, M3 checked, sha256 recorded, uploaded with sidecars.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Foundation chosen, its export excluding the predicates you will validate against.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> One fine-tune per track, on A100-80GB, batch 128; M6 checked.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Ranking per fine-tune at the λ values you want; M7 checked.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Per-draw validation stored, if the patient has labels.</li>
+<li class="task-list-item" data-task=" "><input type="checkbox" class="checkbox-toggle"/> Top candidates annotated per §7, with run ids, image digest, schema hash and pickle
+sha256 recorded on the tracking issue.</li>
+</ol></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-57" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#kgia-end-to-end-workflow--patient-pickle--fine-tune--ranking" data-for="kgia-end-to-end-workflow--patient-pickle--fine-tune--ranking">KGIA end-to-end workflow — patient pickle → fine-tune → ranking</a></li><li class="depth-1"><a href="#1-what-kgia-is" data-for="1-what-kgia-is">1. What KGIA is</a></li><li class="depth-1"><a href="#2-the-patient-pickle" data-for="2-the-patient-pickle">2. The patient pickle</a></li><li class="depth-1"><a href="#3-from-clinical-reports-to-kg-entities" data-for="3-from-clinical-reports-to-kg-entities">3. From clinical reports to KG entities</a></li><li class="depth-1"><a href="#4-building-prs-values" data-for="4-building-prs-values">4. Building PRS values</a></li><li class="depth-1"><a href="#5-fine-tune" data-for="5-fine-tune">5. Fine-tune</a></li><li class="depth-1"><a href="#6-inference-ranking-candidates-for-a-disease" data-for="6-inference-ranking-candidates-for-a-disease">6. Inference: ranking candidates for a disease</a></li><li class="depth-1"><a href="#7-reading-the-output" data-for="7-reading-the-output">7. Reading the output</a></li><li class="depth-1"><a href="#checklist-for-a-new-run" data-for="checklist-for-a-new-run">Checklist for a new run</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

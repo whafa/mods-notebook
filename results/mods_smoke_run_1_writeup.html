@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Smoke run #1 — machinery validation</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Smoke run #1 — machinery validation"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Smoke run #1 — machinery validation"/><meta name="twitter:description" content="The first end-to-end MODS run with released PRS: all ten machinery checks measured, a clean holdout with no RGCC signal, and the released personalization criterion's degeneracy quantified."/><meta property="og:description" content="The first end-to-end MODS run with released PRS: all ten machinery checks measured, a clean holdout with no RGCC signal, and the released personalization criterion's degeneracy quantified."/><meta property="og:image:alt" content="The first end-to-end MODS run with released PRS: all ten machinery checks measured, a clean holdout with no RGCC signal, and the released personalization criterion's degeneracy quantified."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_writeup"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_writeup"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="The first end-to-end MODS run with released PRS: all ten machinery checks measured, a clean holdout with no RGCC signal, and the released personalization criterion's degeneracy quantified."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_writeup-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_writeup-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/results/mods_smoke_run_1_writeup-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="results/mods_smoke_run_1_writeup" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-95" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-95" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../results/">results</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Smoke run #1 — machinery validation</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-29</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">writeup</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">The first end-to-end MODS run with released PRS: all ten machinery checks measured, a clean holdout with no RGCC signal, and the released personalization criterion's degeneracy quantified.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.312Z">Oct 09, 2026</time><span>13 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="smoke-run-1--formal-writeup">Smoke run #1 — Formal Writeup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#smoke-run-1--formal-writeup" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Authors:</strong> whafa, Claude (Maple project)
+<strong>Dates:</strong> 2026-09-28 to 2026-09-29
+<strong>Tracking:</strong> <code>#439</code>: status, provenance log, decisions
+<strong>Playbook:</strong> <a href="../results/mods_smoke_run_1_playbook" class="internal internal-link alias" data-slug="results/mods_smoke_run_1_playbook">mods_smoke_run_1_playbook.md</a> · <strong>PM charter:</strong> <a href="../meta/mods_smoke_run_1_pm_charter" class="internal internal-link alias" data-slug="meta/mods_smoke_run_1_pm_charter">mods_smoke_run_1_pm_charter.md</a></p>
+<blockquote>
+<p><strong>Machinery validation, not a recommendation.</strong> Nothing here is clinical advice. The run tests
+whether the pipeline’s parts connect and measure what they claim to. It was never meant to show
+that personalization helps.</p>
+</blockquote>
+<hr/>
+<h2 id="summary">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>The pipeline runs end to end for the first time with her real, released PRS.</strong> Here is the chain, with each stage’s first real output:
+<ul>
+<li><strong>PRS:</strong> E3 → D1 → D2 → D3 → Gate F v0, releasing 590 scores over 109 diseases.</li>
+<li><strong>Patient inputs:</strong> KGIA axis v2, then the Track B and Track A pickles.</li>
+<li><strong>Model:</strong> a leak-free foundation, five fine-tunes, and a personalized CRC-anchor ranking.</li>
+<li><strong>Evaluation:</strong> the per-draw RGCC grid.</li>
+</ul>
+</li>
+<li><strong>All ten machinery checks were measured, and all ten pass.</strong>
+<ul>
+<li><strong>Eight pass outright.</strong></li>
+<li><strong>Two were borderline, and Richard accepted both on 2026-09-29.</strong> M6: disease sign agreement 0.881 against a 0.90 bar. M9: scores reproduce to float precision, not bit for bit.</li>
+</ul>
+</li>
+<li><strong>The clean holdout shows no RGCC signal.</strong> With her RGCC drugs removed from training, every drug is unseen. The base ranker’s graded-only Spearman ρ is +0.03 and +0.05 per draw, with CIs spanning 0, and its AUROC is about 0.61 on 5 positives. That agrees with the 2026-09-27 audit’s reading that the old PDR2 v2 “signal” was memorization.</li>
+<li><strong>The released personalization does not help.</strong> It is null at λ 0.01. At λ 0.1 it is slightly and borderline-measurably harmful (all-panel Δρ −0.057, CI [−0.121, −0.004]), and at λ 1.0 it trends harmful with CIs spanning 0. The expression-only control is null.</li>
+<li><strong>The criterion’s degeneracy is now measured on her data:</strong>
+<ul>
+<li>its weights stall within the first epoch;</li>
+<li>λ has no effect on the learned weights;</li>
+<li>the adjustment can only push a drug down;</li>
+<li>73 % of it flows through <code>contraindicated_for</code> edges.</li>
+</ul>
+</li>
+<li><strong>The foundation generalizes weakly.</strong> Its filtered MRR is 0.021 on held-out triples, well below published ULTRA-class numbers, even though it fits its training edges almost perfectly. <em>(2026-10-05: it also loses to a non-learned baseline, found on 2026-10-01 (#523). Ranking by how often a node ends an edge of each relation in training scores 0.031, and a drug’s edge count alone reaches a graded RGCC ρ of +0.37 against the model’s +0.03; the model’s scores correlate 0.86 with that count. Suspected cause: the mirror of each query edge stays in the training graph.)</em></li>
+</ul>
+<h2 id="1-purpose">1. Purpose<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-purpose" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Decided 2026-09-27: catalogue and retire the issues blocking a first end-to-end MODS run with real PRS. The run is a <strong>machinery smoke test</strong>. Its acceptance criteria (M1–M10, playbook §6) ask whether each stage produces what it claims, not whether the output is clinically useful. Against the mission’s goals:</p>
+<ul>
+<li><strong>G4</strong> (traceability): tested directly, through M9 and the #439 provenance log.</li>
+<li><strong>G2</strong> (the ranking recovers her measured sensitivities on a clean holdout): measured for the first time, on a leak-free foundation.</li>
+<li><strong>G3</strong> (personalization improves on the raw ranking): measured with the released PDR2 criterion, which the project already suspected to be degenerate (#47, #420).</li>
+</ul>
+<h2 id="2-materials-and-methods">2. Materials and Methods<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-materials-and-methods" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="21-patient-inputs">2.1 Patient inputs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-patient-inputs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Input</th><th>What was used</th></tr></thead><tbody><tr><td><strong>PRS</strong></td><td>Gate F v0 release <code>smoke_v0</code> (rules <code>gate_f_v0_rules_v1</code>, release run <code>c3be9df0</code>): <strong>590</strong> released scores over <strong>109</strong> MONDO anchors, one axis pick each. Placed as EUR z-scores (667 unrelated EUR panel samples, panel-aligned). D2 ran under the #499 fix (<code>gate_d2_panel_scorer_v2</code>), so her no-called loci are dropped from the panel too.</td></tr><tr><td><strong>Expression</strong></td><td>84 genes (v1’s gene axis, decision D8) from her most recent colorectal Caris WTS specimen, as probit z-scores of TPM percentiles (#435).</td></tr><tr><td><strong>Axis</strong></td><td>KGIA <strong>v2</strong>: 109 diseases × 84 genes, hash <code>b95dcaff004ccf89</code>, registered inactive (v1 untouched). The CRC anchor <code>MONDO:0005575</code> is at position 8.</td></tr><tr><td><strong>Pickles</strong></td><td><strong>Track B</strong>: 109/109 PRS positions measured, sha <code>2761f70d…</code>. <strong>Track A</strong>: PRS all zero with the same expression, sha <code>b6fa381c…</code>.</td></tr></tbody></table></div>
+<h3 id="22-graph-and-foundation">2.2 Graph and foundation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-graph-and-foundation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Graph:</strong> composition <code>maureen_focus_v1</code> plus the <code>maple_patient</code> overlay. The six <code>MAPLE:*</code> drug predicates are excluded (the three RGCC sensitivity predicates and the three medication predicates, decision D2).</li>
+<li><strong>Split:</strong> mirror-grouped (#432): 4,549,173 triples, split 2,796,395 / 876,339 / 876,406. Split fingerprint <code>4518539f…</code> was reproduced by a second export (M4). The mirror leak is 0.000, against 0.606 for the old foundation.</li>
+<li><strong>Model:</strong> ULTRA / NBFNet, 6 layers, hidden size 64, from scratch, seed 41504.</li>
+<li><strong>Training:</strong> 20 epochs of about 3,700 s each on one A100-80GB, image <code>ccad24d-smoke1</code> (<code>5597a993…</code>).</li>
+<li><strong>Early stop:</strong> the post-training full-test eval was cancelled at 09:40 on 2026-09-29, because it could not finish inside the job timeout (#515). The run row therefore reads <code>failed</code>, as the timeout would have left it.</li>
+</ul>
+<h3 id="23-fine-tunes-decision-d9">2.3 Fine-tunes (decision D9)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-fine-tunes-decision-d9" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Configurations:</strong> Track B at λ ∈ {0, 0.01, 0.1, 1.0} (λ1 = λ2), plus Track A at λ 0.01.</li>
+<li><strong>Loss and image:</strong> the released <code>paper_code</code> loss, on image <code>9accf69-smoke1-ft</code> (<code>8261b505…</code>).</li>
+<li><strong>Settings:</strong> batch 128 (<code>FINE_TUNE_MAX_BATCH</code>, #501); every child reused the foundation’s split (#433).</li>
+<li><strong>Early stopping:</strong> every run stopped after 12 epochs and restored epoch 6. The early stop keys on the epoch’s <em>training</em> loss, which the frozen foundation’s prediction term dominates.</li>
+</ul>
+<h3 id="24-scoring-decisions-d1-436">2.4 Scoring (decisions D1, #436)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-scoring-decisions-d1-436" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Query:</strong> the disease query <code>(drug, biolink:treats, MONDO:0005575)</code>, over all 9,099 candidate drugs; 7,793 of them are in the <code>drug</code> target domain.</li>
+<li><strong>Adjustment:</strong> the edge-blind adjustment adds λ·ŵ·PRS over the drug’s disease anchors and λ·v̂·expr over its gene anchors. The anchors are its neighbours in the training graph, with direction and relation ignored.</li>
+</ul>
+<h3 id="25-metrics">2.5 Metrics<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-metrics" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>M5:</strong> full-ranking filtered MRR on 50,000 sampled test triples (#472).</li>
+<li><strong>M8:</strong> the per-draw RGCC grid (#437), for draws 2025-02-15 and 2025-09-19. The two draws are never pooled.
+<ul>
+<li>Panels: all-panel (n = 109 matched) and graded-only (n = 59).</li>
+<li>Variants: raw and personalized; all drugs and drugs unseen in training.</li>
+<li>Tier 1 is Spearman ρ against % cell death. Tier 2 is AUROC with RGCC’s 5 <code>high_sensitivity</code> agents per draw as positives against &lt; 35 %.</li>
+<li>Every cell carries its n and a bootstrap 95 % CI.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-procedure">3. Procedure<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-procedure" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The PM session ran the playbook between 2026-09-28 10:00 and 2026-09-29 11:40. The detours, each filed and fixed or recorded:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>When</th><th>What happened</th><th>Issue</th></tr></thead><tbody><tr><td>09-28 18:34</td><td>D2’s first pass showed her no-calls deflating her score but not the panel’s. That biased her z by up to −5.5 SD on high mean/sd scores. Fixed, approved and re-run.</td><td>#499 (PR #505)</td></tr><tr><td>09-28 19:30</td><td>Three freshly restarted workers broke on their first claim: a lazily imported model module raced <code>debug_service</code>’s writer thread.</td><td>#507 (PR #509)</td></tr><tr><td>09-28 18:45</td><td>No worker handler set <code>FINE_TUNE_MAX_BATCH</code>, so every fine-tune would have run out of memory at batch 256.</td><td>#501 (PR #503)</td></tr><tr><td>09-28 21:55</td><td>GitHub Actions used the private repo’s free monthly minutes. Richard set a budget; the CI trim is #516.</td><td>#516</td></tr><tr><td>09-29 08:28</td><td>The local backend had stopped reloading at 11:58 the previous day, so it served 20-hour-old code.</td><td>#517</td></tr><tr><td>09-29 09:42</td><td>The cancelled foundation had no <code>kg_dataset_class</code>, so all six children failed and were resubmitted. A cancel is also overwritten by a retry.</td><td>#515</td></tr><tr><td>09-29 10:22</td><td>The rank endpoint parses the fine-tune’s <code>patient_id</code> label as a UUID and returns a 500.</td><td>#518</td></tr><tr><td>09-29 11:02</td><td>The M5 eval sat 78 minutes queued on A100-40GB and was moved to A100-80GB.</td><td>—</td></tr></tbody></table></div>
+<p>Every job went through the worker queue or the research API (M10). The only direct Vertex calls were two cancels, made through the app’s own provider.</p>
+<h2 id="4-results">4. Results<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-results" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-machinery-checks">4.1 Machinery checks<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-machinery-checks" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td><strong>M1</strong> PRS released</td><td>✓ 590 released rows, all with <code>z_score</code>, a disease anchor and the <code>smoke_v0</code> tag. The count equals the v0 funnel; 0 are outside their bounds. The four non-pick alternates were held back by the post-D3 panel-coverage rule.</td></tr><tr><td><strong>M2</strong> Axis</td><td>✓ v2 registered (hash <code>b95dcaff004ccf89</code>), v1 untouched, the CRC anchor on the axis.</td></tr><tr><td><strong>M3</strong> Pickles</td><td>✓ Track B measures 109 of 109 PRS positions; every value is finite; expression is probit z; the sidecars are present.</td></tr><tr><td><strong>M4</strong> Export</td><td>✓ 0 excluded-predicate lines; mirror leak 0.000; the manifest md5s reproduce.</td></tr><tr><td><strong>M5</strong> Foundation</td><td>✓ Loss 0.0573 → 0.00058 over 20 epochs. Every load logs its checkpoint sha. Filtered <strong>MRR 0.0209</strong> (Hits@10 0.035), below the old leaky 0.56.</td></tr><tr><td><strong>M6</strong> Fine-tune</td><td>✓ disease cos(ŵ, −PRS) +0.649. <strong>✗ disease sign agreement 0.881 &lt; 0.90.</strong> ✓ protein cos +0.652, sign agreement 0.952. ✓ ŵ identical across λ > 0. ✓ Track A’s disease weights are bit-identical to the λ 0 control’s (weight decay only). ✓ split reuse on all five runs. <em>Accepted by Richard, 2026-09-29.</em></td></tr><tr><td><strong>M7</strong> Personalized scores</td><td>✓ At λ 0, pers == raw on all 9,099 rows. ✓ The sampled <code>adj</code> matches an independent recomputation to 1.2e-7. ✓ Kendall τ 0.952 at λ 1.0. ✓ The relation breakdown is reported (§4.3).</td></tr><tr><td><strong>M8</strong> Metrics</td><td>✓ 20 <code>rgcc_per_draw</code> rows, n in every cell; every RGCC drug flagged unseen; test-retest printed on every run.</td></tr><tr><td><strong>M9</strong> Provenance</td><td>✓ The #439 provenance log links run ids, image digests, manifest md5s, the release tag, the schema hash and pickle shas. A re-run of one scoring job reproduces raw scores and ranks exactly, and <code>adj</code> to ≤ 1.9e-9 (float32 rounding). It is <em>not</em> bit-identical. <em>Accepted by Richard as reproduced, 2026-09-29.</em></td></tr><tr><td><strong>M10</strong> Venue</td><td>✓ Every job went through the worker queue or the research API.</td></tr></tbody></table></div>
+<h3 id="42-the-foundation">4.2 The foundation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-the-foundation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The training loss fell to 0.00058, but the held-out filtered MRR is 0.0209: mean rank about 3,000 of about 103K entities, and Hits@1 is essentially zero. The model separates its training edges from sampled negatives almost perfectly, but ranks held-out edges only moderately. The old foundation’s 0.56 came from the mirror shortcut, which #432 removed. <em>(2026-10-05: #432 removed the split-level shortcut. A training-time one, where each query edge’s mirror stays in the message-passing graph, is the suspected cause of #523.)</em> Published ULTRA-class numbers on dense biomedical graphs are 0.13–0.4, so this foundation is weak for link prediction as well as for RGCC.</p>
+<h3 id="43-the-released-criterions-behaviour">4.3 The released criterion’s behaviour<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-the-released-criterions-behaviour" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>The weights stall almost immediately.</strong> Sign agreement is already 0.881 after the first epoch (100 steps), and between epochs 0 and 6 each weight moves by about 1e-4.</p>
+<ul>
+<li>The tanh term saturates within about 50 steps, and AdamW’s second-moment memory then shrinks every step to almost nothing.</li>
+<li>Against the λ 0 run, which shows the seed-42 starting point, <strong>every</strong> weight moved toward −sign(input): 109 of 109 disease weights and 84 of 84 gene weights. 38 disease signs flipped from wrong to right and none the other way.</li>
+<li>The 13 still wrong are leftovers from the random start, spread across the |PRS| range.</li>
+</ul>
+</li>
+<li>
+<p><strong>λ does nothing at fine-tune time.</strong> The λ 0.01, 0.1 and 1.0 runs learned identical weights (cos 1.000000, max difference 2e-6), because Adam cancels the gradient’s λ scale. λ acts only as a scale on the adjustment at scoring, so the D9 fine-tune sweep was redundant.</p>
+</li>
+<li>
+<p><strong>The adjustment can only lower a score.</strong> With ŵ ≈ −PRS/‖PRS‖, each anchor term is about −z²/‖z‖, negative whatever the sign of her z. At λ 0.01, 1,254 of the 1,314 adjusted drugs go down.</p>
+</li>
+<li>
+<p><strong>It is edge-blind.</strong> Share of the adjustment’s absolute mass, by relation:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>relation</th><th>share</th></tr></thead><tbody><tr><td>disease <code>contraindicated_for</code></td><td>72.7 %</td></tr><tr><td>disease <code>treats</code></td><td>14.5 %</td></tr><tr><td>disease <code>has_off_label_use</code></td><td>3.3 %</td></tr><tr><td>gene <code>has_target</code></td><td>9.5 %</td></tr></tbody></table></div>
+<p>A drug contraindicated for one of her diseases is pushed the same way as a drug that treats it.</p>
+</li>
+</ul>
+<h3 id="44-rgcc-m8">4.4 RGCC (M8)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-rgcc-m8" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Tier 1 is Spearman ρ; Tier 2 is AUROC on 5 positives. Each cell gives the 2025-02-15 draw, then the 2025-09-19 draw, as point [95 % CI].</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>variant</th><th>graded ρ</th><th>all-panel ρ</th><th>all-panel AUROC</th></tr></thead><tbody><tr><td>raw</td><td>+0.029 [−0.24, +0.32] / +0.046 [−0.23, +0.32]</td><td>−0.193 [−0.37, −0.02] / −0.187 [−0.37, −0.00]</td><td>0.525 / 0.521</td></tr><tr><td>pers λ 0.01</td><td>Δ −0.002 / −0.003</td><td>Δ −0.010 / −0.009</td><td>Δ −0.006 / −0.007</td></tr><tr><td>pers λ 0.1</td><td>Δ −0.063 / −0.056</td><td><strong>Δ −0.057 [−0.121, −0.004]</strong> / −0.054 [−0.117, +0.001]</td><td>Δ −0.054 / −0.058</td></tr><tr><td>pers λ 1.0</td><td>Δ −0.110 [−0.41, +0.16] / −0.15</td><td>Δ −0.034 / −0.047</td><td>Δ −0.082 / −0.083</td></tr><tr><td>Track A λ 0.01</td><td>Δ +0.001</td><td>Δ +0.000</td><td>Δ +0.002</td></tr></tbody></table></div>
+<p>The all-panel ρ below zero is driven by the 53 MoAb/SMW agents that RGCC grades only as sensitive or not, all tied at 0. The graded-only panel is the one to read. The test-retest ceiling is ρ 0.9616 all-panel and 0.7635 graded.</p>
+<h3 id="45-the-top-30">4.5 The top 30<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#45-the-top-30" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The annotated top 30, raw and at λ 1.0, is on <code>#114</code>.</p>
+<ul>
+<li><strong>Ranks 1–2</strong> are the only two drugs whose treats-CRC edge is in the training split: tipiracil and trifluridine, at raw scores near +7.8.</li>
+<li><strong>Most of ranks 3–25 are CIViC / OncoKB therapy and regimen entities outside the <code>drug</code> domain.</strong> They include her own cetuximab/encorafenib regimen, FOLFOX, an anti-EGFR antibody and RAF inhibitors. The model recovers her actual treatment lines through evidence edges, but the personalization cannot reach them.</li>
+<li><strong>Cetuximab’s treats-CRC edge is held out</strong>, and it ranks 26 of 9,099.</li>
+<li><strong>At λ 1.0, personalization only removes drugs from the top 30:</strong> erlotinib and crizotinib.</li>
+</ul>
+<h2 id="5-discussion">5. Discussion<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-discussion" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>What the run shows.</strong> The machinery works and is traceable: every stage produced its artifact, and every artifact carries its provenance. The science is an honest null.</p>
+<ul>
+<li><strong>The base ranker has no signal</strong> on her RGCC sensitivities once the leak is closed.</li>
+<li><strong>The released criterion cannot help,</strong> for four reasons:
+<ul>
+<li>it stalls near its start;</li>
+<li>it ignores λ;</li>
+<li>it can only demote;</li>
+<li>it cannot tell <code>treats</code> from <code>contraindicated_for</code>.</li>
+</ul>
+</li>
+</ul>
+<p>These are the defects #420 (a signed per-relation criterion) was designed around. This run quantifies them on her own data.</p>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>8 of the RGCC agents have no in-domain node, so the adjustment cannot reach them (#470).</li>
+<li>One axis pick (PGS005253) carries a predicted +0.67 SD residual from the panel’s own missing calls (#513).</li>
+<li>The fine-tune’s early stop keys on a training loss the criterion weights cannot move.</li>
+<li>Tier 2 rests on 5 positives per draw.</li>
+<li>The v0 release waived the <code>pgsc_calc</code> witness and the NR-scale policy.</li>
+<li>The foundation’s held-out MRR is low.</li>
+</ul>
+<p><strong>What to do next, in the order the evidence suggests:</strong></p>
+<ol>
+<li><strong>#420, the signed per-relation criterion,</strong> so the adjustment can promote as well as demote and can tell treats from contraindication.</li>
+<li><strong>Start the criterion weights at zero,</strong> and early-stop on the criterion’s own loss, not the training loss.</li>
+<li><strong>Use λ as a score-time knob,</strong> running one fine-tune rather than one per λ.</li>
+<li><strong>Revisit the foundation’s generalization</strong> (MRR 0.021) before relying on its ranking: depth, and more epochs past the stall, or a composition change.</li>
+<li><strong>The larger levers already on the roadmap:</strong> population supervision and variant-aware edges.</li>
+</ol>
+<p><em>(2026-10-05: the Q4 2026 plan, written 2026-10-01, reorders this list. A no-retrain test of the #523 shortcut, an evaluation rebuilt around non-learned baselines, and a retrain that drops each query edge’s mirror come first. That retrain, Arm A, became the checkpoint of record and failed gates S5 and S6 on 2026-10-04. #420 runs only if a conditioned baseline beats drug-mean on a cell-line proxy benchmark.)</em></p>
+<p><strong>Operational lessons</strong> are in §3’s table. The durable ones:</p>
+<ul>
+<li>a fix to data doesn’t repair data already derived (#499);</li>
+<li>a reloader that watches 177 GB can silently stop (#517);</li>
+<li>cancels and stops need first-class paths (#515);</li>
+<li>timed wakeups can silently not fire, so waits hang on completion signals.</li>
+</ul>
+<h2 id="provenance">Provenance<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#provenance" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Every run id, image digest, manifest md5, release tag, schema hash and pickle sha is in the #439 provenance comment. The large local artifacts (panel matrices, pickles, fine-tune weights, <code>train.txt</code>) are under <code>backend/data/pdr2_pickles/2026-09-28_smoke1/</code> and <code>backend/data/prs_panel/</code>, host-only and gitignored.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-75" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#smoke-run-1--formal-writeup" data-for="smoke-run-1--formal-writeup">Smoke run #1 — Formal Writeup</a></li><li class="depth-1"><a href="#summary" data-for="summary">Summary</a></li><li class="depth-1"><a href="#1-purpose" data-for="1-purpose">1. Purpose</a></li><li class="depth-1"><a href="#2-materials-and-methods" data-for="2-materials-and-methods">2. Materials and Methods</a></li><li class="depth-2"><a href="#21-patient-inputs" data-for="21-patient-inputs">2.1 Patient inputs</a></li><li class="depth-2"><a href="#22-graph-and-foundation" data-for="22-graph-and-foundation">2.2 Graph and foundation</a></li><li class="depth-2"><a href="#23-fine-tunes-decision-d9" data-for="23-fine-tunes-decision-d9">2.3 Fine-tunes (decision D9)</a></li><li class="depth-2"><a href="#24-scoring-decisions-d1-436" data-for="24-scoring-decisions-d1-436">2.4 Scoring (decisions D1, #436)</a></li><li class="depth-2"><a href="#25-metrics" data-for="25-metrics">2.5 Metrics</a></li><li class="depth-1"><a href="#3-procedure" data-for="3-procedure">3. Procedure</a></li><li class="depth-1"><a href="#4-results" data-for="4-results">4. Results</a></li><li class="depth-2"><a href="#41-machinery-checks" data-for="41-machinery-checks">4.1 Machinery checks</a></li><li class="depth-2"><a href="#42-the-foundation" data-for="42-the-foundation">4.2 The foundation</a></li><li class="depth-2"><a href="#43-the-released-criterions-behaviour" data-for="43-the-released-criterions-behaviour">4.3 The released criterion’s behaviour</a></li><li class="depth-2"><a href="#44-rgcc-m8" data-for="44-rgcc-m8">4.4 RGCC (M8)</a></li><li class="depth-2"><a href="#45-the-top-30" data-for="45-the-top-30">4.5 The top 30</a></li><li class="depth-1"><a href="#5-discussion" data-for="5-discussion">5. Discussion</a></li><li class="depth-1"><a href="#provenance" data-for="provenance">Provenance</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../" class="internal">MODS Notebook</a></li><li><a href="../model/kgia_workflow" class="internal">KGIA end-to-end workflow</a></li><li><a href="../results/mods_smoke_run_1_playbook" class="internal">Smoke run #1 — playbook</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

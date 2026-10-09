@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Temporal Patient State Modeling — Planning</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Temporal Patient State Modeling — Planning"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Temporal Patient State Modeling — Planning"/><meta name="twitter:description" content="Five tiers of temporal representation, for a model that sees today's value but not its trajectory."/><meta property="og:description" content="Five tiers of temporal representation, for a model that sees today's value but not its trajectory."/><meta property="og:image:alt" content="Five tiers of temporal representation, for a model that sees today's value but not its trajectory."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/planning/temporal_patient_modeling_planning"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/planning/temporal_patient_modeling_planning"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Five tiers of temporal representation, for a model that sees today's value but not its trajectory."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/planning/temporal_patient_modeling_planning-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/planning/temporal_patient_modeling_planning-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/planning/temporal_patient_modeling_planning-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="planning/temporal_patient_modeling_planning" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-84" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-84" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../planning/">planning</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Temporal Patient State Modeling — Planning</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-05-08</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">planning</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Five tiers of temporal representation, for a model that sees today's value but not its trajectory.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.359Z">Oct 09, 2026</time><span>28 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="phase-13--temporal-patient-state-modeling--planning-document">Phase 13 — Temporal Patient State Modeling — Planning Document<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#phase-13--temporal-patient-state-modeling--planning-document" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Status:</strong> PLANNING (not yet started)
+<strong>Created:</strong> 2026-05-07
+<strong>Owner:</strong> whafa
+<strong>Master plan reference:</strong> <a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">PDR_PIPELINE_PLAN.md § Phase 13</a>
+<strong>Companion writeup template:</strong> <a href="../results/pdr_phase0_gpkg_writeup" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_writeup">pdr_phase0_gpkg_writeup.md</a>
+<strong>Adjacent planning doc:</strong> <a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">pdr_phase8.5_variant_kg_planning.md</a> — variant-aware KG; complementary not overlapping.</p>
+<blockquote>
+<p>Seed for a dedicated planning session on representing temporal change in Maureen’s biomarker, genomic-test, and clinical data — both as immediate snapshot-policy fixes and as deeper temporal-graph architecture work.</p>
+</blockquote>
+<hr/>
+<h2 id="1-problem-statement">1. Problem statement<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-problem-statement" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Maureen’s health record changes daily. New labs come in (CEA, LDH, albumin, lymphocytes). Imaging gets re-read. RGCC and Caris panels can be repeated. Symptoms progress and regress. Treatments start and stop. Each of these is a <em>trajectory</em> of a patient parameter, not a static fact — and the trajectory is often clinically more informative than any single point on it. CEA doubling time predicts CRC recurrence months before imaging shows it. A falling albumin trajectory during chemo signals failure-to-thrive even when the absolute value is in range.</p>
+<p>Our current MODS architecture treats patient state as a snapshot. Two distinct concerns hide inside that:</p>
+<p><strong>(1) The snapshot policy bug.</strong> When the same parameter has multiple values across time (e.g., re-tested gene expression, repeated blood panels), our consumer code currently picks the earliest available value rather than the most recent. This is a near-term fix that can be done independently. <strong>Findings from a code audit (2026-05-07):</strong></p>
+<ul>
+<li><code>mods_kgia_profile_service.py::_build_biomarker_series</code> (line 389) is <strong>correct</strong> — uses <code>ORDER BY v.ts DESC LIMIT 1</code> via LATERAL join to take the latest value, with prior-value capture for trend computation.</li>
+<li><code>mods_kgia_profile_service.py::_build_genomic_alterations</code> (line 236) is <strong>the bug.</strong> Orders rows by <code>gene</code> only — no temporal sort. When Maureen has multiple genomic test reports (e.g., 2024 Caris + 2025 Caris re-test) covering the same gene, all rows are returned in alphabetical-by-gene order. Whatever consumer dedupes by gene picks the first row encountered — typically the earliest report by insertion order.</li>
+<li><code>mods_kgia_profile_service.py::_build_gene_expression</code> (line 265) has <strong>the same bug</strong> — ordered by <code>regulation</code> and <code>expression_value</code>, never by <code>report_date</code>.</li>
+<li><code>mods_snapshot_service.py::_build_biomarkers_section</code> (line 189) is <strong>correct in intent</strong> — returns the full trajectory, not a single value. Whether the LLM downstream picks the right value is a separate question.</li>
+</ul>
+<p><strong>Recommended fix for (1):</strong> add <code>ModsGenomicTestReport.reported_date.desc().nullslast()</code> as the primary sort key in <code>_build_genomic_alterations</code> and <code>_build_gene_expression</code>, then dedupe by gene at the consumer level taking the first row per gene (which will now be the most recent). Two-line code change in each method.</p>
+<p><em>(2026-10-03: shipped. Both methods now sort on <code>report_date DESC NULLS LAST</code> (the column on the alteration and expression rows, not the report table). The date gaps still open are in §8.2.)</em></p>
+<p><strong>(2) Representing trajectory itself.</strong> This is the deeper concern. Currently we have no way to feed <em>change</em> into the link-prediction model — only state. The CEA trajectory over the last six months is invisible to the GNN unless we encode it as features somewhere. This requires architectural decisions, not just a code fix.</p>
+<h3 id="what-the-papers-do-and-dont">What the papers do (and don’t)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-the-papers-do-and-dont" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Audited 2026-05-07</strong> for temporal handling in PDR1 and PDR2:</p>
+<ul>
+<li><strong>PDR1</strong> (Oğuztüzün 2025) uses <code>patient_merge.py</code> to ingest UK Biobank patient data. Features used: PRS for AD, PRS for comorbidities, and protein biomarker expression values. Each is a single scalar per patient. <strong>No temporal modeling.</strong></li>
+<li><strong>PDR2</strong> (Oğuztüzün 2026) uses ULTRA + KGIA loss with <code>--lambda1</code> for genetic risk and <code>--lambda2</code> for biomarker influence. Same shape: per-patient scalars at fine-tune time. <strong>No temporal modeling.</strong></li>
+</ul>
+<p>Conclusion: <strong>neither paper provides a precedent for temporal patient modeling in this drug-repurposing-by-KG-completion lineage.</strong> If we want trajectory-aware ranking, we are operating beyond the published architecture. This is a research direction, not a reproduction task. Two implications:</p>
+<ul>
+<li><strong>No paper-target benchmark for closure.</strong> Phase 0 closes against KG-Predict’s published metrics; Phase 13 doesn’t have an equivalent. We need to design our own validation criteria (see § 5 closure criteria).</li>
+<li><strong>Literature search is part of the work.</strong> Outside the PDR lineage, temporal KG completion is a real research subfield (TKG models like TNTComplEx, RE-NET; clinical-AI temporal patient models; multimodal architectures combining time-series with KGs). We need to map this landscape before architectural commitment.</li>
+</ul>
+<h3 id="why-this-matters-specifically-for-maureen">Why this matters specifically for Maureen<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#why-this-matters-specifically-for-maureen" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>CRC has one of the strongest “trajectory-matters-more-than-state” stories in oncology:</p>
+<ul>
+<li><strong>CEA</strong> can be normal at diagnosis even with metastatic disease. Doubling time predicts recurrence with a months-long lead vs imaging.</li>
+<li><strong>Tumor markers and inflammatory markers</strong> (LDH, albumin, neutrophil-lymphocyte ratio) have prognostic value as trajectories that single values lack.</li>
+<li><strong>Caris re-tests</strong> (if ordered) would let us see actual biological evolution of the tumor — which genes turn on/off under treatment pressure. That signal is invisible if we only carry the most recent test.</li>
+<li><strong>RGCC re-tests</strong> show whether her tumor’s drug sensitivity profile is shifting. Critical for adaptive therapy decisions.</li>
+</ul>
+<p>For Phase 9 (current personalization plan) operating on a single snapshot, we lose all of this.</p>
+<hr/>
+<h2 id="2-the-five-tier-framework">2. The five-tier framework<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-the-five-tier-framework" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Approaches to representing temporal data in graphs, ordered from “easiest to ship” to “research project.”</p>
+<h3 id="tier-1--trajectory-features-as-static-node-attributes">Tier 1 — Trajectory features as static node attributes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-1--trajectory-features-as-static-node-attributes" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Compute summary statistics from the time series and encode them as attributes on a single (current) node. The graph stays static. Per biomarker: most recent value, slope (regression of value vs time, last 3-6 months), variance / coefficient of variation, ratio to baseline, days since last out-of-range crossing, count of threshold crossings.</p>
+<p><strong>Pros:</strong> No model architecture changes. Fits any static GNN (PDR1, PDR2, anything). Keeps the KG human-auditable. Schema work is straightforward.
+<strong>Cons:</strong> Loses interaction effects between biomarker trajectories. Requires manual feature engineering per biomarker. Limited to features humans think to compute.</p>
+<h3 id="tier-2--multi-snapshot-training">Tier 2 — Multi-snapshot training<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-2--multi-snapshot-training" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Build the KG at multiple time points (Maureen-as-of-2025-01-01, Maureen-as-of-2025-04-01, etc.) and train the model on the sequence.</p>
+<p><strong>Pros:</strong> Captures evolution. Lets the model learn to recognize concerning trajectories rather than relying on hand-crafted features.
+<strong>Cons:</strong> Storage and compute cost balloons. The model still treats each snapshot as static unless we add temporal edges (which moves to Tier 3-4). Snapshot intervals are arbitrary given uneven sampling rates (genomic tests rare, labs frequent).</p>
+<h3 id="tier-3--time-stamped-edges-temporal-knowledge-graph">Tier 3 — Time-stamped edges (Temporal Knowledge Graph)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-3--time-stamped-edges-temporal-knowledge-graph" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Every edge gets <code>valid_from</code> / <code>valid_to</code> timestamps. Add edges like <code>(Maureen, had_value, CEA=8.2, 2025-03-15)</code> and <code>(Maureen, had_value, CEA=12.1, 2025-04-15)</code>. Query the graph “as of date X” to recover historical state.</p>
+<p><strong>Pros:</strong> Preserves full history. Standardized — TKG completion is a research subfield with established models (TNTComplEx, TeMP, RE-NET, ULTRA-Time variants).
+<strong>Cons:</strong> Most TKG models are tested on event data (news, social), not clinical data — generalization is uncertain. Graph size balloons (every lab result becomes an edge). Most TKG models predict “what edge will exist at time T+1” rather than “given this trajectory, what drug ranks highest” — there’s a translation layer needed.</p>
+<h3 id="tier-4--patient-as-node-with-trajectory-encoded-embedding-recommended-target">Tier 4 — Patient-as-node with trajectory-encoded embedding <em>(recommended target)</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-4--patient-as-node-with-trajectory-encoded-embedding-recommended-target" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The patient is a node (per Phase 12). Her <em>embedding</em> is computed by a small temporal encoder (1-D CNN or Transformer over her time series), and that embedding feeds into the graph as her node features. The graph model itself stays static; the temporal complexity is absorbed into a separate sub-model that produces her node representation.</p>
+<pre><code>Time series of labs / imaging / symptoms / genomic re-tests
+    ↓
+Temporal encoder (Transformer or LSTM)
+    ↓
+Patient embedding vector (e.g., 256-d)
+    ↓
+GNN (CompGCN / ULTRA) — Maureen is a node with this embedding as features
+    ↓
+Drug ranking
+</code></pre>
+<p><strong>Pros:</strong> Cleanest separation of concerns. The temporal encoder can be small and trained on whatever per-patient data we have, while the GNN keeps its static-KG advantages. Captures interaction effects natively (Transformer self-attention over multivariate biomarker series). Ships in a reasonable time frame. Aligns naturally with Phase 12’s patient-as-node architecture.
+<strong>Cons:</strong> Embedding becomes a learned summary — less human-auditable than Tier 1. Training requires patient outcome labels, of which we have one patient. Multi-patient generalization is unclear until we have a cohort. Encoder overfit risk on a single patient is real.</p>
+<h3 id="tier-5--full-continuous-time-dynamic-graph">Tier 5 — Full continuous-time dynamic graph<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tier-5--full-continuous-time-dynamic-graph" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Each edge appears and disappears as events occur. The model maintains time-varying embeddings via methods like TGN (Temporal Graph Networks) or DyRep. Most sophisticated, most expensive, most research-grade.</p>
+<p><strong>Pros:</strong> State of the art in temporal graph modeling.
+<strong>Cons:</strong> Production-ready clinical implementations are rare. Probably overkill for our use case. Defer indefinitely.</p>
+<hr/>
+<h2 id="3-recommendation">3. Recommendation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-recommendation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>A phased approach within Phase 13:</p>
+<p><strong>13.1 — Snapshot policy fix (immediate, in service of Phase 9).</strong> Fix the genomic-alteration and gene-expression dedup bugs documented in §1. Take most recent value per gene as the default, with a configurable “freshness window” (default: prefer values within 12 months over older ones). Should ship before Phase 9 starts.</p>
+<p><strong>13.2 — Tier 1 trajectory features (Phase 9 / 12 alignment).</strong> Add trajectory features as node attributes on the patient (Phase 12) or as patient-feature scalars (Phase 9 PDR1 path). Per biomarker: latest value, slope over 90 days, ratio to baseline, days since out-of-range crossing. CEA as the first test case. Cheap, well-scoped, captures most of the clinical signal.</p>
+<p><strong>13.3 — Tier 4 trajectory-encoded patient embedding (research project).</strong> Build the temporal encoder for the patient node. Genuinely a research project — needs validation against alternative architectures, needs an outcome labeling strategy, may benefit from a small cohort (even 2-3 patients) to validate the temporal encoder rather than overfitting Maureen.</p>
+<p><strong>Skip Tiers 2, 3, 5 unless we hit a specific blocker.</strong> Tier 1 + Tier 4 cover the practical clinical-AI space well. The other tiers are research artifacts that haven’t broken into clinical production.</p>
+<hr/>
+<h2 id="4-why-cea-is-the-concrete-first-test-case">4. Why CEA is the concrete first test case<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-why-cea-is-the-concrete-first-test-case" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>For CRC specifically, CEA trajectory is THE textbook example of why temporal matters:</p>
+<ul>
+<li>CEA can be normal at diagnosis even with metastatic disease.</li>
+<li>Doubling time predicts recurrence months before imaging shows it.</li>
+<li>Absolute value matters less than trend.</li>
+<li>Threshold crossings (5 ng/mL conventional cutoff, 25%-rise-over-baseline) trigger clinical action.</li>
+</ul>
+<p>If we get <em>any</em> temporal modeling in, CEA should be the test case. Maureen’s record likely has CEA values across her treatment history — there’s enough signal to validate that trajectory features improve drug ranking vs current-value-alone.</p>
+<p><em>(2026-10-03: stale. CEA has no numeric value after 2025-09-16. Kaiser appears to have moved her surveillance marker to CA 19-9, so a CEA series flatlines to null. CA 19-9 should be the first series, then ctDNA MTM/mL once GH #131 parses the Signatera reports. See the mission spec §2.3 and §2.6.)</em></p>
+<p><strong>Concrete validation hypothesis:</strong> patient features that include CEA slope over 90 days produce different drug rankings than features using only the most recent CEA value, AND those rankings agree better with clinical guidelines for CRC progression (escalation to next-line therapy when CEA is rising).</p>
+<hr/>
+<h2 id="5-closure-criteria">5. Closure criteria<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-closure-criteria" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Phase 13 is unusual because no published paper provides a comparator. Closure criteria are internal:</p>
+<p><strong>13.1 (snapshot fix) is closed when:</strong></p>
+<ul>
+<li>For each parameter with multiple values per patient, the most recent value is selected by default.</li>
+<li>A regression test against Maureen’s known data confirms specific known-correct values are now selected (e.g., 2025 Caris values not 2024).</li>
+<li>No degradation in any existing Phase 7.5 RGCC validation metric.</li>
+</ul>
+<p><strong>13.2 (Tier 1 trajectory features) is closed when:</strong></p>
+<ul>
+<li>Trajectory features (slope, baseline ratio, crossings) are computed and stored for at least 5 prioritized biomarkers per patient.</li>
+<li>CEA-trajectory feature improves Phase 7.5 RGCC validation by at least one of: ≥ 0.03 AUROC, ≥ 0.05 Spearman ρ.</li>
+<li>Feature definitions are documented and reproducible.</li>
+</ul>
+<p><em>(2026-10-03: the Phase 7.5 RGCC figures these criteria compare against are superseded. They pooled the two draws (GH #324), and the PDR2 v2 numbers were leak-driven (GH #214). A criterion now needs a clean, per-draw baseline. §8.4 proposes a within-patient alternative.)</em></p>
+<p><strong>13.3 (Tier 4 temporal encoder) is closed when:</strong></p>
+<ul>
+<li>A temporal encoder (LSTM or Transformer) is trained on Maureen’s biomarker history and produces a fixed-dim patient embedding.</li>
+<li>The embedding is consumable by the Phase 12 patient-as-node architecture.</li>
+<li>Compared to Tier 1 baseline: at least one validation metric improves by ≥ 0.02 AUROC or ≥ 0.03 ρ. Meaningful improvement is hard to define on a single patient — see open question 6.</li>
+<li>Cohort generalization: when a second patient is added, the encoder produces meaningfully different embeddings without retraining.</li>
+</ul>
+<hr/>
+<h2 id="6-open-questions">6. Open questions<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-open-questions" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>Biomarker priority list.</strong> Which parameters get trajectory features first? CEA is obvious. After that: LDH, albumin, neutrophil-lymphocyte ratio, platelet count, CA 19-9. What’s the cutoff?</p>
+</li>
+<li>
+<p><strong>Trajectory feature set per biomarker.</strong> Slope over what window? Baseline defined how (first value? rolling 6-month median?)? Threshold crossings against clinical reference range or per-patient personalized range?</p>
+</li>
+<li>
+<p><strong>Uneven sampling rates.</strong> Genomic tests are sparse (months/years apart), labs are dense (days/weeks). Imaging is intermediate. Some biomarkers are sampled regularly during chemo cycles, irregularly otherwise. How does the temporal encoder handle this? Options: time-aware Transformer, irregular-interval RNN (e.g., GRU-D), interpolation to regular grid.</p>
+</li>
+<li>
+<p><strong>Missing data handling.</strong> Some biomarkers are tested rarely or only when specific treatments are considered. How do we represent “we just don’t have this for Maureen”? Mask the feature? Imputation? Treat absence as informative?</p>
+</li>
+<li>
+<p><strong>Outcome labeling strategy.</strong> What’s the supervision signal for training a temporal encoder? Options: treatment response (RECIST), tumor marker change as proxy, RGCC re-test changes, survival, hand-labeled clinical milestones. Each has issues.</p>
+</li>
+<li>
+<p><strong>Validating temporal modeling with one patient.</strong> Single-patient temporal encoders overfit easily. How do we validate? Options: hold out the most recent N months (predict her current state from past); leave-one-biomarker-out (train without CEA, predict CEA trajectory); sensitivity analysis (how much does ranking shift for plausible feature perturbations).</p>
+</li>
+<li>
+<p><strong>Imaging-derived features.</strong> RECIST measurements, tumor size, location. Are these biomarkers in the same model, or a separate modality? If separate, how do they integrate with the temporal encoder?</p>
+</li>
+<li>
+<p><strong>Genomic test repeat handling.</strong> When Caris is re-run, do we add a new variant edge with timestamp, or overwrite the old one? This intersects with Phase 8.5 (variant nodes). If a known variant is no longer detected on re-test, what does that mean — biological loss, or sampling difference?</p>
+</li>
+<li>
+<p><strong>Snapshot freeze for reporting.</strong> When a clinical recommendation is generated, we need to commit to a “decision time” snapshot for reproducibility. How do we represent that snapshot in the data model? Materialized snapshot table? Reconstruct on demand from time-stamped raw data?</p>
+</li>
+<li>
+<p><strong>Cohort dependency.</strong> Tier 4 generalization requires multiple patients. Maple is currently single-patient (Maureen). When does multi-patient become realistic, and does that change Phase 13 sequencing?</p>
+</li>
+</ol>
+<hr/>
+<h2 id="7-suggested-next-steps-for-the-planning-session">7. Suggested next steps for the planning session<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-suggested-next-steps-for-the-planning-session" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Ship 13.1 (snapshot fix) immediately.</strong> It’s a two-line change in <code>mods_kgia_profile_service.py</code> plus a test. Don’t wait for the full Phase 13 plan.</li>
+<li><strong>Inventory available biomarker history for Maureen.</strong> Concrete count per parameter, with date range and sampling cadence. Drives prioritization in open question 1.</li>
+<li><strong>Literature spike on temporal patient modeling in clinical AI.</strong> Survey of Tier 1-4 approaches in clinical applications. Particular attention to: time-aware Transformers, irregular-interval RNNs, multimodal architectures combining time-series with KGs. Output: a one-page recommendation memo for the Tier 1 vs Tier 4 sequencing.</li>
+<li><strong>Design CEA as the validation anchor.</strong> Pre-register what improvement we expect from CEA trajectory features over CEA-current-value features in Phase 7.5 RGCC validation.</li>
+<li><strong>Schema sketch for Tier 1.</strong> Where do trajectory features live? On <code>ModsBiomarkerSeries</code> as computed attributes? In a new <code>mods_biomarker_trajectory_features</code> table? Ties into Phase 12 schema.</li>
+<li><strong>Coordinate with Phase 8.5 and Phase 12.</strong> Variant-as-graph-node and patient-as-graph-node are both upstream design decisions that interact with Phase 13. Ideally the schema for all three settles together rather than retrofitting later.</li>
+</ol>
+<hr/>
+<h2 id="8-temporal-graph-rag-ideas-evaluated-one-by-one-2026-10-03">8. Temporal Graph-RAG ideas, evaluated one by one (2026-10-03)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-temporal-graph-rag-ideas-evaluated-one-by-one-2026-10-03" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Source: <em>Adding Temporal Reasoning to Graph RAG: Tracking Fact Freshness and Staleness</em> (MachineLearningMastery, read 2026-10-03). The article’s whole mechanism is below, so each verdict can be checked against it:</p>
+<ol>
+<li><strong>Dated facts.</strong> Subject → predicate → list of (object, date). A triple becomes a quadruple.</li>
+<li><strong>Recency weight.</strong> <code>weight = 0.5 ^ (age_in_days / half_life)</code>, default half-life 365 days. A fact dated after the query date gets 1.0.</li>
+<li><strong>As-of query.</strong> Only facts with <code>fact_date ≤ query_date</code> come back.</li>
+<li><strong>Conflict resolution.</strong> All candidates for one (subject, predicate) are ranked by weight, freshest first.</li>
+<li><strong>Per-domain half-life.</strong> 365 days is too slow for volatile facts; the article’s example drops to 7.</li>
+<li><strong>Prompt assembly.</strong> The retriever passes the top-weighted fact, or a short ranked list with dates and weights, into the LLM’s context.</li>
+</ol>
+<p><strong>In short:</strong></p>
+<ul>
+<li><strong>The as-of query is the article’s most valuable idea for MODS</strong>, though not for retrieval. It is the missing piece for decision-time snapshots (§6 Q9) and for validating against Maureen’s own timeline (§6 Q6).</li>
+<li><strong>Dated facts and dated prompts are worth adopting.</strong> The code mostly has them already; checking it found two gaps (§8.2).</li>
+<li><strong>The decay weight needs reshaping first.</strong> Most of her data goes stale through events, not elapsed days.</li>
+<li><strong>Recency-ranked conflict resolution should be rejected as a general rule.</strong> It is tie-breaking by date.</li>
+</ul>
+<h3 id="81-verdicts">8.1 Verdicts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#81-verdicts" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>#</th><th>Idea</th><th>Verdict</th><th>Where it lands</th></tr></thead><tbody><tr><td>1</td><td>Dated facts</td><td><strong>Adopt.</strong> Mostly in place</td><td>§8.2; new 13.1b</td></tr><tr><td>2</td><td>Recency weight</td><td><strong>Adapt.</strong> A staleness <em>class</em> per predicate, of which exponential decay is one</td><td>§8.3; 13.2 features</td></tr><tr><td>3</td><td>As-of query</td><td><strong>Adopt.</strong> Highest value</td><td>§8.4; new 13.1c</td></tr><tr><td>4</td><td>Freshest wins a conflict</td><td><strong>Reject,</strong> except for state that was measured again</td><td>§8.5</td></tr><tr><td>5</td><td>Per-domain half-life</td><td><strong>Adopt,</strong> generalized into the staleness table</td><td>§8.3</td></tr><tr><td>6</td><td>Dated facts in the prompt</td><td><strong>Adopt.</strong> Never pass a lone winner</td><td>§8.2, §8.6</td></tr><tr><td>—</td><td>Future-dated facts weigh 1.0</td><td><strong>Reject.</strong> A future date is a parse error or a scheduled event, never an observation</td><td>13.1b ingest check</td></tr></tbody></table></div>
+<p>The article’s storage layer (nested in-memory dicts) has nothing to offer a Postgres schema with JSONB metadata, and is not considered further.</p>
+<h3 id="82-dated-facts-what-the-code-already-does-and-two-gaps">8.2 Dated facts: what the code already does, and two gaps<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#82-dated-facts-what-the-code-already-does-and-two-gaps" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Most patient edges built by <code>mods_patient_kg_service.py</code> already carry their date in <code>metadata</code>:</p>
+<ul>
+<li>expression and resistance factors: <code>report_date</code>;</li>
+<li>medications and treatment episodes: <code>start_date</code>, <code>end_date</code>;</li>
+<li>conditions: <code>onset_date</code>, <code>abatement_date</code>.</li>
+</ul>
+<p>The LLM snapshot (<code>mods_snapshot_service.py</code>) dates biomarker values (<code>ts</code>) and RGCC tests (<code>collected_date</code>, <code>reported_date</code>). And 13.1 has shipped (§1).</p>
+<p>Reading the code with the article’s question in mind, <em>does every fact know when it was true?</em>, found two gaps:</p>
+<ul>
+<li>
+<p><strong>Her patient node shows the <em>oldest</em> value of every repeated measurement</strong> (GH #701). The edge builders query with no <code>ORDER BY</code>, and the insert is <code>ON CONFLICT DO NOTHING</code> on a relation key with no time component. In practice the oldest report was loaded first and comes back first, so it is the one kept. That is the opposite of 13.1’s latest-first rule for the KGIA profile, so the graph the foundation trains on and the profile the criterion reads describe her at different times. Counted on prod, read-only, on 2026-10-03, against a node last materialized 2026-05-18:</p>
+<ul>
+<li>
+<p><strong>RGCC.</strong> Her two draws (reported 2025-02-15 and 2025-09-19, with no collection date recorded) hold 165 results each and became 135 undated edges. <strong>All 62 edges whose two draws scored differently carry the February score.</strong> That includes all eight graph-resolved drugs from the 12 that moved at least 25 points:</p>
+<ul>
+<li>paclitaxel shows 75 (22 in September), docetaxel 70 (20) and cabazitaxel 70 (14);</li>
+<li>doxorubicin shows 24 (79) and etoposide 22 (71);</li>
+<li>daunorubicin, idarubicin and epirubicin show 20 (67).</li>
+</ul>
+<p>The predicate hides the inversion too, because RGCC’s moderate and low grades both map to <code>partially_sensitive_to_drug</code>. Only 15 agents changed predicate between draws, all natural substances without numeric scores. Of those, only naltrexone resolves to a graph entity, and it now holds both <code>partially_sensitive_to_drug</code> and <code>resistant_to_drug</code>. The other four movers do not resolve at all (Abraxane, liposomal doxorubicin, amrubicin, and mitoxantrone, which RGCC spells “Mitoxandrone”), nor do 65 of the 164 agents overall.</p>
+</li>
+<li>
+<p><strong>Alterations.</strong> Five variants appear on more than one report with differing VAFs. Five of their edges carry the earliest report’s VAF and one matches neither. No alteration edge carries a date.</p>
+</li>
+<li>
+<p><strong>Expression.</strong> Expression edges are dated. Of 13 genes with a regulation call on more than one report, 12 carry the earliest report’s date. And because every report contributes edges, three genes called regulated in January 2024 but normal in September 2025 still carry the regulation edge.</p>
+</li>
+</ul>
+<p>So the model’s input changes only at the predicate level: naltrexone’s double edge and the three stale regulation calls. What a person or the LLM reads off her node, the scores, VAFs and dates, is the February 2025 and January 2024 picture. Validation is unaffected: <code>compute_metrics_crc.py</code> reads per draw from the functional-test tables. The fix is a representation choice, so the issue waits on a decision. The same question is §6 Q8 for repeat Caris panels, and both should get one answer.</p>
+<p><em>(2026-10-04: decided and implemented for RGCC, alterations, expression and resistance factors (GH #701). The rules:</em></p>
+<ul>
+<li><em>Each measurement becomes one edge. Its predicate and headline values come from the latest report, and every report is listed in <code>metadata.observations</code>.</em></li>
+<li><em>A property the reports state differently, such as a variant’s origin, is left unstated and named in <code>disagreeing_fields</code>. Date does not decide it.</em></li>
+<li><em>When the latest reports disagree on the predicate, there is no edge, and the measurement is reported as a conflict.</em></li>
+<li><em>A latest expression call of <code>normal</code> retires an earlier regulation call. Assays never decide for each other.</em></li>
+<li><em>Two measurements that land on one (target, predicate) are merged, with the rest kept under <code>also_from</code>.</em></li>
+</ul>
+<p><em>That answers Q8 for repeat panels. What a variant missing from a later report means is still open: an alteration has no “not detected” call, so its edge stays.)</em></p>
+</li>
+<li>
+<p><strong>The LLM snapshot’s genomics section is undated</strong> (GH #702). <code>_build_genomics_section</code> sorts by gene and emits the variant, VAF and source report, but not <code>report_date</code>. A model reading one variant at two VAFs cannot tell which came first. It is invited into the trap the mission spec’s §7.1 names: VAF across specimens tracks purity, so it is not a trajectory.</p>
+</li>
+</ul>
+<h3 id="83-staleness-classes-not-one-half-life">8.3 Staleness classes, not one half-life<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#83-staleness-classes-not-one-half-life" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The article’s single decay curve fits a lab value and little else in Maureen’s record. What makes a tumor fact stale is usually an <em>event</em>: a recurrence or a new treatment line. The RGCC draws show it. Twelve drugs moved at least 25 points between February and September 2025, as two coherent classes: taxanes down, topoisomerase-II agents up. That interval straddles the August 2025 recurrence and the BREAKWATER start. Seven months of age is a proxy; the regime change is the cause.</p>
+<p>So “half-life per domain” generalizes to a staleness class per predicate:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Class</th><th>A fact is current while…</th><th>Examples in her record</th><th>Article’s decay?</th></tr></thead><tbody><tr><td><strong>Never stale</strong></td><td>always</td><td>germline genotypes, polygenic scores</td><td>No. Decay here would be an error</td></tr><tr><td><strong>Interval</strong></td><td><code>start ≤ as_of ≤ end</code></td><td>medications, treatment episodes, conditions with an abatement date</td><td>No. The interval answers “current?” exactly; decay blurs it</td></tr><tr><td><strong>Epoch</strong></td><td>no treatment-line change or progression event since it was observed</td><td>somatic alterations, tumor expression, RGCC sensitivity, imaging reads</td><td>No. After the next event it is <em>prior-epoch</em>: flagged, not fractionally weighted</td></tr><tr><td><strong>Decaying</strong></td><td>weight <code>0.5 ^ (age / h)</code>, with <code>h</code> set per marker</td><td>CA 19-9, ctDNA MTM/mL, albumin, LDH, blood counts</td><td>Yes. This is the article’s case</td></tr></tbody></table></div>
+<p>Epoch boundaries come from treatment-episode start dates plus dated progression events. Two cautions:</p>
+<ul>
+<li><strong>Assigning a predicate to a class encodes meaning.</strong> Under CLAUDE.md’s rule on vocabulary mappings, that is a judgement call. The table above is a proposal for sign-off, not a decision.</li>
+<li><strong>Weights are computed on read and never stored.</strong> They depend on the as-of date, which is the same reason Gate C stores counts rather than ratios.</li>
+</ul>
+<p><strong>Where a weight could enter the model.</strong> Three slots, in the order to try them:</p>
+<ol>
+<li><strong>Use staleness to decide which edges exist, not how heavy they are.</strong> Materialize current-epoch somatic edges, and leave prior-epoch facts out or under a distinct predicate. No model change, fully auditable, fails closed. Try this first.</li>
+<li><strong>Phase 12’s <code>strength(f, c)</code></strong>, constant 1.0 today, could become <code>s_r · ω(e)</code>. But Phase 12’s defect is sign, not magnitude (its planning doc, <code>pdr2_phase12_per_relation_criterion_planning.md</code>), so <code>ω</code> waits until a signed <code>s_r</code> works.</li>
+<li><strong>ULTRA message passing.</strong> <code>GeneralizedRelationalConv.forward</code> accepts an <code>edge_weight</code> (default ones), but <code>BaseNBFNet.bellmanford</code> never passes one, so this needs plumbing. A foundation trained on all-ones weights would see fractional weights only on her edges, at inference. Whether that behaves is untested; this is an inference, not a result. Try it last.</li>
+</ol>
+<p><strong>For 13.2’s trajectory features, decay belongs inside the feature, not on the fact.</strong> Replace “slope over 90 days” with an exponentially weighted least-squares slope, weighting each point by <code>0.5 ^ (age / h)</code>. A hard 90-day window over monthly draws holds about three points and jumps when one ages out; a soft window changes smoothly. That also answers part of §6 Q3 (uneven sampling).</p>
+<h3 id="84-as-of-builds-the-idea-worth-the-most">8.4 As-of builds: the idea worth the most<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#84-as-of-builds-the-idea-worth-the-most" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>An <code>as_of</code> date on the KGIA profile build and on <code>materialize_patient_kg</code> would hide everything observed after it. The raw rows are already dated (biomarker <code>ts</code>, <code>report_date</code>, <code>collected_date</code>, episode dates), so a profile can be rebuilt for any date on demand.</p>
+<p><strong>Two timelines, which the article does not distinguish.</strong> A fact has a <em>valid time</em>, when it was true of her body (the specimen collection date). It also has a <em>knowledge time</em>, when Maple could have known it (the report or ingest date). A tumor panel is typically reported weeks after its specimen was taken, and it can describe tissue from much earlier. The Altera panel, for example, was reported 2025-02-25, ten days after the 2025-02-15 RGCC date on file. Each use below needs a different timeline. Genomic rows carry only a report date, so valid time for them means adding the collection date, which is printed on each report.</p>
+<p>Three uses:</p>
+<ol>
+<li>
+<p><strong>Decision-time snapshots (§6 Q9), on knowledge time.</strong> A recommendation records its <code>as_of</code>, and anyone can rebuild exactly the inputs it saw. That answers Q9 without a materialized snapshot table.</p>
+</li>
+<li>
+<p><strong>Feature–label alignment, on valid time.</strong> Since 13.1, the profile always takes the latest value; the patient graph keeps the oldest (§8.2), so neither is aligned with both draws. And the February 2025 RGCC draw is scored against a profile containing the tumor panel reported in September 2025, seven months after that draw. The draws are evaluated separately; their features are not. With <code>as_of</code>, each draw pairs with the profile as of its own date:</p>
+<ul>
+<li>February 2025 with the January 2024 tumor profile and the February 2025 panels;</li>
+<li>September 2025 with the panel reported 2025-09-13, six days before the 2025-09-19 draw, and most likely run on tissue from the 2025-08-25 excision (to confirm from the report).</li>
+</ul>
+</li>
+<li>
+<p><strong>A within-patient longitudinal test.</strong> Two as-of profiles give two rankings, and two draws give two label sets. The test asks whether the <em>change</em> in ranking tracks the <em>change</em> in measured sensitivity: taxanes down, topoisomerase-II agents up. It is patient-specific, needs no second patient, and the 12 drugs that moved ≥25 points give it a sharp contrast. Its limits:</p>
+<ul>
+<li>n is small;</li>
+<li>only the somatic channels differ between the two profiles, since the polygenic scores are constant;</li>
+<li>RGCC measures circulating tumor cells, while the profile describes tissue;</li>
+<li>it is premature until the base ranker shows a clean signal, and smoke run #1’s clean holdout showed none.</li>
+</ul>
+<p>The design costs nothing to keep ready, and it is a candidate closure criterion for §5.</p>
+</li>
+</ol>
+<p>As-of filtering is necessary, not sufficient. The profile must also be scoped to the colorectal primary, because her separate melanoma primary has its own specimens and dates. A date filter alone cannot tell two cancers apart. The expression builder already scopes to the index cancer (<code>ExpressionScope</code>, GH #212), and an as-of build has to keep that scope, not replace it.</p>
+<p><strong>The same idea applied to the graph.</strong> PrimeKG is a 2023 snapshot whose edges carry no dates. A time-split evaluation would hold out indications approved after the snapshot as positives and ask whether the foundation ranks them high. That needs a dated approvals list from outside the graph, such as FDA approval dates. It tests the base ranker, not personalization, but at population scale rather than on her 112 drugs. <code>mods_kg_source</code> records a <code>version</code> and an <code>ingested_at</code>, but no upstream release date. Recording one would also let the Explorer and the LLM say “per PrimeKG (2023)” instead of stating a fact undated.</p>
+<h3 id="85-conflicts-the-latest-wins-only-when-the-thing-was-measured-again">8.5 Conflicts: the latest wins only when the thing was measured again<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#85-conflicts-the-latest-wins-only-when-the-thing-was-measured-again" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The article’s own example shows the hazard. Three assertions about one fact within a few weeks get weights 0.9812, 0.9775 and 0.9738. The “answer” turns on a 0.4% difference, that is, on which source wrote last. That is tie-breaking by date, which Maple refuses for anything feeding the model or a clinical view. Two cases have to be kept apart:</p>
+<ul>
+<li>
+<p><strong>State measured again.</strong> A later lab, ctDNA draw, RGCC draw or re-biopsy describes a later state. Taking the latest as of a date is the definition of “current”, not a tie-break. 13.1 does this.</p>
+</li>
+<li>
+<p><strong>Conflicting assertions about the same state.</strong> Here recency is not evidence:</p>
+<ul>
+<li>the duplicate Signatera documents (21 documents, 19 draws);</li>
+<li>the CA 19-9 of 78 on 2026-03-16, between 23 and 22, with null rows the same day. It is a probable mis-parse, and a freshness ranker would promote it.</li>
+<li>trial status: the BATTMAN enrollment press releases are still live, so a retriever dating them by fetch time would rank them fresh, while ClinicalTrials.gov says terminated. Authority decides, not age.</li>
+<li>VAFs across specimens: a later one supersedes nothing.</li>
+</ul>
+<p>Resolve by source authority, then by agreement between sources. If neither settles it, show both and refuse to pick.</p>
+</li>
+</ul>
+<h3 id="86-dated-facts-in-the-prompt">8.6 Dated facts in the prompt<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#86-dated-facts-in-the-prompt" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The article’s last step is the one Maple’s clinical LLM path can use directly:</p>
+<ul>
+<li>Every fact the LLM sees should carry its observation date, and the snapshot its as-of date.</li>
+<li>Facts that are prior-epoch or decaying should say so.</li>
+</ul>
+<p>The article’s alternative, passing only the top-weighted fact, is the wrong half of its advice for clinical use. Hiding the prior value hides the trajectory, which §1 argues is often the signal. Pass the latest value with its predecessors, dated. Apart from the genomics gap in §8.2, <code>mods_snapshot_service</code> already does this.</p>
+<h3 id="87-beyond-phase-13-maples-own-memory">8.7 Beyond Phase 13: Maple’s own memory<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#87-beyond-phase-13-maples-own-memory" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The article is about retrieval, and Maple’s vector memory is a retrieval system. It already has recency ranking, salience decay and a <code>superseded_by</code> stamp from consolidation merges. Migration 095 dropped its <code>valid_from</code>/<code>valid_to</code> columns as unused. Its decay is keyed on <em>last access</em> (by default ×0.9 per 30 days unread, floor 0.1), not on the age of the assertion.</p>
+<p>The gap the article exposes is supersession, not decay. On 2026-10-03 the session-start digest served two notes side by side: “CLOSED (GH #371): … frequency route yields 8.48%”, and the note that overturns that conclusion (GH #404). Both sit in the pinned/high-salience set, written a day apart. No half-life can separate notes a day apart; only an explicit link can. The older note is still partly right (<code>hm_source</code> still cannot orient palindromes), so the link has to be per-claim, or at least visible in the digest. This belongs in <code>memory_architecture.md</code>, not in Phase 13.</p>
+<h3 id="88-changes-to-the-phase-13-plan">8.8 Changes to the Phase 13 plan<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#88-changes-to-the-phase-13-plan" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Item</th><th>Change</th><th>Status</th></tr></thead><tbody><tr><td>13.1</td><td>Snapshot sort fix</td><td><strong>Shipped</strong> (checked in code 2026-10-03)</td></tr><tr><td>13.1b <em>(new)</em></td><td><strong>Date every patient edge, and stop keeping the oldest.</strong> RGCC, alteration and expression edges get their observation date and report id, with repeat observations kept rather than colliding (GH #701). Prod shows the oldest observation winning today (§8.2). The LLM genomics section gets <code>report_date</code> (GH #702). An ingest check flags any observation dated after its own ingest</td><td>patient edges fixed (GH #701, 2026-10-04); #702 and the ingest check open</td></tr><tr><td>13.1c <em>(new)</em></td><td><strong><code>as_of</code> on profile build and patient-KG materialization,</strong> on both timelines (§8.4). Recommendations record the <code>as_of</code> they used</td><td>not started</td></tr><tr><td>13.2</td><td>Exponentially weighted trajectory features, with <code>h</code> per marker. CA 19-9 replaces CEA as the first series. ctDNA MTM/mL follows once GH #131 lands. The staleness table (§8.3) defines “current”</td><td>design; table needs sign-off</td></tr><tr><td>§5</td><td>Within-patient longitudinal test (§8.4, use 3) as a closure-criterion candidate, gated on a clean base signal</td><td>design</td></tr><tr><td>—</td><td>Time-split evaluation of the graph; upstream release date on <code>mods_kg_source</code></td><td>option, not scheduled</td></tr><tr><td>—</td><td><strong>One shared RGCC reader</strong> (Richard, 2026-10-04: “a centralized place to publish the RGCC data, so the logic is only in one place”). A small module returning dated per-draw rows, a latest-draw view, same-date conflicts refused, and one name-alias map. Each reader (patient graph, scoring, metro #750, embedding, calibration, viz) adopts it when next touched; no big-bang refactor</td><td>wishlist</td></tr></tbody></table></div>
+<p>None of this is on the current critical path (GH #599: earn a signal, ship a list):</p>
+<ul>
+<li>The two date gaps and the <code>as_of</code> parameter are the cheapest items with direct value.</li>
+<li>The within-patient test is the item that could help <em>earn</em> a signal, once there is one to earn.</li>
+</ul>
+<h4 id="parallelization-analysis">Parallelization analysis<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#parallelization-analysis" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ol>
+<li><strong>Surfaces touched.</strong>
+<ul>
+<li>Yes: backend services (<code>mods_patient_kg_service.py</code>, <code>mods_snapshot_service.py</code>, <code>mods_kgia_profile_service.py</code>), tests, docs.</li>
+<li>Only if an option is taken: a migration (an upstream release date on <code>mods_kg_source</code>, unless it goes in <code>metadata</code>); the MCP tools (only if <code>as_of</code> is exposed there).</li>
+<li>No: frontend, worker handlers, DB-stored config.</li>
+</ul>
+</li>
+<li><strong>Parallel split.</strong>
+<ul>
+<li>The two 13.1b issues are independent of each other and of 13.1c.</li>
+<li>13.2 waits on the staleness-table sign-off.</li>
+<li>The longitudinal test waits on 13.1c and on a base signal.</li>
+</ul>
+</li>
+<li><strong>Collision hotspots.</strong> <code>backend/migrations.py</code>, and only if the release date becomes a column. Nothing else on the list.</li>
+<li><strong>How to verify each surface.</strong>
+<ul>
+<li><strong>RGCC edges:</strong> a unit test with two draws of one drug, in the same class and in a changed class, asserting both observations survive with their dates. Then count her sensitivity edges per drug on prod.</li>
+<li><strong>Snapshot:</strong> a unit test that <code>report_date</code> is emitted, newest first.</li>
+<li><strong><code>as_of</code>:</strong> a unit test that a row dated after <code>as_of</code> is excluded, and a rebuild as of 2025-03-01 that contains no September 2025 tumor data.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="9-cross-references">9. Cross-references<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-cross-references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">PDR_PIPELINE_PLAN.md</a> — master plan; Phase 13 stub points here.</li>
+<li><a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">pdr_phase8.5_variant_kg_planning.md</a> — variant-aware KG; complementary.</li>
+<li><a href="../results/pdr_phase0_gpkg_writeup" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_writeup">pdr_phase0_gpkg_writeup.md</a> — writeup template for Phase 13 closure documentation.</li>
+<li><code>backend/mods_kgia_profile_service.py</code> — site of the snapshot policy bug for 13.1.</li>
+<li><code>backend/mods_snapshot_service.py</code> — patient snapshot builder; preserves full trajectory (correctly).</li>
+<li><code>docs/References/PDR1/patient_merge.py</code> — paper precedent (PRS + biomarker scalars, no temporal).</li>
+<li><code>docs/References/PDR2/</code> — paper precedent (KGIA loss with genetic + biomarker scalars, no temporal).</li>
+</ul></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-64" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#phase-13--temporal-patient-state-modeling--planning-document" data-for="phase-13--temporal-patient-state-modeling--planning-document">Phase 13 — Temporal Patient State Modeling — Planning Document</a></li><li class="depth-1"><a href="#1-problem-statement" data-for="1-problem-statement">1. Problem statement</a></li><li class="depth-2"><a href="#what-the-papers-do-and-dont" data-for="what-the-papers-do-and-dont">What the papers do (and don’t)</a></li><li class="depth-2"><a href="#why-this-matters-specifically-for-maureen" data-for="why-this-matters-specifically-for-maureen">Why this matters specifically for Maureen</a></li><li class="depth-1"><a href="#2-the-five-tier-framework" data-for="2-the-five-tier-framework">2. The five-tier framework</a></li><li class="depth-2"><a href="#tier-1--trajectory-features-as-static-node-attributes" data-for="tier-1--trajectory-features-as-static-node-attributes">Tier 1 — Trajectory features as static node attributes</a></li><li class="depth-2"><a href="#tier-2--multi-snapshot-training" data-for="tier-2--multi-snapshot-training">Tier 2 — Multi-snapshot training</a></li><li class="depth-2"><a href="#tier-3--time-stamped-edges-temporal-knowledge-graph" data-for="tier-3--time-stamped-edges-temporal-knowledge-graph">Tier 3 — Time-stamped edges (Temporal Knowledge Graph)</a></li><li class="depth-2"><a href="#tier-4--patient-as-node-with-trajectory-encoded-embedding-recommended-target" data-for="tier-4--patient-as-node-with-trajectory-encoded-embedding-recommended-target">Tier 4 — Patient-as-node with trajectory-encoded embedding (recommended target)</a></li><li class="depth-2"><a href="#tier-5--full-continuous-time-dynamic-graph" data-for="tier-5--full-continuous-time-dynamic-graph">Tier 5 — Full continuous-time dynamic graph</a></li><li class="depth-1"><a href="#3-recommendation" data-for="3-recommendation">3. Recommendation</a></li><li class="depth-1"><a href="#4-why-cea-is-the-concrete-first-test-case" data-for="4-why-cea-is-the-concrete-first-test-case">4. Why CEA is the concrete first test case</a></li><li class="depth-1"><a href="#5-closure-criteria" data-for="5-closure-criteria">5. Closure criteria</a></li><li class="depth-1"><a href="#6-open-questions" data-for="6-open-questions">6. Open questions</a></li><li class="depth-1"><a href="#7-suggested-next-steps-for-the-planning-session" data-for="7-suggested-next-steps-for-the-planning-session">7. Suggested next steps for the planning session</a></li><li class="depth-1"><a href="#8-temporal-graph-rag-ideas-evaluated-one-by-one-2026-10-03" data-for="8-temporal-graph-rag-ideas-evaluated-one-by-one-2026-10-03">8. Temporal Graph-RAG ideas, evaluated one by one (2026-10-03)</a></li><li class="depth-2"><a href="#81-verdicts" data-for="81-verdicts">8.1 Verdicts</a></li><li class="depth-2"><a href="#82-dated-facts-what-the-code-already-does-and-two-gaps" data-for="82-dated-facts-what-the-code-already-does-and-two-gaps">8.2 Dated facts: what the code already does, and two gaps</a></li><li class="depth-2"><a href="#83-staleness-classes-not-one-half-life" data-for="83-staleness-classes-not-one-half-life">8.3 Staleness classes, not one half-life</a></li><li class="depth-2"><a href="#84-as-of-builds-the-idea-worth-the-most" data-for="84-as-of-builds-the-idea-worth-the-most">8.4 As-of builds: the idea worth the most</a></li><li class="depth-2"><a href="#85-conflicts-the-latest-wins-only-when-the-thing-was-measured-again" data-for="85-conflicts-the-latest-wins-only-when-the-thing-was-measured-again">8.5 Conflicts: the latest wins only when the thing was measured again</a></li><li class="depth-2"><a href="#86-dated-facts-in-the-prompt" data-for="86-dated-facts-in-the-prompt">8.6 Dated facts in the prompt</a></li><li class="depth-2"><a href="#87-beyond-phase-13-maples-own-memory" data-for="87-beyond-phase-13-maples-own-memory">8.7 Beyond Phase 13: Maple’s own memory</a></li><li class="depth-2"><a href="#88-changes-to-the-phase-13-plan" data-for="88-changes-to-the-phase-13-plan">8.8 Changes to the Phase 13 plan</a></li><li class="depth-1"><a href="#9-cross-references" data-for="9-cross-references">9. Cross-references</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../kg/kg_anchor_scoping_planning" class="internal">KG Anchor Scoping</a></li><li><a href="../maplelog/2026-05-23-a-month-later" class="internal">2026-05-23 · A Month Later</a></li><li><a href="../model/pdr_personalization_writeup" class="internal">PDR Personalization — Technical Writeup</a></li><li><a href="../results/protein_biomarker_expression_writeup" class="internal">Protein Biomarker Expression in MODS</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

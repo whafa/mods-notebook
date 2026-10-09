@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Patient-as-a-Node — Thinking Doc</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Patient-as-a-Node — Thinking Doc"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Patient-as-a-Node — Thinking Doc"/><meta name="twitter:description" content="Whether the patient should be a first-class graph entity, argued both ways and deliberately left open."/><meta property="og:description" content="Whether the patient should be a first-class graph entity, argued both ways and deliberately left open."/><meta property="og:image:alt" content="Whether the patient should be a first-class graph entity, argued both ways and deliberately left open."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/planning/paan_planning"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/planning/paan_planning"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Whether the patient should be a first-class graph entity, argued both ways and deliberately left open."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/planning/paan_planning-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/planning/paan_planning-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/planning/paan_planning-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="planning/paan_planning" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-82" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-82" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../planning/">planning</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Patient-as-a-Node — Thinking Doc</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-24</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">planning</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Whether the patient should be a first-class graph entity, argued both ways and deliberately left open.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.316Z">Oct 09, 2026</time><span>39 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="patient-as-a-node-paan-thinking-doc">Patient-as-a-Node (PaaN): Thinking Doc<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#patient-as-a-node-paan-thinking-doc" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<blockquote>
+<p><strong>Status:</strong> thinking artifact, not a build commitment. We answered “should we build?” with “keep thinking.” This doc captures the full reasoning so we can revisit when we’re ready to commit.</p>
+</blockquote>
+<h2 id="context">Context<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#context" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>You asked four interlocking questions and we surfaced several more along the way:</p>
+<ol>
+<li><strong>Refresh on PaaN.</strong> What have we been planning? Is “patient → has → disease/gene/phenotype” the right schema? To what end?</li>
+<li><strong>PDR2’s loss function — really.</strong> How is patient genetics actually integrated during training? Is it PRS? What else? And — important — why does the <code>PersonalizedRepurposingLoss</code> code exist but never run?</li>
+<li><strong>What could we attach to a Patient node</strong> that PDR2 didn’t have? <em>And what could we acquire that PDR2 didn’t even consider, given access to any test in the developed world?</em></li>
+<li><strong>Where have other researchers wandered?</strong> What’s the literature say?</li>
+<li><strong>Supervision</strong> — what does it mean in ML, and what’s the landscape of supervision-producing tests we could use?</li>
+<li><strong>Node vs subgraph</strong> — what’s the real distinction?</li>
+<li><strong>Compositions reframe everything.</strong> Maureen isn’t an overlay on PrimeKG; she’s an overlay on whatever <em>Composition</em> we’re training against.</li>
+</ol>
+<p>Underneath all of it is the real question: <strong>should PaaN remain a distant “Phase 12 / final stage” or do we start building an imperfect-but-working prototype now?</strong> Decision: not yet — but we now know what “yet” looks like.</p>
+<hr/>
+<h2 id="0-a-note-on-the-pdr2-framing">0. A note on the PDR2 framing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#0-a-note-on-the-pdr2-framing" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>PDR2 (<a href="https://doi.org/10.1016/j.jbi.2026.105039" class="external external-link">paper<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>) already is a patient-as-a-node architecture. I had this wrong twice. The corrected mechanistic description is in §5. What PDR2 specifically did:</p>
+<ul>
+<li><strong>Patient nodes</strong> with <code>WAS_DIAGNOSED</code> edges to disease nodes, added to the training KG so the foundation model learns patient embeddings from epoch 1.</li>
+<li><strong>PRS values + biomarker expressions</strong> are NOT in the graph — they’re scalar feature vectors used by the loss.</li>
+<li><strong>Per-patient fine-tune</strong> freezes the foundation and trains only 1,802 weights inside the loss (per-disease + per-protein) that reweight the global ranking based on the patient’s features.</li>
+<li>AUPRC lifts reported as 1.3–5.4× across three case patients; MRR/Hits stay similar.</li>
+<li>Validation by literature review only — no per-patient outcome labels like our RGCC.</li>
+</ul>
+<p>Our PaaN ambition is <strong>richer than PDR2’s</strong> in two ways:</p>
+<ol>
+<li><strong>More patient edges</strong> — variants, treatments, drug sensitivities, in addition to diagnoses.</li>
+<li><strong>Real per-patient supervision</strong> — RGCC drug sensitivities as labels, not just literature review.</li>
+</ol>
+<p>The rest of this doc is structured as if from scratch — refreshing what we’ve been thinking, then sketching how to do something genuinely beyond PDR2.</p>
+<hr/>
+<h2 id="1-the-mental-model--maureen-as-overlay-on-a-composition">1. The mental model — Maureen as overlay on a Composition<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-the-mental-model--maureen-as-overlay-on-a-composition" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>This is the central reframe. My memories predated <strong>Compositions</strong>, so I was sketching as if PrimeKG were the only target graph. It isn’t.</p>
+<p>A <strong>Composition</strong> is a named, versioned recipe — “use these KG sources, apply these per-source domain/predicate filters” (<a href="../kg/kg_composition_pipeline_writeup" class="internal internal-link alias" data-slug="kg/kg_composition_pipeline_writeup">docs/kg_composition_pipeline_writeup.md</a>). Six exist already: <code>gp_kg_baseline_v1</code>, <code>primekg_baseline_v1</code>, <code>rtx_kg2_full</code>, <code>rtx_kg2_tier1</code>, <code>tier1_mvp_v1</code>, <code>tier1_mvp_with_primekg_v1</code>. Training runs point at a composition by id; the same canonical store backs every experiment.</p>
+<p>The right mental model is:</p>
+<pre><code>┌──────────────────────────────────────────────┐
+│  Composition (e.g. tier1_mvp_with_primekg)   │   the underlying graph
+│  ├─ PrimeKG (genes, drugs, diseases, ...)    │   chosen sources × domains × predicates
+│  ├─ CIViC (variants)                         │
+│  ├─ OncoKB (variants, biomarkers)            │
+│  └─ PharmGKB (PGx)                           │
+└──────────────────────────────────────────────┘
+                    ⊕ overlay
+┌──────────────────────────────────────────────┐
+│  Maureen (her node + her edges)              │   patient overlay (attachable to any composition)
+│  ├─ patient → has_disease → CRC              │
+│  ├─ patient → carries_variant → BRAF V600E   │
+│  ├─ patient → over_expresses → PTGS2 (z=3.1) │
+│  ├─ patient → tried_drug → FOLFOX (no_resp)  │
+│  └─ patient → sensitive_to → drug_X (RGCC)   │
+└──────────────────────────────────────────────┘
+                    ↓ train / infer
+              Composition + Maureen
+              (or Composition alone, with Maureen attached only at inference)
+</code></pre>
+<p>This matters because:</p>
+<ul>
+<li>We’re not committing to PrimeKG. We’re committing to <em>the geometry of the chosen composition</em>. Different compositions have different entity types and relations available; Maureen’s edge schema has to work against any of them.</li>
+<li>Maureen is <strong>optional</strong>. Same training pipeline runs with or without her node attached. With her: patient-aware loss kicks in. Without her: standard KG link prediction (today’s PDR2 path).</li>
+<li>The <strong>anchor scoping</strong> machinery already planned in <a href="../kg/kg_anchor_scoping_planning" class="internal internal-link alias" data-slug="kg/kg_anchor_scoping_planning">docs/kg_anchor_scoping_planning.md</a> (Phase F) does <em>not</em> replace PaaN — it’s an analysis/filter/explain layer that works on top of any composition. PaaN (Phase 12) is the actual training-time architecture; Phase F is the post-prediction tooling. Both stay useful; they answer different questions.</li>
+<li><strong>Browsability</strong>: same UI as the KG Composition tab. Maureen gets a card; click and you see her resolved CURIEs, her edges by type, her 1-hop neighborhood. No separate UI needed.</li>
+</ul>
+<hr/>
+<h2 id="2-refresh-on-prior-thinking">2. Refresh on prior thinking<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-refresh-on-prior-thinking" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The PaaN concept lives across four planning docs. None stand alone — they form a chain:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Phase</th><th>Doc</th><th>What it covers</th><th>Status</th></tr></thead><tbody><tr><td>8.5</td><td>[[kg/pdr_phase8.5_variant_kg_planning</td><td>pdr_phase8.5_variant_kg_planning.md]]</td><td>Variants as first-class entities — prerequisite for variant-aware patient edges</td></tr><tr><td>F</td><td>[[kg/kg_anchor_scoping_planning</td><td>kg_anchor_scoping_planning.md]]</td><td>Patient anchor sets → reachability subgraphs for inspection, inference filtering, explainability, per-patient fine-tune. <strong>Phase F.7 is the per-patient fine-tune use case</strong></td></tr><tr><td>12</td><td><code>PDR_PIPELINE_PLAN.md</code> § Phase 12</td><td>Patient as an actual node in the training graph — the “holy grail” stage</td><td>Mentioned, not fully designed</td></tr><tr><td>13</td><td>[[planning/temporal_patient_modeling_planning</td><td>the temporal-modeling plan]]</td><td>Temporal trajectory encoder for the patient node (four tiers)</td></tr></tbody></table></div>
+<p>Two distinctions worth pinning down:</p>
+<ul>
+<li>
+<p><strong>Phase F vs Phase 12.</strong> Phase F is patient-centric subgraph extraction for analysis tasks — explaining a prediction, filtering candidates, building a per-patient fine-tune slice. The Phase F doc is explicit: it does <strong>not</strong> define the production training set, because that would kill discovery. Phase 12 is the architectural change — putting Maureen in the graph as a trained node and changing the loss accordingly. Phase F is “use a knife on the graph”; Phase 12 is “change the graph.”</p>
+</li>
+<li>
+<p><strong>The “has” edge schema we sketched.</strong> Phase 8.5 proposes edge types like <code>variant_of_gene</code>, <code>predicts_response_to</code>, <code>has_significance</code>. But the patient→variant connection itself isn’t explicit yet. Three options:</p>
+<ul>
+<li>(a) Implicit composition: <code>Patient → DYSREGULATED_GENE → Gene → VARIANT</code> — current sketch</li>
+<li>(b) Explicit: <code>Patient → CARRIES_VARIANT → Variant</code></li>
+<li>(c) Both: <code>Patient → CARRIES_VARIANT → Variant → variant_of_gene → Gene</code></li>
+</ul>
+<p>Your earlier note: “the variant info is critically discriminating and absolutely needed for MVP.” That implies (c) — explicit variant edges <em>and</em> the variant→gene chain. Phase 8.5 must ship before the MVP can be meaningful.</p>
+</li>
+</ul>
+<hr/>
+<h2 id="3-node-vs-subgraph--what-the-real-distinction-is">3. Node vs subgraph — what the real distinction is<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-node-vs-subgraph--what-the-real-distinction-is" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>You pushed back, rightly, that a subgraph is just one or more nodes connected to the graph. Let me re-do this distinction.</p>
+<p>Every set of nodes induces a subgraph in graph theory — that’s not what makes one pattern different from the other. The real distinction is <strong>identity</strong>:</p>
+<ul>
+<li><strong>Patient as an explicit node</strong>: Maureen has her own row in <code>mods_kg_entity</code>. She has a canonical CURIE (e.g., <code>MAPLE_PATIENT:maureen-001</code>). She has an entity_type. Edges <em>from</em> and <em>to</em> her are first-class rows in <code>mods_kg_relation</code>. The model can score <code>(maureen, treats?, drug_X)</code> as a triple. She is <em>one thing</em> in the graph.</li>
+<li><strong>Patient as a subgraph (SHEPHERD pattern)</strong>: Maureen has no node of her own in the KG. She’s represented by <em>the set of pre-existing nodes that describe her</em> — her phenotypes, her variants, her diseases. The model embeds her by pooling over that set. The patient is <em>implicit in a collection of edges</em>, not first-class.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Trade-off</th><th>Explicit node</th><th>Implicit subgraph</th></tr></thead><tbody><tr><td>Scoring <code>(patient, *, drug)</code> as a query</td><td>Direct triple</td><td>Need to pool over patient’s neighborhood, then score</td></tr><tr><td>Per-patient edges (RGCC, treatment history)</td><td>Naturally live on her node</td><td>Awkward — they’re either edges on existing nodes (e.g., gene→drug) or live outside the graph entirely</td></tr><tr><td>Inductive on a new patient</td><td>Hard for transductive entity embeddings, fine for NBFNet-style message passing</td><td>Trivial — just compute the subgraph</td></tr><tr><td>Browse “this patient in the graph”</td><td>Click her node, see her neighborhood — same UX as any KG entity</td><td>Need a join across her CURIEs</td></tr><tr><td>Schema invasiveness</td><td>New entity type + edge types + migration</td><td>Zero schema change</td></tr><tr><td>The “anchor” loss pattern you described</td><td>Natural — her node embedding is the anchor every gradient step references</td><td>Less obvious — what gets anchored? An aggregate of her CURIEs?</td></tr></tbody></table></div>
+<p>For our setup the explicit-node pattern wins, primarily because (1) you want her browsable like a KG entity, (2) RGCC sensitivities and treatment history are most natural as edges on her, and (3) “patient as anchor in training” needs her to have a single embedding the loss can reference. The SHEPHERD subgraph pattern stays useful for cases where you want to drop in a <em>new</em> patient without schema work — relevant if we ever extend beyond one patient.</p>
+<hr/>
+<h2 id="4-supervision--a-standalone-primer">4. Supervision — a standalone primer<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-supervision--a-standalone-primer" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Supervision shows up in every ML conversation, often without anyone defining it. Here it is from first principles, then mapped to our setup.</p>
+<h3 id="what-supervision-means-in-ml">What “supervision” means in ML<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-supervision-means-in-ml" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Training a neural network is just <strong>gradient descent on a loss function</strong>. The loss measures how wrong the model’s predictions are. The model adjusts its parameters in whatever direction reduces the loss.</p>
+<p>Where does the loss come from? You need pairs of (input, target_output). The model takes an input, produces a prediction, compares it to the target, computes a loss. Across millions of these pairs, the model’s parameters drift toward reproducing the targets from the inputs.</p>
+<p><strong>Supervision</strong> is the <em>source</em> of those targets. If we have explicit labels — like “this drug worked, this didn’t” — that’s supervised learning. If we don’t, we either find another way to generate targets or do without.</p>
+<h3 id="types-of-supervision">Types of supervision<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#types-of-supervision" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Type</th><th>Where targets come from</th><th>Example in our setup</th></tr></thead><tbody><tr><td><strong>Supervised</strong></td><td>Explicit human/instrument-provided labels</td><td>Maureen’s RGCC drug sensitivities (% cell death per drug)</td></tr><tr><td><strong>Self-supervised</strong></td><td>Derived from the input data itself</td><td>KG link prediction: “is this triple true?” — corrupt a true triple, train the model to distinguish corrupted from real. This is <strong>what PDR2 does today.</strong></td></tr><tr><td><strong>Weakly supervised</strong></td><td>Noisy, partial, or proxy labels</td><td>”Drug was prescribed” → assumes it worked. “More sources assert this edge” → assumes it’s true.</td></tr><tr><td><strong>Semi-supervised</strong></td><td>Small labeled + large unlabeled</td><td>RGCC’s 224 labels (112 drugs x 2 draws) + millions of KG triples</td></tr><tr><td><strong>Contrastive / metric learning</strong></td><td>Pairs of similar/dissimilar items</td><td>SHEPHERD’s “match this patient to her causal gene”</td></tr><tr><td><strong>Reinforcement</strong></td><td>Rewards over a sequence of actions</td><td>Treatment-decision policies — not where we are yet</td></tr></tbody></table></div>
+<p>The PDR2 foundation training is self-supervised over the KG: it generates negative samples by corruption and asks the model to rank positives above negatives. No human labels needed. <strong>This is why PDR2 can be trained on huge KGs at all</strong> — labels for “does drug X treat disease Y” don’t exist at scale.</p>
+<h3 id="what-supervision-the-paan-architecture-would-add">What supervision the PaaN architecture would <em>add</em><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-supervision-the-paan-architecture-would-add" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>If we put Maureen in the graph and the loss objective includes terms that involve her edges, we’d add:</p>
+<ol>
+<li><strong>Patient-edge link prediction</strong> — “is <code>(maureen, sensitive_to, drug_X)</code> a true triple given the rest of her edges?” Self-supervised in the same way as PDR2’s existing loss. Her RGCC edges supply the positives.</li>
+<li><strong>Drug-sensitivity regression</strong> — predict her actual % cell death given the drug. <em>Truly supervised</em> — direct labels.</li>
+<li><strong>Treatment-outcome classification</strong> — given a drug she tried, predict the response category (CR/PR/SD/PD/intolerant). Supervised but small N.</li>
+<li><strong>Auxiliary cross-source corroboration</strong> — predict “what fraction of KG sources support this edge” as a soft label. Weakly supervised.</li>
+</ol>
+<h3 id="supervision-producing-tests--what-we-have-and-what-we-could-order">Supervision-producing tests — what we have and what we could order<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#supervision-producing-tests--what-we-have-and-what-we-could-order" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The detailed landscape lives in the supervision-tests appendix. Summary by category, with <strong>(input → output)</strong> supervision pairs called out:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Category</th><th>What we currently have on Maureen</th><th>What we could order (with the strongest single supervision signal)</th></tr></thead><tbody><tr><td><strong>Genomic DNA/RNA</strong></td><td>Caris WES + WTS (23K+ genes), 9 alterations + 176 expressions</td><td><strong>Tempus xT/xR</strong> (second WTS for confidence); <strong>Methylation EPIC v2</strong> → tumor classifier (95% acc, 184 subclasses); <strong>scRNA-seq</strong> → per-clone drug sensitivity (scDEAL, scPDS)</td></tr><tr><td><strong>Liquid biopsy / MRD</strong></td><td>None</td><td><strong>Signatera</strong> longitudinal (Pt-specific, sens 88%) → recurrence label months ahead of imaging; <strong>Guardant Reveal</strong> → therapy response monitoring</td></tr><tr><td><strong>Pharmacogenomics</strong></td><td>None tracked structurally</td><td><strong>OneOme RightMed</strong> → DPYD/UGT1A1 for 5-FU/irinotecan toxicity — Pt-specific, lifetime-valid, one-time test. <em>Most under-used CRC-relevant supervision source we don’t have.</em></td></tr><tr><td><strong>Functional drug screens</strong></td><td>224 RGCC values (112 drugs x 2 draws)</td><td><strong>Patient-derived organoid (PDO)</strong> panels (OPTIC trial-validated for CRC, 2026); <strong>Travera mass-response</strong> (~80% acc, days TAT); <strong>PDX panel</strong> (slow but most-correlated with patient response — 92%/65%/61% concordance for irinotecan/bev/cetuximab)</td></tr><tr><td><strong>Proteomics</strong></td><td>None</td><td><strong>Olink Explore 3072</strong> (~3000 proteins, pre-Dx LC AUC 0.76–0.90 in UK Biobank) — orthogonal to genomic and would close a major modality gap</td></tr><tr><td><strong>Immune profiling</strong></td><td>RGCC immune frame markers</td><td><strong>Adaptive immunoSEQ</strong> (TCR-β clonotype) → ICI response priors. Less relevant for MSS CRC but valuable for any ICI consideration</td></tr><tr><td><strong>Microbiome</strong></td><td>None</td><td>Gut metagenomics → ICI response priors. Modest signal for MSS CRC, but cheap and consumer-grade options exist</td></tr><tr><td><strong>Imaging-derived</strong></td><td>RECIST tracked clinically</td><td><strong>Delta-radiomics</strong> (CT/PET features pre/post Tx) — AUC 0.77–0.89 for response; per-scan supervision</td></tr><tr><td><strong>Longitudinal clinical</strong></td><td>Treatment episodes, CEA, encounters</td><td>CEA delta (functionally a cheap weekly RECIST surrogate, ~10× higher temporal resolution than RECIST itself)</td></tr><tr><td><strong>N-of-1 designs</strong></td><td>None structured</td><td><strong>Anti-EGFR rechallenge</strong> in RAS-WT (Maureen is RAS <strong>wild-type</strong> and is on cetuximab, so this design class <em>does</em> apply to her)</td></tr><tr><td><strong>Computational</strong></td><td>None</td><td><strong>CMap/LINCS signature reversal</strong> — input her WTS, get a ranked list of drugs that reverse her tumor’s expression signature. Population-level priors, but uses her data directly. We have the WTS; CMap is public.</td></tr></tbody></table></div>
+<p>The <strong>single-patient pitfall</strong> (the central methodological risk): a model fit to one person’s labels memorizes her, not biology. Defensive principles:</p>
+<ol>
+<li><strong>Train on population, validate on patient.</strong> Foundation model trains on KG (population-level); Maureen’s labels are mostly used at inference and validation.</li>
+<li><strong>Functional screens as labels, not features.</strong> RGCC’s 224 drug sensitivities are <em>held-out evaluation</em>, not training input — otherwise we overfit to RGCC’s specific assay conditions, not patient outcomes.</li>
+<li><strong>Triangulate across orthogonal modalities.</strong> A drug ranked high by KG reasoning, LINCS signature reversal, <em>and</em> PDO screen is robust. Any single source overfits.</li>
+<li><strong>Pre-register rank lists.</strong> Freeze top-30 before exposure to outcomes. Confirmation bias contaminates everything otherwise.</li>
+<li><strong>Negative controls.</strong> Include drugs known to be ineffective for CRC and drugs known to be effective. If known-ineffectives score high or known-effectives score low, the model is broken.</li>
+<li><strong>Calibrated uncertainty, not point predictions.</strong> Bayesian posteriors / ensembles / conformal prediction. One-patient point estimates are meaningless.</li>
+</ol>
+<p>This pitfall is what shapes how RGCC and other Pt-specific supervision should be used — as evaluation and as auxiliary supervision, never as the dominant training signal.</p>
+<hr/>
+<h2 id="5-pdr2s-actual-mechanism-after-reading-the-paper">5. PDR2’s actual mechanism (after reading the paper)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-pdr2s-actual-mechanism-after-reading-the-paper" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote>
+<p><strong>Apology in advance</strong>: I had this wrong in two earlier drafts. The paper is now read and the description below is the corrected one. The key correction: <strong>PDR2 IS already a patient-as-a-node architecture</strong> — just a minimal one. I shouldn’t have claimed otherwise.</p>
+</blockquote>
+<p>Source: Oğuztüzün, Gao, Li, Qi, Koyutürk, Xu. <em>Learning to take it personally: Precision drug repurposing through patient-specific loss on knowledge graphs using Biobank data.</em> J. Biomedical Informatics 179 (2026) 105039. <a href="https://doi.org/10.1016/j.jbi.2026.105039" class="external external-link">DOI<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>. And the code at <code>docs/References/PDR2/</code>.</p>
+<h3 id="stage-1--foundation-training-on-gp-kg-with-patient-nodes-already-added">Stage 1 — foundation training on GP-KG with patient nodes already added<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#stage-1--foundation-training-on-gp-kg-with-patient-nodes-already-added" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>GP-KG: 61,146 entities, 1.2M relations, 7 entity types, 9 relation categories. <strong>Plus</strong> patient nodes — one per UK Biobank participant in the cohort (4,124 AD patients aged 50–65), each connected to disease nodes via a <code>WAS_DIAGNOSED</code> relation. About 37 patient edges per individual.</p>
+<p>The foundation is ULTRA, 6 layers, 64-dim hidden, DistMult message passing with sum aggregation, layer normalization + residual connections. Trained 100 epochs (500 batches/epoch, batch 512) with plain BCE-with-logits over link prediction. 10 strict negatives per positive. AdamW lr=5×10⁻⁴, weight decay 10⁻⁴. (Paper §2 “Initial training of foundation model.”)</p>
+<p>The patient edges (<code>WAS_DIAGNOSED</code>) are part of the training KG — the model learns embeddings for patients alongside everything else. So <strong>the patient IS a node, with edges, from the start</strong>.</p>
+<p>What’s NOT in the graph: PRS values, biomarker expression values. Those are “external inputs to the patient-specific loss function.” (Paper §2.)</p>
+<h3 id="stage-2--per-patient-fine-tuning-with-the-personalized-loss">Stage 2 — per-patient fine-tuning with the personalized loss<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#stage-2--per-patient-fine-tuning-with-the-personalized-loss" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>For each of the 4,124 patients (or in the case studies, three representatives — Robin, Zoro, Usopp), a separate fine-tune run.</p>
+<p>Foundation is <strong>frozen</strong> (all 168,705 model parameters). Only 1,802 learnable weights <em>inside the loss</em> are trained — 341 disease weights (one per PRS-aligned disease in GP-KG) + 1,461 protein weights (one per UK Biobank-aligned protein in GP-KG). 93.6× reduction in trainable parameters vs foundation.</p>
+<p>The personalized loss (Paper §2, Eq. 1):</p>
+<pre><code>L = L_pred − λ₁·L_prs − λ₂·L_expr
+
+L_prs  = Σᵢ (wᵢ · PRSᵢ · s_pred)         for each disease i
+L_expr = Σⱼ (vⱼ · (expr_j − ref_j) · s_pred)  for each protein j
+</code></pre>
+<p>Where:</p>
+<ul>
+<li><code>L_pred</code> is standard BCE link prediction loss on the batch</li>
+<li><code>s_pred</code> is the predicted score for <em>the current triple being scored</em> in the batch — <strong>any</strong> triple, not just patient triples</li>
+<li><code>wᵢ</code>, <code>vⱼ</code> are the learnable per-disease and per-protein weights (this is what fine-tuning trains)</li>
+<li><code>PRSᵢ</code>, <code>(expr_j − ref_j)</code> are the patient’s fixed feature values</li>
+<li>The minus signs are because the goal is to <em>maximize</em> the influence of high PRS values and biomarker deviations on relevant drug scores</li>
+</ul>
+<p>So for each triple in the batch, the loss term effectively says: “multiply this triple’s predicted score by a patient-specific scalar that’s a weighted sum of PRS and biomarker deviations, with weights <code>w</code> and <code>v</code> learning which diseases/proteins matter for this patient’s drug ranking.”</p>
+<p>Fine-tuning: 3 epochs, 100 batches/epoch, AdamW lr=10⁻⁴. Patient edges (~37 total) get a 90/10 train/validation split; the biomedical KG split is unchanged across patients. The test set is the KG-only test split — to verify fine-tuning preserves general knowledge.</p>
+<h3 id="reported-results-paper-table-1">Reported results (Paper Table 1)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#reported-results-paper-table-1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Patient</th><th>Best λ</th><th>Baseline AUPRC (no ploss)</th><th>AUPRC with ploss</th><th>Lift</th></tr></thead><tbody><tr><td>Robin</td><td>(0.1, 0.1)</td><td>0.076</td><td><strong>0.251</strong></td><td><strong>3.3×</strong></td></tr><tr><td>Zoro</td><td>(0.5, 0.1)</td><td>0.277</td><td><strong>0.368</strong></td><td><strong>1.3×</strong></td></tr><tr><td>Usopp</td><td>(0.5, 0.1)</td><td>0.065</td><td><strong>0.353</strong></td><td><strong>5.4×</strong></td></tr></tbody></table></div>
+<p>MRR, Hits@1/3/10 stay essentially unchanged across rows (the relation-aware filter limits these metrics). AUPRC is computed under the global / broader candidate pool — that’s where the personalization shows.</p>
+<p><strong>Validation</strong> is by literature review only — no patient-level gold standard. Three patients × top-3 drug candidates each = 9 drugs PubMed-checked for AD-relevant mechanism and patient-profile alignment. One notable independent win: PDR2 predicted <strong>lithium</strong> as a top candidate for Usopp (high bipolar PRS); a <em>Nature</em> 2025 paper (Aron et al., ref [51]) independently validated lithium deficiency as an AD pathogenesis mechanism after PDR2’s experiments completed. That’s a real “predicted something the field hadn’t yet established” outcome.</p>
+<h3 id="what-this-means-for-our-paan-ambition-the-corrected-version">What this means for our PaaN ambition (the corrected version)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-this-means-for-our-paan-ambition-the-corrected-version" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>I was wrong twice over:</p>
+<ul>
+<li><strong>Wrong:</strong> “PDR2 isn’t patient-as-a-node.” Correction: it is. Patient nodes with <code>WAS_DIAGNOSED</code> edges enter the graph from foundation training onward.</li>
+<li><strong>Wrong:</strong> “The personalized loss exists but isn’t used.” Correction: it is used, in a separately-invoked per-patient fine-tune script (<code>--use_ploss</code>).</li>
+<li><strong>Right:</strong> the foundation is frozen during fine-tune; only the loss’s 1,802 weights update.</li>
+</ul>
+<p>So our PaaN ambition isn’t “introduce patient as a node,” it’s “<strong>make the patient a richer node than PDR2’s</strong>”:</p>
+<ul>
+<li>PDR2: ~37 <code>WAS_DIAGNOSED</code> edges only. PRS + biomarkers enter the loss as scalars, not as graph structure.</li>
+<li>Our proposed PaaN: <code>WAS_DIAGNOSED</code> (have it) <strong>plus</strong> <code>carries_variant</code> (we have data, PDR2 didn’t), <code>over_expresses</code> / <code>under_expresses</code> (we have, PDR2 used as loss feature only), <code>tried_drug</code> (we have with outcomes), <code>sensitive_to_drug</code> / <code>resistant_to_drug</code> (we have from RGCC — PDR2 didn’t have anything like this), <code>allergic_to</code> (we have).</li>
+<li>Variant data + assayed drug sensitivities are the two big additions. The first is a structural enrichment of the graph (variant-level paths instead of gene-level). The second is a <strong>completely new supervision signal</strong> that PDR2 didn’t have access to.</li>
+</ul>
+<h3 id="three-architectural-moves-beyond-pdr2">Three architectural moves beyond PDR2<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#three-architectural-moves-beyond-pdr2" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>In rough order of difficulty:</p>
+<p><strong>Move 1 (cheapest): More patient edges, same loss mechanism.</strong> Add the richer edge types to Maureen’s node before training. Foundation pre-trains with them; per-patient fine-tune still freezes foundation and trains the 1,802 loss weights. Tests whether the richer graph structure alone moves AUPRC.</p>
+<p><strong>Move 2 (medium): Unfreeze patient-related parameters during fine-tune.</strong> Instead of freezing all 168K foundation parameters, unfreeze the embeddings of patient + patient-1-hop entities. Now her node’s embedding can move during fine-tune; the rest of the graph stays put. This is closer to what your “every backfill biased toward Maureen” framing actually requires.</p>
+<p><strong>Move 3 (hardest): Multi-task loss with patient-specific supervision.</strong> Extend the loss with explicit (drug, response, patient) terms tied to RGCC sensitivities. Now we have <em>labeled</em> supervision from RGCC, not just PRS-modulated unlabeled scoring. The patient becomes a real training signal, not just a feature for reweighting.</p>
+<p>These compose: Move 1 + Move 2 + Move 3 is the “Maureen-anchored richer graph with labeled supervision and learnable patient embedding” architecture from §6.</p>
+<h3 id="the-experiment-to-run-first-much-cheaper-now-we-understand-it">The experiment to run first (much cheaper now we understand it)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#the-experiment-to-run-first-much-cheaper-now-we-understand-it" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>We have the foundation checkpoint already (from prior PDR2 runs on GP-KG and PrimeKG). For the minimum reproduction-and-extension:</p>
+<ol>
+<li>Build a <code>KG_ZORO</code>-style fine-tune dataset for Maureen — her diagnosis edges as <code>WAS_DIAGNOSED</code> triples to GP-KG / PrimeKG disease nodes (a few of these), train/validation split.</li>
+<li>Compute her PRS values for the 341 GP-KG-aligned diseases (from germline VCF + GWAS sumstats; ~half a day).</li>
+<li>Pull her biomarker / expression deviations for the 1,461 GP-KG-aligned proteins from <code>ModsGeneExpression</code> (already structured).</li>
+<li>Run <code>python script/run.py -c config/transductive/inference.yaml --patient_id maureen --dataset &lt;our_dataset> --use_ploss -l1 0.1 -l2 0.1 --ckpt &lt;foundation_ckpt></code>.</li>
+<li>Measure: full-ranking AUPRC on drug-treats-disease pairs; Spearman ρ between the model’s drug ranking for Maureen’s CRC and her RGCC drug sensitivities; convergence of the 1,802 weights to see which diseases/proteins the loss elevates.</li>
+</ol>
+<p>This is <em>direct reproduction of PDR2’s method on Maureen</em>. It’s the right baseline before designing anything beyond it. Cost: ~1 day setup + a few hours of fine-tune compute.</p>
+<hr/>
+<h2 id="5a-population-supervised-kg-skeleton--a-different-way-to-use-patient-data">5a. Population-supervised KG skeleton — a different way to use patient data<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5a-population-supervised-kg-skeleton--a-different-way-to-use-patient-data" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>This section has been fleshed out into its own doc: <a href="../planning/population_supervised_outcome_planning" class="internal internal-link alias" data-slug="planning/population_supervised_outcome_planning">population_supervised_outcome_planning.md</a>.</strong></p>
+<p>That doc covers: (1) the SHEPHERD lift and why synthetic patients don’t transfer to therapeutic supervision (proxy patients do); (2) patient cohorts as standard supervised-ML training data, with loss-function options and the patient-of-1 validation problem; (3) the data-source unification table; (4) calibration and scale — z-scaling, quantile normalization, linker drugs, single-source-first, ensembles (with the Haibe-Kains 2013 receipt for why this is harder than it looks); (5) a two-track architecture recommendation (PDR2/ULTRA for KG path reasoning + bi-encoder regression for cell-line outcome prediction); (6) gotchas; (7) a recommended MVP — GDSC v2 + bi-encoder + Maureen’s RGCC as held-out validation.</p>
+<p>The reframe (population tapestry, Maureen as query in learned geometry, three implementation options a/b/c) and the five open questions originally drafted here are absorbed and extended in that doc.</p>
+<hr/>
+<h2 id="6-the-patient-as-anchor-in-training-mechanism">6. The “patient as anchor in training” mechanism<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-the-patient-as-anchor-in-training-mechanism" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>You described it semantically as: <em>“every training calculation should be in service of pushing the result closer to ‘this works with what we know about Maureen’ than away from it.”</em> We agreed to <strong>test both</strong> of the two concrete mechanisms below, plus stay open to new patterns.</p>
+<p>This is the §5 “Move 2 / Move 3” beyond PDR2’s mechanism: PDR2’s foundation is frozen during fine-tune, so the patient embedding never moves and the loss’s only learnable parameters are scalar reweighting coefficients. The mechanisms below are about how to make the <em>model itself</em> — not just the reranker — respond to the patient.</p>
+<h3 id="option-a--auxiliary-loss-term-weighting-maureens-edges-heavily">Option A — Auxiliary loss term weighting Maureen’s edges heavily<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#option-a--auxiliary-loss-term-weighting-maureens-edges-heavily" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<pre><code>L_total = L_KG_link_prediction + λ_patient · L_patient_edges
+</code></pre>
+<ul>
+<li>Every batch samples some standard KG triples (whole-graph link prediction) and <em>also</em> samples Maureen’s edges as positives.</li>
+<li><code>L_patient_edges</code> could be: link prediction on her edges (same BCE form, just over her sub-edges), MSE on her drug sensitivities, multi-task combination.</li>
+<li><code>λ_patient</code> is the dial — high = the whole graph’s geometry gets dragged to keep her facts well-fit; low = her edges are just one signal among many.</li>
+<li>Every gradient step “knows about Maureen” because some fraction of the batch is her.</li>
+</ul>
+<p><strong>Pros</strong>: minimally invasive. Standard architecture, standard optimizer. Closest in spirit to what PDR2’s <code>PersonalizedRepurposingLoss</code> was reaching for. Easy to ablate (set <code>λ_patient = 0</code> and compare).</p>
+<p><strong>Cons</strong>: she’s still one node among hundreds of thousands. Her gradient signal washes out unless <code>λ_patient</code> is large, and large risks pulling the whole graph toward her idiosyncrasies (over-personalization, loss of generalization).</p>
+<h3 id="option-b--patient-conditional-message-passing">Option B — Patient-conditional message passing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#option-b--patient-conditional-message-passing" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The GNN’s message-passing at every layer is modulated by Maureen’s embedding. Concretely, several patterns:</p>
+<ul>
+<li><strong>Attention conditioning</strong>: attention weights over neighbors are a function of <code>(source_emb, target_emb, patient_emb)</code>. Edges that are more relevant to her get heavier weight.</li>
+<li><strong>Gated message passing</strong>: each message gets multiplied by a gating function of the patient embedding. Edges “irrelevant to Maureen” decay.</li>
+<li><strong>Hypernetwork</strong>: a small network takes the patient embedding and outputs the GNN’s weights themselves. The model is literally a different model for each patient.</li>
+</ul>
+<p><strong>Pros</strong>: architecturally elegant. Matches the “her node bends every computation” intuition. TxGNN does something analogous for relations (relation-conditional message passing) and gets ~30% lift on rare diseases.</p>
+<p><strong>Cons</strong>: more parameters, more training instability, more compute. Patient-conditional everything is heavy. And: with one patient, we can’t disentangle “good architecture” from “got lucky on this specific patient.”</p>
+<h3 id="option-c--patient-as-central-hub-of-training-sampling">Option C — Patient as central hub of training sampling<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#option-c--patient-as-central-hub-of-training-sampling" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Bias the training sampler so most batches include triples in her 2-hop neighborhood. The model spends most of its capacity on her region of the graph; the rest is loosely fit. Conceptually closer to “fine-tune on her subgraph” than “rebuild the architecture.”</p>
+<p>This is what Phase F.7 sketches. Less ambitious than A or B but probably the cheapest way to get a measurable lift on her specifically.</p>
+<h3 id="how-wed-decide">How we’d decide<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#how-wed-decide" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Test plan if we ever build:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Run</th><th>Architecture</th><th>Loss</th><th>Sampling</th><th>Compare to</th></tr></thead><tbody><tr><td>Baseline</td><td>Standard ULTRA on Composition</td><td>BCE</td><td>Uniform</td><td>—</td></tr><tr><td>Personalized loss only</td><td>Standard ULTRA on Composition</td><td>BCE + personalized loss</td><td>Uniform</td><td>Baseline (does PDR2’s own mechanism help?)</td></tr><tr><td>Maureen-anchored (Option A)</td><td>Standard ULTRA on Composition + Maureen</td><td>BCE + λ·patient-edge loss</td><td>Uniform</td><td>Baseline (does adding her node help?)</td></tr><tr><td>Maureen-anchored + biased sampling (Option C)</td><td>Standard ULTRA on Composition + Maureen</td><td>Same as A</td><td>50% Maureen-neighborhood</td><td>Option A (does sampling matter?)</td></tr><tr><td>Patient-conditional (Option B)</td><td>Patient-conditional ULTRA</td><td>Same as A</td><td>Uniform</td><td>Option A (does architecture matter?)</td></tr></tbody></table></div>
+<p>Five runs. Each gets the same eval: full-ranking MRR + Spearman ρ vs RGCC. We’d run on whatever Composition is current (probably <code>tier1_mvp_with_primekg_v1</code> after CIViC/OncoKB/PharmGKB ingest).</p>
+<p>Once one of A/B/C/PersonalizedLoss demonstrably wins, we expand on it. Until then, designing further is overcommitting.</p>
+<hr/>
+<h2 id="7-what-we-have--what-the-architecture-should-support">7. What we have + what the architecture should support<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-what-we-have--what-the-architecture-should-support" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Reframing from the earlier draft: the right question isn’t “what supervision should we order before committing to an architecture?” It’s <strong>“what supervision should the architecture be able to support, so we can start small with what we have and add new tests over time?”</strong></p>
+<p>V1 won’t have everything. We start with current data, get something working, then expand as new tests come in. Retraining is acceptable for major data additions; fine-tuning is preferred for incremental additions. <strong>The architectural commitment is to a graph schema and loss design flexible enough that new edge types and supervision signals plug in without re-architecting.</strong></p>
+<p>What that means concretely:</p>
+<ul>
+<li>Edge schema needs to be extensible — adding a new edge type (e.g., <code>methylation_class</code> or <code>pdo_sensitivity</code>) shouldn’t require schema migration of every patient</li>
+<li>Loss needs to be extensible — adding a new auxiliary supervision term shouldn’t require rewriting existing terms</li>
+<li>The patient node needs feature slots that accept multi-modal additions (gene expression today; proteomics, methylation, radiomics later)</li>
+<li>Inductive scoring path needs to handle new edge types without retraining (NBFNet-style message passing handles this well)</li>
+</ul>
+<p>Below is the floor (what we have) and the ceiling (what we’d want the architecture to support, eventually). The architecture should make the path between them additive, not migration-heavy.</p>
+<h3 id="currently-in-mods-floor">Currently in MODS (floor)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#currently-in-mods-floor" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Source</th><th>Count</th><th>Type</th><th>PDR2 has?</th></tr></thead><tbody><tr><td>Diagnosis history</td><td>Variable</td><td>Conditions → <code>WAS_DIAGNOSED</code> edges</td><td>yes (their ~37 edges per patient is exactly this)</td></tr><tr><td>Genomic alterations (Caris + Invitae + Guardant)</td><td>9</td><td>HGVS, VAF, ClinVar interpretation, germline/somatic</td><td>no — PDR2 has only PRS, not variants</td></tr><tr><td>Gene expressions (Caris WTS)</td><td>176</td><td>tpm-percentile, regulation classification, CMS1-cohort-normalized</td><td>partial — PDR2 uses biomarker expressions as loss features (1,461 proteins) but not as graph nodes/edges</td></tr><tr><td>Therapy associations</td><td>19</td><td>Biomarker→drug, evidence level L1–L3</td><td>no</td></tr><tr><td>Resistance factors (RGCC)</td><td>16</td><td>MDR1, MRP1, GSTP1, ERCC1, TYMS, DHFR — % expression</td><td>no</td></tr><tr><td>CTC profiles (RGCC OncoTrace)</td><td>7</td><td>CTC count, phenotype markers</td><td>no</td></tr><tr><td><strong>Drug sensitivities (RGCC)</strong></td><td><strong>224</strong> (112 drugs x 2 draws)</td><td>% apoptosis at fixed [drug] — direct labels, 1% integer granularity (we verified — <code>rgcc_parser.py:175</code> stores raw integer percent, with a separate band classification at 35%/80%; raw value is preserved)</td><td><strong>no — PDR2 had no per-patient drug response labels at all, only PubMed-review validation</strong></td></tr><tr><td>Biomarker trajectories</td><td>Variable</td><td>CEA, LDH, albumin, lymphocytes — Phase 13 trajectory features</td><td>no — PDR2 uses static biomarker values, no time series</td></tr><tr><td>Treatment episodes</td><td>Variable</td><td>Regimen, dates, RECIST outcome, toxicity</td><td>no</td></tr><tr><td>EHR (Kaiser FHIR)</td><td>300+</td><td>Encounters, conditions, meds, allergies, immunizations</td><td>no — PDR2 uses ICD-10 diagnoses only</td></tr><tr><td>PRS values</td><td>None yet — computable from her germline VCF + public GWAS sumstats</td><td>Polygenic risk scores per disease</td><td>yes (UK Biobank PRSs for their 4,124 patients)</td></tr></tbody></table></div>
+<h3 id="worth-acquiring-next-in-priority-order">Worth acquiring next (in priority order)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#worth-acquiring-next-in-priority-order" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Each row below produces supervision signals that the current set lacks. Costs and TATs are rough.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Priority</th><th>Acquisition</th><th>Why it matters</th><th>Supervision signal it adds</th></tr></thead><tbody><tr><td>1</td><td><strong>PGx panel (OneOme RightMed or Caris PGx)</strong></td><td>UGT1A1 for irinotecan dose, DPYD for 5-FU/cape. <em>Lifetime-valid, one-time.</em> Pt-specific toxicity label.</td><td>(genotype → toxicity-risk class) Pt direct</td></tr><tr><td>2</td><td><strong>Compute PRS for Maureen</strong> from her existing germline data</td><td>Required input to PDR2’s PersonalizedRepurposingLoss experiment; ~free if we have her VCF</td><td>(PRS values, used by personalized loss as features)</td></tr><tr><td>3</td><td><strong>Methylation EPIC v2 (with classifier)</strong></td><td>Heidelberg-style tumor classifier (95% acc, 184 subclasses) gives biological-atypia label that often correlates with non-standard response</td><td>(methylome → tumor class) Pop label, gives orthogonal supervision</td></tr><tr><td>4</td><td><strong>PDO panel</strong> (if a US commercial vendor / OPTIC slot can be arranged)</td><td>OPTIC trial-validated for CRC; produces 50–500 (drug → IC50/AUC) labels per biopsy — the only single-patient large-N signal</td><td>(drug → IC50) <strong>Pt direct</strong> at scale</td></tr><tr><td>5</td><td><strong>Signatera or Guardant Reveal MRD</strong></td><td>Longitudinal recurrence label months ahead of imaging; converts a static problem into a temporal one</td><td>(ctDNA dynamics → recurrence/response) <strong>Pt L</strong></td></tr><tr><td>6</td><td><strong>Olink Explore 3072 proteomics</strong></td><td>Orthogonal modality to genomic; closes “what’s actually expressed at protein level” gap</td><td>(proteome → outcome) Pop priors + Pt L</td></tr><tr><td>7</td><td><strong>Single-cell RNA + scATAC on a biopsy</strong></td><td>Per-clone drug sensitivity via scDEAL/scPDS — addresses resistance via subclonal mechanisms</td><td>(clone → drug sensitivity) Pop methods, Pt clones</td></tr><tr><td>8</td><td><strong>Delta-radiomics</strong> (from existing CT/PET DICOM)</td><td>Re-extract features from her scans; cheap because the imaging already exists</td><td>(radiomic vector + delta → response) Pop + Pt L</td></tr><tr><td>9</td><td><strong>Compute CMap/LINCS signature reversal</strong> from her Caris WTS</td><td>Free / open-source, no new test needed</td><td>(tumor signature → drug-reversal ranking) Pop priors</td></tr><tr><td>10</td><td><strong>TCR-β immunoSEQ</strong></td><td>TCR clonal expansion as immune-response label; less load-bearing for MSS CRC</td><td>(TCR clonality → ICI response) Pop priors + Pt L</td></tr></tbody></table></div>
+<p>Items 1, 2, 8, 9 are all near-zero cost: 1 is a routine PGx test, 2 needs only her VCF + open-source PRS tools, 8 reuses existing scans, 9 is computational on data we already have. They should be done before any PaaN MVP, because they all change what supervision the loss can use.</p>
+<p>Items 3, 5, 6 are mid-cost premium tests with strong supervision payoff.</p>
+<p>Item 4 (PDO) is the single highest-payoff acquisition because it generates dozens to hundreds of patient-specific drug labels from one biopsy. But it’s the hardest to obtain logistically.</p>
+<hr/>
+<h2 id="8-literature-where-others-have-wandered-with-shepherd-deep-dive">8. Literature: where others have wandered (with SHEPHERD deep-dive)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-literature-where-others-have-wandered-with-shepherd-deep-dive" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="cluster-a--literal-patient-as-a-node-architectures">Cluster A — Literal patient-as-a-node architectures<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cluster-a--literal-patient-as-a-node-architectures" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>SHEPHERD</strong> (<a href="https://www.nature.com/articles/s41746-025-01749-1" class="external external-link">npj Digital Medicine 2025<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>, Zitnik Lab). Closest prior art; same lab as TxGNN. Deep-dive in §8a below.</li>
+<li><strong>GraphCare</strong> (<a href="https://arxiv.org/abs/2305.12788" class="external external-link">arXiv:2305.12788, ICLR 2024<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>) — per-patient KG built by merging LLM-extracted concept-specific subgraphs from biomedical KGs; bi-attention GNN for MIMIC outcome prediction.</li>
+<li><strong>Patient-centric mutation KG for anti-cancer targeting</strong> (<a href="https://www.biorxiv.org/content/10.1101/2024.09.29.615658v1" class="external external-link">bioRxiv 2024.09.29.615658<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>) — PPI + patient-centric mutation network + transcriptomics + drug response. Most oncology-aligned paper found (abstract only — bioRxiv returned 403).</li>
+<li><strong>Person-Centric KG ablation</strong> (<a href="https://arxiv.org/html/2408.15294" class="external external-link">arXiv:2408.15294<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>, 2024) — explicit per-admission patient node, demographic/clinical/social edges, MIMIC ablation.</li>
+<li><strong>RGCN-with-literals for temporal patient pathways</strong> (<a href="https://arxiv.org/html/2502.21138" class="external external-link">arXiv:2502.21138<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>, 2025) — literal patient nodes with literal-valued features.</li>
+</ul>
+<h3 id="cluster-b--kg-drug-repurposing-without-the-patient">Cluster B — KG drug repurposing <em>without</em> the patient<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cluster-b--kg-drug-repurposing-without-the-patient" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>TxGNN (Nat Med 2024), DREAMwalk (Nat Comm 2023), Decagon, BioPathNet, K-Paths, MLAN, GDRnet — all population-level. None model the patient. This is the cleanest gap.</p>
+<h3 id="cluster-c--adjacent-fields">Cluster C — Adjacent fields<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cluster-c--adjacent-fields" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Causal ITE on graphs</strong> (TARNet+CGC, CauGramer, DCHGNN, van der Schaar lab) — graph-structured covariates for treatment effects, doesn’t ingest biomedical KGs.</li>
+<li><strong>EHR-KG</strong> (Frontiers PCKG survey 2024, MedGCN, Mendel.ai) — patient-centric KGs for clinical outcome prediction, not repurposing.</li>
+<li><strong>Rare disease subgraph methods</strong> (PhenoKG, RareNet, RareAgent — all 2025) — diagnostic reasoning, not therapy ranking.</li>
+<li><strong>Patient digital twins</strong> (Nat Rev Cancer 2025) — mechanistic ODE/PDE, not graph-based.</li>
+</ul>
+<h3 id="white-space">White space<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#white-space" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>No published paper combines all of:</p>
+<ol>
+<li>Patient as a node in a PrimeKG-class biomedical KG</li>
+<li>Multi-omic patient edges (variants + expression + treatment + functional sensitivities)</li>
+<li>Patient-specific supervision (assayed drug response as labels)</li>
+<li>KG link-prediction backbone for repurposing</li>
+</ol>
+<p>That’s our specific differentiator. SHEPHERD has 1 (phenotype-only); the bioRxiv mutation paper has 2+3 (no phenotype/treatment integration, no inductive reasoner); none combine all four.</p>
+<h3 id="8a-shepherd-deep-read">8a. SHEPHERD deep-read<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8a-shepherd-deep-read" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Sources: <a href="https://www.nature.com/articles/s41746-025-01749-1" class="external external-link">npj Digital Medicine 2025<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>, <a href="https://zitniklab.hms.harvard.edu/projects/SHEPHERD/" class="external external-link">Zitnik Lab project page<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>, <a href="https://github.com/mims-harvard/SHEPHERD" class="external external-link">GitHub: mims-harvard/SHEPHERD<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>, <a href="https://www.medrxiv.org/content/10.1101/2022.12.07.22283238v4" class="external external-link">medRxiv preprint<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>. The Nature link returned a 303 from WebFetch — mechanistic details below come from the project page, GitHub README, and search snippets. Read the PDF before basing any architecture decision on these claims.</p>
+<p><strong>What it is.</strong> SHEPHERD is <strong>diagnostic</strong>, not therapeutic. Three tasks, all phenotype-driven:</p>
+<ol>
+<li>Causal gene discovery — given patient phenotypes + candidate genes, rank genes (true causal gene at avg rank 3.52 across 465 real UDN patients).</li>
+<li>Patients-like-me retrieval.</li>
+<li>Novel disease characterization.</li>
+</ol>
+<p>It does <em>not</em> model drug repurposing. There are no drug nodes in its KG and no therapy-ranking objective.</p>
+<p><strong>Architecture.</strong></p>
+<ul>
+<li>Backbone: geometric deep learning over a rare-disease KG (“knowledge-grounded metric learning”). PyTorch + PyTorch Geometric. The README doesn’t specify which GNN flavor; the paper’s methods section would.</li>
+<li>Patient encoding: each patient = a set of HPO terms + optional candidate Ensembl gene IDs. The phenotypes define a subgraph in the KG; the model embeds the patient by aggregating over that subgraph. This is <strong>patient-as-subgraph</strong>, not patient-as-explicit-node.</li>
+<li>KG: a custom rare-disease KG hosted on Harvard Dataverse, smaller than PrimeKG.</li>
+<li>Training: ~40K <em>simulated</em> patients across 2,134 diseases. Evaluated on 465 real UDN patients.</li>
+<li>Loss: metric learning framing — pull matched (patient embedding, causal gene embedding) together, push non-matches apart. Likely contrastive/triplet.</li>
+<li>Inductive over patients: trained on simulated, deployed on real. A new patient is scored at inference without retraining.</li>
+</ul>
+<p><strong>What’s transferable to a PaaN-for-repurposing design</strong></p>
+<ul>
+<li>A patient is meaningfully embedded into a biomedical KG, and that embedding drives ranking — same general shape as ours.</li>
+<li>Inductive scoring on novel patients — exactly the capability we’d need if we don’t want to retrain when Maureen’s data updates.</li>
+<li>Same KG family as TxGNN/PrimeKG — tooling is compatible.</li>
+</ul>
+<p><strong>What doesn’t transfer</strong></p>
+<ul>
+<li><strong>Diagnostic, not therapeutic.</strong> No drug-repurposing supervision signal.</li>
+<li><strong>Phenotype-only patient.</strong> Our patient has variants, expression, treatments, CTC profiles, drug sensitivities — none of which SHEPHERD shows how to combine.</li>
+<li><strong>Simulated-patient training.</strong> SHEPHERD scales by training on 40K synthetic patients. We have one real patient and no way to simulate “Maureen-like” synthetic patients without losing what makes her useful as a single instance. We have to find a different way to inject patient-specific supervision.</li>
+<li><strong>Metric learning vs link prediction.</strong> SHEPHERD’s contrastive objective fits retrieval; ours fits ranking. Different loss surface.</li>
+</ul>
+<p><strong>Net.</strong> SHEPHERD validates the <em>idea</em> that patients can be embedded into a biomedical KG and the embedding can drive useful downstream tasks. It does not give us the exact mechanism. The Maureen-anchored architectures in §6 are what we need to design, and they look more like PDR2 + patient edges + patient loss than like SHEPHERD.</p>
+<hr/>
+<h2 id="9-if-we-wanted-to-build--the-staged-path-revised-not-yet-committed">9. If we wanted to build — the staged path (revised, not yet committed)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-if-we-wanted-to-build--the-staged-path-revised-not-yet-committed" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Three scenarios, in order of ambition. We’re not committing to any of them yet, but here’s what each would entail given the constraints you’ve added.</p>
+<h3 id="scenario-x-cheapest-do-anytime-direct-pdr2-reproduction-on-maureen">Scenario X (cheapest, do-anytime): direct PDR2 reproduction on Maureen<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#scenario-x-cheapest-do-anytime-direct-pdr2-reproduction-on-maureen" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>After reading the paper (§5), this is well-specified. PDR2 already exposes a CLI flag (<code>--use_ploss</code>) for the per-patient fine-tune. The foundation model is frozen; only 1,802 weights inside the loss train.</p>
+<p>Steps:</p>
+<ul>
+<li>Add Maureen as a patient node in the chosen Composition’s training graph, with <code>WAS_DIAGNOSED</code> edges to her diseases (~5–10 edges; far fewer than PDR2’s UK Biobank average of 37 because she’s one patient with limited diagnosis breadth).</li>
+<li>Re-run foundation training on (Composition + Maureen’s diagnosis edges) — this is needed because PDR2’s foundation included patient nodes from epoch 1. If we already have a foundation trained without Maureen’s node, we can skip this and just attempt fine-tune on the frozen one (the patient embedding will be random, which is the closest PDR2 analog).</li>
+<li>Compute PRS for Maureen from her germline VCF + public GWAS sumstats (~half a day if Invitae export available). Filter to PRSs whose disease CURIE is in the Composition.</li>
+<li>Pull her expression deviations for the proteins/genes in the Composition from <code>ModsGeneExpression</code> (already structured; ~176 values).</li>
+<li>Run <code>python script/run.py -c config/transductive/inference.yaml --patient_id maureen --dataset &lt;maureen-zoro> --use_ploss -l1 0.1 -l2 0.1 --ckpt &lt;foundation_ckpt></code> (using PDR2’s reported optimum (0.1, 0.1) for the case patient with lowest baseline AUPRC).</li>
+<li>Measure: AUPRC on KG link prediction; Spearman ρ between the model’s drug ranking for her CRC and her RGCC drug sensitivities; convergence of the 1,802 weights to see which diseases/proteins are upweighted.</li>
+<li>~1 day setup + a few hours of fine-tune compute.</li>
+</ul>
+<p><strong>Tells us whether PDR2’s exact mechanism transfers to Maureen</strong> and what the AUPRC and RGCC-ρ baseline numbers are. Any architecture in §6 that goes beyond PDR2’s mechanism (Move 2 or 3) needs to clear those bars. Useful baseline to publish against either way.</p>
+<h3 id="scenario-y-mvp-if-we-decide-to-build-maureen-as-a-node-attached-to-current-composition">Scenario Y (MVP, if we decide to build): “Maureen as a node, attached to current Composition”<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#scenario-y-mvp-if-we-decide-to-build-maureen-as-a-node-attached-to-current-composition" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Bundled scope:</p>
+<ul>
+<li><strong>Phase 8.5</strong> (variant nodes) — CIViC/OncoKB/PharmGKB ingest, since you noted variants are critical for MVP.</li>
+<li><strong>Phase F.1–F.2</strong> (anchor resolver + storage) — needed to translate her medical record into canonical CURIEs.</li>
+<li><strong>Phase 13 Tier 1</strong> (trajectory features as static attributes on her node).</li>
+<li><strong>Phase 12.0</strong> (the actual node + edges):
+<ul>
+<li>Add <code>patient</code> to <code>mods_kg_entity</code> (just an entity_type — no separate table, no join). Maureen gets a row keyed by canonical CURIE.</li>
+<li>Materialize her edges: <code>has_disease</code>, <code>carries_variant</code> (after 8.5), <code>over/under_expresses_gene</code>, <code>tried_drug</code> (with outcome attribute), <code>sensitive_to_drug</code> / <code>resistant_to_drug</code> (from RGCC), <code>allergic_to</code>, plus Tier 1 trajectory features as node attributes.</li>
+<li>Store her <code>mods_kg_entity.id</code> on <code>ModsPatient</code> for the back-pointer (no join table).</li>
+<li><strong>Browsable</strong> in the KG Composition tab next to compositions — same UI, same interaction patterns.</li>
+</ul>
+</li>
+<li><strong>Foundation training is back on the table.</strong> Two training architectures to test:
+<ul>
+<li><strong>Option A</strong>: standard ULTRA + auxiliary loss term weighting her edges</li>
+<li><strong>Option B</strong>: patient-conditional message passing (relation- and patient-conditional)</li>
+</ul>
+</li>
+<li>Validate against RGCC ρ (held-out), held-out-recent-months trajectory, clinician sanity-check on top-10 drugs.</li>
+</ul>
+<p><strong>Time estimate revised.</strong> With Phase 8.5 bundled (~3 weeks based on Phase F doc + connector ingest), Phase F.1–F.2 (~1.5 days), Phase 13 Tier 1 (~2 days), Phase 12.0 schema + ETL (~1 week), Option A foundation retrain (~1 week) — realistically <strong>5–7 weeks</strong>, not 1–2. The 1–2-week framing in the earlier draft assumed no retraining and no variants; with both included, it’s bigger.</p>
+<h3 id="scenario-z-full-ambition-co-developed-patient--kg-geometry-with-population-tapestry">Scenario Z (full ambition): co-developed patient + KG geometry, with population tapestry<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#scenario-z-full-ambition-co-developed-patient--kg-geometry-with-population-tapestry" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>The Composition includes population sources</strong> (§5a): GDSC, CCLE, DepMap, LINCS, TCGA, PDXNet, GENIE — each ingested as a <code>mods_kg_source</code>. Each contributes thousands of patient/cell-line nodes with <code>genome_alteration</code>, <code>sensitive_to</code>, <code>resistant_to</code>, <code>treated_with → outcome</code> edges.</li>
+<li>Maureen’s node and her edges are added to the same graph; she’s one node among thousands of “patient-like” entities.</li>
+<li>The foundation model trains on the population-tapestry composition from epoch 1. The §6 anchor-loss patterns (A/B/C) determine <em>how the patient-edge supervision enters the loss</em> — per-batch sampling can rotate which patient is “anchored” to prevent overfit to any one.</li>
+<li>Both auxiliary-loss (Option A) <em>and</em> patient-conditional message passing (Option B) are tested; whichever wins is expanded on.</li>
+<li>Phase 13 Tier 4 (temporal encoder) feeds Maureen’s node feature vector — her node updates as her trajectory evolves.</li>
+<li>New patients can be added by adding new rows to <code>mods_kg_entity</code> with their edges; inductive scoring via NBFNet handles them at inference without retraining.</li>
+<li>Supervision sources expand per §7: PGx, PRS, possibly PDO/Olink/Methylation added as additional edges and auxiliary loss terms.</li>
+</ul>
+<p>This is the “data structure that understands Maureen’s disease in the most granular way possible, attachable to new data sources as we find them” you described. The population tapestry is what gives it enough signal to be more than a one-patient overfit. It’s a real research project — months to years, with substantial risk of dead ends.</p>
+<h3 id="what-imperfect-but-working-prototype-means-under-each-scenario">What “imperfect but working prototype” means under each scenario<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-imperfect-but-working-prototype-means-under-each-scenario" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Scenario X is the imperfect prototype for <strong>whether PDR2’s loss buys anything</strong>. Doesn’t depend on PaaN at all. Cheapest learning per day.</li>
+<li>Scenario Y is the imperfect prototype for <strong>PaaN as an architecture</strong> — proves the schema, the loss patterns, the validation pipeline, and gives us a measurement.</li>
+<li>Scenario Z is the production target. Not an MVP.</li>
+</ul>
+<p>If we ever commit to building, my recommendation would be <strong>X first, then Y if X is encouraging, then Z if Y validates</strong>. Each scenario’s failure pattern teaches us something different.</p>
+<hr/>
+<h2 id="10-open-questions-updated">10. Open questions (updated)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-open-questions-updated" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Composition target.</strong> Which Composition is the right one to attach Maureen to? <code>tier1_mvp_with_primekg_v1</code> after variant connectors ingest is the obvious candidate, but <code>primekg_baseline_v1</code> (already ingested) lets us measure earlier. Trade-off: latest-and-greatest vs measurable-now.</li>
+<li><strong>Foundation retraining cost.</strong> Each training run is ~1 H100-day. Five runs (§6’s test plan) = 5 H100-days = real money. Worth it once the architecture is locked, premature before.</li>
+<li><strong>PRS computation pipeline.</strong> Needs her germline VCF (Invitae provides this; need to confirm export availability) + a GWAS sumstats source + PRS tool. Not blocked by anything except the work itself. Probably half a day.</li>
+<li><strong>PDO acquisition.</strong> Highest-payoff data acquisition (§7 item 4), but logistics (vendor selection, biopsy timing, insurance) are real. Worth scoping before relying on it.</li>
+<li><strong>Multi-patient generalization design.</strong> “I’d like to be able to browse Maureen’s node the same way we browse our KGs” implies a generalized UI pattern. Already supported by the existing KG Composition tab if Maureen is just another entity. But if we ever add a second patient, do we want a <code>mods_patient_set</code> that groups them, or are they just <code>entity_type='patient'</code> rows?</li>
+<li><strong>PDR2 paper — now read.</strong> Resolved. §5 is corrected. Key findings: patient IS already a node (<code>WAS_DIAGNOSED</code> edges); fine-tune freezes foundation and trains only 1,802 loss weights; reported AUPRC lift 1.3–5.4× across the three case patients; validation by literature only (no patient-level gold standard like our RGCC). Limitations they note: cohort of 3 patients for case studies (4,124 in principle); single disease (AD); no automated per-patient λ adaptation; multi-modal extensions and longitudinal data are future work.</li>
+<li><strong>Does the population-tapestry direction (§5a) shift priorities in §7?</strong> If we go Scenario Z (population tapestry), the priority for ordering Maureen-specific tests changes — the highest-value acquisitions become ones that <em>integrate</em> with the public population data (e.g., Tempus xT uses the same genome reference as TCGA; methylation EPIC v2 aligns with TCGA methylation). Worth thinking about acquisition order in light of which other patient data we’d be training against.</li>
+<li><strong>Closure criterion for MVP</strong> — you said “net positive energy output,” i.e., any measurable improvement counts. ρ improvement on RGCC is the cleanest single signal. Worth pinning down whether we need <em>just</em> RGCC improvement, or also concordance with clinician-curated top-10, or also held-out-recent-months.</li>
+</ol>
+<hr/>
+<h2 id="tldr">TL;DR<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tldr" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>Important correction</strong>: PDR2 IS already a patient-as-a-node architecture. I had this wrong in earlier drafts. Each UK Biobank patient enters the graph as a node with ~37 <code>WAS_DIAGNOSED</code> edges. The foundation model trains on the augmented graph. Then for each patient, fine-tune freezes the foundation and trains only 1,802 weights inside the loss (341 per-disease + 1,461 per-protein) — these weights learn which diseases/proteins matter for the patient’s drug ranking. AUPRC lifts 1.3–5.4× across the three reported case patients (Robin, Zoro, Usopp); MRR stays unchanged. Validation is literature-review only. Lithium prediction for Usopp was independently validated by a <em>Nature</em> 2025 paper after PDR2’s experiments completed — a real “predicted before the field knew” win.</li>
+<li><strong>Our white space isn’t “introduce a patient node”</strong> — PDR2 already does that. Our white space is <strong>richer patient edges</strong> (variants, gene expression as graph structure not just loss features, treatment outcomes, drug sensitivities) <strong>+ labeled per-patient supervision</strong> from RGCC and similar functional assays. PDR2 has zero patient-level outcome labels; we have 224.</li>
+<li><strong>Three architectural moves beyond PDR2</strong> (§5, end): (1) richer patient edges, same frozen-foundation loss mechanism; (2) unfreeze patient-1-hop embeddings during fine-tune so her node embedding actually moves; (3) multi-task loss with RGCC sensitivities as labeled supervision. They compose; we should test the cheapest one first.</li>
+<li><strong>The first experiment to run is direct PDR2 reproduction on Maureen</strong> (§9 Scenario X): build a <code>KG_ZORO</code>-style fine-tune dataset, compute her PRS, run <code>--use_ploss</code>. Establishes the PDR2-mechanism baseline on her data. ~1 day setup. Doesn’t require any architectural innovation.</li>
+<li><strong>Population tapestry (§5a) is a meaningfully different direction.</strong> Train the foundation on <strong>granular per-patient outcomes from many patients/cell lines</strong> (GDSC, CCLE, DepMap, LINCS, TCGA, PDXNet, GENIE, PDO consortia) — Maureen becomes one query point in a learned geometry, not the sole anchor. Composes with the Maureen-anchored architecture, doesn’t replace it.</li>
+<li><strong>Compositions reframe the design.</strong> Maureen is an overlay attachable to any Composition (current options: GP-KG, PrimeKG, future ones include CIViC/OncoKB/PharmGKB after Phase 8.5 ingest). She becomes a first-class entity (<code>entity_type='patient'</code>) browsable next to compositions. Schema: simple — node ID on <code>ModsPatient</code>, no join table.</li>
+<li><strong>Variants mandatory for MVP</strong> (Phase 8.5 bundled). Tier 1 trajectory features bundled too.</li>
+<li><strong>Supervision matters more than the architecture</strong> until we have orthogonal sources. RGCC is the floor (and confirmed-continuous-1%-granularity, not 20% bands — your concern was reasonable but the data is finer-grained than that). PGx, PRS, CMap/LINCS reversal, methylation, PDO, Olink — every additional source closes a different supervision gap.</li>
+<li><strong>Recommended next concrete step</strong>: spawn a new planning session for “Create Maureen’s Patient Entity node + edges, expose in KG browser.” This is Scenario Y’s first deliverable, stripped of any training-architecture commitment. It gives us a browsable patient subgraph in the existing KG Composition tab UI, forces us to make the schema decisions in §10 Q1–Q2, and produces an artifact that’s immediately useful for inspection. The training-architecture question (X → Y → Z, in that order) follows after we have a stable patient-node data substrate. The new planning session should reference this thinking doc and pick up from §9 Scenario Y’s schema and ETL details.</li>
+</ul>
+<hr/>
+<h2 id="parallelization-analysis-if-we-ever-execute">Parallelization Analysis (if we ever execute)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#parallelization-analysis-if-we-ever-execute" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>Surfaces touched per scenario:</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Surface</th><th>Scenario X</th><th>Scenario Y</th></tr></thead><tbody><tr><td>Backend API</td><td>No</td><td>Yes (Maureen as KG entity in browsing API)</td></tr><tr><td>Frontend component</td><td>No</td><td>Yes (new “Patient” card in KG Composition tab, or extension of existing)</td></tr><tr><td>Worker handler</td><td>Maybe (training run dispatch)</td><td>Yes (training run, anchor resolution, possibly PRS compute)</td></tr><tr><td>Migration (<code>backend/migrations.py</code>)</td><td>No</td><td>Yes (Phase 8.5 + Phase F.2 + nodeID column on ModsPatient)</td></tr><tr><td>MCP tool</td><td>Maybe</td><td>Yes (<code>mods_kg_get_patient_node</code>, etc.)</td></tr><tr><td>DB-stored config</td><td>No</td><td>No</td></tr><tr><td>Docs</td><td>Brief writeup</td><td>Phase 12.0 writeup</td></tr><tr><td>Tests</td><td>Yes (run-level integration)</td><td>Yes (schema + materialization + training-run integration)</td></tr></tbody></table></div>
+<p><strong>Parallel split (Scenario Y):</strong></p>
+<ul>
+<li>Phase 8.5 variant ingest, Phase F.1–F.2 anchor service, and Phase 13 Tier 1 trajectory features can all happen in parallel — they touch different services and tables.</li>
+<li>The Phase 12.0 schema (entity_type=‘patient’, new edges) must land before the training-architecture experiments — serial dependency.</li>
+<li>Within training, Options A/B/C runs are fully parallel (each is an independent H100 job).</li>
+<li>Frontend KG Composition tab update for “patient as browsable entity” can run in parallel with backend schema once API contract is defined.</li>
+</ul>
+<p><strong>Collision hotspots:</strong></p>
+<ul>
+<li><code>backend/migrations.py</code> — Phase 8.5 + Phase F.2 + Phase 12.0 schema each add a migration. Coordinate migration numbers; batch the work to one session if possible.</li>
+<li><code>backend/mcp_servers/mods_server.py</code> — both Phase F and Phase 12.0 add MCP tools. Single-session preferred to avoid merge drift.</li>
+<li><code>frontend/src/components/ModsKGCompositionTab.jsx</code> — Phase F.4 (anchor inspection sub-tab) and Phase 12.0 (patient as entity card) both touch this file. Sequence them.</li>
+<li>Cloud SQL load — variant connectors ingest is multi-GB; coordinate timing with any other large migrations.</li>
+</ul>
+<p><strong>Verify-how per surface:</strong></p>
+<ul>
+<li>Schema migration: <code>column_exists</code> / <code>table_exists</code> guards verified by running migration twice; final <code>psql</code> count audit.</li>
+<li>Backend API: pytest with a fixture patient (Maureen-like synthetic).</li>
+<li>Frontend: <code>preview_*</code> walkthrough of the KG Composition tab with Maureen visible as a card; click to expand should show resolved CURIEs, edge breakdown, 1-hop neighborhood.</li>
+<li>MCP tool: invoke from a <code>claude</code> terminal session, verify output shape.</li>
+<li>Training run: Spearman ρ on RGCC against the existing Phase 7.5 validation harness (Run B baseline = ρ 0.351 on PrimeKG — ⚠ superseded pending restatement, GH #324; re-run per timepoint before using as a comparator).</li>
+<li>Personalized-loss experiment: side-by-side MRR + ρ comparison against the current PDR2 baseline.</li>
+</ul></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-62" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#patient-as-a-node-paan-thinking-doc" data-for="patient-as-a-node-paan-thinking-doc">Patient-as-a-Node (PaaN): Thinking Doc</a></li><li class="depth-1"><a href="#context" data-for="context">Context</a></li><li class="depth-1"><a href="#0-a-note-on-the-pdr2-framing" data-for="0-a-note-on-the-pdr2-framing">0. A note on the PDR2 framing</a></li><li class="depth-1"><a href="#1-the-mental-model--maureen-as-overlay-on-a-composition" data-for="1-the-mental-model--maureen-as-overlay-on-a-composition">1. The mental model — Maureen as overlay on a Composition</a></li><li class="depth-1"><a href="#2-refresh-on-prior-thinking" data-for="2-refresh-on-prior-thinking">2. Refresh on prior thinking</a></li><li class="depth-1"><a href="#3-node-vs-subgraph--what-the-real-distinction-is" data-for="3-node-vs-subgraph--what-the-real-distinction-is">3. Node vs subgraph — what the real distinction is</a></li><li class="depth-1"><a href="#4-supervision--a-standalone-primer" data-for="4-supervision--a-standalone-primer">4. Supervision — a standalone primer</a></li><li class="depth-2"><a href="#what-supervision-means-in-ml" data-for="what-supervision-means-in-ml">What “supervision” means in ML</a></li><li class="depth-2"><a href="#types-of-supervision" data-for="types-of-supervision">Types of supervision</a></li><li class="depth-2"><a href="#what-supervision-the-paan-architecture-would-add" data-for="what-supervision-the-paan-architecture-would-add">What supervision the PaaN architecture would add</a></li><li class="depth-2"><a href="#supervision-producing-tests--what-we-have-and-what-we-could-order" data-for="supervision-producing-tests--what-we-have-and-what-we-could-order">Supervision-producing tests — what we have and what we could order</a></li><li class="depth-1"><a href="#5-pdr2s-actual-mechanism-after-reading-the-paper" data-for="5-pdr2s-actual-mechanism-after-reading-the-paper">5. PDR2’s actual mechanism (after reading the paper)</a></li><li class="depth-2"><a href="#stage-1--foundation-training-on-gp-kg-with-patient-nodes-already-added" data-for="stage-1--foundation-training-on-gp-kg-with-patient-nodes-already-added">Stage 1 — foundation training on GP-KG with patient nodes already added</a></li><li class="depth-2"><a href="#stage-2--per-patient-fine-tuning-with-the-personalized-loss" data-for="stage-2--per-patient-fine-tuning-with-the-personalized-loss">Stage 2 — per-patient fine-tuning with the personalized loss</a></li><li class="depth-2"><a href="#reported-results-paper-table-1" data-for="reported-results-paper-table-1">Reported results (Paper Table 1)</a></li><li class="depth-2"><a href="#what-this-means-for-our-paan-ambition-the-corrected-version" data-for="what-this-means-for-our-paan-ambition-the-corrected-version">What this means for our PaaN ambition (the corrected version)</a></li><li class="depth-2"><a href="#three-architectural-moves-beyond-pdr2" data-for="three-architectural-moves-beyond-pdr2">Three architectural moves beyond PDR2</a></li><li class="depth-2"><a href="#the-experiment-to-run-first-much-cheaper-now-we-understand-it" data-for="the-experiment-to-run-first-much-cheaper-now-we-understand-it">The experiment to run first (much cheaper now we understand it)</a></li><li class="depth-1"><a href="#5a-population-supervised-kg-skeleton--a-different-way-to-use-patient-data" data-for="5a-population-supervised-kg-skeleton--a-different-way-to-use-patient-data">5a. Population-supervised KG skeleton — a different way to use patient data</a></li><li class="depth-1"><a href="#6-the-patient-as-anchor-in-training-mechanism" data-for="6-the-patient-as-anchor-in-training-mechanism">6. The “patient as anchor in training” mechanism</a></li><li class="depth-2"><a href="#option-a--auxiliary-loss-term-weighting-maureens-edges-heavily" data-for="option-a--auxiliary-loss-term-weighting-maureens-edges-heavily">Option A — Auxiliary loss term weighting Maureen’s edges heavily</a></li><li class="depth-2"><a href="#option-b--patient-conditional-message-passing" data-for="option-b--patient-conditional-message-passing">Option B — Patient-conditional message passing</a></li><li class="depth-2"><a href="#option-c--patient-as-central-hub-of-training-sampling" data-for="option-c--patient-as-central-hub-of-training-sampling">Option C — Patient as central hub of training sampling</a></li><li class="depth-2"><a href="#how-wed-decide" data-for="how-wed-decide">How we’d decide</a></li><li class="depth-1"><a href="#7-what-we-have--what-the-architecture-should-support" data-for="7-what-we-have--what-the-architecture-should-support">7. What we have + what the architecture should support</a></li><li class="depth-2"><a href="#currently-in-mods-floor" data-for="currently-in-mods-floor">Currently in MODS (floor)</a></li><li class="depth-2"><a href="#worth-acquiring-next-in-priority-order" data-for="worth-acquiring-next-in-priority-order">Worth acquiring next (in priority order)</a></li><li class="depth-1"><a href="#8-literature-where-others-have-wandered-with-shepherd-deep-dive" data-for="8-literature-where-others-have-wandered-with-shepherd-deep-dive">8. Literature: where others have wandered (with SHEPHERD deep-dive)</a></li><li class="depth-2"><a href="#cluster-a--literal-patient-as-a-node-architectures" data-for="cluster-a--literal-patient-as-a-node-architectures">Cluster A — Literal patient-as-a-node architectures</a></li><li class="depth-2"><a href="#cluster-b--kg-drug-repurposing-without-the-patient" data-for="cluster-b--kg-drug-repurposing-without-the-patient">Cluster B — KG drug repurposing without the patient</a></li><li class="depth-2"><a href="#cluster-c--adjacent-fields" data-for="cluster-c--adjacent-fields">Cluster C — Adjacent fields</a></li><li class="depth-2"><a href="#white-space" data-for="white-space">White space</a></li><li class="depth-2"><a href="#8a-shepherd-deep-read" data-for="8a-shepherd-deep-read">8a. SHEPHERD deep-read</a></li><li class="depth-1"><a href="#9-if-we-wanted-to-build--the-staged-path-revised-not-yet-committed" data-for="9-if-we-wanted-to-build--the-staged-path-revised-not-yet-committed">9. If we wanted to build — the staged path (revised, not yet committed)</a></li><li class="depth-2"><a href="#scenario-x-cheapest-do-anytime-direct-pdr2-reproduction-on-maureen" data-for="scenario-x-cheapest-do-anytime-direct-pdr2-reproduction-on-maureen">Scenario X (cheapest, do-anytime): direct PDR2 reproduction on Maureen</a></li><li class="depth-2"><a href="#scenario-y-mvp-if-we-decide-to-build-maureen-as-a-node-attached-to-current-composition" data-for="scenario-y-mvp-if-we-decide-to-build-maureen-as-a-node-attached-to-current-composition">Scenario Y (MVP, if we decide to build): “Maureen as a node, attached to current Composition”</a></li><li class="depth-2"><a href="#scenario-z-full-ambition-co-developed-patient--kg-geometry-with-population-tapestry" data-for="scenario-z-full-ambition-co-developed-patient--kg-geometry-with-population-tapestry">Scenario Z (full ambition): co-developed patient + KG geometry, with population tapestry</a></li><li class="depth-2"><a href="#what-imperfect-but-working-prototype-means-under-each-scenario" data-for="what-imperfect-but-working-prototype-means-under-each-scenario">What “imperfect but working prototype” means under each scenario</a></li><li class="depth-1"><a href="#10-open-questions-updated" data-for="10-open-questions-updated">10. Open questions (updated)</a></li><li class="depth-1"><a href="#tldr" data-for="tldr">TL;DR</a></li><li class="depth-1"><a href="#parallelization-analysis-if-we-ever-execute" data-for="parallelization-analysis-if-we-ever-execute">Parallelization Analysis (if we ever execute)</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../mods_mission_spec" class="internal">MODS — Mission Spec</a></li><li><a href="../model/pdr_personalization_writeup" class="internal">PDR Personalization — Technical Writeup</a></li><li><a href="../planning/population_supervised_outcome_planning" class="internal">Population-Supervised Outcome Prediction</a></li><li><a href="../results/pdr2_track_a_repro_writeup" class="internal">PDR2 Track A v1 — First Personalized Inference</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

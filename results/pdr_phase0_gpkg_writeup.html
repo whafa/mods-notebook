@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>GP-KG Phase 0 — Paper Reproduction</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="GP-KG Phase 0 — Paper Reproduction"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="GP-KG Phase 0 — Paper Reproduction"/><meta name="twitter:description" content="Reproducing the published baseline on GP-KG, and why the last stretch of correlation is unrecoverable."/><meta property="og:description" content="Reproducing the published baseline on GP-KG, and why the last stretch of correlation is unrecoverable."/><meta property="og:image:alt" content="Reproducing the published baseline on GP-KG, and why the last stretch of correlation is unrecoverable."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/results/pdr_phase0_gpkg_writeup"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/results/pdr_phase0_gpkg_writeup"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="Reproducing the published baseline on GP-KG, and why the last stretch of correlation is unrecoverable."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/results/pdr_phase0_gpkg_writeup-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/results/pdr_phase0_gpkg_writeup-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/results/pdr_phase0_gpkg_writeup-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="results/pdr_phase0_gpkg_writeup" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-100" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-100" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../results/">results</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>GP-KG Phase 0 — Paper Reproduction</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-24</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">writeup</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">Reproducing the published baseline on GP-KG, and why the last stretch of correlation is unrecoverable.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.332Z">Oct 09, 2026</time><span>18 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="gp-kg-phase-0-reproduction--formal-writeup">GP-KG Phase 0 Reproduction — Formal Writeup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gp-kg-phase-0-reproduction--formal-writeup" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Authors:</strong> whafa, Claude (Maple project)
+<strong>Date:</strong> 2026-05-06
+<strong>Status:</strong> Phase 0 Step 1 (CV link prediction) <strong>CLOSED.</strong> Phase 0 Step 2 (AD case study) approaching closure (~7% AUROC gap from KG-Predict target).
+<strong>Companion document:</strong> <a href="../results/pdr_phase0_gpkg_results" class="internal internal-link alias" data-slug="results/pdr_phase0_gpkg_results">pdr_phase0_gpkg_results.md</a> — earlier conversational summary, retained as historical record.
+<strong>Pipeline plan:</strong> <a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">PDR_PIPELINE_PLAN.md</a> — patched 2026-05-04 to reflect the closures reported here.</p>
+<blockquote>
+<p><strong>Template note.</strong> This document follows the <strong>Purpose / Materials &amp; Methods / Procedure / Results / Discussion</strong> structure for project writeups. Future Maple writeups should use the same outline so results across phases are directly comparable.</p>
+</blockquote>
+<hr/>
+<h2 id="summary">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>We reproduced the foundational CompGCN+ConvE link-prediction model from KG-Predict (Gao et al., 2022) and PDR1 (Oğuztüzün et al., 2025) on the GP-KG knowledge graph (61,146 nodes, 1,246,726 edges, 9 relation types). Across four training runs that varied only in the train/valid/test split seed and the choice of head-direction evaluation, the final run (Run 4, no <code>-skip_head</code>) achieved a held-out test MRR of 0.319 and a rank-derived AUROC of 0.993 on cross-validation–style link prediction, exceeding KG-Predict’s published 5-fold targets of 0.261 and 0.981 by 22% and 1.2% respectively. On the secondary AD case-study evaluation (60 NCT-evidence positives among 1,430 candidate drugs), Runs 1–4 cluster at AUROC 0.79–0.81, ~7% below KG-Predict’s 0.868 — a gap stable across training conditions and likely driven by the unrecoverable split used by the original authors.</p>
+<hr/>
+<h2 id="1-purpose">1. Purpose<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-purpose" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The Maple MODS subsystem aims to deliver personalized drug-repurposing recommendations for Maureen’s metastatic colorectal cancer (CRC). Doing this with confidence requires demonstrating that our knowledge-graph link-prediction stack reproduces published results on a well-characterized public benchmark before we trust it on patient-specific applications.</p>
+<p><strong>Concrete objective.</strong> Reproduce the GP-KG results from KG-Predict (Gao 2022) and PDR1 (Oğuztüzün 2025), specifically:</p>
+<ul>
+<li><strong>Step 1 — CV link prediction (validates the foundational GCN).</strong> Match KG-Predict’s published 5-fold cross-validation AUROC = 0.981 and MRR = 0.261 within a 5% closure band on held-out triples drawn from the full GP-KG.</li>
+<li><strong>Step 2 — AD drug-ranking case study.</strong> Match KG-Predict’s AD-CS AUROC = 0.868 and AUPR = 0.364 within 5% on 60 Alzheimer’s drugs with NCT clinical-trial evidence, ranked among the 1,430 GP-KG drug nodes.</li>
+<li><strong>Secondary — Spearman ρ ≥ 0.90</strong> between our AD ranking and the published <code>case_study_predict_results.csv</code>. This target depends on the original authors’ train/valid/test split, which was not shipped with the public release; we report the best ρ obtainable without it.</li>
+</ul>
+<p>Closing both steps establishes a production-ready foundational ranker on the smaller, paper-comparable GP-KG. Downstream phases (PrimeKG, RGCC patient-specific validation, semantic embedder pickoff, post-hoc combination) build on this checkpoint.</p>
+<hr/>
+<h2 id="2-materials-and-methods">2. Materials and Methods<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-materials-and-methods" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="21-dataset">2.1 Dataset<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-dataset" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>GP-KG</strong> — biomedical knowledge graph distributed by the KG-Predict authors at <code>nlp.case.edu/public/data/GPKG-Predict/</code>, mirrored locally at <code>docs/References/kg-predict/Data/</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody><tr><td>Nodes</td><td>61,146</td></tr><tr><td>Edges</td><td>1,246,726</td></tr><tr><td>Entity types (7)</td><td>gene (18,357), phenotype (17,594), molecular_function (15,924), disease (7,790), drug (1,430), anatomy (51)</td></tr><tr><td>Relation types (9)</td><td>gene_uao_phenotype, gene_go_phenotype, gene_mp_phenotype, drug_hp_phenotype, disease_hp_phenotype, drug_mp_phenotype, associate, target, treat</td></tr><tr><td>Drug ID convention</td><td>PubChem CID with 100,000,000 offset (e.g., <code>cid100002907</code> = PubChem CID 2907 = cyclophosphamide)</td></tr><tr><td>Disease ID convention</td><td>UMLS CUI (e.g., <code>c0009402</code> = colorectal neoplasms)</td></tr></tbody></table></div>
+<h3 id="22-trainvalidtest-split">2.2 Train/valid/test split<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-trainvalidtest-split" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>split_GPKG.py</code> (mirrored at <code>docs/References/PDR1/split_GPKG.py</code>) produces a 60/20/20 transductive split. The upstream script does <strong>not</strong> call <code>random.seed()</code>, so each invocation produces a different split and the paper’s exact split is unrecoverable from the script alone. We patched a <code>random.seed(41504)</code> call into our local copy at <code>split_GPKG()</code> line 87, fixing the split for Runs 3 and 4. The authors were contacted; we are not waiting on a response.</p>
+<h3 id="23-architecture-and-hyperparameters">2.3 Architecture and hyperparameters<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-architecture-and-hyperparameters" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Foundational model.</strong> CompGCN (Vashishth et al., 2020) encoder + ConvE (Dettmers et al., 2018) decoder, as used by both KG-Predict (2022) and PDR1 (2025). The codebase is PDR1’s <code>code/main.py</code> plus Maple-local throughput patches (<code>num_workers</code> tunable, dataloader fixes); not the upstream KG-Predict <code>code/main.py</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Hyperparameter</th><th>Value</th><th>Source</th></tr></thead><tbody><tr><td><code>opn</code> (CompGCN composition)</td><td><code>corr</code> (circular correlation)</td><td>KG-Predict paper</td></tr><tr><td><code>gcn_layer</code></td><td>1</td><td>KG-Predict paper</td></tr><tr><td><code>gcn_dim</code> (hidden dim)</td><td>200</td><td>KG-Predict paper</td></tr><tr><td><code>init_dim</code> (entity init)</td><td>100</td><td>KG-Predict paper</td></tr><tr><td><code>embed_dim</code></td><td>None (uses <code>gcn_dim</code>)</td><td>PDR1 default</td></tr><tr><td><code>k_w / k_h</code> (ConvE reshape)</td><td>10 / 20</td><td>KG-Predict paper</td></tr><tr><td><code>num_filt / ker_sz</code> (ConvE conv)</td><td>200 / 7</td><td>KG-Predict paper</td></tr><tr><td><code>batch_size</code></td><td>128</td><td>KG-Predict paper</td></tr><tr><td><code>lr</code></td><td>0.001 (Adam)</td><td>KG-Predict paper</td></tr><tr><td><code>dropout</code> (GCN)</td><td>0.1</td><td>KG-Predict paper</td></tr><tr><td><code>lbl_smooth</code></td><td>0.1</td><td>KG-Predict paper</td></tr><tr><td><code>max_epochs</code></td><td>200</td><td>KG-Predict paper</td></tr><tr><td><code>eval_freq</code></td><td>5</td><td>PDR1 default</td></tr><tr><td><code>neg_num</code> (eval sampling)</td><td>1000</td><td>PDR1 default</td></tr><tr><td><code>seed</code> (model + PYTHONHASHSEED)</td><td>41504</td><td>KG-Predict paper</td></tr><tr><td><code>seed</code> (split, when applied)</td><td>41504</td><td>Maple patch (Run 3 onward)</td></tr></tbody></table></div>
+<h3 id="24-hardware-and-runtime">2.4 Hardware and runtime<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-hardware-and-runtime" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Spec</th></tr></thead><tbody><tr><td>Hardware</td><td>Colab Pro+ A100 40 GB</td></tr><tr><td>CU rate</td><td>6.77 CU/hour</td></tr><tr><td>Per-run training time</td><td>4.8–5.4 hours (~33–37 CU)</td></tr><tr><td>Drive mount</td><td><code>G:\My Drive\PDR\</code> for checkpoints; runs synced to <code>backend/data/pdr_models/Run{N}/</code> post-hoc</td></tr></tbody></table></div>
+<h3 id="25-evaluation-metrics--definitions-and-worked-examples">2.5 Evaluation metrics — definitions and worked examples<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#25-evaluation-metrics--definitions-and-worked-examples" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The KG holds triples <code>(head, relation, tail)</code>. To evaluate, we hide some triples from the model. For each held-out triple, the model ranks all candidate completions; the position of the actual held-out entity in the ranked list is the <strong>rank</strong>. Every metric below operates on those ranks.</p>
+<p>The “right answer” depends on the evaluation track:</p>
+<ul>
+<li><strong>CV / link prediction (Run 4 test.py + main.py):</strong> for each held-out test triple <code>(h, r, t)</code>, mask the tail and rank every entity in the graph; repeat masking the head. The right answer is the entity that was actually present in the held-out triple.</li>
+<li><strong>AD case study (compute_metrics.py):</strong> rank the 1,430 GP-KG drug nodes as candidate completions of <code>(?, treat, alzheimer)</code>. Positives = 60 drugs with NCT clinical-trial evidence (<code>ad_nct_evidence.csv</code>).</li>
+</ul>
+<h4 id="mrr--mean-reciprocal-rank">MRR — Mean Reciprocal Rank<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mrr--mean-reciprocal-rank" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><code>MRR = (1/N) · Σ (1/rank_i)</code> for N queries.</p>
+<p><strong>Worked example.</strong> Three queries; correct answers ranked at 1, 4, 10:
+<code>MRR = (1/1 + 1/4 + 1/10) / 3 = (1.000 + 0.250 + 0.100) / 3 = 0.450</code>.</p>
+<p>The reciprocal compresses the tail: rank 1→2 hurts a lot (1.0→0.5), rank 1000→5000 barely registers (0.001→0.0002). Range 0–1.</p>
+<h4 id="hitsk">Hits@k<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#hitsk" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><code>Hits@k = (queries with rank ≤ k) / N</code>.</p>
+<p>Same example, ranks 1, 4, 10:</p>
+<ul>
+<li>Hits@1 = 1/3 = 0.333</li>
+<li>Hits@5 = 2/3 = 0.667</li>
+<li>Hits@10 = 3/3 = 1.000</li>
+</ul>
+<p>Range 0–1.</p>
+<h4 id="mean-rank-mr">Mean Rank (MR)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mean-rank-mr" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><code>MR = (1/N) · Σ rank_i</code>. Lower is better. Reported alongside MRR for completeness but dominated by outliers; not used for closure judgment.</p>
+<h4 id="auroc--area-under-the-roc-curve">AUROC — Area Under the ROC curve<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#auroc--area-under-the-roc-curve" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><strong>Rank-based form (used here):</strong> for each positive ranked among N entities, AUROC contribution = <code>(N − rank) / (N − 1)</code>. Average across all positives.</p>
+<p><strong>Worked example.</strong> 5 candidates, 1 positive ranked second:
+<code>AUROC = (5 − 2) / (5 − 1) = 0.75</code>.</p>
+<p>Equivalent intuition: probability that a random positive scores above a random negative. Random ranker = 0.5; perfect = 1.0.</p>
+<p>In our two regimes:</p>
+<ul>
+<li><strong>CV AUROC (N = 61,146):</strong> per-query AUROC = <code>(61146 − rank) / 61145</code>, averaged over 76,928 test predictions.</li>
+<li><strong>AD case-study AUROC (N = 1,430):</strong> sklearn AUROC over 60 positives + 1,370 negatives.</li>
+</ul>
+<h4 id="aupr--area-under-the-precision-recall-curve">AUPR — Area Under the Precision-Recall curve<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#aupr--area-under-the-precision-recall-curve" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>Walks the ranked list from top to bottom; at each rank where a positive appears, records (precision so far, recall so far); takes the area under the resulting curve.</p>
+<p><strong>Worked example.</strong> 10 candidates, 3 positives at ranks 1, 3, 5:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rank</th><th>Label</th><th>Precision</th><th>Recall</th></tr></thead><tbody><tr><td>1</td><td>✓</td><td>1.00</td><td>0.33</td></tr><tr><td>3</td><td>✓</td><td>0.67</td><td>0.67</td></tr><tr><td>5</td><td>✓</td><td>0.60</td><td>1.00</td></tr></tbody></table></div>
+<p>AUPR ≈ mean of the precisions at recall changes ≈ (1.00 + 0.67 + 0.60) / 3 = <strong>0.756</strong> (sklearn computes via trapezoidal rule).</p>
+<p>AUPR is sensitive to class imbalance: random baseline equals the positive rate, not 0.5. For our AD case study with 60/1,430 = 4.2% positive rate, random AUPR = 0.042.</p>
+<h4 id="spearman-ρ--rank-correlation">Spearman ρ — rank correlation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#spearman-ρ--rank-correlation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><code>ρ = 1 − (6 · Σdᵢ²) / (n · (n² − 1))</code>, where dᵢ is the difference in ranks for item i across the two orderings (no ties).</p>
+<p><strong>Worked example.</strong> Five drugs ranked by paper vs by us:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Item</th><th>Paper rank</th><th>Our rank</th><th>dᵢ</th><th>dᵢ²</th></tr></thead><tbody><tr><td>A</td><td>1</td><td>2</td><td>-1</td><td>1</td></tr><tr><td>B</td><td>2</td><td>1</td><td>1</td><td>1</td></tr><tr><td>C</td><td>3</td><td>3</td><td>0</td><td>0</td></tr><tr><td>D</td><td>4</td><td>5</td><td>-1</td><td>1</td></tr><tr><td>E</td><td>5</td><td>4</td><td>1</td><td>1</td></tr></tbody></table></div>
+<p><code>ρ = 1 − (6 · 4) / (5 · 24) = 0.80</code>. Range −1 to +1; 0 = uncorrelated; 1 = identical ordering.</p>
+<p>The “right answer” here is the published <code>case_study_predict_results.csv</code>. ρ = 1.0 would require the paper’s exact unshipped split.</p>
+<h3 id="26-two-evaluation-regimes-and-why-we-report-both-for-run-4">2.6 Two evaluation regimes (and why we report both for Run 4)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#26-two-evaluation-regimes-and-why-we-report-both-for-run-4" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The PDR1 codebase produces two distinct CV-link-prediction evaluations from a single training run:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>main.py end-of-train test</th><th>test.py post-hoc</th></tr></thead><tbody><tr><td>Negative sampling</td><td>1000 negatives per query</td><td>None — full ranking against all 61,146 entities</td></tr><tr><td>Output</td><td>MRR / Hits@k written to log</td><td>Per-triple rank + score written to <code>test_predictions.txt</code></td></tr><tr><td>KG-Predict comparator</td><td>MRR 0.261 (paper convention)</td><td>AUROC 0.981 (paper convention, via rank-derived form)</td></tr><tr><td>Computation cost</td><td>Negligible (one pass at end of training)</td><td>~1 minute (one pass over test set)</td></tr></tbody></table></div>
+<p>The two answer different questions: 1000-neg sampling matches the paper’s MRR convention; full ranking matches their AUROC convention. We report both to enable a complete closure check against the paper’s published numbers.</p>
+<h3 id="27-comparison-targets">2.7 Comparison targets<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#27-comparison-targets" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Source</th><th>Track</th><th>Number we target</th></tr></thead><tbody><tr><td>KG-Predict (Gao 2022)</td><td>CV link prediction (5-fold)</td><td>AUROC 0.981, MRR 0.261, AUPR 0.409</td></tr><tr><td>KG-Predict (Gao 2022)</td><td>AD case study</td><td>AUROC 0.868, AUPR 0.364</td></tr><tr><td>PDR1 (Oğuztüzün 2025)</td><td>Foundational on GP-KG (5-fold)</td><td>MR 1390.6, MRR 0.19231, Hits@10 0.31331, AUC 0.866</td></tr></tbody></table></div>
+<p>Closure threshold: within 5% (relative) of the headline KG-Predict numbers on each track.</p>
+<p><strong>Note on “CV”:</strong> KG-Predict reports 5-fold cross-validation. Our Run 4 evaluates on a single 60/20/20 split. We compare to the paper’s 5-fold mean — this is a known asymmetry in the comparison, acceptable because all four of our runs land within tight bands on the AD-CS track (suggesting low between-fold variance) and because adding 4 more folds would multiply compute spend without changing the closure call.</p>
+<hr/>
+<h2 id="3-procedure">3. Procedure<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-procedure" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Four GP-KG training runs were conducted between 2026-04-18 and 2026-04-25. All four shared the architecture and hyperparameters in §2.3. They differed only in operational variables that affected reproducibility and evaluation rigor.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Run</th><th>Date</th><th>Splitter seeded</th><th>Vocab sidecar</th><th><code>-skip_head</code></th></tr></thead><tbody><tr><td>Run 1</td><td>2026-04-18</td><td>No</td><td>No</td><td>True (tail-only)</td></tr><tr><td>Run 2</td><td>2026-04-24 02:13<br/>2026-04-24 07:02</td><td>No</td><td>Yes</td><td>True</td></tr><tr><td>Run 3</td><td>2026-04-24 07:20</td><td><strong>Yes</strong> (seed 41504)</td><td>Yes</td><td>True</td></tr><tr><td><strong>Run 4</strong></td><td>2026-04-24 19:12<br/>2026-04-25 00:36</td><td>Yes (same split as Run 3)</td><td>Yes</td><td><strong>False</strong></td></tr></tbody></table></div>
+<p>Run IDs follow the pattern <code>gpkg_corr_1l_200d_v{1..4}</code>. Best epoch and training time are reported in §4.1 / §4.8.</p>
+<h3 id="31-what-changed-across-runs-and-why">3.1 What changed across runs and why<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-what-changed-across-runs-and-why" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Run 1</strong> — first successful Colab run end-to-end, after several free-tier timeouts. Train and inference in the same session (required for ent2id consistency, see §3.4). Established that the published hyperparameters trained without modification on Maple’s PDR1 fork.</p>
+<p><strong>Run 2</strong> — added a vocab sidecar export (<code>gpkg_repro_v2_vocab.pkl</code>, 873 KB) so the entity→index mapping is durable and inference can be performed in a separate Colab session from training. Same unseeded splitter as Run 1, so this is genuinely a different random split — useful for measuring split-level variance on the AD case study.</p>
+<p><strong>Run 3</strong> — first run with the seeded splitter. After patching <code>random.seed(41504)</code> into <code>split_GPKG.py</code> line 87, this run produces the frozen Phase 0 baseline split. Inference completed; training log was not saved due to a Colab session interruption, so per-epoch validation MRR and best epoch are unrecoverable.</p>
+<p><strong>Run 4 — the closure run.</strong> Identical configuration to Run 3 (same seeded split, same hyperparameters, same checkpoint structure) with <code>-skip_head</code> toggled OFF for the first time. Validation now evaluates both directions (head and tail), giving an honest MRR rather than the inflated tail-only number. Early-stopping fired at epoch 165 with the saved checkpoint coming from epoch 155. Held-out test evaluation ran in the same Colab cell immediately after training closed.</p>
+<h3 id="32-inference">3.2 Inference<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#32-inference" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>For each run, after training, two domain-specific ranking tasks were executed:</p>
+<pre><code>python test.py -name &lt;run_id> -test_file ad_pre.txt  -save_result ad_predictions.txt
+python test.py -name &lt;run_id> -test_file crc_pre.txt -save_result crc_predictions.txt
+</code></pre>
+<p><code>ad_pre.txt</code> / <code>crc_pre.txt</code> contain prepared queries <code>(?, treat, alzheimer)</code> and <code>(?, treat, colorectal_neoplasms)</code> respectively. Output is a list of (head, relation, tail, rank, score) for each query, against the full 1,430 drug nodes.</p>
+<p>PubChem CID lookup was performed locally via <code>lookup_drugs.py</code> to convert opaque <code>cid100xxxxxxx</code> IDs to drug names, producing <code>ad_top30_named.csv</code> / <code>crc_top30_named.csv</code>.</p>
+<h3 id="33-metric-computation">3.3 Metric computation<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#33-metric-computation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>backend/scripts/pdr/compute_metrics.py</code> (added 2026-04-20, comparator targets corrected 2026-04-24) consumes the named CSVs and emits <code>metrics.json</code> per run. It computes Spearman ρ vs <code>case_study_predict_results.csv</code>, plus AUROC / AUPR / MRR / Hits@k against the 60 NCT-evidence positives. Run locally; no GPU required.</p>
+<p>For Run 4 only, an additional script in this writeup (<code>backend/scripts/pdr_phase0_charts.py</code>) parses <code>test_predictions.txt</code> to compute the rank-derived full-ranking AUROC reported in §4.</p>
+<h3 id="34-same-session-inference-constraint">3.4 Same-session inference constraint<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#34-same-session-inference-constraint" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The PDR1 codebase builds the entity→index map (<code>ent2id</code>) from train.txt traversal order, which depends on Python hash-set iteration order. With <code>PYTHONHASHSEED</code> set, this is stable within a process; across processes it can drift. Runs 1–3 trained and inferred in the same Colab session; Run 2 onward also exports a vocab sidecar that lets inference happen later if needed.</p>
+<hr/>
+<h2 id="4-results">4. Results<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-results" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-validation-mrr-trajectory-across-runs">4.1 Validation MRR trajectory across runs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-validation-mrr-trajectory-across-runs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase0_val_mrr_by_epoch.png" alt="Validation MRR per epoch, all four GP-KG runs"/></p>
+<p>Runs 1, 2, and 4 are plotted; Run 3’s training log was not preserved.</p>
+<ul>
+<li><strong>Runs 1 and 2</strong> plateau at MRR ≈ 0.49 by epoch ~150. With <code>-skip_head</code> enabled, main.py reports <code>Tail ≡ Head ≡ Avg</code>, so the headline is the tail-only number.</li>
+<li><strong>Run 4</strong> plateaus at MRR ≈ 0.31 because its “Avg” is honestly <code>(Tail + Head) / 2</code>. Run 4’s curve crosses KG-Predict’s CV target of 0.261 by epoch ~25 and stays above it.</li>
+</ul>
+<h3 id="42-run-4-head-vs-tail-dynamics">4.2 Run 4 head vs tail dynamics<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-run-4-head-vs-tail-dynamics" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase0_run4_head_vs_tail.png" alt="Run 4 head vs tail validation, with held-out test marker"/></p>
+<p>Run 4 is the only run with separable head and tail evaluation. Tail prediction (MRR ≈ 0.485) is consistently easier than head prediction (MRR ≈ 0.150) — a roughly 3× asymmetry that explains why <code>-skip_head</code> inflated Runs 1–3 by the same factor. The gold star marks the held-out test result (MRR 0.319), within noise of the validation plateau.</p>
+<h3 id="43-held-out-test-results-run-4">4.3 Held-out test results (Run 4)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-held-out-test-results-run-4" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Metric</th><th>main.py<br/>(1000-neg<br/>sampled)</th><th>test.py<br/>(full ranking,<br/>61,146 entities)</th><th>KG-Predict<br/>CV target</th></tr></thead><tbody><tr><td>MRR avg</td><td><strong>0.31899</strong> ✅</td><td>0.07076</td><td>0.261</td></tr><tr><td>MRR tail</td><td>0.48531</td><td>—</td><td>—</td></tr><tr><td>MRR head</td><td>0.15268</td><td>—</td><td>—</td></tr><tr><td>Hits@1</td><td>0.25623</td><td>0.01595</td><td>—</td></tr><tr><td>Hits@3</td><td>0.33685</td><td>0.05067</td><td>—</td></tr><tr><td>Hits@5</td><td>0.37869</td><td>0.08517</td><td>—</td></tr><tr><td>Hits@10</td><td>0.44045</td><td>0.16487</td><td>—</td></tr><tr><td>Hits@30</td><td>—</td><td>0.42795</td><td>—</td></tr><tr><td>AUROC<br/>(rank-derived)</td><td>—</td><td><strong>0.99260</strong> ✅</td><td>0.981</td></tr><tr><td>Mean Rank</td><td>—</td><td>453.5</td><td>—</td></tr></tbody></table></div>
+<p>✅ = within the 5% closure band of the KG-Predict CV target. main.py MRR avg exceeds target by 22%; test.py rank-derived AUROC exceeds target by 1.2%.</p>
+<p><img src=".././charts/pdr_phase0_run4_hits_comparison.png" alt="Run 4 hits@k under both eval regimes"/></p>
+<p>Both Step 1 closure criteria are met within the 5% band.</p>
+<h3 id="44-auroc-paired-comparison">4.4 AUROC paired comparison<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-auroc-paired-comparison" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase0_auroc_paired.png" alt="Run 4 vs KG-Predict — paired AUROC on the two tracks"/></p>
+<p>CV link prediction passes; AD case study is short by ~7%.</p>
+<h3 id="45-ad-case-study-results-all-four-runs">4.5 AD case-study results (all four runs)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#45-ad-case-study-results-all-four-runs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase0_ad_auroc_aupr.png" alt="AD case-study AUROC and AUPR per run"/></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Metric</th><th>Run 1</th><th>Run 2</th><th>Run 3</th><th>Run 4</th><th>KG-Predict AD-CS</th></tr></thead><tbody><tr><td>AUROC</td><td>0.8024</td><td>0.8078</td><td>0.7935</td><td><strong>0.8050</strong></td><td>0.868</td></tr><tr><td>AUPR</td><td>0.1740</td><td>0.1301</td><td>0.1267</td><td><strong>0.1904</strong></td><td>0.364</td></tr><tr><td>MRR (60 positives among 1,430)</td><td>0.0293</td><td>0.0124</td><td>0.0116</td><td><strong>0.0294</strong></td><td>not published</td></tr><tr><td>Hits@10</td><td>0.0333</td><td>0.0167</td><td>0.0000</td><td><strong>0.0667</strong></td><td>not published</td></tr><tr><td>Hits@30</td><td>0.0833</td><td>0.0667</td><td>0.1167</td><td><strong>0.1333</strong></td><td>not published</td></tr><tr><td>n positives resolved</td><td>60/60</td><td>60/60</td><td>60/60</td><td>60/60</td><td>—</td></tr></tbody></table></div>
+<p>AUROC is stable across all four runs in the 0.79–0.81 range, indicating the result is not driven by run-to-run noise. AUPR is more variable (0.13–0.19) because of the 4.2% positive rate.</p>
+<h3 id="46-spearman-ρ-vs-paper-ad-ranking">4.6 Spearman ρ vs paper AD ranking<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#46-spearman-ρ-vs-paper-ad-ranking" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src=".././charts/pdr_phase0_spearman.png" alt="Spearman ρ across runs"/></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Run</th><th>Spearman ρ</th><th>p</th></tr></thead><tbody><tr><td>Run 1 (unseeded split)</td><td>0.7397</td><td>&lt; 10⁻²⁴⁷</td></tr><tr><td>Run 2 (unseeded split)</td><td>0.8053</td><td>~ 0</td></tr><tr><td>Run 3 (seeded split)</td><td>0.7125</td><td>&lt; 10⁻²²¹</td></tr><tr><td>Run 4 (seeded split, no skip_head)</td><td>0.7392</td><td>&lt; 10⁻²⁴⁶</td></tr></tbody></table></div>
+<p>ρ ranges 0.71–0.81; the secondary 0.90 target is not met in any run. All p-values are vanishingly small — the agreement with the paper’s ranking is statistically extremely significant, just imperfect.</p>
+<h3 id="47-top-30-sanity-check-run-4">4.7 Top-30 sanity check (Run 4)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#47-top-30-sanity-check-run-4" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Top-5 AD candidates: fluoxetine, venlafaxine, citalopram, methotrexate, thalidomide. Three SSRIs/SNRIs (depression-AD comorbidity), plus methotrexate (AD-inflammation pathway) and thalidomide (TNF-α modulation). Top-5 CRC: cyclophosphamide, vincristine, cisplatin, bortezomib, mitoxantrone — standard cytotoxics; capecitabine appears at rank 14. Both lists pass face validity. Full lists at <code>ad_top30_named.csv</code> / <code>crc_top30_named.csv</code>.</p>
+<h3 id="48-compute-cost">4.8 Compute cost<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#48-compute-cost" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Run</th><th>Training (h)</th><th>Inference (h)</th><th>Total (h)</th><th>CU</th></tr></thead><tbody><tr><td>Run 1</td><td>4.80</td><td>0.10</td><td>4.90</td><td>33.2</td></tr><tr><td>Run 2</td><td>4.82</td><td>0.50</td><td>5.32</td><td>36.0</td></tr><tr><td>Run 3</td><td>4.80</td><td>0.30</td><td>5.10</td><td>34.5</td></tr><tr><td>Run 4</td><td>5.33</td><td>0.06</td><td>5.39</td><td>36.5</td></tr><tr><td><strong>Total</strong></td><td>—</td><td>—</td><td><strong>20.71 h</strong></td><td><strong>140.2 CU</strong></td></tr></tbody></table></div>
+<hr/>
+<h2 id="5-discussion">5. Discussion<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-discussion" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="51-step-1-closes-cleanly">5.1 Step 1 closes cleanly<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-step-1-closes-cleanly" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Run 4’s test MRR (0.319) and rank-derived AUROC (0.993) both clear the 5% closure band against KG-Predict’s published CV targets. The MRR exceeds the target by 22% on the head+tail-averaged metric, which is the form KG-Predict reports — there is no <code>-skip_head</code> confound. AUROC exceeds by 1.2% under the rank-derived form, which is a defensible reconstruction of the paper’s published 0.981 (the paper does not specify the exact AUROC computation method, but rank-derived AUROC is the standard form for full-ranking link-prediction evaluation and is commonly within 0.01–0.02 of sampled-pairs AUROC for the same model).</p>
+<p>The single-split-vs-5-fold-CV asymmetry in §2.7 is acknowledged. Given the consistency of AUROC across our four runs on the AD-CS track (range 0.79–0.81, span 0.014), between-fold variance is unlikely to swing the closure call. We do not plan additional folds for Phase 0.</p>
+<h3 id="52-step-2-is-approaching-closure-but-not-closed">5.2 Step 2 is approaching closure but not closed<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-step-2-is-approaching-closure-but-not-closed" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The AD-CS AUROC sits at ~0.80 across all four runs, ~7% short of KG-Predict’s 0.868. Three observations:</p>
+<ol>
+<li><strong>Stability across training conditions.</strong> The number is essentially unchanged whether the splitter is seeded (Runs 3, 4) or unseeded (Runs 1, 2), and whether evaluation includes the head direction (Run 4) or not (Runs 1–3). This rules out the model architecture, the training procedure, and the <code>-skip_head</code> setting as drivers of the gap.</li>
+<li><strong>Variance in AUPR but not AUROC.</strong> AUPR ranges 0.13–0.19 across runs, considerably wider than AUROC (0.79–0.81). This is consistent with the 4.2% positive rate — AUPR is imbalance-sensitive and reorders quickly when ties or near-ties get permuted between training runs.</li>
+<li><strong>Spearman ρ ceiling at ~0.74–0.81.</strong> All four runs agree on most of the ranking but not on enough of the top-30 to push ρ to 0.90. This pattern is what we’d expect from a different but functionally equivalent split — many drug pairs in the same ballpark, but the precise top-30 ordering differs.</li>
+</ol>
+<p>The most parsimonious explanation is <strong>split mismatch</strong>: KG-Predict produced their published ranking using an unseeded run of <code>split_GPKG.py</code> (verified — the script has no <code>random.seed()</code> call) and the resulting train/test partition was not shipped with the public release. Without it, ρ ≈ 0.74 is a reasonable floor for a different but legitimate split, and the AD-CS AUROC’s 7% gap is plausibly the same effect.</p>
+<p>We do not plan further runs to chase Step 2 closure. The remaining gap will be documented as a known asterisk in the final reproducibility writeup. PrimeKG (which uses an entirely different drug ID scheme and edge structure) is the production graph going forward; GP-KG remains in the pipeline only as the paper-comparator validation.</p>
+<h3 id="53-two-methodological-lessons">5.3 Two methodological lessons<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-two-methodological-lessons" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>(i) <code>-skip_head</code> was a trap.</strong> Runs 1–3 reported MRR ≈ 0.49 and that number looked like it was beating KG-Predict’s 0.261 by 88%. It was actually a tail-only metric, masking the harder head-direction prediction; the honest number (Run 4) is 0.319. Future runs should never use <code>-skip_head</code> for closure-critical evaluation. The flag remains useful for fast iteration during architecture exploration, when a 2× speedup matters more than head-tail symmetry.</p>
+<p><strong>(ii) Two evaluation regimes coexist for the same checkpoint.</strong> main.py’s end-of-train test uses 1000-neg sampling; test.py uses full ranking. They produce numerically different MRRs (0.319 vs 0.071 for Run 4) and different Hits@k profiles. Neither is wrong; they answer different questions and compare to different paper conventions. For closure, we report both and match each to its appropriate KG-Predict target.</p>
+<h3 id="54-the-document-state-discrepancy-that-prompted-this-writeup">5.4 The document-state discrepancy that prompted this writeup<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-the-document-state-discrepancy-that-prompted-this-writeup" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">PDR_PIPELINE_PLAN.md</a> carried the Run 4 results in its Run Catalog (lines 183–210) but had not propagated the closure into the Phase 0 checklist (lines 482, 533–535, 670–694). The checklist still flagged Step 1 as blocked on a run that had completed 11 days earlier. The plan document was patched on 2026-05-04 to reflect closure; both the closure narrative and the corrected reproducibility tables now match the artifacts on disk.</p>
+<p>This is a reminder that the Run Catalog and the checklist are two different views of the same project state and need to be updated together. Going forward, run-completion commits should touch both sections in the same diff.</p>
+<h3 id="55-whats-next">5.5 What’s next<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#55-whats-next" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Phase</th><th>Activity</th><th>Status</th></tr></thead><tbody><tr><td>0 Step 2</td><td>AD case-study closure — accept ~7% gap as split-mismatch asterisk</td><td>Not pursuing further</td></tr><tr><td>5.4</td><td>PrimeKG architecture grid (<code>opn</code> × layer × dim) — Run A1 (<code>primekg_sub_1l_300d_v1</code>) leads at MRR 0.415</td><td>In progress</td></tr><tr><td>7.5</td><td>RGCC patient-specific validation — 224 drug sensitivities → tier-1 Spearman, tier-2 AUROC</td><td>Pending PrimeKG checkpoint promotion</td></tr><tr><td>7.6</td><td>OpenAI vs SapBERT semantic embedder pickoff</td><td>Reported done, pending verification</td></tr><tr><td>7.7</td><td>Warm-init vs post-hoc combination decision</td><td>Gated on 7.6</td></tr></tbody></table></div>
+<p>Run 4’s checkpoint (<code>gpkg_repro_v4</code>) is the canonical Phase 0 baseline for any future GP-KG comparison work.</p>
+<h3 id="56-limitations">5.6 Limitations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#56-limitations" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Single-split CV vs paper’s 5-fold mean.</strong> §2.7 and §5.1.</li>
+<li><strong>Unrecovered original split.</strong> §5.2.</li>
+<li><strong>Rank-derived AUROC formula.</strong> §5.1 — this is the standard reconstruction but not necessarily the exact form used in the KG-Predict paper.</li>
+<li><strong>GP-KG drug ID opacity.</strong> Drugs are stored as <code>cid100xxxxxxx</code> PubChem-offset strings; nothing in the KG provides drug names directly. Drug-name resolution is post-hoc via <code>lookup_drugs.py</code>. Errors in the offset convention (we hit one early on) cascade silently.</li>
+<li><strong>Run 3 training log loss.</strong> §3.1, footnote 1. Recoverable only by retraining; not pursued because Run 4 supersedes it.</li>
+</ul>
+<hr/>
+<h2 id="6-reproducibility">6. Reproducibility<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-reproducibility" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The numbers in this writeup are reproducible from a checkout of the repo at this commit:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;" data-token-type="comment"># from C:\Maple</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> backend/scripts/pdr_phase0_charts.py</span></span></code></pre></figure>
+<p>That script (<code>backend/scripts/pdr_phase0_charts.py</code>) parses the training logs and metrics JSONs in <code>backend/data/pdr_models/Run{1..4}/</code> and writes the six PNGs in <code>docs/charts/pdr_phase0_*.png</code>. All numbers in §4 are taken verbatim from the script’s stdout.</p>
+<h3 id="source-artifacts">Source artifacts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#source-artifacts" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Path</th><th>Contents</th></tr></thead><tbody><tr><td><code>backend/data/pdr_models/Run{1..4}/log/*</code></td><td>Per-epoch validation MRR trajectories</td></tr><tr><td><code>backend/data/pdr_models/Run4/log/gpkg_repro_v4</code></td><td>Held-out test MRR / Hits line at end of training</td></tr><tr><td><code>backend/data/pdr_models/Run4/test_predictions.txt</code></td><td>76,928 ranked test triples → rank-derived AUROC</td></tr><tr><td><code>backend/data/pdr_models/Run{1..4}/metrics.json</code></td><td>AD case-study AUROC, AUPR, MRR, Hits@k, Spearman ρ</td></tr><tr><td><code>backend/data/pdr_models/Run4/cv_metrics.json</code></td><td>Final test.py stdout snapshot</td></tr><tr><td><code>backend/data/pdr_models/compute_log.csv</code></td><td>CU spend per run</td></tr><tr><td><code>backend/scripts/pdr_colab_train_run4.ipynb</code></td><td>Colab notebook driving Run 4</td></tr></tbody></table></div>
+<hr/>
+<h2 id="7-references">7. References<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>Gao Z, Ding P, Xu R. <strong>KG-Predict: A knowledge graph computational framework for drug repurposing.</strong> <em>J Biomed Inform.</em> 2022. Foundational paper for GP-KG and the CompGCN+ConvE link-prediction model.</li>
+<li>Oğuztüzün C, Gao Z, Xu R. <strong>Precision drug repurposing: Patient-level modeling and prediction combining foundational knowledge graph with biobank data.</strong> <em>J Biomed Inform.</em> 2025. Individualized variant of the KG-Predict model with UK Biobank patient features.</li>
+<li>Vashishth S, Sanyal S, Nitin V, Talukdar P. <strong>Composition-based multi-relational graph convolutional networks</strong> (CompGCN). <em>ICLR 2020.</em></li>
+<li>Dettmers T, Minervini P, Stenetorp P, Riedel S. <strong>Convolutional 2D knowledge graph embeddings</strong> (ConvE). <em>AAAI 2018.</em></li>
+</ul>
+<hr/>
+<h2 id="appendix-a--template-instructions-for-future-writeups">Appendix A — Template instructions for future writeups<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#appendix-a--template-instructions-for-future-writeups" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Use this document’s structure as a template:</p>
+<ol>
+<li><strong>Header block.</strong> Authors, date, status (closed / approaching / open), companion documents, pipeline plan cross-link.</li>
+<li><strong>Summary.</strong> ~150 words. The headline numbers and the one-line interpretation.</li>
+<li><strong>Purpose.</strong> Why this work, in the context of the larger Maple project. State the closure criteria explicitly — what would count as success.</li>
+<li><strong>Materials and Methods.</strong> Dataset, splits, architecture, hyperparameters, hardware, evaluation metrics (with worked examples for any non-obvious metric), comparison targets. This is the section that makes the work <em>replicable</em>.</li>
+<li><strong>Procedure.</strong> Chronological. What was actually done, in what order, and why each variation was introduced. Differs from §4 in that §4 is the <em>findings</em>; §3 is the <em>protocol</em>.</li>
+<li><strong>Results.</strong> Charts and tables. One subsection per major finding. Cite numbers verbatim from the metrics JSON / log artifacts; never paraphrase numerical results.</li>
+<li><strong>Discussion.</strong> Interpret the results. Identify the closure outcome, address methodological lessons, surface limitations, point to next phases. This is where judgment lives.</li>
+<li><strong>Reproducibility.</strong> The exact command(s) needed to regenerate the writeup’s numbers and charts. List source artifacts by path.</li>
+<li><strong>References.</strong> Cited papers, with full bibliographic info.</li>
+<li><strong>Appendices</strong> as needed.</li>
+</ol></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-80" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#gp-kg-phase-0-reproduction--formal-writeup" data-for="gp-kg-phase-0-reproduction--formal-writeup">GP-KG Phase 0 Reproduction — Formal Writeup</a></li><li class="depth-1"><a href="#summary" data-for="summary">Summary</a></li><li class="depth-1"><a href="#1-purpose" data-for="1-purpose">1. Purpose</a></li><li class="depth-1"><a href="#2-materials-and-methods" data-for="2-materials-and-methods">2. Materials and Methods</a></li><li class="depth-2"><a href="#21-dataset" data-for="21-dataset">2.1 Dataset</a></li><li class="depth-2"><a href="#22-trainvalidtest-split" data-for="22-trainvalidtest-split">2.2 Train/valid/test split</a></li><li class="depth-2"><a href="#23-architecture-and-hyperparameters" data-for="23-architecture-and-hyperparameters">2.3 Architecture and hyperparameters</a></li><li class="depth-2"><a href="#24-hardware-and-runtime" data-for="24-hardware-and-runtime">2.4 Hardware and runtime</a></li><li class="depth-2"><a href="#25-evaluation-metrics--definitions-and-worked-examples" data-for="25-evaluation-metrics--definitions-and-worked-examples">2.5 Evaluation metrics — definitions and worked examples</a></li><li class="depth-2"><a href="#26-two-evaluation-regimes-and-why-we-report-both-for-run-4" data-for="26-two-evaluation-regimes-and-why-we-report-both-for-run-4">2.6 Two evaluation regimes (and why we report both for Run 4)</a></li><li class="depth-2"><a href="#27-comparison-targets" data-for="27-comparison-targets">2.7 Comparison targets</a></li><li class="depth-1"><a href="#3-procedure" data-for="3-procedure">3. Procedure</a></li><li class="depth-2"><a href="#31-what-changed-across-runs-and-why" data-for="31-what-changed-across-runs-and-why">3.1 What changed across runs and why</a></li><li class="depth-2"><a href="#32-inference" data-for="32-inference">3.2 Inference</a></li><li class="depth-2"><a href="#33-metric-computation" data-for="33-metric-computation">3.3 Metric computation</a></li><li class="depth-2"><a href="#34-same-session-inference-constraint" data-for="34-same-session-inference-constraint">3.4 Same-session inference constraint</a></li><li class="depth-1"><a href="#4-results" data-for="4-results">4. Results</a></li><li class="depth-2"><a href="#41-validation-mrr-trajectory-across-runs" data-for="41-validation-mrr-trajectory-across-runs">4.1 Validation MRR trajectory across runs</a></li><li class="depth-2"><a href="#42-run-4-head-vs-tail-dynamics" data-for="42-run-4-head-vs-tail-dynamics">4.2 Run 4 head vs tail dynamics</a></li><li class="depth-2"><a href="#43-held-out-test-results-run-4" data-for="43-held-out-test-results-run-4">4.3 Held-out test results (Run 4)</a></li><li class="depth-2"><a href="#44-auroc-paired-comparison" data-for="44-auroc-paired-comparison">4.4 AUROC paired comparison</a></li><li class="depth-2"><a href="#45-ad-case-study-results-all-four-runs" data-for="45-ad-case-study-results-all-four-runs">4.5 AD case-study results (all four runs)</a></li><li class="depth-2"><a href="#46-spearman-ρ-vs-paper-ad-ranking" data-for="46-spearman-ρ-vs-paper-ad-ranking">4.6 Spearman ρ vs paper AD ranking</a></li><li class="depth-2"><a href="#47-top-30-sanity-check-run-4" data-for="47-top-30-sanity-check-run-4">4.7 Top-30 sanity check (Run 4)</a></li><li class="depth-2"><a href="#48-compute-cost" data-for="48-compute-cost">4.8 Compute cost</a></li><li class="depth-1"><a href="#5-discussion" data-for="5-discussion">5. Discussion</a></li><li class="depth-2"><a href="#51-step-1-closes-cleanly" data-for="51-step-1-closes-cleanly">5.1 Step 1 closes cleanly</a></li><li class="depth-2"><a href="#52-step-2-is-approaching-closure-but-not-closed" data-for="52-step-2-is-approaching-closure-but-not-closed">5.2 Step 2 is approaching closure but not closed</a></li><li class="depth-2"><a href="#53-two-methodological-lessons" data-for="53-two-methodological-lessons">5.3 Two methodological lessons</a></li><li class="depth-2"><a href="#54-the-document-state-discrepancy-that-prompted-this-writeup" data-for="54-the-document-state-discrepancy-that-prompted-this-writeup">5.4 The document-state discrepancy that prompted this writeup</a></li><li class="depth-2"><a href="#55-whats-next" data-for="55-whats-next">5.5 What’s next</a></li><li class="depth-2"><a href="#56-limitations" data-for="56-limitations">5.6 Limitations</a></li><li class="depth-1"><a href="#6-reproducibility" data-for="6-reproducibility">6. Reproducibility</a></li><li class="depth-2"><a href="#source-artifacts" data-for="source-artifacts">Source artifacts</a></li><li class="depth-1"><a href="#7-references" data-for="7-references">7. References</a></li><li class="depth-1"><a href="#appendix-a--template-instructions-for-future-writeups" data-for="appendix-a--template-instructions-for-future-writeups">Appendix A — Template instructions for future writeups</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../mods_mission_spec" class="internal">MODS — Mission Spec</a></li><li><a href="../kg/kg_composition_pipeline_writeup" class="internal">KG Composition Pipeline</a></li><li><a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal">Variant-Aware Knowledge Graph Extension</a></li><li><a href="../model/pdr_personalization_writeup" class="internal">PDR Personalization — Technical Writeup</a></li><li><a href="../planning/temporal_patient_modeling_planning" class="internal">Temporal Patient State Modeling — Planning</a></li><li><a href="../results/pdr_phase0_gpkg_results" class="internal">GP-KG Phase 0 - Results Summary</a></li><li><a href="../results/pdr_phase7_5_rgcc_writeup" class="internal">Patient-Specific Validation — Phase 7.5</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

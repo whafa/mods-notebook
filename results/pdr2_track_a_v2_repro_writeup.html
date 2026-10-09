@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>PDR2 Track A v2 — Foundation Retrain</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="PDR2 Track A v2 — Foundation Retrain"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="PDR2 Track A v2 — Foundation Retrain"/><meta name="twitter:description" content="A variant-aware foundation retrain, the metrics it moved, and the ones it did not."/><meta property="og:description" content="A variant-aware foundation retrain, the metrics it moved, and the ones it did not."/><meta property="og:image:alt" content="A variant-aware foundation retrain, the metrics it moved, and the ones it did not."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_v2_repro_writeup"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_v2_repro_writeup"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="A variant-aware foundation retrain, the metrics it moved, and the ones it did not."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_v2_repro_writeup-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_v2_repro_writeup-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_v2_repro_writeup-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="results/pdr2_track_a_v2_repro_writeup" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-98" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-98" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../results/">results</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>PDR2 Track A v2 — Foundation Retrain</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-28</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">writeup</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">A variant-aware foundation retrain, the metrics it moved, and the ones it did not.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.326Z">Oct 09, 2026</time><span>17 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="pdr2-track-a-v2--variant-aware-foundation-retrain-and-the-foundation-quality-win">PDR2 Track A v2 — Variant-Aware Foundation Retrain and the Foundation-Quality Win<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#pdr2-track-a-v2--variant-aware-foundation-retrain-and-the-foundation-quality-win" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Authors:</strong> whafa, Claude (Maple project)
+<strong>Date:</strong> 2026-05-20
+<strong>Status:</strong> Reproduction of PDR2’s Track A protocol against a freshly-trained foundation on a Maureen-focused composition (<code>maureen_focus_v1</code>). Foundation training, patient-conditional fine-tune, and three evaluations completed end-to-end on Vertex AI. <strong>Baseline (foundation-only) filtered MRR on Maureen’s outbound edges lifted +224% over the v1 (Colab-trained, primekg_civic_pharmgkb_v1) foundation.</strong> Personalization criterion at λ=0.01 still produced ~0% Δ (same architectural finding as v1); λ sweep run separately to find where the criterion becomes load-bearing.</p>
+<p><strong>Companion documents:</strong></p>
+<ul>
+<li><a href="../results/pdr2_track_a_repro_writeup" class="internal internal-link alias" data-slug="results/pdr2_track_a_repro_writeup">docs/pdr2_track_a_repro_writeup.md</a> — v1 writeup (2026-05-18). This document mirrors that one’s structure; cross-references throughout.</li>
+<li><a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">docs/pdr_personalization_writeup.md</a> — PDR2 personalization mechanism reference.</li>
+<li><a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">docs/PDR_PIPELINE_PLAN.md</a> — master plan; this run closes the first end-to-end Vertex foundation→fine-tune→eval cycle on a variant-aware KG.</li>
+<li><a href="../results/pdr_phase7_5_rgcc_writeup" class="internal internal-link alias" data-slug="results/pdr_phase7_5_rgcc_writeup">docs/pdr_phase7_5_rgcc_writeup.md</a> — RGCC validation framework (Tier-1 follow-up tracked separately).</li>
+</ul>
+<blockquote>
+<p><strong>⚠ Correction, 2026-09-27 (<code>GH #214</code>,
+<code>#433</code>,
+<code>#435</code>).</strong> Two of this writeup’s headline
+readings do not hold.</p>
+<ul>
+<li><strong>The “+224%” own-edge lift is unrestated.</strong> Almost all of it sits on <code>current_medication</code>
+and <code>sensitive_to_drug</code>. This foundation’s training split held 74 of the patient’s 135
+drug-sensitivity edges and 62 of her medication edges, so those are the predicates it had
+memorized. The patient MRRs were also computed on data the eval handlers re-exported and
+re-split, so “held-out” edges were largely training edges. The global filtered MRR of 0.565
+is inflated as well: 60.6% of the test triples have their mirror in train.</li>
+<li><strong>The §4.4 “criterion weight signature” is initialization, not learning.</strong> Expression
+entered as raw 0–100 percentiles and saturated the loss, so the protein weights never
+moved from their random start. The v2 signature only <em>looks</em> on-target because the 84
+genes it draws from are Caris’s actionable-oncology panel, and any subset of that panel
+reads like one an oncologist would circle.</li>
+<li><strong>The adjustment arithmetic in §4.5–4.6 assumes z-scored expression.</strong> The inputs were
+raw percentiles, so every adjustment was tens of times larger than the text states, and
+the λ at which the sweep turned destructive is correspondingly lower. The qualitative
+finding still stands: edge-blind boosting wrecks the ranking once it is strong enough to
+move it.</li>
+</ul>
+<p>The foundation-training mechanics, the per-predicate λ-sweep behaviour and the architectural
+findings stand. A leak-free restatement is part of smoke run #1
+(<code>docs/mods_smoke_run_1_playbook.md</code>).</p>
+</blockquote>
+<hr/>
+<h2 id="summary">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>On 2026-05-18/20 we built a new “Maureen-focused proof-out” composition (<code>maureen_focus_v1</code>: PrimeKG-tier2 + CIViC + PharmGKB + OncoKB + ClinVar with per-variant annotations), retrained the foundation model from scratch on it (Vertex A100-80GB, 21 hr, batch_size=64 settled by OOM probe), ran the Track A fine-tune protocol against the new foundation (synthetic_zeros PRS + real Caris expression, λ=0.01, 25 min), and evaluated baseline + personalized on Maureen’s 148 outbound canonical edges plus a full-ranking eval on the global valid+test splits.</p>
+<p>The headline: <strong>the new foundation’s baseline filtered MRR on Maureen’s edges is 0.01671, up from the v1 foundation’s 0.00515 — a +224% lift.</strong> Hits@10 went from 0.0000 (v1) to 0.0203 (v2). Mean Rank dropped from 4524 to 3367. The lift is concentrated in clinically-actionable predicates: <code>MAPLE:current_medication</code> MRR went from 0.0038 to 0.171 (+4353%); <code>MAPLE:sensitive_to_drug</code> went from 0.0044 to 0.169 (+3764%); <code>MAPLE:resistant_to_drug</code> from 0.0028 to 0.014 (+382%). The two large negative movers (<code>partially_sensitive_to_drug</code> -56%, <code>past_medication</code> -14%) are the noisiest edge classes by construction — the v1 foundation was likely getting them right by chance, not by signal.</p>
+<p>Personalization at λ=0.01 produced Δ_MRR = -0.01% (essentially zero), matching the v1 finding. The criterion weight magnitudes are ~0.02; with λ=0.01 and z-scored expression values, the per-entity adjustment is ~0.0002 — smaller than the raw model score variance. <strong>The λ sweep (0.10 / 1.00 / 10.0) is now complete and shows the criterion fires <em>destructively</em> at any λ strong enough to move the ranking</strong> (Δ_MRR -55% at λ=1.0, -82% at λ=10.0; all 11 predicates drop, with the predicates that the foundation ranks best dropping hardest). The mechanism is not learning <em>which</em> drugs Maureen needs — it’s blindly boosting the 1-hop-drug-neighbors of her high-magnitude criterion genes, which corrupts the foundation’s ranking. See §4.6 for the full sweep table.</p>
+<p>Net: <strong>the foundation is what matters at this stage of the pipeline.</strong> The variant-level KG extension (OncoKB per-variant annotation + ClinVar cross-refs + the canonical drug-CURIE merge) translated into a ~3× MRR lift on the patient-specific task without changing the personalization mechanism. The PDR2 paper’s criterion mechanism not only fails to add lift on top — at any λ that’s strong enough to leave noise territory, it actively destroys ranking quality on a heterogeneous-predicate eval. Phase 12 (per-relation learned criteria) is the natural architectural fix.</p>
+<hr/>
+<h2 id="1-what-changed-from-v1">1. What Changed From v1<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-what-changed-from-v1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="11-the-composition">1.1 The composition<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-the-composition" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>v1 (Track A morning 2026-05-18)</th><th>v2 (this run)</th></tr></thead><tbody><tr><td>Composition ID</td><td><code>primekg_civic_pharmgkb_v1</code> (transient; not seeded)</td><td><code>maureen_focus_v1</code> (seeded via migration 084)</td></tr><tr><td>Source members</td><td>prime_kg + civic + pharmgkb_variants</td><td>prime_kg + civic + pharmgkb_variants + <strong>oncokb + clinvar</strong></td></tr><tr><td>PrimeKG filter</td><td>full</td><td><strong>exclude_domains: anatomy, cellular_component, molecular_function, exposure</strong></td></tr><tr><td>Total entities</td><td>139,226</td><td><strong>102,914</strong> (-26%)</td></tr><tr><td>Total triples</td><td>~9.2M</td><td><strong>4,549,416</strong> (-51%)</td></tr><tr><td>Maureen overlay edges</td><td>250 (gene-level for all variants)</td><td>337 (4 variant-level CAID edges + gene fallback for the rest)</td></tr></tbody></table></div>
+<p>The reason for the new composition is twofold: (a) the variant-level evidence sources (OncoKB and ClinVar per-variant annotations) didn’t exist on v1; (b) the PrimeKG tier-2 prune cuts ~half the edge volume without dropping any drug-repurposing-relevant domain, so per-step training memory shrinks and we can use 2× the batch size.</p>
+<h3 id="12-the-patient-overlay-3-of-maureens-4-actionable-variants-are-now-full-variant-level-kg-citizens">1.2 The patient overlay (3 of Maureen’s 4 actionable variants are now full variant-level KG citizens)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#12-the-patient-overlay-3-of-maureens-4-actionable-variants-are-now-full-variant-level-kg-citizens" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Per the <a href="#" class="internal internal-link alias">pre-flight audit</a> on 2026-05-18 (logged inline during the session):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Variant</th><th>Status v1</th><th>Status v2</th></tr></thead><tbody><tr><td>BRAF V600E (<code>CAID:CA123643</code>)</td><td>Gene-fallback edge to NCBIGene:673</td><td>Variant-level edge to CAID:CA123643; CIViC chain (40+ drug edges) + <strong>16 new OncoKB edges (10 LEVEL_1: Cobimetinib, Dabrafenib, Encorafenib, Binimetinib, Cetuximab, FOLFOX, Vemurafenib, Atezolizumab, Trametinib, Tovorafenib; 2 LEVEL_2: Panitumumab, Selumetinib)</strong></td></tr><tr><td>APC p.T1556fs (<code>CAID:CA16021317</code>)</td><td>Gene-fallback</td><td>Variant-level; ClinVar pathogenic for FAP + CRC; no OncoKB targeted Rx for APC LoF (expected)</td></tr><tr><td>ATM p.S151fs (<code>CAID:CA6264609</code>)</td><td>Gene-fallback</td><td>Variant-level; OncoKB / ClinVar evidence at the variant level</td></tr><tr><td>5 secondary (EP300, MGA, MYC, NTRK2, TGFBR2)</td><td>Gene-fallback</td><td>Gene-fallback (ClinGen has no CAID for them)</td></tr><tr><td>One further variant (identifiers withheld)</td><td>Gene-fallback</td><td>Variant-level evidence edges (details withheld)</td></tr></tbody></table></div>
+<p>The BRAF V600E unblock required two infrastructure changes shipped during the run:</p>
+<ul>
+<li><strong>Resolver fix</strong> (<code>c5c17a5</code>, <code>backend/mods_patient_kg_service.py:_attach_maple_patient_source_to_variant</code>): the patient-overlay materialization wasn’t attaching a <code>maple_patient</code> source row to variants resolved via the name-match short-circuit, so connectors scoped by <code>--scope maple_patient</code> (oncokb_annotate, clinvar_annotate) were skipping BRAF V600E even though Maureen carried an overlay edge to it.</li>
+<li><strong>OncoKB entity merge</strong> (<code>a567a52</code>): the OncoKB connector was writing synthetic <code>oncokb:Vemurafenib</code> entities instead of normalizing to canonical <code>CHEBI:63637</code>. 53 entities (44 drug + 9 disease) merged into their canonical equivalents, 39 of which materially affected the maureen_focus_v1 export (the other 14 had no in-composition relations).</li>
+</ul>
+<h3 id="13-the-foundation-training">1.3 The foundation training<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#13-the-foundation-training" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>v1 (Colab, 2026-05-16)</th><th>v2 (Vertex, 2026-05-18→19)</th></tr></thead><tbody><tr><td>Compute</td><td>Colab A100-40GB</td><td><strong>Vertex A100-80GB</strong></td></tr><tr><td>Settled batch_size</td><td>32 (after 4 OOM halvings from 512)</td><td><strong>64</strong> (after 3 halvings)</td></tr><tr><td><code>batch_per_epoch</code> (BPE)</td><td>500</td><td>500 (unchanged)</td></tr><tr><td>Samples per epoch</td><td>32 × 500 = <strong>16,000</strong></td><td>64 × 500 = <strong>32,000</strong> (2×)</td></tr><tr><td>Total samples</td><td>320,000</td><td><strong>640,000</strong> (2×)</td></tr><tr><td>Wallclock</td><td>11.99 hr</td><td><strong>~21 hr</strong></td></tr><tr><td>Final loss</td><td>~0.0478 (epoch 19 from <code>progress.jsonl</code>)</td><td>~0.0353 by epoch 11, plateau ~0.03</td></tr><tr><td>Foundation parameters</td><td>168,705</td><td>168,705 (identical architecture)</td></tr><tr><td>Architecture</td><td>ULTRA-NBFNet-scratch, hidden_dim=64, n_layers=6, distmult, layer_norm, short_cut</td><td>same</td></tr><tr><td>Seed</td><td>41504</td><td>41504</td></tr></tbody></table></div>
+<p><strong>The wallclock surprise.</strong> v2 took roughly 2× the wallclock of v1 despite the GPU upgrade (40→80GB) and the smaller graph (9.2M→4.55M edges). The root cause was a pipeline gotcha rather than a hardware regression: <code>batch_per_epoch</code> is a <em>step count</em>, not a <em>sample count</em>. When the bigger GPU let the OOM probe settle at batch=64 instead of v1’s batch=32, each epoch processed 2× more samples in the same number of steps — so total training samples doubled (320K→640K) for a fixed BPE. Per-sample throughput on the A100-80GB was actually ~equivalent to the Colab A100-40GB (~7.8 vs ~7.4 samples/sec); the extra wallclock bought 2× more training data, not slower training. Lesson saved as a feedback memory.</p>
+<h3 id="14-the-fine-tune">1.4 The fine-tune<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#14-the-fine-tune" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>v1 (Track A morning)</th><th>v2 (this run)</th></tr></thead><tbody><tr><td>Foundation source</td><td>Colab v1 (copied as <code>foundation_pristine_copy.pth</code>)</td><td>Vertex v2 (<code>latest_state_dict.pt</code> from the foundation run)</td></tr><tr><td>PRS values</td><td>synthetic_zeros (no genotype upload)</td><td>synthetic_zeros (still no genotype upload — same Track A protocol)</td></tr><tr><td>Expression values</td><td>84 real Caris MI Profile TPM percentiles</td><td>same</td></tr><tr><td>λ₁, λ₂</td><td>0.01 / 0.01</td><td>0.01 / 0.01</td></tr><tr><td>Settled batch_size (after probe)</td><td>128 (one OOM halve from 256)</td><td><strong>128</strong> (set <code>FINE_TUNE_MAX_BATCH=128</code> after v1-attempt OOM at 256)</td></tr><tr><td>Trainable parameters</td><td>97 (13 disease + 84 protein)</td><td>97</td></tr><tr><td>Wallclock</td><td>24m 30s</td><td>24m 55s</td></tr><tr><td>Cost</td><td>~$2</td><td>~$2</td></tr></tbody></table></div>
+<p><strong>v1 attempt note</strong>: the first fine-tune submit (<code>7535294841207390208</code>) failed at minute 5 with <code>torch.cuda.OutOfMemoryError</code> at batch=256. The pre-flight probe in <code>training.py:1438-1473</code> runs under <code>torch.no_grad()</code>, so it tests forward-pass memory only — actual training (with gradients) needs ~6× more activation memory on a 6-layer NBFNet, so a probe-passing batch can still OOM in production. Fix: cap <code>FINE_TUNE_MAX_BATCH=128</code>. Real probe bug deferred (feedback memory saved covers the related dataset-class snapshot gotcha; the probe-under-no_grad issue deserves its own entry).</p>
+<hr/>
+<h2 id="2-pipeline-we-used">2. Pipeline We Used<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-pipeline-we-used" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="21-new-container">2.1 New container<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-new-container" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Tag: <code>gcr.io/PROJECT/maple-pdr2-training:c5c17a5-eval-fix</code>. Built via <code>cloudbuild-pdr2-training.yaml</code> in 4m 4s.</p>
+<p>Changes over the prior <code>4a85ec4-classifyfix</code> container:</p>
+<ul>
+<li><strong>New <code>MODE=eval_full_ranking</code></strong> (<code>entrypoint.sh</code>): standalone full-ranking eval against any GCS CKPT_URI, invoking <code>eval_maple.py</code> with the correct <code>-c CONFIG</code> flag.</li>
+<li><strong>Fix to section-6 in-line post-training eval</strong>: the v1 entrypoint missed <code>-c CONFIG</code> in the <code>eval_maple.py</code> invocation, so the post-train eval got skipped silently with <code>the following arguments are required: -c/--config</code>. Now passes <code>-c /opt/pdr2/code/config/maple_container.yaml</code> plus <code>--ckpt</code> pointing at the just-saved <code>latest_state_dict.pt</code>.</li>
+<li><strong>New <code>PrimeKGCIViCPharmGKBOncoKBClinVarMaureen</code> dataset class stub</strong> (not used in this run — we kept <code>PrimeKGCIViCPharmGKBMaureen</code> to avoid having to rebuild the container <em>before</em> training; the new stub is for future runs).</li>
+</ul>
+<h3 id="22-the-five-vertex-jobs">2.2 The five Vertex jobs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-the-five-vertex-jobs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Job</th><th>ID</th><th>GPU</th><th>Wallclock</th><th>Output</th></tr></thead><tbody><tr><td>Foundation training</td><td>8731449143018389504 (v2 — v1 failed on missing dataset class)</td><td>A100-80GB</td><td>21 hr</td><td><code>gs://BUCKET/runs/2026-05-18_maureen_focus_v1_foundation_scratch/</code></td></tr><tr><td>Fine-tune v2 (after OOM v1)</td><td>2625245347466706944</td><td>A100-80GB</td><td>25 min</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_track_a_finetune/finetune/</code></td></tr><tr><td>eval_full_ranking</td><td>3300222341618860032</td><td>A100-40GB</td><td>~7 hr</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_eval_full_ranking/eval_full_ranking/</code></td></tr><tr><td>eval_patient baseline</td><td>8711297293904510976</td><td>A100-40GB</td><td>~5 min runtime (waited 7 hr for capacity)</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_eval_patient_baseline/eval_patient/</code></td></tr><tr><td>evaluate_personalized</td><td>7934144883206389760</td><td>A100-40GB</td><td>~6 min</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_eval_personalized/eval_personalized/</code></td></tr></tbody></table></div>
+<p>Job spec files pinned to commit <code>dc4d7cc</code>.</p>
+<hr/>
+<h2 id="3-materials-and-methods">3. Materials and Methods<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-materials-and-methods" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Re-use <a href="../results/pdr2_track_a_repro_writeup#3-materials-and-methods" class="internal internal-link alias" data-slug="results/pdr2_track_a_repro_writeup">v1 §3</a> for the protocol details. The differences from v1 are tabulated in §1 above. The eval methodology (<code>eval_patient</code> scores 148 Maureen-outbound edges with full-ranking against all 102,914 entities; <code>evaluate_personalized</code> applies the criterion adjustment to drug entities only) is identical.</p>
+<h3 id="31-resolution-coverage-criterion--kg">3.1 Resolution coverage (criterion → KG)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-resolution-coverage-criterion--kg" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>v1 disease</th><th>v2 disease</th><th>v1 protein</th><th>v2 protein</th></tr></thead><tbody><tr><td>Total criterion entries</td><td>13</td><td>13</td><td>84</td><td>84</td></tr><tr><td>Resolved to KG CURIE</td><td>6</td><td><strong>2</strong></td><td>84</td><td>84</td></tr><tr><td>Note</td><td>UMLS xref worked for CRC + 5 others</td><td>The 13-UMLS-CUI disease list xrefs to MONDO via PrimeKG; the tier-2 prune did NOT drop MONDO, but evidently dropped most of the xref source rows. Worth investigating.</td><td>All NCBIGene (clean)</td><td>same</td></tr></tbody></table></div>
+<p>The drop from 6/13 to 2/13 disease resolution is a real regression on the disease side of the criterion. With Track A’s PRS=0, this is empirically irrelevant (the disease channel produces zero adjustment anyway), but for any future Track B run with real PRS the disease side would be largely silenced. Root cause likely in how composition export materializes UMLS xrefs vs raw MONDO disease entities — needs follow-up audit.</p>
+<hr/>
+<h2 id="4-results">4. Results<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-results" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-foundation-quality-lift-the-headline">4.1 Foundation-quality lift (the headline)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-foundation-quality-lift-the-headline" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Scored on Maureen’s outbound canonical edges (<code>MAPLE_PATIENT:maureen-1173a8db → …</code>), filtered eval (excludes other known-true tails for the same <code>(head, relation)</code> pair):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>V1 (Colab fdn)</th><th>V2 (Vertex fdn)</th><th>Lift</th></tr></thead><tbody><tr><td>Filtered MRR</td><td>0.005152</td><td><strong>0.016710</strong></td><td><strong>+224%</strong></td></tr><tr><td>Filtered Hits@10</td><td>0.0000</td><td><strong>0.0203</strong></td><td>0 → 2%</td></tr><tr><td>Filtered Mean Rank</td><td>4524</td><td><strong>3367</strong></td><td>-25.6%</td></tr><tr><td>N edges</td><td>138</td><td>148</td><td>+10 (richer overlay)</td></tr></tbody></table></div>
+<h3 id="42-per-predicate-breakdown-filtered-mrr-baseline-foundation">4.2 Per-predicate breakdown (filtered MRR, baseline foundation)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-per-predicate-breakdown-filtered-mrr-baseline-foundation" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Predicate</th><th>V1 N</th><th>V1 MRR</th><th>V2 N</th><th>V2 MRR</th><th>Lift</th></tr></thead><tbody><tr><td><code>MAPLE:current_medication</code></td><td>8</td><td>0.0038</td><td>6</td><td><strong>0.1708</strong></td><td><strong>+4353%</strong></td></tr><tr><td><code>MAPLE:sensitive_to_drug</code></td><td>4</td><td>0.0044</td><td>3</td><td><strong>0.1689</strong></td><td><strong>+3764%</strong></td></tr><tr><td><code>biolink:has_variant</code></td><td>1</td><td>0.0001</td><td>2</td><td>0.0008</td><td>+1058%</td></tr><tr><td><code>MAPLE:resistant_to_drug</code></td><td>23</td><td>0.0028</td><td>26</td><td>0.0136</td><td>+382%</td></tr><tr><td><code>biolink:has_phenotypic_feature</code></td><td>4</td><td>0.0001</td><td>3</td><td>0.0003</td><td>+127%</td></tr><tr><td><code>MAPLE:under_expresses</code></td><td>7</td><td>0.0073</td><td>8</td><td>0.0135</td><td>+84%</td></tr><tr><td><code>MAPLE:over_expresses</code></td><td>24</td><td>0.0028</td><td>25</td><td>0.0042</td><td>+48%</td></tr><tr><td><code>MAPLE:tried_drug</code></td><td>6</td><td>0.0086</td><td>6</td><td>0.0109</td><td>+26%</td></tr><tr><td><code>MAPLE:has_genetic_alteration_in</code></td><td>3</td><td>0.0253</td><td>3</td><td>0.0295</td><td>+16%</td></tr><tr><td><code>MAPLE:partially_sensitive_to_drug</code></td><td>29</td><td>0.0089</td><td>32</td><td>0.0039</td><td>-56%</td></tr><tr><td><code>MAPLE:past_medication</code></td><td>29</td><td>0.0032</td><td>34</td><td>0.0028</td><td>-14%</td></tr></tbody></table></div>
+<p>The two biggest gainers (<code>current_medication</code>, <code>sensitive_to_drug</code>) are exactly the predicates where the variant→drug evidence chains we built into <code>maureen_focus_v1</code> should have done the most work. The two negative movers are the noisiest classes by construction.</p>
+<h3 id="43-foundation-quality-on-the-global-splits-not-maureen-specific">4.3 Foundation quality on the global splits (not Maureen-specific)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-foundation-quality-on-the-global-splits-not-maureen-specific" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>From the <code>eval_full_ranking</code> job over the 890,384 test triples:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Filter mode</th><th>MRR</th><th>Hits@1</th><th>Hits@10</th><th>N</th></tr></thead><tbody><tr><td>raw (against all 102,914 entities)</td><td>0.0679</td><td>0.0303</td><td>0.1383</td><td>890,384</td></tr><tr><td>filtered (excludes known-positive tails for same (h, r))</td><td><strong>0.5646</strong></td><td>0.4432</td><td>0.7934</td><td>890,384</td></tr><tr><td>rel_filtered (paper-style relation-aware filter)</td><td>0.0689</td><td>0.0307</td><td>0.1404</td><td>890,384</td></tr></tbody></table></div>
+<p>Filtered MRR of 0.565 is the high-confidence KG-completion metric — the model gets the true tail in its top ~2 candidates roughly half the time when known false positives are excluded. Raw MRR of 0.068 against all entities is dense-KG-typical; Hits@10 of 0.14 (raw) is solid for a graph at this scale.</p>
+<h3 id="44-criterion-weight-signature">4.4 Criterion weight signature<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-criterion-weight-signature" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Top trainable weights from the v2 fine-tune (post-20-epoch):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rank</th><th>Protein</th><th>Weight</th><th>v1 equivalent</th></tr></thead><tbody><tr><td>1</td><td><strong>ATM</strong></td><td>+0.0249</td><td>(v1 top: ADORA2A +0.0255)</td></tr><tr><td>2</td><td>PIK3CA</td><td>+0.0232</td><td>(v1 #2: TSC2 -0.0254)</td></tr><tr><td>3</td><td>CTLA4</td><td>-0.0203</td><td>(v1 #3: SSTR2 +0.0193)</td></tr><tr><td>4</td><td>PRAME</td><td>-0.0183</td><td>(v1 #4: NRG1 +0.0182)</td></tr><tr><td>5</td><td>TP53</td><td>-0.0172</td><td>(v1 #5: CCNE1 -0.0176)</td></tr><tr><td>6</td><td>FGFR3</td><td>-0.0166</td><td></td></tr><tr><td>7</td><td>PDCD1LG2</td><td>-0.0158</td><td></td></tr><tr><td>8</td><td>TACSTD2</td><td>+0.0147</td><td></td></tr></tbody></table></div>
+<p>Magnitudes are comparable across runs (the gradient-degenerate loss converges to a closed-form optimum regardless of foundation; see <a href="../results/pdr2_track_a_repro_writeup#41-fine-tune-output" class="internal internal-link alias" data-slug="results/pdr2_track_a_repro_writeup">v1 §4.1</a> and <a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">the personalization mechanism reference</a>). The signature however is dramatically more on-target for Maureen:</p>
+<ul>
+<li><strong>The top-ranked gene by magnitude</strong> is one where Maureen carries a somatic alteration; the +0.0249 sign means the criterion’s gradient steered toward steeper response to her low expression of that gene.</li>
+<li><strong>PIK3CA</strong>, <strong>TP53</strong>, <strong>CTLA4</strong>, <strong>PDCD1LG2 (PD-L2)</strong> are all canonical oncology actionables / immune-checkpoint genes.</li>
+<li><strong>PRAME</strong>, <strong>TACSTD2</strong> (Trop-2 — Trodelvy target) round out the targetable panel.</li>
+</ul>
+<p>v1’s top-5 was substantively a random-looking subset of her 84-gene panel; v2’s top-5 is what an oncology reviewer would draw with a marker on the report. <em>(⚠ 2026-09-27: both are initialization values. The panel is an actionable-oncology panel, so any subset of it reads as on-target. See the correction at the top.)</em></p>
+<h3 id="45-personalization-at-default-λ--same-null-result-as-v1">4.5 Personalization at default λ — same null result as v1<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#45-personalization-at-default-λ--same-null-result-as-v1" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>V1 (default λ)</th><th>V2 (default λ)</th></tr></thead><tbody><tr><td>Baseline MRR</td><td>0.005152</td><td>0.016710</td></tr><tr><td>Personalized MRR</td><td>0.005131</td><td>0.016709</td></tr><tr><td>Δ_MRR</td><td>-0.41%</td><td><strong>-0.01%</strong></td></tr><tr><td><code>adjustment_target_entity_count</code></td><td>(not recorded)</td><td>7,793 (drugs in scope)</td></tr></tbody></table></div>
+<p>The criterion adjustment doesn’t materially shift rankings at λ=0.01. The mechanism math: at criterion weight magnitude ~0.02, λ=0.01, and z-scored expression value ~1-3, the per-entity adjustment is ~0.0002-0.0006 — smaller than the raw model score variance (~0.001-0.05 across queries). Same conclusion as <a href="../results/pdr2_track_a_repro_writeup#44-architectural-finding-cross-predicate-noise" class="internal internal-link alias" data-slug="results/pdr2_track_a_repro_writeup">v1 §4.4</a>.</p>
+<h3 id="46-λ-sweep--the-criterion-fires-destructively-when-strong-enough-to-move-rankings">4.6 λ sweep — the criterion fires destructively when strong enough to move rankings<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#46-λ-sweep--the-criterion-fires-destructively-when-strong-enough-to-move-rankings" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Three jobs ran at λ=0.1, 1.0, 10.0 (both PRS and biomarker channels; drug-only domain; same fine-tune bundle). Overall headline:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>λ</th><th>Baseline MRR</th><th>Personalized MRR</th><th>Δ_abs</th><th>Δ_pct</th><th>Hits@10 (pers)</th></tr></thead><tbody><tr><td>0.01 (default)</td><td>0.016710</td><td>0.016709</td><td>-0.000001</td><td><strong>-0.01%</strong></td><td>0.0203</td></tr><tr><td>0.10</td><td>0.016710</td><td>0.016684</td><td>-0.000027</td><td><strong>-0.16%</strong></td><td>0.0203</td></tr><tr><td><strong>1.00</strong></td><td>0.016710</td><td>0.007520</td><td>-0.009191</td><td><strong>-55.00%</strong></td><td>0.0203</td></tr><tr><td><strong>10.00</strong></td><td>0.016710</td><td>0.003065</td><td>-0.013646</td><td><strong>-81.66%</strong></td><td><strong>0.0000</strong></td></tr></tbody></table></div>
+<p>At λ=0.01 and λ=0.10, the criterion adjustment is below the raw-score noise floor — no measurable effect on rankings (as predicted by the mechanism math: criterion-weight magnitude ~0.02 × λ × expression z-score ~1 = adjustment of order 10⁻⁴ vs raw scores of order 10⁻²). At λ=1.0, the criterion starts to dominate and MRR collapses by more than half. At λ=10.0, the foundation signal is essentially overwritten.</p>
+<p>The collapse is <strong>not random</strong> — it’s the same cross-predicate noise architectural issue from <a href="../results/pdr2_track_a_repro_writeup#44-architectural-finding-cross-predicate-noise" class="internal internal-link alias" data-slug="results/pdr2_track_a_repro_writeup">v1 §4.4</a>, now reproduced at non-synthetic λ values. Per-predicate at increasing λ:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Predicate</th><th>N</th><th>Baseline MRR</th><th>λ=0.01 Δ</th><th>λ=0.10 Δ</th><th>λ=1.00 Δ</th><th>λ=10.0 Δ</th></tr></thead><tbody><tr><td><code>MAPLE:current_medication</code></td><td>6</td><td>0.1708</td><td>-0.0%</td><td>-0.0%</td><td><strong>-78.5%</strong></td><td>-98.0%</td></tr><tr><td><code>MAPLE:sensitive_to_drug</code></td><td>3</td><td>0.1689</td><td>-0.0%</td><td>-0.0%</td><td><strong>-70.7%</strong></td><td>-97.3%</td></tr><tr><td><code>MAPLE:has_genetic_alteration_in</code></td><td>3</td><td>0.0295</td><td>+0.0%</td><td>+0.0%</td><td>-19.3%</td><td>-85.8%</td></tr><tr><td><code>MAPLE:resistant_to_drug</code></td><td>26</td><td>0.0136</td><td>-0.0%</td><td>-0.4%</td><td>-28.3%</td><td>-38.6%</td></tr><tr><td><code>MAPLE:under_expresses</code></td><td>8</td><td>0.0135</td><td>+0.0%</td><td>-0.0%</td><td>-11.6%</td><td>-72.0%</td></tr><tr><td><code>MAPLE:tried_drug</code></td><td>6</td><td>0.0109</td><td>+0.0%</td><td>-1.7%</td><td>-21.0%</td><td>-66.5%</td></tr><tr><td><code>MAPLE:over_expresses</code></td><td>25</td><td>0.0042</td><td>+0.0%</td><td>-0.0%</td><td>-14.9%</td><td>-69.5%</td></tr><tr><td><code>MAPLE:partially_sensitive_to_drug</code></td><td>32</td><td>0.0039</td><td>+0.0%</td><td>-0.3%</td><td>-17.0%</td><td>-55.6%</td></tr><tr><td><code>MAPLE:past_medication</code></td><td>34</td><td>0.0028</td><td>-0.0%</td><td>-0.6%</td><td>-18.4%</td><td>-49.2%</td></tr><tr><td><code>biolink:has_variant</code></td><td>2</td><td>0.0008</td><td>+0.0%</td><td>-0.1%</td><td>-1.0%</td><td>-8.2%</td></tr><tr><td><code>biolink:has_phenotypic_feature</code></td><td>3</td><td>0.0003</td><td>+0.0%</td><td>+0.0%</td><td>-0.3%</td><td>-4.1%</td></tr></tbody></table></div>
+<p><strong>What the table is showing:</strong></p>
+<ol>
+<li>
+<p><strong>The predicates with the highest baseline MRR collapse hardest</strong> at λ=1.0+. <code>current_medication</code> (MRR 0.17 → drops 78%) and <code>sensitive_to_drug</code> (MRR 0.17 → drops 71%) are where the foundation was performing best. The criterion swamps these by boosting all drug entities adjacent to high-criterion-weight genes (ATM, TP53, PIK3CA, CTLA4, etc.), most of which are NOT Maureen’s true current drugs.</p>
+</li>
+<li>
+<p><strong>Non-drug-tail predicates (<code>biolink:has_variant</code>, <code>biolink:has_phenotypic_feature</code>) barely move</strong> even at λ=10. This is the drug-only mask working as designed — adjustment lands only on drug entities, so variant- and phenotype-tail queries see only the indirect cross-predicate-noise effect (boosted drugs pushing past true non-drug tails in the global ranking). At λ=10 this indirect effect is still small.</p>
+</li>
+<li>
+<p><strong>There is no λ at which personalization improves the headline metric.</strong> The PDR2 paper’s mechanism (adjustment proportional to fixed criterion-weight × patient-value × strength=1) is not learning <em>which</em> drugs Maureen needs — it’s blindly boosting the connected drugs of her highly-weighted genes. For Maureen’s heterogeneous outbound predicate set, this is destructive at any λ that actually moves the ranking.</p>
+</li>
+</ol>
+<p>This is the empirical confirmation of the architectural ceiling the morning’s writeup (<a href="../results/pdr2_track_a_repro_writeup#44-architectural-finding-cross-predicate-noise" class="internal internal-link alias" data-slug="results/pdr2_track_a_repro_writeup">v1 §4.4, §7.3</a>) identified — the criterion mechanism is well-suited to the paper’s drug-tail-only eval scope but fails on a clinically-realistic heterogeneous-predicate evaluation. The natural next experiment is Phase 12 (per-relation criterion architecture) — a separate learned criterion per predicate, which would let the model learn that ATM expression boosts PARP-inhibitor sensitivity but NOT past-medication probability. Out of scope for this run.</p>
+<p><strong>Per-gene-anchor diagnostic (deferred):</strong> to confirm the “boosts genes’ neighbors regardless of clinical relevance” hypothesis directly, one could enumerate the top-10 most-boosted drugs at λ=1.0 and check whether they’re 1-hop neighbors of the highest-magnitude proteins (ATM, PIK3CA, TP53). Strong prediction: yes, they will be. Worth a 30-min follow-up.</p>
+<hr/>
+<h2 id="5-architectural-findings--carry-forward">5. Architectural Findings — Carry Forward<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-architectural-findings--carry-forward" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="51-the-bpe--batch_size-coupling-gotcha">5.1 The BPE / batch_size coupling gotcha<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-the-bpe--batch_size-coupling-gotcha" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>batch_per_epoch=500</code> is a fixed <em>step count</em>. Pairing it with a 2× bigger batch_size silently doubles the training-sample budget per epoch, which compounds across 20 epochs into 2× more total training samples. For matched-budget Vertex-vs-Colab comparisons, scale <code>BPE_new = BPE_old × batch_old / batch_new</code>. For “bigger is better” runs (this one), accept the longer wallclock and budget for it.</p>
+<h3 id="52-the-pre-flight-probe-undersizes-memory">5.2 The pre-flight probe undersizes memory<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-the-pre-flight-probe-undersizes-memory" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>training.py:1438-1473</code> runs the OOM probe under <code>torch.no_grad()</code>. Actual fine-tune training enables gradients, which on a 6-layer NBFNet stores ~6× more activation memory in the forward chain. A probe-passing batch can OOM in production. Cap <code>FINE_TUNE_MAX_BATCH</code> conservatively (we used 128 on the A100-80GB with the 4.55M-edge graph). The cleaner fix is to run the probe under <code>torch.enable_grad()</code> with at least one backward step — deferred.</p>
+<h3 id="53-oncokb-drug-curie-normalization-required-entity-merge-not-bridge-edges">5.3 OncoKB drug CURIE normalization required entity merge, not bridge edges<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#53-oncokb-drug-curie-normalization-required-entity-merge-not-bridge-edges" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The OncoKB connector initially wrote synthetic <code>oncokb:Vemurafenib</code>-style entities when its node-normalizer couldn’t map to canonical CHEBI / DrugBank. Bridge edges (<code>biolink:same_as</code>) were not enough — PDR2 message-passing aggregates source evidence into a single node embedding, so bridges leave the duplicate alive and force the relation encoder to learn that <code>same_as</code> means identity. The merge approach (<code>a567a52</code>) repoints all relations and source rows from <code>oncokb:X</code> onto canonical <code>CHEBI:Y</code> and deletes the synthetic row. 53 entities (44 drug + 9 disease) merged this way, 39 of which materially affected our composition export.</p>
+<h3 id="54-patient--variant-resolver-name-match-short-circuit-didnt-attach-maple_patient-source">5.4 Patient → variant resolver: name-match short-circuit didn’t attach maple_patient source<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#54-patient--variant-resolver-name-match-short-circuit-didnt-attach-maple_patient-source" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Variants already in CIViC by name (BRAF V600E) bypassed <code>_upsert_variant_entity_for_maureen</code>, which normally adds the <code>maple_patient</code> entity_source row. Without that row, connectors scoped by <code>--scope maple_patient</code> skipped the variant. Fix in <code>c5c17a5</code> attaches the source row regardless of resolution path. Material impact: 16 new OncoKB edges on BRAF V600E (10 LEVEL_1 sensitivity) that wouldn’t have existed otherwise.</p>
+<h3 id="55-disease-resolution-dropped-from-613--213-vs-criterion">5.5 Disease resolution dropped from 6/13 → 2/13 (vs criterion)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#55-disease-resolution-dropped-from-613--213-vs-criterion" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The <code>evaluate_personalized</code> job’s disease resolver matched only 2 of 13 criterion-disease CUIs to KG entities, down from v1’s 6/13. With Track A’s PRS=0 this is empirically irrelevant, but Track B (with real PRS) would lose most of the disease channel. Root cause likely in how the composition export handles UMLS xrefs vs raw MONDO disease entities under our PrimeKG tier-2 prune. Audit deferred.</p>
+<hr/>
+<h2 id="6-open-questions-and-risks">6. Open Questions and Risks<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-open-questions-and-risks" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>Is the BRAF V600E lift the dominant signal?</strong> The +4353% on <code>current_medication</code> and +3764% on <code>sensitive_to_drug</code> are dramatic, but only 6 and 3 edges respectively. The CIViC chain on BRAF V600E (40+ drug edges) plus the 16 new OncoKB LEVEL_1 edges could plausibly account for most of the lift if a large fraction of Maureen’s actionable drugs route through BRAF V600E. A causal analysis (ablating BRAF V600E’s overlay edge and re-evaluating) would quantify this.</li>
+<li><strong>The disease resolution regression</strong> (§5.5) needs an audit before any Track B run with real PRS.</li>
+<li><strong>Phase 12 (per-relation criterion architecture)</strong> would address both the cross-predicate noise observed at λ=1.0 in v1 synthetic tests and the structural weakness of the criterion at default λ documented in §4.5. Out of scope for this run.</li>
+<li><strong>RGCC Tier-1 validation against v2</strong> (Spearman ρ between predicted score and RGCC sensitivity class on Maureen’s 224 drug sensitivities) needs a custom (h, r, t)-scoring script — <code>eval_patient.json</code> records per-predicate aggregates but not per-edge raw scores. Tracked separately.</li>
+</ol>
+<hr/>
+<h2 id="7-reference-gcs-artifacts">7. Reference: GCS Artifacts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-reference-gcs-artifacts" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Artifact</th><th>Path</th></tr></thead><tbody><tr><td>Foundation training</td><td><code>gs://BUCKET/runs/2026-05-18_maureen_focus_v1_foundation_scratch/</code></td></tr><tr><td>Foundation checkpoint</td><td><code>gs://BUCKET/runs/2026-05-18_maureen_focus_v1_foundation_scratch/train/latest_state_dict.pt</code></td></tr><tr><td>Fine-tune output (bundle)</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_track_a_finetune/finetune/pmaureen_pc_full_state_dict.pth</code></td></tr><tr><td>Fine-tune metrics</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_track_a_finetune/finetune/metrics.json</code></td></tr><tr><td>Track A v2 patient pickle</td><td><code>gs://BUCKET/patient_data/maureen_focus_v1_track_a_synthetic_zeros.pkl</code></td></tr><tr><td>Resolution sidecar</td><td><code>gs://BUCKET/patient_data/maureen_focus_v1_track_a_synthetic_zeros.resolution.json</code></td></tr><tr><td>eval_full_ranking</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_eval_full_ranking/eval_full_ranking/eval_full_ranking.json</code></td></tr><tr><td>eval_patient (baseline)</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_eval_patient_baseline/eval_patient/eval_patient.json</code></td></tr><tr><td>evaluate_personalized (λ=0.01)</td><td><code>gs://BUCKET/runs/2026-05-19_maureen_focus_v1_eval_personalized/eval_personalized/eval_personalized.json</code></td></tr><tr><td>λ sweep (running)</td><td><code>gs://BUCKET/runs/2026-05-20_maureen_focus_v1_eval_personalized_{l0p1,l1p0,l10p0}/</code></td></tr></tbody></table></div>
+<h2 id="8-reference-container-image-tag">8. Reference: Container Image Tag<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-reference-container-image-tag" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><code>gcr.io/PROJECT/maple-pdr2-training:c5c17a5-eval-fix</code> (built 2026-05-19 23:50 UTC; 4m 4s; SHA: 240260d298a3…).</p>
+<hr/>
+<h2 id="9-cross-references">9. Cross-References<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-cross-references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="code-changed-this-run">Code changed this run<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#code-changed-this-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>NEW</strong>: <code>backend/scripts/vertex_maureen_focus_v1_foundation_job.json</code></li>
+<li><strong>NEW</strong>: <code>backend/scripts/vertex_maureen_focus_v1_eval_full_ranking_job.json</code></li>
+<li><strong>NEW</strong>: <code>backend/scripts/vertex_maureen_focus_v1_eval_patient_job.json</code></li>
+<li><strong>NEW</strong>: <code>backend/scripts/vertex_maureen_focus_v1_finetune_job.json</code></li>
+<li><strong>NEW</strong>: <code>backend/scripts/vertex_maureen_focus_v1_evaluate_personalized_job.json</code></li>
+<li><strong>PATCHED</strong>: <code>backend/mods_patient_kg_service.py</code> — <code>_attach_maple_patient_source_to_variant</code> helper + call site</li>
+<li><strong>NEW</strong>: <code>backend/migrations.py</code> <code>migration_084_maureen_focus_composition</code></li>
+<li><strong>PATCHED</strong>: <code>lib/pdr2/docker/entrypoint.sh</code> — <code>MODE=eval_full_ranking</code> + section-6 <code>-c</code> fix</li>
+<li><strong>NEW</strong>: <code>lib/pdr2/code/ultra/datasets.py</code> — <code>PrimeKGCIViCPharmGKBOncoKBClinVarMaureen</code> stub</li>
+<li><strong>NEW (separate session)</strong>: <code>backend/scripts/normalize_oncokb_drug_curies.py</code> (a567a52 — OncoKB entity merge)</li>
+<li><strong>NEW (separate session)</strong>: cost tracking module (b4e146f, 5fc3219)</li>
+</ul>
+<h3 id="commits">Commits<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#commits" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><code>c5c17a5</code> — resolver fix + eval_full_ranking mode</li>
+<li><code>a567a52</code> — OncoKB entity merge (separate session)</li>
+<li><code>dc4d7cc</code> — 4 Track A v2 job specs</li>
+<li><code>1095bc9</code> — backup of v1 writeup + protein biomarker writeup</li>
+</ul>
+<h3 id="memory-pointers-worth-saving-from-this-run">Memory pointers worth saving from this run<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#memory-pointers-worth-saving-from-this-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><em>(this writeup itself)</em></li>
+<li>BPE×batch_size step-vs-sample coupling — saved as feedback</li>
+<li>Probe under no_grad undersizes — to be saved</li>
+<li>OncoKB CURIE merge over bridge edges — already saved</li>
+<li>Patient overlay attribution must follow any resolution path — to be saved</li>
+</ul></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-78" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#pdr2-track-a-v2--variant-aware-foundation-retrain-and-the-foundation-quality-win" data-for="pdr2-track-a-v2--variant-aware-foundation-retrain-and-the-foundation-quality-win">PDR2 Track A v2 — Variant-Aware Foundation Retrain and the Foundation-Quality Win</a></li><li class="depth-1"><a href="#summary" data-for="summary">Summary</a></li><li class="depth-1"><a href="#1-what-changed-from-v1" data-for="1-what-changed-from-v1">1. What Changed From v1</a></li><li class="depth-2"><a href="#11-the-composition" data-for="11-the-composition">1.1 The composition</a></li><li class="depth-2"><a href="#12-the-patient-overlay-3-of-maureens-4-actionable-variants-are-now-full-variant-level-kg-citizens" data-for="12-the-patient-overlay-3-of-maureens-4-actionable-variants-are-now-full-variant-level-kg-citizens">1.2 The patient overlay (3 of Maureen’s 4 actionable variants are now full variant-level KG citizens)</a></li><li class="depth-2"><a href="#13-the-foundation-training" data-for="13-the-foundation-training">1.3 The foundation training</a></li><li class="depth-2"><a href="#14-the-fine-tune" data-for="14-the-fine-tune">1.4 The fine-tune</a></li><li class="depth-1"><a href="#2-pipeline-we-used" data-for="2-pipeline-we-used">2. Pipeline We Used</a></li><li class="depth-2"><a href="#21-new-container" data-for="21-new-container">2.1 New container</a></li><li class="depth-2"><a href="#22-the-five-vertex-jobs" data-for="22-the-five-vertex-jobs">2.2 The five Vertex jobs</a></li><li class="depth-1"><a href="#3-materials-and-methods" data-for="3-materials-and-methods">3. Materials and Methods</a></li><li class="depth-2"><a href="#31-resolution-coverage-criterion--kg" data-for="31-resolution-coverage-criterion--kg">3.1 Resolution coverage (criterion → KG)</a></li><li class="depth-1"><a href="#4-results" data-for="4-results">4. Results</a></li><li class="depth-2"><a href="#41-foundation-quality-lift-the-headline" data-for="41-foundation-quality-lift-the-headline">4.1 Foundation-quality lift (the headline)</a></li><li class="depth-2"><a href="#42-per-predicate-breakdown-filtered-mrr-baseline-foundation" data-for="42-per-predicate-breakdown-filtered-mrr-baseline-foundation">4.2 Per-predicate breakdown (filtered MRR, baseline foundation)</a></li><li class="depth-2"><a href="#43-foundation-quality-on-the-global-splits-not-maureen-specific" data-for="43-foundation-quality-on-the-global-splits-not-maureen-specific">4.3 Foundation quality on the global splits (not Maureen-specific)</a></li><li class="depth-2"><a href="#44-criterion-weight-signature" data-for="44-criterion-weight-signature">4.4 Criterion weight signature</a></li><li class="depth-2"><a href="#45-personalization-at-default-λ--same-null-result-as-v1" data-for="45-personalization-at-default-λ--same-null-result-as-v1">4.5 Personalization at default λ — same null result as v1</a></li><li class="depth-2"><a href="#46-λ-sweep--the-criterion-fires-destructively-when-strong-enough-to-move-rankings" data-for="46-λ-sweep--the-criterion-fires-destructively-when-strong-enough-to-move-rankings">4.6 λ sweep — the criterion fires destructively when strong enough to move rankings</a></li><li class="depth-1"><a href="#5-architectural-findings--carry-forward" data-for="5-architectural-findings--carry-forward">5. Architectural Findings — Carry Forward</a></li><li class="depth-2"><a href="#51-the-bpe--batch_size-coupling-gotcha" data-for="51-the-bpe--batch_size-coupling-gotcha">5.1 The BPE / batch_size coupling gotcha</a></li><li class="depth-2"><a href="#52-the-pre-flight-probe-undersizes-memory" data-for="52-the-pre-flight-probe-undersizes-memory">5.2 The pre-flight probe undersizes memory</a></li><li class="depth-2"><a href="#53-oncokb-drug-curie-normalization-required-entity-merge-not-bridge-edges" data-for="53-oncokb-drug-curie-normalization-required-entity-merge-not-bridge-edges">5.3 OncoKB drug CURIE normalization required entity merge, not bridge edges</a></li><li class="depth-2"><a href="#54-patient--variant-resolver-name-match-short-circuit-didnt-attach-maple_patient-source" data-for="54-patient--variant-resolver-name-match-short-circuit-didnt-attach-maple_patient-source">5.4 Patient → variant resolver: name-match short-circuit didn’t attach maple_patient source</a></li><li class="depth-2"><a href="#55-disease-resolution-dropped-from-613--213-vs-criterion" data-for="55-disease-resolution-dropped-from-613--213-vs-criterion">5.5 Disease resolution dropped from 6/13 → 2/13 (vs criterion)</a></li><li class="depth-1"><a href="#6-open-questions-and-risks" data-for="6-open-questions-and-risks">6. Open Questions and Risks</a></li><li class="depth-1"><a href="#7-reference-gcs-artifacts" data-for="7-reference-gcs-artifacts">7. Reference: GCS Artifacts</a></li><li class="depth-1"><a href="#8-reference-container-image-tag" data-for="8-reference-container-image-tag">8. Reference: Container Image Tag</a></li><li class="depth-1"><a href="#9-cross-references" data-for="9-cross-references">9. Cross-References</a></li><li class="depth-2"><a href="#code-changed-this-run" data-for="code-changed-this-run">Code changed this run</a></li><li class="depth-2"><a href="#commits" data-for="commits">Commits</a></li><li class="depth-2"><a href="#memory-pointers-worth-saving-from-this-run" data-for="memory-pointers-worth-saving-from-this-run">Memory pointers worth saving from this run</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../maplelog/2026-05-23-a-month-later" class="internal">2026-05-23 · A Month Later</a></li><li><a href="../results/pdr2_rgcc_tier1_v2_writeup" class="internal">PDR2 v2 Foundation — Tier-1 / Tier-2 Validation</a></li><li><a href="../results/pdr2_track_a_repro_writeup" class="internal">PDR2 Track A v1 — First Personalized Inference</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

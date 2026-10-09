@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>PDR2 Track A v1 — First Personalized Inference</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="PDR2 Track A v1 — First Personalized Inference"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="PDR2 Track A v1 — First Personalized Inference"/><meta name="twitter:description" content="The first end-to-end personalized inference run and the architectural limit it surfaced. Superseded by the v2 retrain."/><meta property="og:description" content="The first end-to-end personalized inference run and the architectural limit it surfaced. Superseded by the v2 retrain."/><meta property="og:image:alt" content="The first end-to-end personalized inference run and the architectural limit it surfaced. Superseded by the v2 retrain."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_repro_writeup"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_repro_writeup"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="The first end-to-end personalized inference run and the architectural limit it surfaced. Superseded by the v2 retrain."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_repro_writeup-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_repro_writeup-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/results/pdr2_track_a_repro_writeup-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="results/pdr2_track_a_repro_writeup" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-97" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-97" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../results/">results</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>PDR2 Track A v1 — First Personalized Inference</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-28</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">writeup</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">The first end-to-end personalized inference run and the architectural limit it surfaced. Superseded by the v2 retrain.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.324Z">Oct 09, 2026</time><span>18 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Superseded </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>This page is kept for the record. The current version is <a href="../results/pdr2_track_a_v2_repro_writeup" class="internal internal-link alias" data-slug="results/pdr2_track_a_v2_repro_writeup">PDR2 Track A v2 — Foundation Retrain</a>. The v2 retrain’s reported 224% lift on the patient’s own edges is unrestated, because both foundations trained on her drug-response edges (GH #214, #439). The architectural findings do carry forward.
+Treat every number below as historical.</p>
+</div>
+</blockquote>
+<h1 id="pdr2-track-a--first-personalized-inference-mechanism-reproduction-and-architectural-findings">PDR2 Track A — First Personalized Inference, Mechanism Reproduction, and Architectural Findings<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#pdr2-track-a--first-personalized-inference-mechanism-reproduction-and-architectural-findings" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>Authors:</strong> whafa, Claude (Maple project)
+<strong>Date:</strong> 2026-05-18
+<strong>Status:</strong> Reproduction of PDR2’s personalization mechanism on Maureen’s KG <strong>achieved.</strong> Foundation training + patient-conditional fine-tune + drug-only evaluation pipeline is end-to-end runnable on Vertex AI A100-80GB. Pipeline reproduces paper-faithful behavior; synthetic positive-control test confirms wiring is correct. Cross-predicate architectural limitation surfaced.</p>
+<p><strong>Companion documents:</strong></p>
+<ul>
+<li><a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">docs/pdr_personalization_writeup.md</a> — PDR1 vs PDR2 personalization mechanism reference (this writeup operationalizes §4 of that doc).</li>
+<li><a href="../pdr_pipeline_plan" class="internal internal-link alias" data-slug="pdr_pipeline_plan">docs/PDR_PIPELINE_PLAN.md</a> — master pipeline plan; this run executes Phase 11 (PDR2 upgrade) for the first time end-to-end.</li>
+<li><a href="../results/pdr_phase7_5_rgcc_writeup" class="internal internal-link alias" data-slug="results/pdr_phase7_5_rgcc_writeup">docs/pdr_phase7_5_rgcc_writeup.md</a> — RGCC validation framework (used as the future per-patient validation hook).</li>
+<li>Memory: <a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">the personalization mechanism reference</a>.</li>
+</ul>
+<blockquote>
+<p><strong>⚠ Correction, 2026-09-27 (<code>GH #435</code>).</strong> The
+“interpretable criterion weights” in the Summary and §4.1 are <strong>initialization values, not
+learned ones.</strong> Expression entered the loss as raw 0–100 percentiles, so
+<code>tanh(Σ normalize(v)·expr)</code> was saturated from the first step and the protein weights
+received essentially no gradient. Across all five fine-tunes run so far, protein-weight RMS
+ended at 0.009–0.016 against 0.01 at initialization. The ranking of ADORA2A, TSC2 and the
+rest is therefore noise. The mechanism-reproduction and architectural findings below are
+unaffected.</p>
+</blockquote>
+<hr/>
+<h2 id="summary">Summary<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#summary" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>On 2026-05-17/18 we built Maple’s Vertex AI orchestration for PDR2 patient-conditional fine-tune and evaluation, ran the <strong>first real foundation-model fine-tune for Maureen</strong> (Track A: zero PRS + real Caris MI Profile expression on the <code>PrimeKGCIViCPharmGKBMaureen</code> graph), and confirmed via synthetic positive-control test that our pipeline faithfully reproduces the paper’s <code>apply_personalization</code> mechanism. The fine-tune produced interpretable criterion weights (top protein-side weights on ADORA2A, TSC2, SSTR2, NRG1, CCNE1 — biologically reasonable for Maureen’s tumor) but <strong>no MRR lift on her held-out edges at λ₂=0.01</strong> (Δ_MRR = −0.41% vs foundation baseline). A synthetic test with extreme parameters (TP53 anchor, w=1.0, expr=100, λ=1.0) produced the predicted dramatic score shifts, confirming the pipeline math is correct. The same synthetic test surfaced an <strong>architectural limitation of the paper’s design</strong>: the drug-only adjustment mask isolates <em>receivers</em> but not <em>non-drug-tail queries</em>, because rankings are over all 139K entities — boosted drugs pollute the top of every ranking regardless of the query’s true tail type. This is the paper’s design as faithfully reproduced; addressing it for general KG completion (Maureen’s heterogeneous tail-type queries) would require a per-relation criterion architecture, deferred. With OncoKB now license-approved as of this morning, the next concrete move is to land Phase 8.5 (variant-aware KG with OncoKB chains) and retrain the foundation against a richer Maureen overlay — making the fine-tune meaningful at <em>normal</em> λ, not just synthetic extremes.</p>
+<hr/>
+<h2 id="1-purpose">1. Purpose<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-purpose" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>PDR2’s personalization mechanism had three open questions when we started:</p>
+<ol>
+<li><strong>Does it run end-to-end on Vertex AI?</strong> Phase 1 of the PDR2 training automation plan (an internal note on the training-automation status) had reached <code>aiplatform.CustomJob.submit()</code> but was blocked on quota. We confirmed quotas, ran the first real training, and added two new container modes for fine-tune and personalized eval.</li>
+<li><strong>Does the mechanism produce signal on Maureen’s data?</strong> The 2026-05-09 writeup (<a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">docs/pdr_personalization_writeup.md</a>) documented the loss formula and <code>apply_personalization</code> algorithm. This run was the first end-to-end empirical test.</li>
+<li><strong>Does our implementation reproduce the paper faithfully?</strong> We could not distinguish “real null result” from “wiring bug” without a positive control. A synthetic-data sanity test resolved this.</li>
+</ol>
+<p>Out of scope for this run: variant-aware KG (Phase 8.5 — unblocked this morning by OncoKB license approval; deferred to a follow-up session), Track B (requires Maureen’s genotype upload), λ sweep on real data, real-data eval at non-default lambdas.</p>
+<hr/>
+<h2 id="2-pipeline-we-built">2. Pipeline We Built<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-pipeline-we-built" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="21-vertex-ai-orchestration">2.1 Vertex AI orchestration<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-vertex-ai-orchestration" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Layer</th><th>Artifact</th><th>What it does</th></tr></thead><tbody><tr><td>Container</td><td><code>gcr.io/PROJECT/maple-pdr2-training:c8a3826-oomprobe</code> → <code>:949839f-vocabfix</code> → <code>:4a85ec4-classifyfix</code> (final)</td><td>PyTorch 2.1.0 + CUDA 11.8 base, PDR2 code at <code>/opt/pdr2/code</code>, entrypoint dispatches on <code>MODE</code> env. Built via <code>cloudbuild-pdr2-training.yaml</code>.</td></tr><tr><td>Entrypoint</td><td><code>lib/pdr2/docker/entrypoint.sh</code></td><td>3 modes: <code>train</code>, <code>fine_tune</code>, <code>eval_patient</code>, <code>evaluate_personalized</code>. Downloads training data + checkpoints from GCS, runs the matching Python entry, uploads outputs to GCS.</td></tr><tr><td>Submit script (foundation)</td><td><code>backend/scripts/submit_pdr_run.py</code></td><td>POSTs to <code>/api/mods/research/runs/submit</code> → worker → Vertex CustomJob. Existed before this run; used implicitly for the original foundation training in Colab.</td></tr><tr><td>Submit specs (this run)</td><td><code>backend/scripts/vertex_finetune_job.json</code>, <code>vertex_eval_patient_job.json</code>, <code>vertex_evaluate_personalized_job.json</code>, <code>vertex_eval_synth_tp53_job.json</code></td><td>One-off CustomJob spec JSONs, invoked via <code>gcloud beta ai custom-jobs create --config=…</code>. Deliberately not auto-generated; we want submit-by-hand for now (Phase 2 of automation is deferred).</td></tr><tr><td>Service account</td><td><code>the training service account</code></td><td>Used by Vertex jobs to read/write GCS.</td></tr><tr><td>GCS bucket</td><td><code>gs://BUCKET/</code></td><td>Holds container input data, foundation checkpoints, patient pickles, fine-tune outputs, eval JSONs.</td></tr></tbody></table></div>
+<h3 id="22-container-modes-new">2.2 Container modes (new)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-container-modes-new" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Two new modes added this run, alongside the existing <code>train</code> and <code>eval_patient</code>:</p>
+<p><strong><code>MODE=fine_tune</code></strong> (<code>entrypoint.sh L155+</code>) — invokes <code>fine_tune_maple.py</code>, our Maple-authored wrapper around upstream <code>fine_tune_patient_specific</code>. Required env: <code>RUN_ID</code>, <code>DATASET_CLASS</code>, <code>EPOCHS</code>, <code>BPE</code>, <code>PATIENT_ID</code>, <code>DATA_URI</code>, <code>OUTPUT_URI</code>, <code>CKPT_URI</code> (foundation), <code>PATIENT_PICKLE_URI</code>. Optional: <code>LAMBDA1_PRS</code>, <code>LAMBDA2_BIOMARKER</code> (default 0.01), <code>FINE_TUNE_MAX_BATCH</code> (default 256). Outputs <code>pmaureen_pc_full_state_dict.pth</code> (bundle: <code>{&quot;model&quot;, &quot;criterion&quot;, &quot;patient_specific_only&quot;}</code>) + <code>metrics.json</code> + <code>manifest.json</code>.</p>
+<p><strong><code>MODE=evaluate_personalized</code></strong> (<code>entrypoint.sh L213+</code>) — invokes <code>evaluate_personalized_maple.py</code>, Maple’s paper-faithful eval. Required env: <code>RUN_ID</code>, <code>DATASET_CLASS</code>, <code>DATA_URI</code>, <code>OUTPUT_URI</code>, <code>CKPT_URI</code> (fine-tune bundle), <code>PATIENT_CURIE</code>, <code>PATIENT_PICKLE_URI</code>, <code>RESOLUTION_SIDECAR_URI</code>. Optional: <code>LAMBDA1_PRS</code>, <code>LAMBDA2_BIOMARKER</code>, <code>ADJUSTMENT_TARGET_DOMAIN</code> (default <code>any</code>; set <code>drug</code> for paper-faithful). Outputs <code>eval_personalized.json</code> with raw + personalized + per-predicate metrics.</p>
+<p><code>MODE=eval_patient</code> (pre-existing) — Maple-original tool that scores Maureen’s outbound edges using foundation-only model scoring (no criterion). Used as the baseline comparator.</p>
+<h3 id="23-patient-input-artifacts">2.3 Patient input artifacts<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-patient-input-artifacts" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Pickle builder.</strong> <code>backend/scripts/build_pdr2_input_pickle.py</code> generates the PDR2-expected dict <code>{prs_values, expr_values, disease_names, protein_names}</code> from Maureen’s DB rows. Three source modes:</p>
+<ul>
+<li><code>synthetic_zeros</code> (Track A): zero PRS + real expression</li>
+<li><code>maureen</code> (Track B): real PRS + real expression — blocked until genotypes upload</li>
+<li><code>ukb_sample</code>: reserved placeholder</li>
+</ul>
+<p><strong>Resolution sidecar (new this run).</strong> The builder now also emits <code>&lt;pickle>.resolution.json</code> mapping each criterion entry (disease CUI or HGNC gene symbol) to its canonical KG CURIE. <code>resolve_disease_kg_curies</code> (UMLS direct match + xref) and <code>resolve_gene_kg_curies</code> (<code>name = sym AND domain = 'gene'</code>, lowest NCBIGene ID = human canonical). For Maureen: 6/13 diseases resolved (CRC, CAD, HT, AF, PD, AST, MS are missing — they exist in PrimeKG as MONDO:* but aren’t UMLS-xrefed in <code>mods_kg_entity_source</code>); 84/84 proteins resolved cleanly via NCBIGene.</p>
+<p><strong>Numpy-portable pickle (durable patch).</strong> The original pickle saved <code>np.ndarray</code> directly. Local Maple env runs NumPy 2.x; Vertex container runs NumPy 1.x. Cross-version pickle of <code>np.ndarray</code> fails with <code>ModuleNotFoundError: No module named 'numpy._core'</code>. Fixed in <code>as_dict()</code>: serialize as Python lists (numpy-version-portable; container’s <code>torch.tensor(...)</code> accepts lists identically).</p>
+<h3 id="24-pdr-input-inspector-frontend">2.4 PDR Input Inspector (frontend)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-pdr-input-inspector-frontend" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A new tab in Research Dashboard for <strong>inspecting</strong> the assembled artifact pre-training:</p>
+<ul>
+<li>Backend: <code>GET /api/mods/prs/preview/pdr-input?format={pdr1|pdr2}&amp;source={synthetic_zeros|maureen|ukb_sample}</code> (<code>mods_prs_api.py:466+</code>)</li>
+<li>Tests: <code>backend/tests/test_pdr_input_preview.py</code> — 8/8 pass.</li>
+<li>MCP tool: <code>mods_preview_pdr_input</code> in <code>mods_server.py</code>.</li>
+<li>Frontend: <code>PDRInputInspector.jsx</code> mounted as a tab in <code>ResearchDashboard.jsx:33</code> after “Patient Profile.”</li>
+</ul>
+<p>The inspector renders the disease × PRS table, gene × expression table, PDR1 trailing list columns (medications, CUIs, AD column), raw response JSON (copyable), and reuses the existing <code>/export/pdr1</code> and <code>/export/pdr2</code> endpoints for downloads. Track A vs Track B toggle, format toggle, optional z-scored preview for PDR2.</p>
+<hr/>
+<h2 id="3-materials-and-methods">3. Materials and Methods<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-materials-and-methods" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="31-foundation-model-source">3.1 Foundation model source<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#31-foundation-model-source" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The foundation was <em>not</em> trained on Vertex in this session — it was the existing Colab run <code>2026-05-16_pdr2_primekg_civic_pharmgkb_v1_with_maple_patient_scratch_full_v1</code>, copied <strong>pristine</strong> from Drive to GCS at:</p>
+<pre><code>gs://BUCKET/runs/2026-05-17_track_a_pharmgkb_finetune_v1/foundation_pristine_copy.pth
+</code></pre>
+<p>(691 KB; raw <code>model.state_dict()</code>, no wrapping dict.)</p>
+<p>Foundation architecture (per the Colab run’s <code>train/manifest.json</code>): <code>hidden_dim=64, n_layers=6, message_func=distmult, aggregate_func=sum, short_cut=True, layer_norm=True</code>. 168,705 parameters. Dataset class <code>PrimeKGCIViCPharmGKBMaureen</code> (composition <code>primekg_civic_pharmgkb_v1</code> + <code>maple_patient</code> overlay). 139,226 entities, ~9.2M relations, Maureen’s 248 outbound canonical edges materialized via <code>mods_patient_kg_service.materialize_patient_kg</code>.</p>
+<h3 id="32-fine-tune-track-a">3.2 Fine-tune (Track A)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#32-fine-tune-track-a" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Value</th></tr></thead><tbody><tr><td>Run id</td><td><code>2026-05-17_track_a_pharmgkb_finetune_v1</code></td></tr><tr><td>Vertex CustomJob</td><td><code>1153812916479197184</code></td></tr><tr><td>GPU</td><td>A100-80GB</td></tr><tr><td>Container</td><td><code>c8a3826-oomprobe</code></td></tr><tr><td>Epochs</td><td>20</td></tr><tr><td>Batches per epoch</td><td>500</td></tr><tr><td>Batch size</td><td>Probe-discovered = 128 (halved once from 256 starting point)</td></tr><tr><td>λ₁ (PRS)</td><td>0.01</td></tr><tr><td>λ₂ (biomarker)</td><td>0.01</td></tr><tr><td>Patient pickle</td><td><code>gs://BUCKET/patient_data/maureen_track_a_synthetic_zeros.pkl</code></td></tr><tr><td>Trainable parameters</td><td>97 (13 disease + 84 protein weights)</td></tr><tr><td>Frozen parameters</td><td>168,705 (entire foundation)</td></tr><tr><td>Wallclock</td><td>24m 30s</td></tr></tbody></table></div>
+<h3 id="33-synthetic-positive-control">3.3 Synthetic positive control<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#33-synthetic-positive-control" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>To distinguish “real null result” from “wiring bug,” we constructed a synthetic patient + criterion bundle designed to produce a <em>predictable and dramatic</em> score shift if the pipeline is wired correctly:</p>
+<ul>
+<li>Anchor: TP53 (<code>NCBIGene:7157</code>)</li>
+<li><code>protein_weights = tensor([1.0])</code> (hand-set, not gradient-trained)</li>
+<li><code>expr_values = [100.0]</code> (hand-set)</li>
+<li><code>disease_weights = tensor([])</code> / <code>prs_values = []</code> (no disease channel)</li>
+<li>λ₂ = 1.0 (100× default)</li>
+<li>Predicted per-entity adjustment for 1-hop TP53 neighbors: <code>1.0 × 1.0 × 100.0 = +100.0</code></li>
+</ul>
+<p>Raw foundation scores observed on Maureen’s queries are in the [10⁻⁴, 10⁻²] range; a +100 additive offset must catastrophically dominate. The exact predicted observable: any entity 1-hop-adjacent to TP53 should rank near the top of every Maureen-anchored query, regardless of the query’s actual semantics.</p>
+<p>Built via <code>backend/scripts/build_synth_finetune_bundle.py</code>.</p>
+<h3 id="34-evaluation-methodology">3.4 Evaluation methodology<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#34-evaluation-methodology" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>We score Maureen’s outbound edges in <code>valid+test</code> splits (138 edges across 11 predicates) by ranking all 139,226 candidate tails per query. Metrics:</p>
+<ul>
+<li><strong>Filtered rank</strong>: number of entities with score strictly greater than the true tail’s score, excluding other known-true tails for the same <code>(head, relation)</code> pair, +1.</li>
+<li><strong>MRR</strong>: <code>mean(1/rank)</code> across edges; bounded [0, 1]; random baseline = 1/139,226 ≈ 7.2×10⁻⁶.</li>
+<li><strong>Hits@k</strong>: <code>fraction of edges with rank ≤ k</code>; bounded [0, 1].</li>
+</ul>
+<p>The eval is over the <em>entire</em> entity vocabulary (139K), not over a candidate set restricted to drugs. This is the same protocol our baseline <code>eval_patient</code> uses; it’s stricter than the paper’s protocol (which scores only drug-tail queries against drug candidates), but it lets us evaluate Maureen’s heterogeneous tail-type predicates honestly.</p>
+<hr/>
+<h2 id="4-results">4. Results<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-results" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="41-fine-tune-output">4.1 Fine-tune output<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-fine-tune-output" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Wall-clock: 24m 30s. Fine-tune converged (pre-flight probe settled at batch_size=128 on the first iteration; A100-80GB had ~12 GiB headroom on top of the trained batch).</p>
+<p>Top criterion weights after 20 epochs (<a href="https://console.cloud.google.com/storage/browser/_details/maple-pdr2-training/runs/2026-05-17_track_a_pharmgkb_finetune_v1/finetune/metrics.json" class="external external-link">metrics.json<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Rank</th><th>Protein (gene)</th><th>Weight</th><th>Sign</th><th>Note</th></tr></thead><tbody><tr><td>1</td><td>ADORA2A</td><td>+0.0255</td><td>+</td><td>Adenosine A2A receptor (immune-checkpoint target, increasingly relevant in cancer immunotherapy)</td></tr><tr><td>2</td><td>TSC2</td><td>−0.0254</td><td>−</td><td>TSC2 (mTOR-pathway suppressor)</td></tr><tr><td>3</td><td>SSTR2</td><td>+0.0193</td><td>+</td><td>Somatostatin receptor 2 (neuroendocrine target)</td></tr><tr><td>4</td><td>NRG1</td><td>+0.0182</td><td>+</td><td>Neuregulin 1 (fusion-positive cancer target)</td></tr><tr><td>5</td><td>CCNE1</td><td>−0.0176</td><td>−</td><td>Cyclin E1 (cell-cycle marker)</td></tr></tbody></table></div>
+<p><em>(⚠ 2026-09-27: these are initialization values, not learned weights. See the correction at the top.)</em></p>
+<p>Disease weights all stayed at random-init scale (~0.017) — <strong>expected</strong> for Track A. The gradient on <code>disease_weights[i]</code> is <code>λ₁ × ... × prs_values[i]</code>; with <code>prs_values = 0</code> everywhere, the gradient is zero and the weights don’t move.</p>
+<p>Per the gradient analysis in <a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">the personalization mechanism reference</a>, the loss is gradient-degenerate (criterion gradient is batch-independent), so the protein weights also converge to a closed-form optimum — <code>Σ w·v → −∞</code>, i.e., weights aligned with <code>−sign(expr_values)</code>. The signs above reflect this: TP53 weight is positive if Maureen has low TP53 expression (or weight is whatever direction makes the dot product more negative).</p>
+<h3 id="42-real-fine-tune-eval--no-measurable-lift">4.2 Real fine-tune eval — no measurable lift<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#42-real-fine-tune-eval--no-measurable-lift" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>Foundation baseline</th><th>Personalized (λ=0.01, <code>target=any</code>)</th><th>Δ</th></tr></thead><tbody><tr><td>Filtered MRR</td><td>0.005152</td><td>0.005131</td><td><strong>−0.41%</strong></td></tr><tr><td>Filtered Hits@10</td><td>0.0000</td><td>0.0000</td><td>0</td></tr><tr><td>Filtered Mean Rank</td><td>4524.1</td><td>4540.2</td><td>+0.4% (worse)</td></tr></tbody></table></div>
+<p>By predicate (top-3 movers):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Predicate</th><th>N</th><th>Δ_MRR</th></tr></thead><tbody><tr><td><code>MAPLE:partially_sensitive_to_drug</code></td><td>29</td><td>+0.000161 (+1.8%)</td></tr><tr><td><code>MAPLE:has_genetic_alteration_in</code></td><td>3</td><td>−0.001617 (−6.4%)</td></tr><tr><td>All other 9 predicates</td><td>106</td><td>within noise (±0.05% of baseline)</td></tr></tbody></table></div>
+<p>Verdict: at λ=0.01 with the protein weights this fine-tune produced (max magnitude 0.025), the additive adjustment is comparable to raw model-score noise. No real signal.</p>
+<h3 id="43-synthetic-test--pipeline-reproduces-paper-faithful-behavior">4.3 Synthetic test — pipeline reproduces paper-faithful behavior<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#43-synthetic-test--pipeline-reproduces-paper-faithful-behavior" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>We ran three synthetic eval iterations to isolate the wiring:</p>
+<p><strong>Synth v1 — <code>adjustment_target_domain=any</code>, fixed classifier.</strong> Hand-set TP53 anchor, w=1.0, expr=100, λ=1.0. Predicted: every 1-hop neighbor of TP53 (regardless of type) gets +100. Observed:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Predicate</th><th>N</th><th>Raw MRR</th><th>Pers MRR</th><th>Δ</th></tr></thead><tbody><tr><td><code>MAPLE:has_genetic_alteration_in</code></td><td>3</td><td>0.0253</td><td><strong>0.0559</strong></td><td>+121%</td></tr><tr><td><code>MAPLE:partially_sensitive_to_drug</code></td><td>29</td><td>0.0089</td><td>0.0004</td><td>−95%</td></tr><tr><td><code>MAPLE:tried_drug</code></td><td>6</td><td>0.0086</td><td>0.0005</td><td>−94%</td></tr><tr><td>(8 other predicates)</td><td>100</td><td>(raw small)</td><td>(smaller)</td><td>−88% to −95%</td></tr><tr><td>Overall filtered MRR</td><td>138</td><td>0.005152</td><td>0.001888</td><td>−63%</td></tr></tbody></table></div>
+<p>The huge gene-tail MRR jump is <code>has_genetic_alteration_in</code> working perfectly — Maureen’s true gene tails (BRAF, ATM, APC) are biologically close to TP53 (all tumor-suppressor / DNA-damage related), so they ARE TP53-neighbors in PrimeKG, so they get the +100 boost. The drug-tail MRR craters: Maureen’s actual drugs (e.g., Cisplatin, Cetuximab) are NOT TP53-adjacent, but ~thousands of TP53-adjacent entities (other genes, pathways, etc.) all get +100 and rank above her drugs. <strong>Predicted behavior, exactly observed.</strong></p>
+<p><strong>Synth v2 — <code>adjustment_target_domain=drug</code>, but classifier broken.</strong> Same inputs, drug-only mask applied. Observed: zero change across all predicates (Δ exactly 0.000000 for every predicate). Reason: <a href="https://console.cloud.google.com/storage/browser/_details/maple-pdr2-training/runs/2026-05-18_synth_tp53_w1_v100_eval_v2_drugonly/eval_personalized/eval_personalized.json" class="external external-link"><code>adjustment_target_entity_count: 0</code><svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> — <code>drug_inv_vocab</code> was empty.</p>
+<p>Diagnosis: <code>TransductiveDataset.classify_entity</code> uses the paper’s naked-identifier regexes (<code>^C\d{7}$</code> for disease, <code>^DB\d{5}$</code> for drug) which don’t match our Biolink-style CURIEs (<code>UMLS:C0006142</code>, <code>DrugBank:DB00303</code>). Every entity falls through to the “gene” catch-all bucket, leaving <code>drug_inv_vocab</code> empty.</p>
+<p><strong>Fix:</strong> Override <code>classify_entity</code> to match Biolink prefixes (<code>DrugBank:</code>, <code>CHEBI:</code>, <code>PUBCHEM.COMPOUND:</code>, <code>UNII:</code> for drugs; <code>MONDO:</code>, <code>UMLS:</code>, <code>DOID:</code>, <code>OMIM:</code>, <code>EFO:</code> for diseases; <code>HPO:</code>, <code>HP:</code>, <code>MP:</code> for phenotypes; <code>NCBIGene:</code>, <code>HGNC:</code>, etc. for genes; everything else stays “gene” catch-all). See <code>datasets.py:260</code>.</p>
+<p><strong>Synth v3 — drug-only with fixed classifier.</strong> Same inputs. Observed:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Predicate</th><th>N</th><th>Raw MRR</th><th>Pers MRR</th><th>Δ</th></tr></thead><tbody><tr><td><code>biolink:has_variant</code></td><td>1</td><td>0.000072</td><td>0.000072</td><td><strong>0</strong> (exact)</td></tr><tr><td><code>biolink:has_phenotypic_feature</code></td><td>4</td><td>0.000114</td><td>0.000114</td><td><strong>0</strong> (exact)</td></tr><tr><td><code>MAPLE:resistant_to_drug</code></td><td>23</td><td>0.0028</td><td>0.0027</td><td>−3%</td></tr><tr><td><code>MAPLE:sensitive_to_drug</code></td><td>4</td><td>0.0044</td><td>0.0042</td><td>−4%</td></tr><tr><td><code>MAPLE:current_medication</code></td><td>8</td><td>0.0038</td><td>0.0036</td><td>−6%</td></tr><tr><td><code>MAPLE:past_medication</code></td><td>29</td><td>0.0032</td><td>0.0029</td><td>−11%</td></tr><tr><td><code>MAPLE:over_expresses</code></td><td>24</td><td>0.0028</td><td>0.0024</td><td>−16% (gene-tail)</td></tr><tr><td><code>MAPLE:under_expresses</code></td><td>7</td><td>0.0073</td><td>0.0064</td><td>−13% (gene-tail)</td></tr><tr><td><code>MAPLE:tried_drug</code></td><td>6</td><td>0.0086</td><td>0.0075</td><td>−13%</td></tr><tr><td><code>MAPLE:partially_sensitive_to_drug</code></td><td>29</td><td>0.0089</td><td>0.0071</td><td>−20%</td></tr><tr><td><code>MAPLE:has_genetic_alteration_in</code></td><td>3</td><td>0.0253</td><td>0.0174</td><td>−31%</td></tr></tbody></table></div>
+<p><code>adjustment_target_entity_count: 7,782</code> (drug entities in the KG). Mask is working.</p>
+<h3 id="44-architectural-finding-cross-predicate-noise">4.4 Architectural finding: cross-predicate noise<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#44-architectural-finding-cross-predicate-noise" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Synth v3 surfaces something the paper’s eval scope hid. <strong>Even with the paper-faithful drug-only restriction</strong>, gene-tail predicates moved (some by 13–31%). Why?</p>
+<p>The ranking is over all 139,226 entities by <code>final_score = raw_score + adj</code>. With +100 boost on ~7,782 TP53-adjacent drugs, every TP53-adjacent drug that <em>previously had raw_score below the true gene-tail</em> now ranks above it. The gene-tail’s rank gets worse by that count.</p>
+<p>For predicates where the true tail’s raw rank is already very high (e.g., <code>has_variant</code>, <code>has_phenotypic_feature</code> — raw MRR &lt; 10⁻³, true tail ranks below most things anyway), few TP53-adjacent drugs are below them in the first place, so nothing changes. For predicates where the true tail had a <em>good</em> raw rank (<code>has_genetic_alteration_in</code>, raw MRR 0.025 ≈ rank 40), many TP53-adjacent drugs <em>were</em> below it, and now they’re all above.</p>
+<p>This means: <strong>the drug-only mask isolates the receivers, but doesn’t isolate non-drug queries from the boosted-drug pollution</strong>. The paper avoided this because they only evaluate drug-tail queries against drug candidates. For Maureen’s heterogeneous tail-type ground truth (genes, drugs, variants, phenotypes mixed), the paper’s mechanism has an inherent cross-predicate noise floor.</p>
+<p>This is a real architectural limitation of the paper’s design for general KG completion. <strong>Phase 12</strong> (specialist per-relation criteria — see <a href="../planning/paan_planning" class="internal internal-link alias" data-slug="planning/paan_planning">paan_planning.md</a>) is the natural extension that would eliminate it.</p>
+<hr/>
+<h2 id="5-quantitative-comparison-v1-vs-v3-on-the-same-synthetic-inputs">5. Quantitative Comparison: v1 vs v3 on the Same Synthetic Inputs<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-quantitative-comparison-v1-vs-v3-on-the-same-synthetic-inputs" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Predicate</th><th>N</th><th>Raw MRR</th><th>v1 (any) Δ</th><th>v3 (drug-only) Δ</th></tr></thead><tbody><tr><td><code>MAPLE:has_genetic_alteration_in</code></td><td>3</td><td>0.0253</td><td><strong>+121%</strong></td><td><strong>−31%</strong></td></tr><tr><td><code>MAPLE:partially_sensitive_to_drug</code></td><td>29</td><td>0.0089</td><td>−95%</td><td>−20%</td></tr><tr><td><code>MAPLE:tried_drug</code></td><td>6</td><td>0.0086</td><td>−94%</td><td>−13%</td></tr><tr><td><code>biolink:has_variant</code></td><td>1</td><td>0.000072</td><td>−7%</td><td><strong>0</strong></td></tr><tr><td><code>biolink:has_phenotypic_feature</code></td><td>4</td><td>0.000114</td><td>−17%</td><td><strong>0</strong></td></tr></tbody></table></div>
+<p>The v1→v3 sign flip on <code>has_genetic_alteration_in</code> is the cleanest demonstration of the mask working: in v1 the gene tails <em>received</em> +100 directly (because gene neighbors of TP53 anchor were also boosted), so they ranked first. In v3 the gene tails <em>don’t</em> receive +100 (mask excludes non-drugs), but drug-boost pollution still hurts them — though much less than in v1.</p>
+<p>The v1→v3 magnitude reduction on drug predicates (−95% → −20%) shows the mask also helping drug-tail queries: in v1, ALL entities adjacent to TP53 (including many genes/diseases above Maureen’s actual drugs) got the boost, swamping drug rankings; in v3 only drugs swam to the top, and <em>some</em> of Maureen’s true drugs <em>do</em> benefit from the boost while others suffer relative drop.</p>
+<hr/>
+<h2 id="6-what-now-works">6. What Now Works<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-what-now-works" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>End-to-end Vertex pipeline:</strong></p>
+<ol>
+<li>Local builder: <code>build_pdr2_input_pickle.py --source synthetic_zeros</code> produces pickle + resolution sidecar.</li>
+<li>Local builder: <code>build_synth_finetune_bundle.py</code> produces synthetic test artifacts (no fine-tune needed).</li>
+<li>GCS upload via <code>gcloud storage cp</code>.</li>
+<li>Foundation pristine-copy from Drive (manual one-time per source run).</li>
+<li>Submit Vertex CustomJob via <code>gcloud beta ai custom-jobs create --config=&lt;json></code> — supports modes <code>fine_tune</code>, <code>eval_patient</code>, <code>evaluate_personalized</code>.</li>
+<li>Outputs land in GCS; manual inspection / download.</li>
+</ol>
+<p><strong>Verified to work:</strong></p>
+<ul>
+<li>Foundation pristine-copy + fine-tune produces interpretable criterion weights (Section 4.1).</li>
+<li>Baseline <code>eval_patient</code> scores Maureen’s edges against foundation only.</li>
+<li><code>evaluate_personalized</code> scores Maureen’s edges against foundation + criterion adjustment.</li>
+<li><code>adjustment_target_domain=drug</code> faithfully reproduces the paper’s <code>apply_personalization</code>.</li>
+<li><code>adjustment_target_domain=any</code> extends to all entities (broader receivers, but cross-predicate noise).</li>
+<li>OOM auto-probe finds the largest fitting batch (e.g., 128 on A100-80GB for this graph).</li>
+<li>NumPy 2.x ↔ 1.x pickle portability (lists, not arrays).</li>
+</ul>
+<p><strong>Still requires manual orchestration:</strong></p>
+<ul>
+<li>Job submission is by hand (not auto via the worker handler).</li>
+<li>Foundation training itself happens in Colab; we copy artifacts to GCS.</li>
+<li>Phase 2 of the PDR2 training automation (frontend dashboard) is deferred.</li>
+</ul>
+<hr/>
+<h2 id="7-architectural-findings--things-to-remember">7. Architectural Findings — Things to Remember<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-architectural-findings--things-to-remember" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="71-the-classify_entity-biolink-gotcha">7.1 The classify_entity-Biolink gotcha<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#71-the-classify_entity-biolink-gotcha" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The upstream <code>TransductiveDataset.classify_entity</code> (<code>lib/pdr2/code/ultra/datasets.py:260</code>) assumes the paper’s naked-identifier convention. Our KG uses Biolink-style CURIEs. Without the patch, every entity falls into <code>gene_inv_vocab</code>, breaking the paper-faithful drug-only restriction in <code>apply_personalization</code>. <strong>Any future PDR2 fork using our data will hit this</strong> — the symptom is <code>adjustment_target_entity_count: 0</code> (or whatever count = “no drugs found”). Saved in memory.</p>
+<h3 id="72-the-personalized-loss-is-gradient-degenerate">7.2 The personalized loss is gradient-degenerate<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#72-the-personalized-loss-is-gradient-degenerate" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>As coded (<code>losses.py:60-86</code>), the criterion’s gradient depends only on <code>(criterion_weights, fixed_patient_values)</code> — not on batch contents. 20 epochs and 1 epoch converge to the same optimum. The paper’s TEXT suggests a per-triple score multiplier in the loss; the CODE doesn’t have one. We faithfully reproduce the code. Saved in memory.</p>
+<h3 id="73-drug-only-mask-isolates-receivers-not-queries">7.3 Drug-only mask isolates receivers, not queries<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#73-drug-only-mask-isolates-receivers-not-queries" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Already documented in §4.4. Important enough to call out separately: even with the paper-faithful restriction, Maureen’s gene-tail and variant-tail queries are noisily affected by drug-receiver boosts, because rankings span the whole entity vocabulary. Saved in memory.</p>
+<h3 id="74-vertex-ai--maple-data-prefix-mismatch-is-a-recurring-failure-mode">7.4 Vertex AI ↔ Maple-data prefix mismatch is a recurring failure mode<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#74-vertex-ai--maple-data-prefix-mismatch-is-a-recurring-failure-mode" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Beyond <code>classify_entity</code>, two other code points needed Maple-side patches:</p>
+<ul>
+<li><code>eval_patient.py:179-184</code> and <code>evaluate_personalized_maple.py:328-339</code> looked for vocab keys <code>inv_entity_vocab</code> / <code>inv_rel_vocab</code>; the dataset actually saves them as <code>entity_dict_forward</code> / <code>relation_dict_forward</code>. Fixed with a fallback chain.</li>
+<li><code>apply_personalization</code> itself (<code>training.py:198+</code>) has a hardcoded author-local vocab path (<code>/usr/homes/cxo147/...</code>) that we <em>do not currently invoke directly</em>; our <code>evaluate_personalized_maple.py</code> reimplements the adjustment logic to avoid needing the typed-vocab pickle at that path. If anyone ever wants to call upstream <code>evaluate_model_personalized</code> directly, this path will need to be parameterized.</li>
+</ul>
+<h3 id="75-numpy-2x--1x-pickle-cross-version-incompatibility">7.5 NumPy 2.x / 1.x pickle cross-version incompatibility<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#75-numpy-2x--1x-pickle-cross-version-incompatibility" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Local Maple env is NumPy 2.x; the PyTorch 2.1 base image in our container is NumPy 1.x. <code>pickle.dump(np.ndarray, ...)</code> from one side fails to load on the other (<code>ModuleNotFoundError: 'numpy._core'</code>). Fix: serialize as Python lists in the pickle. Saved in memory.</p>
+<h3 id="76-l4-capacity-is-unreliable-in-us-central1-right-now">7.6 L4 capacity is unreliable in us-central1 right now<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#76-l4-capacity-is-unreliable-in-us-central1-right-now" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>We had quota for L4 granted but the Vertex jobs sat in <code>PENDING</code> for hours waiting for actual hardware availability. A100-40GB and A100-80GB capacity was reliable. For eval jobs (which don’t actually need 80GB), switching to A100-40GB resolved provisioning. Saved in memory.</p>
+<hr/>
+<h2 id="8-open-questions--next-steps">8. Open Questions &amp; Next Steps<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-open-questions--next-steps" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="81-the-phase-85-oncokb-unblock-this-morning">8.1 The Phase 8.5 OncoKB unblock (this morning)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#81-the-phase-85-oncokb-unblock-this-morning" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>OncoKB license approval came through this morning. The PDR_PIPELINE_PLAN.md Phase 8.5.4 (“OncoKB connector ingest”) is now license-cleared. The next concrete move (per user direction, in another session) is to:</p>
+<ol>
+<li>Ingest OncoKB actionable variants → canonical KG via <code>backend/connectors/oncokb_connector.py</code></li>
+<li>Re-materialize Maureen’s patient overlay with variant-level edges (<code>biolink:has_variant</code> to her actual variants, not gene-level placeholders) — the resolver fix already shipped per <a href="../kg/pdr_phase8.5_variant_kg_planning" class="internal internal-link alias" data-slug="kg/pdr_phase8.5_variant_kg_planning">the variant-aware KG extension</a>.</li>
+<li>Rebuild the composition <code>primekg_civic_oncokb_pharmgkb_v1</code> (or similar) with Maureen included.</li>
+<li>Retrain the foundation from scratch on this richer graph.</li>
+<li>Re-run the Track A pipeline (this session’s outputs become the comparator).</li>
+</ol>
+<p><strong>Expected payoff:</strong> Maureen’s patient overlay grows from ~248 edges (mostly gene-level) to a much larger and more biologically specific set with variant chains (BRAF V600E predicts sensitivity to vemurafenib; the second-hit question predicts PARP-inhibitor benefit; APC variants pattern…). The fine-tune criterion will have <em>richer features to anchor against</em>, and <code>apply_personalization</code> will reach drugs through clinically meaningful evidence chains rather than generic gene-drug edges.</p>
+<h3 id="82-whats-not-addressed-by-phase-85">8.2 What’s not addressed by Phase 8.5<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#82-whats-not-addressed-by-phase-85" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>OncoKB doesn’t fix:</p>
+<ul>
+<li>The gradient-degeneracy of the loss (§7.2) — still need Phase 12 or paper-equivalent loss rework if we want criterion gradient to actually use batch information.</li>
+<li>The cross-predicate noise (§4.4, §7.3) — Phase 12 per-relation criteria is the architectural answer.</li>
+<li>The lack of a true validation gold standard for personalization on Maureen — RGCC (<a href="../results/pdr_phase7_5_rgcc_writeup" class="internal internal-link alias" data-slug="results/pdr_phase7_5_rgcc_writeup">pdr_phase7_5_rgcc_writeup.md</a>) is the closest, but it’s drug-tail-only. For variant or expression tails, we’d need clinical follow-up or separate ground-truth construction.</li>
+</ul>
+<h3 id="83-items-intentionally-deferred">8.3 Items intentionally deferred<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#83-items-intentionally-deferred" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Visualization of the receiver-set (Tier 1 PNG vs Tier 2 Explorer overlay) — deferred. Would be useful once we have a Phase-8.5-retrain checkpoint to visualize against.</li>
+<li>λ sweep on real Maureen data — deferred. Without a Phase 8.5 retrain, the protein weights’ magnitude is too small for any λ that’s not synthetically extreme to register.</li>
+<li>Phase 2 of the PDR2 training automation (frontend integration of submit/monitor flow) — deferred. Manual gcloud submission is adequate for now.</li>
+<li>Per-relation criterion architecture (Design A from earlier discussion) — deferred behind Phase 8.5.</li>
+</ul>
+<hr/>
+<h2 id="9-reference-gcs-artifacts-from-this-run">9. Reference: GCS Artifacts from this Run<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#9-reference-gcs-artifacts-from-this-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Artifact</th><th>Path</th></tr></thead><tbody><tr><td>Track A patient pickle</td><td><code>gs://BUCKET/patient_data/maureen_track_a_synthetic_zeros.pkl</code></td></tr><tr><td>Track A resolution sidecar</td><td><code>gs://BUCKET/patient_data/maureen_track_a_synthetic_zeros.resolution.json</code></td></tr><tr><td>Foundation pristine copy</td><td><code>gs://BUCKET/runs/2026-05-17_track_a_pharmgkb_finetune_v1/foundation_pristine_copy.pth</code></td></tr><tr><td>Fine-tune output bundle</td><td><code>gs://BUCKET/runs/2026-05-17_track_a_pharmgkb_finetune_v1/finetune/pmaureen_pc_full_state_dict.pth</code></td></tr><tr><td>Fine-tune metrics</td><td><code>gs://BUCKET/runs/2026-05-17_track_a_pharmgkb_finetune_v1/finetune/metrics.json</code></td></tr><tr><td>Fine-tune manifest</td><td><code>gs://BUCKET/runs/2026-05-17_track_a_pharmgkb_finetune_v1/finetune/manifest.json</code></td></tr><tr><td>Baseline eval_patient v3 (vocabfix container)</td><td><code>gs://BUCKET/runs/2026-05-17_track_a_pharmgkb_eval_patient_v1/eval_patient/eval_patient.json</code></td></tr><tr><td>Personalized eval v3</td><td><code>gs://BUCKET/runs/2026-05-17_track_a_pharmgkb_eval_personalized_v1/eval_personalized/eval_personalized.json</code></td></tr><tr><td>Synth v1 (any-domain)</td><td><code>gs://BUCKET/runs/2026-05-18_synth_tp53_w1_v100_eval_v1/eval_personalized/eval_personalized.json</code></td></tr><tr><td>Synth v2 (drug-only, vacuous)</td><td><code>gs://BUCKET/runs/2026-05-18_synth_tp53_w1_v100_eval_v2_drugonly/eval_personalized/eval_personalized.json</code></td></tr><tr><td>Synth v3 (drug-only, fixed classifier)</td><td><code>gs://BUCKET/runs/2026-05-18_synth_tp53_w1_v100_eval_v3_classifyfix/eval_personalized/eval_personalized.json</code></td></tr><tr><td>Synth patient pickle</td><td><code>gs://BUCKET/runs/2026-05-18_synth_tp53_w1_v100/synth_patient.pkl</code></td></tr><tr><td>Synth resolution sidecar</td><td><code>gs://BUCKET/runs/2026-05-18_synth_tp53_w1_v100/synth_patient.resolution.json</code></td></tr><tr><td>Synth finetune bundle</td><td><code>gs://BUCKET/runs/2026-05-18_synth_tp53_w1_v100/finetune/pmaureen_pc_full_state_dict.pth</code></td></tr></tbody></table></div>
+<h2 id="10-reference-container-image-tags">10. Reference: Container Image Tags<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#10-reference-container-image-tags" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Tag</th><th>Adds</th></tr></thead><tbody><tr><td><code>9d4f1ef-finetune</code></td><td><code>MODE=fine_tune</code> branch in entrypoint, <code>fine_tune_maple.py</code></td></tr><tr><td><code>8438209-personalized</code></td><td><code>MODE=evaluate_personalized</code> branch, <code>evaluate_personalized_maple.py</code></td></tr><tr><td><code>8438209-batchfix</code></td><td><code>FINE_TUNE_MAX_BATCH</code> env var override</td></tr><tr><td><code>c8a3826-oomprobe</code></td><td>Pre-flight VRAM probe in fine_tune</td></tr><tr><td><code>949839f-vocabfix</code></td><td>Vocab-key fallback (<code>entity_dict_forward</code>)</td></tr><tr><td><code>4a85ec4-drugonly</code></td><td><code>--adjustment_target_domain</code> flag in evaluate_personalized</td></tr><tr><td><code>4a85ec4-classifyfix</code></td><td><strong>Biolink CURIE patterns in <code>classify_entity</code></strong> (current production)</td></tr></tbody></table></div>
+<h2 id="11-cross-references">11. Cross-References<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#11-cross-references" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="code-touched-this-run">Code touched this run<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#code-touched-this-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>NEW:</strong> <code>lib/pdr2/code/script/fine_tune_maple.py</code></li>
+<li><strong>NEW:</strong> <code>lib/pdr2/code/script/evaluate_personalized_maple.py</code></li>
+<li><strong>NEW:</strong> <code>backend/scripts/build_synth_finetune_bundle.py</code></li>
+<li><strong>NEW:</strong> <code>frontend/src/components/PDRInputInspector.jsx</code></li>
+<li><strong>NEW:</strong> <code>backend/scripts/vertex_*.json</code> (4 spec files)</li>
+<li><strong>NEW:</strong> <code>backend/tests/test_pdr_input_preview.py</code></li>
+<li><strong>PATCHED:</strong> <code>lib/pdr2/code/script/training.py</code> — <code>FINE_TUNE_MAX_BATCH</code> + pre-flight probe</li>
+<li><strong>PATCHED:</strong> <code>lib/pdr2/code/script/eval_patient.py</code> — vocab-key fallback</li>
+<li><strong>PATCHED:</strong> <code>lib/pdr2/code/ultra/datasets.py</code> — <code>classify_entity</code> Biolink CURIEs</li>
+<li><strong>PATCHED:</strong> <code>lib/pdr2/docker/entrypoint.sh</code> — two new modes</li>
+<li><strong>PATCHED:</strong> <code>backend/scripts/build_pdr2_input_pickle.py</code> — resolution sidecar + portable pickle</li>
+<li><strong>PATCHED:</strong> <code>backend/mods_prs_api.py</code> — <code>/preview/pdr-input</code> endpoint</li>
+<li><strong>PATCHED:</strong> <code>backend/mcp_servers/mods_server.py</code> — <code>mods_preview_pdr_input</code> MCP tool</li>
+<li><strong>PATCHED:</strong> <code>frontend/src/components/ResearchDashboard.jsx</code> — PDR Input tab</li>
+</ul>
+<h3 id="memory-pointers-saved-this-run">Memory pointers (saved this run)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#memory-pointers-saved-this-run" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><a href="../model/pdr_personalization_writeup" class="internal internal-link alias" data-slug="model/pdr_personalization_writeup">the personalization mechanism reference</a> — Mechanism A + B + apply_personalization, with code snippets and the gradient-degeneracy observation.</li>
+<li>an internal note on the training-automation status — Phase 1 status updated (quota granted, first run done, container modes documented).</li>
+<li>an internal note on Biolink entity classification — Classifier gotcha.</li>
+<li>an internal note on NumPy pickle portability — NumPy 1.x↔2.x pickle gotcha.</li>
+<li>an internal note on Vertex L4 capacity — L4 PENDING vs A100 reliable.</li>
+</ul>
+<h3 id="things-not-captured-anywhere-so-they-only-exist-in-this-writeup">Things NOT captured anywhere (so they only exist in this writeup)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#things-not-captured-anywhere-so-they-only-exist-in-this-writeup" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>The Vertex CustomJob IDs from this run (operational ephemera; can be looked up by display_name pattern).</li>
+<li>The exact build-iteration sequence (3 container builds before drug-only worked; recoverable from <code>gcloud builds list</code>).</li>
+<li>The full prefix survey output for our train.txt (only the top-N counts are above).</li>
+<li>The interplay between PDR Input Inspector frontend and ResearchDashboard wiring (sufficient code references above, but no narrative).</li>
+<li>The reasoning behind the OOM probe halving strategy vs pre-flight estimation (mentioned briefly; not standalone).</li>
+<li>The Cloud Build duration vs Vertex provisioning duration ratios (operational; not load-bearing).</li>
+<li>The chronology of L4 quota grant → L4 capacity failure → A100 fallback (in memory as the gotcha but no full timeline).</li>
+</ul>
+<p>If you need any of these durable later, mention and I’ll spin them into a follow-up note.</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-77" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#pdr2-track-a--first-personalized-inference-mechanism-reproduction-and-architectural-findings" data-for="pdr2-track-a--first-personalized-inference-mechanism-reproduction-and-architectural-findings">PDR2 Track A — First Personalized Inference, Mechanism Reproduction, and Architectural Findings</a></li><li class="depth-1"><a href="#summary" data-for="summary">Summary</a></li><li class="depth-1"><a href="#1-purpose" data-for="1-purpose">1. Purpose</a></li><li class="depth-1"><a href="#2-pipeline-we-built" data-for="2-pipeline-we-built">2. Pipeline We Built</a></li><li class="depth-2"><a href="#21-vertex-ai-orchestration" data-for="21-vertex-ai-orchestration">2.1 Vertex AI orchestration</a></li><li class="depth-2"><a href="#22-container-modes-new" data-for="22-container-modes-new">2.2 Container modes (new)</a></li><li class="depth-2"><a href="#23-patient-input-artifacts" data-for="23-patient-input-artifacts">2.3 Patient input artifacts</a></li><li class="depth-2"><a href="#24-pdr-input-inspector-frontend" data-for="24-pdr-input-inspector-frontend">2.4 PDR Input Inspector (frontend)</a></li><li class="depth-1"><a href="#3-materials-and-methods" data-for="3-materials-and-methods">3. Materials and Methods</a></li><li class="depth-2"><a href="#31-foundation-model-source" data-for="31-foundation-model-source">3.1 Foundation model source</a></li><li class="depth-2"><a href="#32-fine-tune-track-a" data-for="32-fine-tune-track-a">3.2 Fine-tune (Track A)</a></li><li class="depth-2"><a href="#33-synthetic-positive-control" data-for="33-synthetic-positive-control">3.3 Synthetic positive control</a></li><li class="depth-2"><a href="#34-evaluation-methodology" data-for="34-evaluation-methodology">3.4 Evaluation methodology</a></li><li class="depth-1"><a href="#4-results" data-for="4-results">4. Results</a></li><li class="depth-2"><a href="#41-fine-tune-output" data-for="41-fine-tune-output">4.1 Fine-tune output</a></li><li class="depth-2"><a href="#42-real-fine-tune-eval--no-measurable-lift" data-for="42-real-fine-tune-eval--no-measurable-lift">4.2 Real fine-tune eval — no measurable lift</a></li><li class="depth-2"><a href="#43-synthetic-test--pipeline-reproduces-paper-faithful-behavior" data-for="43-synthetic-test--pipeline-reproduces-paper-faithful-behavior">4.3 Synthetic test — pipeline reproduces paper-faithful behavior</a></li><li class="depth-2"><a href="#44-architectural-finding-cross-predicate-noise" data-for="44-architectural-finding-cross-predicate-noise">4.4 Architectural finding: cross-predicate noise</a></li><li class="depth-1"><a href="#5-quantitative-comparison-v1-vs-v3-on-the-same-synthetic-inputs" data-for="5-quantitative-comparison-v1-vs-v3-on-the-same-synthetic-inputs">5. Quantitative Comparison: v1 vs v3 on the Same Synthetic Inputs</a></li><li class="depth-1"><a href="#6-what-now-works" data-for="6-what-now-works">6. What Now Works</a></li><li class="depth-1"><a href="#7-architectural-findings--things-to-remember" data-for="7-architectural-findings--things-to-remember">7. Architectural Findings — Things to Remember</a></li><li class="depth-2"><a href="#71-the-classify_entity-biolink-gotcha" data-for="71-the-classify_entity-biolink-gotcha">7.1 The classify_entity-Biolink gotcha</a></li><li class="depth-2"><a href="#72-the-personalized-loss-is-gradient-degenerate" data-for="72-the-personalized-loss-is-gradient-degenerate">7.2 The personalized loss is gradient-degenerate</a></li><li class="depth-2"><a href="#73-drug-only-mask-isolates-receivers-not-queries" data-for="73-drug-only-mask-isolates-receivers-not-queries">7.3 Drug-only mask isolates receivers, not queries</a></li><li class="depth-2"><a href="#74-vertex-ai--maple-data-prefix-mismatch-is-a-recurring-failure-mode" data-for="74-vertex-ai--maple-data-prefix-mismatch-is-a-recurring-failure-mode">7.4 Vertex AI ↔ Maple-data prefix mismatch is a recurring failure mode</a></li><li class="depth-2"><a href="#75-numpy-2x--1x-pickle-cross-version-incompatibility" data-for="75-numpy-2x--1x-pickle-cross-version-incompatibility">7.5 NumPy 2.x / 1.x pickle cross-version incompatibility</a></li><li class="depth-2"><a href="#76-l4-capacity-is-unreliable-in-us-central1-right-now" data-for="76-l4-capacity-is-unreliable-in-us-central1-right-now">7.6 L4 capacity is unreliable in us-central1 right now</a></li><li class="depth-1"><a href="#8-open-questions--next-steps" data-for="8-open-questions--next-steps">8. Open Questions &amp; Next Steps</a></li><li class="depth-2"><a href="#81-the-phase-85-oncokb-unblock-this-morning" data-for="81-the-phase-85-oncokb-unblock-this-morning">8.1 The Phase 8.5 OncoKB unblock (this morning)</a></li><li class="depth-2"><a href="#82-whats-not-addressed-by-phase-85" data-for="82-whats-not-addressed-by-phase-85">8.2 What’s not addressed by Phase 8.5</a></li><li class="depth-2"><a href="#83-items-intentionally-deferred" data-for="83-items-intentionally-deferred">8.3 Items intentionally deferred</a></li><li class="depth-1"><a href="#9-reference-gcs-artifacts-from-this-run" data-for="9-reference-gcs-artifacts-from-this-run">9. Reference: GCS Artifacts from this Run</a></li><li class="depth-1"><a href="#10-reference-container-image-tags" data-for="10-reference-container-image-tags">10. Reference: Container Image Tags</a></li><li class="depth-1"><a href="#11-cross-references" data-for="11-cross-references">11. Cross-References</a></li><li class="depth-2"><a href="#code-touched-this-run" data-for="code-touched-this-run">Code touched this run</a></li><li class="depth-2"><a href="#memory-pointers-saved-this-run" data-for="memory-pointers-saved-this-run">Memory pointers (saved this run)</a></li><li class="depth-2"><a href="#things-not-captured-anywhere-so-they-only-exist-in-this-writeup" data-for="things-not-captured-anywhere-so-they-only-exist-in-this-writeup">Things NOT captured anywhere (so they only exist in this writeup)</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../results/pdr2_track_a_v2_repro_writeup" class="internal">PDR2 Track A v2 — Foundation Retrain</a></li><li><a href="../results/protein_biomarker_expression_writeup" class="internal">Protein Biomarker Expression in MODS</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>

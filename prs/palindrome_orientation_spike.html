@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>Can hm_source orient a palindromic SNV?</title><meta charset="utf-8"/><link rel="preload" href="../index-cd2294b5.css" as="style"/><link rel="preload" href="../prescript-2bfc6315.js" as="script"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted Grotesk:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=IBM Plex Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="MODS Notebook"/><meta property="og:title" content="Can hm_source orient a palindromic SNV?"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Can hm_source orient a palindromic SNV?"/><meta name="twitter:description" content="A spike that asked whether PGS Catalog harmonization already fixes strand on palindromic variants. It does not, and the reason forecloses the whole route."/><meta property="og:description" content="A spike that asked whether PGS Catalog harmonization already fixes strand on palindromic variants. It does not, and the reason forecloses the whole route."/><meta property="og:image:alt" content="A spike that asked whether PGS Catalog harmonization already fixes strand on palindromic variants. It does not, and the reason forecloses the whole route."/><meta property="twitter:domain" content="whafa.github.io/mods-notebook"/><meta property="og:url" content="https://whafa.github.io/mods-notebook/prs/palindrome_orientation_spike"/><meta property="twitter:url" content="https://whafa.github.io/mods-notebook/prs/palindrome_orientation_spike"/><link rel="icon" href="../static/icon.png"/><meta name="description" content="A spike that asked whether PGS Catalog harmonization already fixes strand on palindromic variants. It does not, and the reason forecloses the whole route."/><meta name="generator" content="Quartz"/><link href="../index-cd2294b5.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-735924e0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-bbc3f7c0.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-2911f5d1.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-53b25b2b.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-c93c6a44.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-8a06014f.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-77d6a441.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-6ee21cee.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-1ea6ad18.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-34bdfded.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-788c9ca3.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-642859cd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-4abc06bd.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-274a3dfe.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../component-94cb6c84.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-a5c806d2.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-6bd36952.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-9857b007.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="../static/resource-style-d3a1a224.css" rel="stylesheet" type="text/css" data-persist="true"/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../prescript-2bfc6315.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../static/contentIndex.json").then(data => data.json())</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted%20Grotesk%3Awght%40400%3B700&amp;family=Source%20Sans%20Pro%3Aital%2Cwght%400%2C400%3B0%2C600%3B1%2C400%3B1%2C600&amp;family=IBM%20Plex%20Mono%3Awght%40400%3B600&amp;display=swap"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://whafa.github.io/mods-notebook/prs/palindrome_orientation_spike-og-image.webp"/><meta property="og:image:url" content="https://whafa.github.io/mods-notebook/prs/palindrome_orientation_spike-og-image.webp"/><meta name="twitter:image" content="https://whafa.github.io/mods-notebook/prs/palindrome_orientation_spike-og-image.webp"/><meta property="og:image:type" content="image/webp"/></head><body data-slug="prs/palindrome_orientation_spike" data-basepath="/mods-notebook"><div id="quartz-root" class="page" data-frame="default"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="..">MODS Notebook</a></h2><div class="mobile-only"><div class="spacer"></div></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 0.5rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button" aria-label="Search" aria-expanded="false"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something..." placeholder="Search for something..."/><div class="search-layout" data-preview="true" data-field-priority="[&quot;title&quot;,&quot;content&quot;,&quot;tags&quot;]"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode" aria-label="Dark mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode" aria-label="Reader mode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer nav-files-container" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a2, b2) => {\n    if (!a2.isFolder &amp;&amp; !b2.isFolder || a2.isFolder &amp;&amp; b2.isFolder) {\n      return (a2.displayName || \&quot;\&quot;).localeCompare(b2.displayName || \&quot;\&quot;, void 0, {\n        numeric: true,\n        sensitivity: \&quot;base\&quot;\n      });\n    }\n    if (!a2.isFolder &amp;&amp; b2.isFolder) {\n      return 1;\n    }\n    return -1;\n  }&quot;,&quot;filterFn&quot;:&quot;(node) => node.slugSegment !== \&quot;tags\&quot;&quot;,&quot;mapFn&quot;:&quot;(node) => {\n    return node;\n  }&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-89" aria-label="Explorer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-89" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-0"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#" class="nav-file-title tree-item-self"></a></li></template><template id="template-folder"><li><div class="folder-container nav-folder-title tree-item-self"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon nav-folder-collapse-indicator collapse-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content tree-item-children"></ul></div></li></template></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../prs/">prs</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Can hm_source orient a palindromic SNV?</a></div></nav><details class="note-properties metadata-container" open data-collapsed="false"><summary class="note-properties-header"><span class="note-properties-title">Properties</span><span class="note-properties-count">4</span></summary><table class="note-properties-table"><tbody><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">author</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">maple</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">last-verified</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">2026-09-26</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">status</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">reference</span></td></tr><tr class="note-properties-row metadata-property"><td class="note-properties-key metadata-property-key">description</td><td class="note-properties-value metadata-property-value"><span class="note-properties-text">A spike that asked whether PGS Catalog harmonization already fixes strand on palindromic variants. It does not, and the reason forecloses the whole route.</span></td></tr></tbody></table></details><p show-comma="true" class="content-meta"><time datetime="2026-10-09T21:27:44.353Z">Oct 09, 2026</time><span>22 min read</span></p></div></div><article class="popover-hint"><div class="markdown-preview-view markdown-rendered"><h1 id="can-hm_source-orient-a-palindromic-snv">Can <code>hm_source</code> orient a palindromic SNV?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#can-hm_source-orient-a-palindromic-snv" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><em>GH <code>#371</code>. The short answer is no, for every
+value of <code>hm_source</code>, and the reason is structural rather than statistical: the
+harmonization stage that writes <code>hm_source</code> never looks at an allele.</em></p>
+<hr/>
+<h2 id="0-why-this-was-asked">0. Why this was asked<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#0-why-this-was-asked" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Gate C defers palindromic SNVs — <code>A/T</code> and <code>C/G</code> pairs, whose strand complement is the
+pair itself — because nothing in the alleles says which strand they were written on, and
+guessing wrong <strong>inverts the dosage silently</strong>. It is the one failure mode where being
+wrong is both undetectable downstream and maximally harmful. At the Gate E2 scope that
+deferral costs <strong>64,810,321 rows, 2.99 % of the fleet</strong>, concentrated in the small curated
+pre-2015 scores: 1,687 production-eligible scores carry at least one palindromic row, and
+among those the median score loses 10.41 % of its rows.</p>
+<p>The assumed way out is a frequency comparison — the scoring file’s declared
+<code>allelefrequency_effect</code> against a reference panel’s frequency at that locus. Concordant
+means same strand, complementary means flipped. But only <strong>167 of the 1,687</strong> affected
+scores declare an effect-allele frequency at all, capping that route at <strong>9.5 %</strong> of the
+deferred rows.</p>
+<p>GH #371 proposed a second route. Harmonized files carry an <code>hm_source</code> column, and a
+150-file sample found <strong>44.2 %</strong> of palindromic rows carrying <code>hm_source = ENSEMBL</code>. If
+<code>ENSEMBL</code> meant “this variant was matched to an Ensembl/dbSNP record”, and dbSNP records
+are strand-defined, then those rows would already be forward-strand and would need no
+frequency at all — lifting the recoverable share from ~9.5 % to ~45 %.</p>
+<p>That hypothesis is false. This document says why, on four independent lines of evidence,
+and prices what is left.</p>
+<hr/>
+<h2 id="1-the-answer">1. The answer<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-the-answer" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><code>hm_source</code></th><th>What it actually means</th><th>Can it orient a palindrome?</th></tr></thead><tbody><tr><td><code>ENSEMBL</code></td><td>The variant’s <strong>position</strong> was looked up from its rsID in the Catalog’s Ensembl coordinate map.</td><td><strong>No.</strong></td></tr><tr><td><code>liftover</code></td><td>The position was converted from the author’s build with pyliftover.</td><td><strong>No.</strong></td></tr><tr><td><code>Author-reported</code></td><td>The author’s own coordinates were kept, because the file was already on the target build.</td><td><strong>No.</strong></td></tr><tr><td><code>Unknown</code></td><td>No position could be resolved at all. Emitted by the harmonizer but absent from the published column documentation.</td><td><strong>No</strong> — such a row is unplaceable anyway.</td></tr></tbody></table></div>
+<p>The verdict is the same for every value for one reason: <strong><code>hm_source</code> is the provenance of
+the coordinate, not of the alleles.</strong> The PGS Catalog’s own column definition says so in
+as many words — “Data source of the variant position” — and the harmonization stage that
+writes it does not read, write, or check <code>effect_allele</code> or <code>other_allele</code>.</p>
+<p>There is therefore no <code>hm_source</code>-based route, and no partial one. <strong>H1, H2 and H3 from the
+issue are all answered “no”, and H1 is answered “no” for a different reason than the issue
+supposed</strong> — not because <code>ENSEMBL</code> matching is unreliable, but because <code>ENSEMBL</code> never
+claimed anything about alleles in the first place.</p>
+<p>§2 is the mechanism. §4.1 is the measurement that would have settled it without reading a
+line of the harmonizer: in one scoring file, <code>hm_source = ENSEMBL</code> labels <strong>26,901
+forward-strand rows and 26,801 reverse-complemented ones</strong>.</p>
+<hr/>
+<h2 id="2-the-evidence">2. The evidence<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-the-evidence" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="21-the-harmonizer-has-two-stages-and-only-the-second-one-touches-strand">2.1 The harmonizer has two stages, and only the second one touches strand<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-the-harmonizer-has-two-stages-and-only-the-second-one-touches-strand" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><a href="https://github.com/PGScatalog/pgs-harmonizer" class="external external-link"><code>PGScatalog/pgs-harmonizer</code><svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> runs in two
+passes, and the distinction between them is the whole answer:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>Stage</th><th>What it does</th><th>What it writes</th></tr></thead><tbody><tr><td><strong>HmPOS</strong></td><td>Resolves each variant’s <strong>coordinate</strong> on the target build, by rsID lookup, by liftover, or by keeping the author’s.</td><td><code>hm_source</code>, <code>hm_rsID</code>, <code>hm_chr</code>, <code>hm_pos</code>, <code>hm_inferOtherAllele</code></td></tr><tr><td><strong>HmVCF</strong></td><td>Looks the variant up in a reference VCF and <strong>checks the alleles</strong> against it: matches, palindromic, reverse-complement.</td><td><code>hm_code</code>, <code>hm_vid</code>, and on a correction <code>hm_fixedStrandFlip</code> + <code>hm_reported_effect_allele</code></td></tr></tbody></table></div>
+<p><code>variant_HmPOS()</code> returns exactly five values — <code>hm_source</code>, <code>hm_rsID</code>, <code>hm_chr</code>,
+<code>hm_pos</code>, <code>hm_inferOtherAllele</code> — and <code>effect_allele</code> is not among them. It is passed
+through untouched. <code>hm_source = 'ENSEMBL'</code> is set on the single condition that the row’s
+rsID was found in the coordinate map; the alleles are never compared to the Ensembl
+record’s.</p>
+<p>Strand lives entirely in HmVCF. <code>DetermineHarmonizationCode()</code> maps the triple
+(matches-VCF, is-palindromic, is-flipped) to an <code>hm_code</code>, and <code>FixStrandFlips()</code> rewrites
+alleles <strong>only</strong> where <code>hm_code == -4</code>, preserving the original in
+<code>hm_reported_effect_allele</code>. The codes that matter here:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><code>hm_code</code></th><th>Meaning</th></tr></thead><tbody><tr><td><code>5</code></td><td>Variant matches the reference VCF</td></tr><tr><td><code>3</code></td><td>Matched, but with <strong>ambiguous orientation</strong> (A/T, C/G)</td></tr><tr><td><code>-4</code></td><td>Strand flip suspected; corrected by default</td></tr><tr><td><code>-5</code></td><td>Not present in the reference VCF</td></tr></tbody></table></div>
+<p>So the Catalog does identify palindromes — it just labels them and moves on. Its own
+source carries the unimplemented intent beside that code: a <code>ToDo</code> to use allele frequency
+to resolve the <code>hm_code=3</code> variants. <strong>The frequency route is an open item in the
+Catalog’s harmonizer too</strong>, which is a useful calibration on how tractable it is.</p>
+<p>One corollary worth stating, because it closes a tempting side door:
+<code>hm_inferOtherAllele</code> carries no strand information either. <code>infer_OtherAllele()</code> requires
+the author’s effect allele to appear <em>verbatim</em> in the Ensembl record’s allele list, with
+no complement check. For a palindromic A/T variant the author’s <code>A</code> matches whichever
+strand it came from, and <code>T</code> comes back either way.</p>
+<h3 id="22-the-files-we-hold-never-went-through-hmvcf">2.2 The files we hold never went through HmVCF<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-the-files-we-hold-never-went-through-hmvcf" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>That is the mechanism; here is our data. Scanning every cached scoring file’s header and
+column names (<code>spike_palindrome_hm_source.py headers</code>):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>files</th></tr></thead><tbody><tr><td>cached GRCh38 scoring files scanned</td><td><strong>5,377</strong></td></tr><tr><td>carrying <code>hm_source</code></td><td>5,377</td></tr><tr><td>carrying <code>HmPOS_build</code> / <code>HmPOS_date</code> header keys</td><td>5,377</td></tr><tr><td>carrying <strong>any</strong> HmVCF artifact — <code>hm_code</code>, <code>hm_vid</code>, <code>hm_info</code>, <code>hm_fixedStrandFlip</code>, <code>hm_reported_effect_allele</code>, <code>hm_reported_other_allele</code>, or an <code>HmVCF_*</code> header key</td><td><strong>0</strong></td></tr></tbody></table></div>
+<p>Not one file in the catalog we hold has been through the stage that checks alleles. The
+<code>hm_code</code> column that would flag a palindrome, and the strand correction that would fix a
+flip, are both absent from every row we have ever scored.</p>
+<p>This is not a gap in our mirror. The Catalog’s FTP publishes exactly two harmonized
+flavours per score — <code>PGS######_hmPOS_GRCh37.txt.gz</code> and <code>PGS######_hmPOS_GRCh38.txt.gz</code>
+— and no hmVCF flavour at all. <strong><code>hm_code</code> is not available to any consumer of the PGS
+Catalog</strong>, so there is nothing to fetch and no version of this route that works by
+downloading a better file.</p>
+<h3 id="23-harmonization-does-not-change-alleles--measured-not-inferred">2.3 Harmonization does not change alleles — measured, not inferred<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-harmonization-does-not-change-alleles--measured-not-inferred" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The two arguments above are a code reading. This one is our data. For nine scores chosen
+to span all three <code>hm_source</code> values, the author-submitted scoring file was downloaded
+from the Catalog’s FTP and joined to our harmonized copy row by row:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>scores</th><th>rows joined</th><th><code>effect_allele</code> differs</th><th><code>other_allele</code> differs</th></tr></thead><tbody><tr><td>9 (3 <code>ENSEMBL</code>, 3 <code>liftover</code>, 3 <code>Author-reported</code>)</td><td>401</td><td><strong>0</strong></td><td><strong>0</strong></td></tr></tbody></table></div>
+<p>Harmonization moved coordinates — in the <code>liftover</code> files by up to megabases — and left
+every allele exactly as the author wrote it. Whatever strand a scoring file arrived on is
+the strand we score it on.</p>
+<h3 id="24-what-the-witness-does">2.4 What the witness does<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#24-what-the-witness-does" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><code>pgsc_calc</code> — the Catalog’s own calculator, and our reconciliation witness (see
+<a href="../prs/prs_primer" class="internal internal-link alias" data-slug="prs/prs_primer">`prs_primer.md`</a> §5.4) — labels A/T and C/G SNPs <code>ambiguous</code> in its
+match step and <strong>excludes them by default</strong> (<code>keep_ambiguous = false</code>). It has no
+frequency-based resolution path anywhere; the only alternative it offers is to keep them
+as written, and its own parameter documentation describes that as <em>assuming</em> the scoring
+file and the target data are on the same strand.</p>
+<p>Its match code is blunter still: even on the same build, it notes, data can arrive
+improperly strand-oriented.</p>
+<p>So Gate C’s deferral is not a conservative deviation from the field. <strong>It is the field’s
+default,</strong> arrived at independently, and the one opt-out that exists is documented as an
+assumption rather than a resolution.</p>
+<hr/>
+<h2 id="3-the-fleet-wide-distribution">3. The fleet-wide distribution<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-the-fleet-wide-distribution" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The issue’s table was a 150-file sample. This is the full measurement over all <strong>1,687</strong>
+production-eligible scores carrying a palindromic row — every row of every one of them,
+645,528,195 rows in total, of which <strong>64,834,179 are palindromic</strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><code>hm_source</code> on a palindromic row</th><th>rows</th><th>share</th><th>dominant in</th><th>of those rows, carrying an EAF</th></tr></thead><tbody><tr><td><code>liftover</code></td><td>38,674,476</td><td><strong>59.65 %</strong></td><td>616 files</td><td>1,076</td></tr><tr><td><code>ENSEMBL</code></td><td>14,072,760</td><td><strong>21.71 %</strong></td><td><strong>984 files</strong></td><td>6,179,102</td></tr><tr><td><code>Author-reported</code></td><td>12,078,169</td><td>18.63 %</td><td>87 files</td><td>20</td></tr><tr><td><code>Unknown</code></td><td>8,774</td><td>0.01 %</td><td>0 files</td><td>6,266</td></tr></tbody></table></div>
+<p>and over the same files’ <strong>577,298,945</strong> non-palindromic biallelic SNV rows, for contrast:
+<code>Author-reported</code> 43.88 %, <code>liftover</code> 38.58 %, <code>ENSEMBL</code> 17.54 %, <code>Unknown</code> 0.00 %.</p>
+<p>The measured palindromic total reconciles <strong>exactly</strong> against the manifest’s
+<code>sum(n_palindromic)</code> over the same scores — 64,834,179 both ways — which is what
+establishes that this scan’s allele-pair classification is the same one Gate B and Gate C
+use rather than a re-implementation that drifted.</p>
+<p>Two things worth reading off that table.</p>
+<p><strong>The issue’s sample was right about files and wrong about rows, and the discrepancy is
+instructive.</strong> It reported <code>ENSEMBL</code> at 44.2 % of palindromic rows against the fleet’s
+21.71 %. But it capped each file at 300 palindromic rows, which makes it a <em>file</em>-weighted
+measure wearing a row-weighted label — and on the file measure it was nearly exact:
+84 of 150 files (56 %) <code>ENSEMBL</code>-dominant against the fleet’s 984 of 1,687 (<strong>58.3 %</strong>).
+Row-weighted, <code>liftover</code> dominates because the multi-million-row genome-wide scores were
+harmonized that way; file-weighted, <code>ENSEMBL</code> dominates because most <em>files</em> are small.
+This is the same row-aggregate-versus-per-score trap the primer flags at §5.4, arriving
+from a third direction.</p>
+<p><strong>Essentially every EAF-carrying palindromic row is <code>ENSEMBL</code>-sourced</strong> — 6,179,102 of the
+6,186,464 in §5. So the one route that does work and the <code>hm_source</code> value the hypothesis
+singled out are almost perfectly correlated, which is exactly the coincidence that makes a
+spurious hypothesis look promising. The correlation is real; the causal claim behind it is
+not.</p>
+<hr/>
+<h2 id="4-the-counterexample-strand-discordant-files-are-real">4. The counterexample: strand-discordant files are real<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-the-counterexample-strand-discordant-files-are-real" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Everything above says <code>hm_source</code> cannot <em>certify</em> forward strand. A separate question is
+whether the catalog’s palindromes happen to be forward-strand anyway, which would make
+“assume forward” empirically safe even though it is formally unjustified.</p>
+<p>It is not safe, and the demonstration is cheap.</p>
+<p><strong>The detector.</strong> On the forward strand, <code>A/G</code> and <code>C/T</code> are the same transition seen from
+the two strands and occur about equally often; likewise the <code>A/C</code> / <code>G/T</code> transversions.
+So for any file, <code>top_fraction</code> — the share of its unambiguous SNVs written as <code>A/C</code> or
+<code>A/G</code> — should sit at ~0.5. On three normal files measured here it lands at 0.4991,
+0.5017, 0.5018, with the paired counts agreeing to within 1 %.</p>
+<p>A value near 1.0 means something else entirely: every row was written in Illumina’s <strong>TOP</strong>
+allele convention, where the reported pair is always <code>A/x</code>. TOP is assigned <strong>per variant</strong>
+from the surrounding sequence, so roughly half of those rows are reverse-complemented
+relative to GRCh38 — and <em>nothing in the scoring file records which</em>.</p>
+<p><strong>It happens.</strong> Auditing the allele pairs of the outliers directly against the pinned
+GRCh38 FASTA:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>score</th><th>trait</th><th>single-base rows</th><th>allele pairs present</th><th>forward-match</th><th>complement-only</th><th>palindromic</th></tr></thead><tbody><tr><td><strong>PGS005393</strong></td><td>post-traumatic stress disorder</td><td>53,705</td><td><code>A/G</code>, <code>A/C</code> only</td><td>50.1 %</td><td><strong>49.9 %</strong></td><td>0</td></tr><tr><td><strong>PGS000741</strong></td><td>prostate cancer</td><td>46</td><td><code>A/G</code>, <code>A/C</code> only</td><td>41.3 %</td><td><strong>45.7 %</strong></td><td><strong>6</strong></td></tr><tr><td>PGS004237</td><td>coronary artery disease</td><td>200,000</td><td>all four</td><td>99.9 %</td><td>0.1 %</td><td>0</td></tr></tbody></table></div>
+<p>PGS005393 does not contain a single <code>C/T</code> or <code>G/T</code> row out of 53,705. That is not a
+statistical tendency, it is a coding convention, and half its rows are on the opposite
+strand from the genome. PGS000741 shows the same signature — and it carries six
+palindromic rows (three <code>A/T</code>, three <code>C/G</code>) that a forward-strand assumption would resolve
+by coin flip.</p>
+<p><strong><code>top_fraction</code> alone is not enough, and checking that mattered.</strong> Three files —
+PGS005087, PGS005088, PGS005089 — are <code>top_fraction = 1.000</code> and yet <strong>0 %</strong> of their
+orientable rows are complement-only. Audited against the FASTA, <code>other_allele == REF</code> at
+<strong>5,326 of 5,326</strong> checkable loci in PGS005087: its alleles genuinely <em>are</em> the
+forward-strand pair, so the all-<code>A/x</code> shape describes its variant set rather than a
+relabelling of it, and its palindromes are no worse off than anyone’s. The detector
+therefore requires <strong>both</strong> signals — an A/B-shaped allele convention <em>and</em> rows that only
+match complemented. The first names the convention; only the second proves the file is
+strand-mixed. Shipping <code>top_fraction</code> alone would have refused three innocent files.</p>
+<p><strong>How much is actually at stake — the honest number.</strong> Under the two-signal rule, of the
+1,687 palindrome-carrying eligible scores, <strong>3</strong> are strand-mixed (PGS000714, PGS000741,
+PGS000733), carrying <strong>21</strong> deferred palindromic rows between them. Relaxing to “any
+complement-only rate above 5 %, whatever the convention” gives <strong>18 scores and 62 rows</strong>;
+above 1 %, <strong>99 scores and 2,341 rows</strong> — 0.0036 % of the fleet’s 64.8 M. Fleet-wide the
+complement-only rate is 490,602 of 2,037,784,515 orientable rows = <strong>0.0241 %</strong> (the
+primer’s 0.0226 % is the same numerator over all 2.166 B scoring rows).</p>
+<p>So this finding changes the <em>arithmetic</em> of the palindrome question by essentially nothing.
+What it changes is the <strong>warrant</strong>. “Assume forward strand” cannot be defended as
+empirically safe, because the exceptions exist, are identifiable in advance, and fail in
+the one mode — silent dosage inversion — that nothing downstream catches. A policy that is
+right 99.996 % of the time and unfalsifiable on the remainder is not the same object as a
+policy that is right.</p>
+<p>There is also a reason the exposure is small, and it is not luck: <strong>the large A/B-coded
+files carry no palindromes at all.</strong> PGS005393, the cleanest case in the catalog at 53,705
+rows and 50.8 % complement-only, has zero. A submitter who knows their data is in A/B
+coding generally also knows the ambiguous SNPs are unrecoverable and drops them. The files
+that kept theirs are the ones that did not know — which is precisely why their palindromes
+should not be trusted.</p>
+<h3 id="41-and-these-files-are-hm_source--ensembl">4.1 And these files are <code>hm_source = ENSEMBL</code><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#41-and-these-files-are-hm_source--ensembl" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The same audit, split by <code>hm_source</code>, is the direct empirical refutation of H1 — not an
+argument from the harmonizer’s source, but a measurement on rows we hold:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>score</th><th><code>ENSEMBL</code> rows that are <strong>forward</strong></th><th><code>ENSEMBL</code> rows that are <strong>reverse-complemented</strong></th><th>palindromic rows, all <code>ENSEMBL</code>-sourced</th></tr></thead><tbody><tr><td>PGS005393</td><td>26,901</td><td><strong>26,801</strong></td><td>0</td></tr><tr><td>PGS000741</td><td>19</td><td><strong>21</strong></td><td>6</td></tr><tr><td>PGS000714</td><td>24</td><td><strong>22</strong></td><td>9</td></tr><tr><td>PGS000047</td><td>26</td><td><strong>21</strong></td><td>3</td></tr></tbody></table></div>
+<p>In PGS005393, <code>hm_source = ENSEMBL</code> labels 26,901 forward-strand rows and 26,801
+reverse-strand rows <strong>in the same file</strong>. The label takes the same value on both halves of
+a file split down the middle by strand, which is what “carries no strand information”
+looks like when you measure it rather than reason about it.</p>
+<p>And the rows H1 would have licensed us to orient — the <code>ENSEMBL</code>-sourced palindromes of
+PGS000741, PGS000714 and PGS000047 — sit in files that are 45–48 % reverse-strand. They
+are not merely un-certified by <code>hm_source</code>; they are among the most dangerous rows in the
+fleet, and H1 would have singled them out as safe.</p>
+<p>(PGS000047 sits at <code>top_fraction</code> 0.875, just under the A/B gate, with a 44.7 %
+complement-only rate — a file that is strand-mixed without being cleanly A/B-shaped. It is
+in this table as evidence about <code>hm_source</code>, not as one of the three the two-signal rule
+flags.)</p>
+<hr/>
+<h2 id="5-what-is-left-of-the-frequency-route">5. What is left of the frequency route<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-what-is-left-of-the-frequency-route" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>The 9.5 % ceiling is a count of rows that <em>have</em> a declared frequency. It is not a count
+of rows a panel could orient, because a frequency near 0.5 is as consistent with one
+strand as the other — that is the same ambiguity one level up.</p>
+<p>Measured over all 167 EAF-carrying scores (<code>spike_palindrome_hm_source.py eaf</code>):</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th></th><th>rows</th></tr></thead><tbody><tr><td>palindromic rows in those 167 scores</td><td>6,186,687</td></tr><tr><td>…declaring a parseable effect-allele frequency</td><td>6,186,464 (223 rows carry an unusable value)</td></tr></tbody></table></div>
+<p>and of those, the share a panel comparison could actually separate, by the margin from
+0.5 required to call it:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>required <code>|EAF − 0.5|</code></th><th>rows orientable</th><th>of EAF-carrying palindromic rows</th><th><strong>of the fleet’s 64.8M deferred</strong></th></tr></thead><tbody><tr><td>> 0.02</td><td>6,014,185</td><td>97.22 %</td><td>9.28 %</td></tr><tr><td>> 0.05</td><td>5,753,395</td><td>93.00 %</td><td>8.88 %</td></tr><tr><td>> 0.08</td><td>5,495,356</td><td>88.83 %</td><td><strong>8.48 %</strong></td></tr><tr><td>> 0.10</td><td>5,318,598</td><td>85.97 %</td><td>8.21 %</td></tr><tr><td>> 0.15</td><td>4,861,478</td><td>78.58 %</td><td>7.50 %</td></tr><tr><td>> 0.20</td><td>4,389,812</td><td>70.96 %</td><td>6.77 %</td></tr></tbody></table></div>
+<p>The curve is gentle, which is the good news: the EAF-carrying scores are not clustered at
+0.5, so the margin can be set conservatively without losing much. At a margin of 0.08 —
+equivalent to requiring a minor allele frequency below 0.42, a common convention in GWAS
+harmonization — the route delivers <strong>8.48 %</strong> of the fleet’s deferred palindromic rows
+rather than 9.5 %.</p>
+<p>This is an upper bound in one further respect that only D1 can close: it counts rows whose
+<em>declared</em> frequency is far enough from 0.5 to be decisive, and assumes the panel agrees
+with the author’s cohort closely enough to call the side. Where a score was trained in a
+cohort whose allele frequencies differ materially from HGDP+1kGP, a row can clear the
+margin and still not be callable. That measurement needs the panel and belongs to D1.</p>
+<p>Note what the margin does <strong>not</strong> interact with: a file being Illumina A/B-coded (§4) does
+not spoil the frequency route. A/B coding is a per-variant strand assignment, and a
+per-row frequency comparison resolves it per row, which is precisely the case it is for.
+What A/B coding rules out is <em>assuming</em> forward strand — §6 item 4.</p>
+<h3 id="51-why-a-bigger-frequency-source-would-not-raise-the-ceiling">5.1 Why a bigger frequency source would not raise the ceiling<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-why-a-bigger-frequency-source-would-not-raise-the-ceiling" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>The obvious objection is that 1,520 scores lack a frequency only because <em>the file</em> lacks
+one, and frequencies are freely available — dbSNP, gnomAD, ALFA, and the HGDP+1kGP panel
+already staged for Gate D all carry them. Why not look the locus up?</p>
+<p>Because orientation needs <strong>two</strong> frequencies, not one. The test is whether the value the
+author attached to <em>their</em> effect allele matches the panel’s frequency for the same allele
+read forward, or its complement. A panel frequency on its own says how common each base is
+at that locus; it says nothing about which of them the author meant by “effect”. Swapping
+in a larger panel replaces one side of a comparison whose other side does not exist.</p>
+<p>The same answer disposes of “look the rsID up in dbSNP, which is strand-defined.” dbSNP
+reports an <code>A/T</code> variant as <code>A/T</code> — the allele <em>set</em> is anchored to the forward strand, but
+a palindromic set is its own complement, so the file’s <code>A</code> still matches under either
+reading. That is the definition of the problem, not a way around it. It is also exactly
+what our own reference check already does against the pinned FASTA, and why the scorer
+defers instead of resolving.</p>
+<hr/>
+<h2 id="6-recommended-policy">6. Recommended policy<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-recommended-policy" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>Keep deferring palindromic SNVs, and stop treating <code>hm_source</code> as a possible
+reprieve.</strong> There is no partial credit here: the column is positional provenance and
+promoting any of its values would be exactly the “decide an ambiguous mapping that
+isn’t crystal clear” that <code>CLAUDE.md</code> forbids — with dosage inversion as the failure.</p>
+</li>
+<li>
+<p><strong>Do not run the Catalog’s HmVCF stage ourselves to get <code>hm_code</code>.</strong> It would tell us
+which rows are palindromic — which Gate B already computes — and its answer for those
+rows is <code>3</code>, meaning unresolved. The one thing it adds, <code>hm_code = -4</code> strand-flip
+detection, we already measure ourselves as <code>n_complement_only_match</code>, against a pinned
+reference rather than against Ensembl’s VCF.</p>
+</li>
+<li>
+<p><strong>Resolve palindromes in D1 only for the EAF-carrying subset, and only above a stated
+margin from 0.5.</strong> §5 prices it: <strong>8.48 %</strong> of the fleet’s deferred rows at a margin of
+0.08, against the 9.5 % headline. Everything else becomes a Gate F coverage gate, not a
+pending decision — there is no instrument that would settle it later.</p>
+</li>
+<li>
+<p><strong>Gate any <em>assumption</em>-based orientation on the per-score complement-only rate, which
+we already store.</strong> Gate C writes <code>n_complement_only_match</code> on every score; a rate
+above ~5 % of orientable rows means the file is strand-mixed and no forward-strand
+assumption may be applied to it — including the TOP/BOT reconstruction in §7. No new
+manifest column is needed for the <em>guard</em>, because the scorer computes the signal
+anyway. <code>top_fraction</code> is worth adding to Gate B only to explain <em>which</em> convention
+caused it, and §4 is the reason it cannot stand alone as the guard.</p>
+<p><strong>Landed</strong> (<code>GH #377</code>): classifier <strong>v5</strong>
+counts <code>n_snv_pair_top</code> / <code>n_snv_pair_bot</code> (migration 108), <code>strand_profile()</code> joins them
+to Gate C’s measured complement-only rate and returns <code>strand_mixed</code> — <code>null</code>, not
+<code>false</code>, when either signal is unmeasured — and the Manifest tab renders both signals
+side by side rather than collapsing them into a verdict.</p>
+<p>This does <strong>not</strong> gate the frequency route. A frequency comparison resolves strand per
+row and is precisely the right tool for an A/B-coded file.</p>
+</li>
+<li>
+<p><strong>Separately, the strand-mixed files are losing rows.</strong> In an A/B-coded file about half
+the <em>non</em>-palindromic rows fail the reference check and are dropped as
+<code>ref_allele_mismatch</code> — which reads as “the score and the genome describe different
+variants” when the real cause is a known, correctable convention. A per-file,
+evidence-gated flip would recover <strong>26,885 rows across 5 scores</strong>, without weakening the
+global check that <code>allow_strand_flip=True</code> would destroy.</p>
+<p><em>(An earlier revision said 56,411 rows in 37 scores. That was the complement-rate cut
+alone, before the two-signal rule existed. Requiring the allele convention too removes
+PGS005285 — 29,389 rows at a 5.8 % rate but a balanced allele profile, so its mismatches
+are not an A/B convention and a flip there would be a guess, not a repair. The rule
+halving its own headline number is the rule working.)</em></p>
+<p><strong>Landed</strong> (<code>GH #376</code>):
+<code>ScoringPolicy.strand_flip_recovery_scores</code> is a set of pgs_ids, not a second boolean —
+the global flag is an assumption about the catalog, this is a finding about named files,
+and the run’s provenance records the ids so the difference is auditable.
+<code>scripts/prs/strand_recovery_candidates.py</code> derives the set from the two signals and
+exits non-zero while any manifest row is still at an older classifier, so a provisional
+answer cannot be piped into a scoring policy by accident. <strong>Empty by default</strong>: turning
+it on obliges a re-score of the affected scores, which is Gate F’s call and can ride E3.
+It does not block Gate D, it cannot touch a palindromic row, and it is coverage rather
+than correctness.</p>
+</li>
+</ol>
+<hr/>
+<h2 id="7-what-this-does-not-settle">7. What this does not settle<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-what-this-does-not-settle" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote>
+<p><strong>Added 2026-09-27 — this section originally read as though the frequency route were the
+only one left. It is not, and this document’s own §2 is what makes the other one
+legitimate.</strong> Because <code>HmPOS</code> never touches alleles, a scoring file’s alleles are the
+author’s, verbatim and uniformly — so its <strong>non-palindromic rows are a direct readout of
+that author’s strand convention</strong>, measured against the pinned reference on thousands of
+rows per file. §6 item 4 uses that signal as a <em>guard</em>; its positive side is a <em>licence</em>,
+and I wrote the first without drawing the second.</p>
+<p>Banded over all 1,687 palindrome-carrying eligible scores: <strong>99.899 % of the 64,834,179
+deferred palindromic rows sit in files whose non-palindromic rows match the reference
+forward at ≥ 99.9 %.</strong> Forty-six rows are in strand-suspect files. Against the declared-EAF
+ceiling of 8.48 % in §5, that is roughly <strong>12× the coverage</strong>, and it needs no scoring file
+to have volunteered a frequency.</p>
+<p>It is a hypothesis with one named failure mode — a pipeline that orients non-palindromic
+variants and leaves palindromes alone, which the GWAS Catalog and OpenTargets sumstats
+harmonisers genuinely do — and the 167 EAF-carrying scores are the instrument that decides
+it. <strong><code>GH #404</code></strong> specifies the experiment.</p>
+<p><strong>Measured the same day</strong> (<a href="../prs/palindrome_forward_rule" class="internal internal-link alias" data-slug="prs/palindrome_forward_rule">`palindrome_forward_rule.md`</a>): the
+licence holds per class of file, not for the 99.899 %. The failure mode is real —
+PGS000020 has ~40 % of its palindromes reversed at a 0.175 % complement-only rate — and
+87 % of the genome-wide rows sit in pipelines with no frequency to test.</p>
+</blockquote>
+<p><strong>Whether a TOP-coded file’s palindromes could be oriented by reconstructing Illumina’s
+TOP/BOT rule.</strong> The designation for an ambiguous SNP is decided by walking outward through
+the flanking sequence — which we have, in the pinned FASTA. So in principle, a file known
+to be TOP-coded could have its <code>A/T</code> and <code>C/G</code> rows oriented by computing what TOP would
+have meant at that locus.</p>
+<p>This is not recommended, for two reasons. The first is that any convention reporting the
+<code>A</code>-bearing strand produces <code>A/C</code> and <code>A/G</code> pairs on unambiguous SNVs, so
+<code>top_fraction ≈ 1</code> identifies the <em>family</em> of conventions, not Illumina’s specifically —
+and only Illumina’s full rule defines a designation for the <em>ambiguous</em> pairs. Assuming
+the submitter implemented the flanking-sequence walk rather than a naive “A-first”
+relabelling is exactly the judgement call that must be tested before it ships, not shipped
+because it is plausible.</p>
+<p>The second is that it <strong>cannot be tested on what we hold</strong>. Validating it needs a file
+that is both A/B-shaped and EAF-carrying, so the reconstruction can be scored against a
+frequency comparison. Of the 15 A/B-shaped scores in the palindrome-carrying set, <strong>two</strong>
+declare a frequency, and one of those has three unambiguous SNVs — its <code>top_fraction</code> is
+noise. The single usable candidate, PGS000714, carries <strong>9</strong> palindromic rows. That is not
+a ground-truth set; it is an anecdote. The hypothesis stays unproven and unprovable here,
+which is the strongest available reason to leave those rows deferred rather than the
+weakest.</p>
+<p><strong>The EAF route’s actual yield against a real panel.</strong> This spike measures how many rows
+<em>could</em> be oriented if a panel frequency were available. Whether the declared frequency
+and the panel’s agree — and how often a score’s declared cohort frequency is simply too
+far from HGDP+1kGP to be usable — is a D1 measurement, not a spike one.</p>
+<blockquote>
+<p><strong>Measured since, by GH <code>#404</code></strong> (<a href="../prs/palindrome_forward_rule" class="internal internal-link alias" data-slug="prs/palindrome_forward_rule">`palindrome_forward_rule.md`</a>),
+against the panel’s per-super-population frequencies. On unambiguous rows, where strand is
+known, the declared frequency and the panel agree in <strong>99.982 %</strong> of decisive cases in
+genome-wide files and 97.7 % in curated ones. <strong>8 of the 167</strong> files carry a frequency
+column that fails that test, one because it reports the <em>other</em> allele’s frequency, and
+one publication’s frequencies were copied from 1000 Genomes rather than measured. #404
+also tested §6 item 4’s inversion, reading palindromes forward where a file’s unambiguous
+rows match. That is licensed for small curated files and refuted by one mid-size file.</p>
+</blockquote>
+<hr/>
+<h2 id="8-reproducing-it">8. Reproducing it<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#8-reproducing-it" class="internal internal-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><code>backend/scripts/prs/spike_palindrome_hm_source.py</code>, which needs <code>DATABASE_URL</code> (a git
+worktree has no <code>.env</code>; export the canonical checkout’s value):</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> backend/scripts/prs/spike_palindrome_hm_source.py</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> headers</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --out</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> headers.json</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> backend/scripts/prs/spike_palindrome_hm_source.py</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> rows</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --shards</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> 6</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --shard</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> N</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --out-dir</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> out/</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> backend/scripts/prs/spike_palindrome_hm_source.py</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> eaf</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --out</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> eaf.json</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;" data-token-type="function">python</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> backend/scripts/prs/spike_palindrome_hm_source.py</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> report</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --in-dir</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;" data-token-type="string"> out/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;" data-token-type="value"> --with-e2</span></span></code></pre></figure>
+<p><code>rows</code> reads 10.7 GB of gzip; six shards, longest-processing-time-first on <code>n_variants</code>,
+balance to 1.00×. <code>report</code> prints the reconciliation first — if the measured palindromic
+total does not equal the manifest’s, every number under it is void.</p>
+<p><strong>Further reading:</strong> <a href="../prs/prs_primer" class="internal internal-link alias" data-slug="prs/prs_primer">`prs_primer.md`</a> §5.4 (why Gate C defers rather
+than guesses) and §5.7b (the staged road to release) ·
+<a href="../prs/compatibility_classification" class="internal internal-link alias" data-slug="prs/compatibility_classification">`compatibility_classification.md`</a> (how a palindromic
+row is counted in the first place).</p></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div><div class="toc"><button type="button" class="toc-header" aria-controls="toc-69" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><ul id="list-0" class="toc-content overflow"><li class="depth-0"><a href="#can-hm_source-orient-a-palindromic-snv" data-for="can-hm_source-orient-a-palindromic-snv">Can hm_source orient a palindromic SNV?</a></li><li class="depth-1"><a href="#0-why-this-was-asked" data-for="0-why-this-was-asked">0. Why this was asked</a></li><li class="depth-1"><a href="#1-the-answer" data-for="1-the-answer">1. The answer</a></li><li class="depth-1"><a href="#2-the-evidence" data-for="2-the-evidence">2. The evidence</a></li><li class="depth-2"><a href="#21-the-harmonizer-has-two-stages-and-only-the-second-one-touches-strand" data-for="21-the-harmonizer-has-two-stages-and-only-the-second-one-touches-strand">2.1 The harmonizer has two stages, and only the second one touches strand</a></li><li class="depth-2"><a href="#22-the-files-we-hold-never-went-through-hmvcf" data-for="22-the-files-we-hold-never-went-through-hmvcf">2.2 The files we hold never went through HmVCF</a></li><li class="depth-2"><a href="#23-harmonization-does-not-change-alleles--measured-not-inferred" data-for="23-harmonization-does-not-change-alleles--measured-not-inferred">2.3 Harmonization does not change alleles — measured, not inferred</a></li><li class="depth-2"><a href="#24-what-the-witness-does" data-for="24-what-the-witness-does">2.4 What the witness does</a></li><li class="depth-1"><a href="#3-the-fleet-wide-distribution" data-for="3-the-fleet-wide-distribution">3. The fleet-wide distribution</a></li><li class="depth-1"><a href="#4-the-counterexample-strand-discordant-files-are-real" data-for="4-the-counterexample-strand-discordant-files-are-real">4. The counterexample: strand-discordant files are real</a></li><li class="depth-2"><a href="#41-and-these-files-are-hm_source--ensembl" data-for="41-and-these-files-are-hm_source--ensembl">4.1 And these files are hm_source = ENSEMBL</a></li><li class="depth-1"><a href="#5-what-is-left-of-the-frequency-route" data-for="5-what-is-left-of-the-frequency-route">5. What is left of the frequency route</a></li><li class="depth-2"><a href="#51-why-a-bigger-frequency-source-would-not-raise-the-ceiling" data-for="51-why-a-bigger-frequency-source-would-not-raise-the-ceiling">5.1 Why a bigger frequency source would not raise the ceiling</a></li><li class="depth-1"><a href="#6-recommended-policy" data-for="6-recommended-policy">6. Recommended policy</a></li><li class="depth-1"><a href="#7-what-this-does-not-settle" data-for="7-what-this-does-not-settle">7. What this does not settle</a></li><li class="depth-1"><a href="#8-reproducing-it" data-for="8-reproducing-it">8. Reproducing it</a></li><li class="overflow-end"></li></ul></div><div class="backlinks"><h3>Backlinks</h3><ul id="list-0" class="overflow"><li><a href="../prs/palindrome_forward_rule" class="internal">Can a file's own unambiguous SNVs orient its palindromes?</a></li><li><a href="../prs/prs_primer" class="internal">Polygenic Risk Scores - a primer</a></li><li class="overflow-end"></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v5.0.0</a> © 2026</p><ul><li><a href="https://substack.com/">Substack</a></li></ul></footer></div></div></body><script src="../static/resource-after-e13fffa1.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-8b336f9a.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-baba652b.js" type="application/javascript" data-persist="true"></script><script src="../static/resource-after-5eb75950.js" type="module" data-persist="true"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../postscript-cea27323.js" type="module" data-persist="true"></script></html>
